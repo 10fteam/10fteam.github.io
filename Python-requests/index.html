@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="10fteam">
 <meta property="og:description" content="requests模块导入requests模块  import requests  设定各种请求参数、请求头 headers&#x3D;{‘user-agent’:’Mozilla&#x2F;5.0 (Windows NT 10.0; Win64; x64) AppleWebKit&#x2F;537.36 (KHTML, like Gecko) Chrome&#x2F;78.0.3904.108 Safari&#x2F;537.36’} cooki">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-11-29T14:26:27.187Z">
+<meta property="og:updated_time" content="2019-11-29T14:33:26.371Z">
 <meta name="twitter:card" content="summary">
 
 
@@ -188,7 +188,7 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-11-29 22:26:27'>2019-11-29 19:05</time>
+        创建时间:<time class="date" title='更新时间: 2019-11-29 22:33:26'>2019-11-29 19:05</time>
         
     </div>
     <div class="article-meta">
@@ -210,7 +210,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#requests模块"><span class="toc-text">requests模块</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#设定各种请求参数、请求头"><span class="toc-text">设定各种请求参数、请求头</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#发送请求"><span class="toc-text">发送请求</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#获取响应"><span class="toc-text">获取响应</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#requests模块"><span class="toc-text">requests模块</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#设定各种请求参数、请求头"><span class="toc-text">设定各种请求参数、请求头</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#发送请求"><span class="toc-text">发送请求</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#请求汇总"><span class="toc-text">请求汇总</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#获取响应"><span class="toc-text">获取响应</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -226,20 +226,20 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h4 id="requests模块"><a href="#requests模块" class="headerlink" title="requests模块"></a>requests模块</h4><p><strong>导入requests模块</strong></p>
+        <h2 id="requests模块"><a href="#requests模块" class="headerlink" title="requests模块"></a>requests模块</h2><p><strong>导入requests模块</strong></p>
 <blockquote>
 <p>import requests</p>
 </blockquote>
-<h4 id="设定各种请求参数、请求头"><a href="#设定各种请求参数、请求头" class="headerlink" title="设定各种请求参数、请求头"></a>设定各种请求参数、请求头</h4><blockquote>
+<h2 id="设定各种请求参数、请求头"><a href="#设定各种请求参数、请求头" class="headerlink" title="设定各种请求参数、请求头"></a>设定各种请求参数、请求头</h2><blockquote>
 <p>headers={‘user-agent’:’Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36’}</p>
 <p>cookies={‘key’:’value’}</p>
-<p>allow_redirects = false 请求里可带参数，阻止重定向</p>
-<p>timeout=5 请求里可带参数，设置5秒超时</p>
+<p>allow_redirects = false #请求里可带参数，阻止重定向</p>
+<p>timeout=5 #请求里可带参数，设置5秒超时</p>
 <p>s=requests.Session() #保持会话</p>
 <p>proxies={‘http’:’<a href="http://10.0.0.10:12345&#39;,&#39;https&#39;:&#39;http://192.168.1.1:23456&#39;}" target="_blank" rel="noopener">http://10.0.0.10:12345&#39;,&#39;https&#39;:&#39;http://192.168.1.1:23456&#39;}</a> #代理</p>
-<p>proxies={‘http’:’<a href="http://user:pass@10.0.0.10:12345/&#39;}" target="_blank" rel="noopener">http://user:pass@10.0.0.10:12345/&#39;}</a></p>
+<p>proxies={‘http’:’<a href="http://user:pass@10.0.0.10:12345/&#39;}" target="_blank" rel="noopener">http://user:pass@10.0.0.10:12345/&#39;}</a> #需要用户密码的代理</p>
 </blockquote>
-<h4 id="发送请求"><a href="#发送请求" class="headerlink" title="发送请求"></a>发送请求</h4><p><strong>各种http方法不带参数请求网页</strong></p>
+<h2 id="发送请求"><a href="#发送请求" class="headerlink" title="发送请求"></a>发送请求</h2><p><strong>各种http方法不带参数请求网页</strong></p>
 <blockquote>
 <p>import requests </p>
 <p>r=requests.get(‘<a href="http://www.baidu.com/&#39;" target="_blank" rel="noopener">http://www.baidu.com/&#39;</a>)</p>
@@ -271,8 +271,7 @@
 <p>files={‘file’:open(‘1.txt’,’rb’)}</p>
 <p>r=requests.post(url,files=files)</p>
 </blockquote>
-<p><strong>请求汇总</strong></p>
-<blockquote>
+<h2 id="请求汇总"><a href="#请求汇总" class="headerlink" title="请求汇总"></a>请求汇总</h2><blockquote>
 <p>import requests</p>
 <p>url=’<a href="http://www.baidu.com/&#39;" target="_blank" rel="noopener">http://www.baidu.com/&#39;</a></p>
 <p>params={‘username’:’admin’,’password’:’admin123’}</p>
@@ -303,7 +302,7 @@
 <li>r=requests.get(url=url,data=xml)</li>
 </ol>
 <p><strong>身份验证</strong></p>
-<h4 id="获取响应"><a href="#获取响应" class="headerlink" title="获取响应"></a>获取响应</h4><ul>
+<h2 id="获取响应"><a href="#获取响应" class="headerlink" title="获取响应"></a>获取响应</h2><ul>
 <li>r.apparent_encoding #获取网页的编码格式</li>
 <li>r.encoding #获取当前的编码</li>
 <li>r.text #以encoding解析返回内容</li>
@@ -336,7 +335,7 @@
     
     <p><span class="copy-title">本文作者:</span><a  title="10fteam">10fteam</a></p>
     <p><span class="copy-title">发布时间:</span>2019-11-29, 19:05:39</p>
-    <p><span class="copy-title">最后更新:</span>2019-11-29, 22:26:27</p>
+    <p><span class="copy-title">最后更新:</span>2019-11-29, 22:33:26</p>
     <span class="copy-title">原始链接:</span><a class="post-url" href="/Python-requests/" title="Python_requests模块">https://10fteam.github.io/Python-requests/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
