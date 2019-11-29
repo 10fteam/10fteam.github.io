@@ -117,11 +117,11 @@
     <div class="tags-list">
     
     <li class="article-tag-list-item">
-        <a class="color1">study</a>
+        <a class="color5">help</a>
     </li>
     
     <li class="article-tag-list-item">
-        <a class="color5">help</a>
+        <a class="color1">study</a>
     </li>
     
     <div class="clearfix"></div>
@@ -131,19 +131,19 @@
     <nav id="title-list-nav">
         
         <a  class=""
-           href="/test/"
-           data-tag="study"
-           data-author="" >
-            <span class="post-title" title="test">test</span>
-            <span class="post-date" title="2019-11-29 15:25:56">2019/11/29</span>
-        </a>
-        
-        <a  class=""
            href="/hexo-help/"
            data-tag="help"
            data-author="" >
             <span class="post-title" title="hexo_help">hexo_help</span>
             <span class="post-date" title="2019-11-29 16:45:43">2019/11/29</span>
+        </a>
+        
+        <a  class=""
+           href="/test/"
+           data-tag="study"
+           data-author="" >
+            <span class="post-title" title="test">test</span>
+            <span class="post-date" title="2019-11-29 15:25:56">2019/11/29</span>
         </a>
         
     </nav>
@@ -229,7 +229,7 @@
     /*作者、标签的自动补全*/
     $(function () {
         $('.search').AutoComplete({
-            'data': ['#study','#help',],
+            'data': ['#help','#study',],
             'itemHeight': 20,
             'width': 418
         }).AutoComplete('show');
