@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="10fteam">
 <meta property="og:description" content="requests模块导入requests模块  import requests  设定各种请求参数、请求头 headers&#x3D;{‘user-agent’:’Mozilla&#x2F;5.0 (Windows NT 10.0; Win64; x64) AppleWebKit&#x2F;537.36 (KHTML, like Gecko) Chrome&#x2F;78.0.3904.108 Safari&#x2F;537.36’} cooki">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-11-29T14:48:42.147Z">
+<meta property="og:updated_time" content="2019-11-29T15:17:07.108Z">
 <meta name="twitter:card" content="summary">
 
 
@@ -188,7 +188,7 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-11-29 22:48:42'>2019-11-29 19:05</time>
+        创建时间:<time class="date" title='更新时间: 2019-11-29 23:17:07'>2019-11-29 19:05</time>
         
     </div>
     <div class="article-meta">
@@ -210,7 +210,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#requests模块"><span class="toc-text">requests模块</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#设定各种请求参数、请求头"><span class="toc-text">设定各种请求参数、请求头</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#发送请求"><span class="toc-text">发送请求</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#请求汇总"><span class="toc-text">请求汇总</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#获取响应"><span class="toc-text">获取响应</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#requests模块"><span class="toc-text">requests模块</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#设定各种请求参数、请求头"><span class="toc-text">设定各种请求参数、请求头</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#发送请求"><span class="toc-text">发送请求</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#请求汇总"><span class="toc-text">请求汇总</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#获取响应"><span class="toc-text">获取响应</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#python模拟登录github"><span class="toc-text">python模拟登录github</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -303,6 +303,13 @@
 <li>r=requests.get(url=url,data=xml)</li>
 </ol>
 <p><strong>身份验证</strong></p>
+<ol>
+<li>import requests</li>
+<li>from requests.auth import HTTPBasicAuth</li>
+<li></li>
+<li>r=reuqests.get(url,auth=HTTPBasicAuth(‘user’:’admin’,’pass’:’123456’))</li>
+<li>print(r.json())</li>
+</ol>
 <h2 id="获取响应"><a href="#获取响应" class="headerlink" title="获取响应"></a>获取响应</h2><ul>
 <li>r.apparent_encoding #获取网页的编码格式</li>
 <li>r.encoding #获取当前的编码</li>
@@ -323,6 +330,25 @@
 <li>r.headers.get(‘Content-Type’) #获取响应内容类型</li>
 <li>r.cookies[‘example_cookie_name’] #获取指定cookie值</li>
 </ol>
+<h2 id="python模拟登录github"><a href="#python模拟登录github" class="headerlink" title="python模拟登录github"></a>python模拟登录github</h2><ol>
+<li>import requests</li>
+<li>from bs4 import BeautifulSoup</li>
+<li></li>
+<li>def login_github():</li>
+<li>#获取token</li>
+<li>r=requests.get(‘<a href="https://github.com/login&#39;" target="_blank" rel="noopener">https://github.com/login&#39;</a>) #获取URL内容</li>
+<li>s=BeautifulSoup(r.text,’html.parser’) #使用bs4解析html对象</li>
+<li>token=s.find(‘input’,attrs={‘name’:’authenticity_token’}).get(‘value’) #获取登录授权码，即token</li>
+<li>get_cookies=r.cookies.get_dict() #获取get请求的cookies</li>
+<li></li>
+<li>#发送post请求</li>
+<li>r_post=requests.post(‘<a href="https://github.com/login&#39;,data={&#39;commit&#39;:&#39;Signing+in&#39;,&#39;utf8&#39;:&#39;✓&#39;,&#39;authenticity_token&#39;" target="_blank" rel="noopener">https://github.com/login&#39;,data={&#39;commit&#39;:&#39;Signing+in&#39;,&#39;utf8&#39;:&#39;✓&#39;,&#39;authenticity_token&#39;</a>: token,’login’:’<strong>**</strong>‘,’password’:’<strong>**</strong>‘},cookies=get_cookies)</li>
+<li>login_cookies=r_post.cookies.get_dict() #获取登录后的cookies</li>
+<li>r_login=requests.get(‘<a href="https://github.com/settings/emails&#39;,cookies=login_cookies" target="_blank" rel="noopener">https://github.com/settings/emails&#39;,cookies=login_cookies</a>)</li>
+<li>print(r_login.text)</li>
+<li></li>
+<li>login_github()</li>
+</ol>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。 </span>
@@ -336,7 +362,7 @@
     
     <p><span class="copy-title">本文作者:</span><a  title="10fteam">10fteam</a></p>
     <p><span class="copy-title">发布时间:</span>2019-11-29, 19:05:39</p>
-    <p><span class="copy-title">最后更新:</span>2019-11-29, 22:48:42</p>
+    <p><span class="copy-title">最后更新:</span>2019-11-29, 23:17:07</p>
     <span class="copy-title">原始链接:</span><a class="post-url" href="/Python-requests/" title="Python_requests模块">https://10fteam.github.io/Python-requests/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
