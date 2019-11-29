@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="10fteam">
 <meta property="og:description" content="requests模块导入requests模块  import requests  设定各种请求参数、请求头 headers&#x3D;{‘user-agent’:’Mozilla&#x2F;5.0 (Windows NT 10.0; Win64; x64) AppleWebKit&#x2F;537.36 (KHTML, like Gecko) Chrome&#x2F;78.0.3904.108 Safari&#x2F;537.36’} cooki">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-11-29T14:37:16.691Z">
+<meta property="og:updated_time" content="2019-11-29T14:48:42.147Z">
 <meta name="twitter:card" content="summary">
 
 
@@ -188,7 +188,7 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-11-29 22:37:16'>2019-11-29 19:05</time>
+        创建时间:<time class="date" title='更新时间: 2019-11-29 22:48:42'>2019-11-29 19:05</time>
         
     </div>
     <div class="article-meta">
@@ -227,63 +227,64 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h2 id="requests模块"><a href="#requests模块" class="headerlink" title="requests模块"></a>requests模块</h2><p><strong>导入requests模块</strong></p>
-<blockquote>
-<p>import requests</p>
-</blockquote>
-<h2 id="设定各种请求参数、请求头"><a href="#设定各种请求参数、请求头" class="headerlink" title="设定各种请求参数、请求头"></a>设定各种请求参数、请求头</h2><blockquote>
-<p>headers={‘user-agent’:’Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36’}</p>
-<p>cookies={‘key’:’value’}</p>
-<p>allow_redirects = false #请求里可带参数，阻止重定向</p>
-<p>timeout=5 #请求里可带参数，设置5秒超时</p>
-<p>s=requests.Session() #保持会话</p>
-<p>proxies={‘http’:’<a href="http://10.0.0.10:12345&#39;,&#39;https&#39;:&#39;http://192.168.1.1:23456&#39;}" target="_blank" rel="noopener">http://10.0.0.10:12345&#39;,&#39;https&#39;:&#39;http://192.168.1.1:23456&#39;}</a> #代理</p>
-<p>proxies={‘http’:’<a href="http://user:pass@10.0.0.10:12345/&#39;}" target="_blank" rel="noopener">http://user:pass@10.0.0.10:12345/&#39;}</a> #需要用户密码的代理</p>
-</blockquote>
+<ol>
+<li>import requests</li>
+</ol>
+<h2 id="设定各种请求参数、请求头"><a href="#设定各种请求参数、请求头" class="headerlink" title="设定各种请求参数、请求头"></a>设定各种请求参数、请求头</h2><ol>
+<li>headers={‘user-agent’:’Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36’}</li>
+<li>cookies={‘key’:’value’}</li>
+<li>allow_redirects = false #请求里可带参数，阻止重定向</li>
+<li>timeout=5 #请求里可带参数，设置5秒超时</li>
+<li>s=requests.Session() #保持会话</li>
+<li>proxies={‘http’:’<a href="http://10.0.0.10:12345&#39;,&#39;https&#39;:&#39;http://192.168.1.1:23456&#39;}" target="_blank" rel="noopener">http://10.0.0.10:12345&#39;,&#39;https&#39;:&#39;http://192.168.1.1:23456&#39;}</a> #代理</li>
+<li>proxies={‘http’:’<a href="http://user:pass@10.0.0.10:12345/&#39;}" target="_blank" rel="noopener">http://user:pass@10.0.0.10:12345/&#39;}</a> #需要用户密码的代理</li>
+</ol>
 <h2 id="发送请求"><a href="#发送请求" class="headerlink" title="发送请求"></a>发送请求</h2><p><strong>各种http方法不带参数请求网页</strong></p>
-<blockquote>
-<p>import requests </p>
-<p>r=requests.get(‘<a href="http://www.baidu.com/&#39;" target="_blank" rel="noopener">http://www.baidu.com/&#39;</a>)</p>
-<p>r=requests.post(‘<a href="http://www.baidu.com/&#39;" target="_blank" rel="noopener">http://www.baidu.com/&#39;</a>)</p>
-<p>r=requests.head(‘<a href="http://www.baidu.com/&#39;" target="_blank" rel="noopener">http://www.baidu.com/&#39;</a>)</p>
-<p>r=requests.put(‘<a href="http://www.baidu.com/&#39;" target="_blank" rel="noopener">http://www.baidu.com/&#39;</a>)</p>
-<p>r=requests.options(‘<a href="http://www.baidu.com/&#39;" target="_blank" rel="noopener">http://www.baidu.com/&#39;</a>)</p>
-<p>r=requests.delete(‘<a href="http://www.baidu.com/&#39;" target="_blank" rel="noopener">http://www.baidu.com/&#39;</a>)</p>
-</blockquote>
+<ol>
+<li>import requests </li>
+<li>r=requests.get(‘<a href="http://www.baidu.com/&#39;" target="_blank" rel="noopener">http://www.baidu.com/&#39;</a>)</li>
+<li>r=requests.post(‘<a href="http://www.baidu.com/&#39;" target="_blank" rel="noopener">http://www.baidu.com/&#39;</a>)</li>
+<li>r=requests.head(‘<a href="http://www.baidu.com/&#39;" target="_blank" rel="noopener">http://www.baidu.com/&#39;</a>)</li>
+<li>r=requests.put(‘<a href="http://www.baidu.com/&#39;" target="_blank" rel="noopener">http://www.baidu.com/&#39;</a>)</li>
+<li>r=requests.options(‘<a href="http://www.baidu.com/&#39;" target="_blank" rel="noopener">http://www.baidu.com/&#39;</a>)</li>
+<li>r=requests.delete(‘<a href="http://www.baidu.com/&#39;" target="_blank" rel="noopener">http://www.baidu.com/&#39;</a>)</li>
+</ol>
 <p><strong>get方法带参数请求网页</strong></p>
-<blockquote>
-<p>import requests<br>url=’<a href="http://www.baidu.com/&#39;" target="_blank" rel="noopener">http://www.baidu.com/&#39;</a> </p>
-<p>r=requests.get(url=url,params={‘id’:’123’})</p>
-<p>params={‘name’:’admin’}</p>
-<p>r=requests.get(url=url,params=params)</p>
-</blockquote>
+<ol>
+<li>import requests</li>
+<li>url=’<a href="http://www.baidu.com/&#39;" target="_blank" rel="noopener">http://www.baidu.com/&#39;</a> </li>
+<li>r=requests.get(url=url,params={‘id’:’123’})</li>
+<li>params={‘name’:’admin’}</li>
+<li>r=requests.get(url=url,params=params)</li>
+</ol>
 <p><strong>post方法带参数请求网页</strong></p>
-<blockquote>
-<p>import requests</p>
-<p>import json</p>
-<p>url=’<a href="http://www.baidu.com/&#39;" target="_blank" rel="noopener">http://www.baidu.com/&#39;</a></p>
-<p>r=requests.post(url=url,data=json.dumps({‘id’:’1’}))</p>
-<p>r.json()</p>
-</blockquote>
+<ol>
+<li>import requests</li>
+<li>import json</li>
+<li>url=’<a href="http://www.baidu.com/&#39;" target="_blank" rel="noopener">http://www.baidu.com/&#39;</a></li>
+<li>r=requests.post(url=url,data=json.dumps({‘id’:’1’}))</li>
+<li>r.json()</li>
+</ol>
 <p><strong>post上传文件</strong></p>
-<blockquote>
-<p>import requests</p>
-<p>url=’<a href="http://www.baidu.com/&#39;" target="_blank" rel="noopener">http://www.baidu.com/&#39;</a></p>
-<p>files={‘file’:open(‘1.txt’,’rb’)}</p>
-<p>r=requests.post(url,files=files)</p>
-</blockquote>
-<h2 id="请求汇总"><a href="#请求汇总" class="headerlink" title="请求汇总"></a>请求汇总</h2><blockquote>
-<p>import requests</p>
-<p>url=’<a href="http://www.baidu.com/&#39;" target="_blank" rel="noopener">http://www.baidu.com/&#39;</a></p>
-<p>params={‘username’:’admin’,’password’:’admin123’}</p>
-<p>headers={‘user-agent’:’Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36’}</p>
-<p>proxies={‘http’:’<a href="http://10.0.0.10:12345&#39;,&#39;https&#39;:&#39;http://192.168.1.1:23456&#39;}" target="_blank" rel="noopener">http://10.0.0.10:12345&#39;,&#39;https&#39;:&#39;http://192.168.1.1:23456&#39;}</a> </p>
-<p>cookies={‘key’:’value’}</p>
-<p>r=requests.get(url=url,headers=headers,params=params,cookies=cookies,proxies=proxies,allow_redirects = false,timeout=5) #allow_redirects = false 阻止重定向，timeout=5 设置5秒超时</p>
-<p>s=requests.Session() </p>
-<p>s.auth={‘username’:’admin’,’password’:’admin123’}</p>
-<p>s.headers={‘user-agent’:’Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36’}</p>
-<p>r=s.get(url=url)</p>
-</blockquote>
+<ol>
+<li>import requests</li>
+<li>url=’<a href="http://www.baidu.com/&#39;" target="_blank" rel="noopener">http://www.baidu.com/&#39;</a></li>
+<li>files={‘file’:open(‘1.txt’,’rb’)}</li>
+<li>r=requests.post(url,files=files)</li>
+</ol>
+<h2 id="请求汇总"><a href="#请求汇总" class="headerlink" title="请求汇总"></a>请求汇总</h2><ol>
+<li>import requests</li>
+<li>url=’<a href="http://www.baidu.com/&#39;" target="_blank" rel="noopener">http://www.baidu.com/&#39;</a></li>
+<li>params={‘username’:’admin’,’password’:’admin123’}</li>
+<li>headers={‘user-agent’:’Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36’}</li>
+<li>proxies={‘http’:’<a href="http://10.0.0.10:12345&#39;,&#39;https&#39;:&#39;http://192.168.1.1:23456&#39;}" target="_blank" rel="noopener">http://10.0.0.10:12345&#39;,&#39;https&#39;:&#39;http://192.168.1.1:23456&#39;}</a> </li>
+<li>cookies={‘key’:’value’}</li>
+<li>r=requests.get(url=url,headers=headers,params=params,cookies=cookies,proxies=proxies,allow_redirects = false,timeout=5) #allow_redirects = false 阻止重定向，timeout=5 设置5秒超时</li>
+<li>s=requests.Session() </li>
+<li>s.auth={‘username’:’admin’,’password’:’admin123’}</li>
+<li>s.headers={‘user-agent’:’Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36’}</li>
+<li>r=s.get(url=url)</li>
+</ol>
 <p><strong>JSON请求</strong></p>
 <ol>
 <li>import requests</li>
@@ -298,8 +299,7 @@
 <li>import requests</li>
 <li></li>
 <li>url=’url’</li>
-<li>xml=’<?xml version="1.0" encoding="utf-8"?><a></li>
-<li></a>‘</li>
+<li>xml=’<?xml version=\"1.0\" encoding=\"utf-8\"?><a></a>‘</li>
 <li>r=requests.get(url=url,data=xml)</li>
 </ol>
 <p><strong>身份验证</strong></p>
@@ -318,11 +318,11 @@
 <li>r.history #返回重定向信息</li>
 </ul>
 <p><strong>获取指定响应头</strong></p>
-<blockquote>
-<p>r.headers[‘Content-Type’] #获取响应内容类型</p>
-<p>r.headers.get(‘Content-Type’) #获取响应内容类型</p>
-<p>r.cookies[‘example_cookie_name’] #获取指定cookie值</p>
-</blockquote>
+<ol>
+<li>r.headers[‘Content-Type’] #获取响应内容类型</li>
+<li>r.headers.get(‘Content-Type’) #获取响应内容类型</li>
+<li>r.cookies[‘example_cookie_name’] #获取指定cookie值</li>
+</ol>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。 </span>
@@ -336,7 +336,7 @@
     
     <p><span class="copy-title">本文作者:</span><a  title="10fteam">10fteam</a></p>
     <p><span class="copy-title">发布时间:</span>2019-11-29, 19:05:39</p>
-    <p><span class="copy-title">最后更新:</span>2019-11-29, 22:37:16</p>
+    <p><span class="copy-title">最后更新:</span>2019-11-29, 22:48:42</p>
     <span class="copy-title">原始链接:</span><a class="post-url" href="/Python-requests/" title="Python_requests模块">https://10fteam.github.io/Python-requests/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
