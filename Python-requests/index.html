@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>10fteam</title>
-  <meta name="keywords" content="">
-  <meta name="description" content="10fteam">
+  <title>Python_requests模块 | 10fteam</title>
+  <meta name="keywords" content=" python ">
+  <meta name="description" content="Python_requests模块 | 10fteam">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="requests模块导入requests模块  import requests  设定各种请求参数、请求头 headers&#x3D;{‘user-agent’:’Mozilla&#x2F;5.0 (Windows NT 10.0; Win64; x64) AppleWebKit&#x2F;537.36 (KHTML, like Gecko) Chrome&#x2F;78.0.3904.108 Safari&#x2F;537.36’} cooki">
 <meta name="keywords" content="python">
@@ -51,7 +51,7 @@
 </div>
 
 <body>
-<aside class="nav mobile">
+<aside class="nav">
     <div class="nav-left">
         <a href="/" class="avatar_target">
     <img class="avatar" src="/img/avatar.jpg" />
@@ -168,12 +168,49 @@
         </div>
     </div>
 </aside>
-<div class="post index">
+<div class="post">
     <div class="pjax">
-        <article class="index">
-            <div class="toc-ref">
+        <article id="post-Python-requests" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Why-Blog"><span class="toc-text">Why Blog</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#对博客的理解"><span class="toc-text">对博客的理解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#关于博客"><span class="toc-text">关于博客</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#博客平台"><span class="toc-text">博客平台</span></a></li></ol></li></ol>
+        <h1 class="article-title">Python_requests模块</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        
+        <span class="tag">
+            
+            <a class="color2">python</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+        创建时间:<time class="date" title='更新时间: 2019-11-29 22:26:27'>2019-11-29 19:05</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        
+        <span id="busuanzi_container_page_pv">
+            阅读:<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#requests模块"><span class="toc-text">requests模块</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#设定各种请求参数、请求头"><span class="toc-text">设定各种请求参数、请求头</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#发送请求"><span class="toc-text">发送请求</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#获取响应"><span class="toc-text">获取响应</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -186,32 +223,135 @@
     }
 </style>
 </div>
-            <h1 id="Why-Blog"><a href="#Why-Blog" class="headerlink" title="Why Blog"></a>Why Blog</h1><h2 id="对博客的理解"><a href="#对博客的理解" class="headerlink" title="对博客的理解"></a>对博客的理解</h2><p>喜欢写Blog的人，会经历三个阶段。</p>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="requests模块"><a href="#requests模块" class="headerlink" title="requests模块"></a>requests模块</h4><p><strong>导入requests模块</strong></p>
 <blockquote>
-<p>第一阶段，刚接触Blog，觉得很新鲜，试着选择一个免费空间来写。</p>
+<p>import requests</p>
 </blockquote>
+<h4 id="设定各种请求参数、请求头"><a href="#设定各种请求参数、请求头" class="headerlink" title="设定各种请求参数、请求头"></a>设定各种请求参数、请求头</h4><blockquote>
+<p>headers={‘user-agent’:’Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36’}</p>
+<p>cookies={‘key’:’value’}</p>
+<p>allow_redirects = false 请求里可带参数，阻止重定向</p>
+<p>timeout=5 请求里可带参数，设置5秒超时</p>
+<p>s=requests.Session() #保持会话</p>
+<p>proxies={‘http’:’<a href="http://10.0.0.10:12345&#39;,&#39;https&#39;:&#39;http://192.168.1.1:23456&#39;}" target="_blank" rel="noopener">http://10.0.0.10:12345&#39;,&#39;https&#39;:&#39;http://192.168.1.1:23456&#39;}</a> #代理</p>
+<p>proxies={‘http’:’<a href="http://user:pass@10.0.0.10:12345/&#39;}" target="_blank" rel="noopener">http://user:pass@10.0.0.10:12345/&#39;}</a></p>
+</blockquote>
+<h4 id="发送请求"><a href="#发送请求" class="headerlink" title="发送请求"></a>发送请求</h4><p><strong>各种http方法不带参数请求网页</strong></p>
 <blockquote>
-<p>第二阶段，发现免费空间限制太多，就自己购买域名和空间，搭建独立博客。</p>
+<p>import requests </p>
+<p>r=requests.get(‘<a href="http://www.baidu.com/&#39;" target="_blank" rel="noopener">http://www.baidu.com/&#39;</a>)</p>
+<p>r=requests.post(‘<a href="http://www.baidu.com/&#39;" target="_blank" rel="noopener">http://www.baidu.com/&#39;</a>)</p>
+<p>r=requests.head(‘<a href="http://www.baidu.com/&#39;" target="_blank" rel="noopener">http://www.baidu.com/&#39;</a>)</p>
+<p>r=requests.put(‘<a href="http://www.baidu.com/&#39;" target="_blank" rel="noopener">http://www.baidu.com/&#39;</a>)</p>
+<p>r=requests.options(‘<a href="http://www.baidu.com/&#39;" target="_blank" rel="noopener">http://www.baidu.com/&#39;</a>)</p>
+<p>r=requests.delete(‘<a href="http://www.baidu.com/&#39;" target="_blank" rel="noopener">http://www.baidu.com/&#39;</a>)</p>
 </blockquote>
+<p><strong>get方法带参数请求网页</strong></p>
 <blockquote>
-<p>第三阶段，觉得独立博客的管理太麻烦，最好在保留控制权的前提下，让别人来管，自己只负责写文章。</p>
+<p>import requests<br>url=’<a href="http://www.baidu.com/&#39;" target="_blank" rel="noopener">http://www.baidu.com/&#39;</a> </p>
+<p>r=requests.get(url=url,params={‘id’:’123’})</p>
+<p>params={‘name’:’admin’}</p>
+<p>r=requests.get(url=url,params=params)</p>
 </blockquote>
-<p>我们每个人的在网络上产生的数据越来越多，这些信息是我们在互联网上存在过的痕迹，值得我们认真对待。但是它们被分散分布在各个网站上。很多时候我们很难将它们聚合在一起，而且各个网站的信息排布方式也没有办法自由控制，所以我们需要一个可以由自己主宰的空间——博客。</p>
-<p>通过博客，我们可以记录自己的生活和成长的轨迹。它不像 Twitter 那样碎片化，也不像 Facebook 那样关系化，它是私人的空间。</p>
-<h2 id="关于博客"><a href="#关于博客" class="headerlink" title="关于博客"></a>关于博客</h2><p><strong>10fteam</strong> 的博客。</p>
-<p>到目前为止已经写了<code class="article_number"></code>篇文章， 共<code class="site_word_count"></code>字。</p>
-<p>本站访问人数：<code class="site_uv"></code>人次 ， 访问量：<code class="site_pv"></code>次</p>
-<h2 id="博客平台"><a href="#博客平台" class="headerlink" title="博客平台"></a>博客平台</h2><p>这个博客通过 <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> 生成，部署在 <a href="https://pages.github.com/" target="_blank" rel="noopener">GitHub Pages</a>，主题 <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank" rel="noopener">3-hexo</a> 已经在github上开源</p>
-<p>主要功能：</p>
-<ul>
-<li>搜索支持文章标题、标签(#标签)、作者(@作者)</li>
-<li>pad/手机等移动端适配</li>
-<li>页面全局快捷键 <a href='http://yelog.org/2017/03/24/3-hexo-shortcuts/' target="_blank" rel="noopener">3-hexo快捷键说明</a></li>
+<p><strong>post方法带参数请求网页</strong></p>
+<blockquote>
+<p>import requests</p>
+<p>import json</p>
+<p>url=’<a href="http://www.baidu.com/&#39;" target="_blank" rel="noopener">http://www.baidu.com/&#39;</a></p>
+<p>r=requests.post(url=url,data=json.dumps({‘id’:’1’}))</p>
+<p>r.json()</p>
+</blockquote>
+<p><strong>post上传文件</strong></p>
+<blockquote>
+<p>import requests</p>
+<p>url=’<a href="http://www.baidu.com/&#39;" target="_blank" rel="noopener">http://www.baidu.com/&#39;</a></p>
+<p>files={‘file’:open(‘1.txt’,’rb’)}</p>
+<p>r=requests.post(url,files=files)</p>
+</blockquote>
+<p><strong>请求汇总</strong></p>
+<blockquote>
+<p>import requests</p>
+<p>url=’<a href="http://www.baidu.com/&#39;" target="_blank" rel="noopener">http://www.baidu.com/&#39;</a></p>
+<p>params={‘username’:’admin’,’password’:’admin123’}</p>
+<p>headers={‘user-agent’:’Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36’}</p>
+<p>proxies={‘http’:’<a href="http://10.0.0.10:12345&#39;,&#39;https&#39;:&#39;http://192.168.1.1:23456&#39;}" target="_blank" rel="noopener">http://10.0.0.10:12345&#39;,&#39;https&#39;:&#39;http://192.168.1.1:23456&#39;}</a> </p>
+<p>cookies={‘key’:’value’}</p>
+<p>r=requests.get(url=url,headers=headers,params=params,cookies=cookies,proxies=proxies,allow_redirects = false,timeout=5) #allow_redirects = false 阻止重定向，timeout=5 设置5秒超时</p>
+<p>s=requests.Session() </p>
+<p>s.auth={‘username’:’admin’,’password’:’admin123’}</p>
+<p>s.headers={‘user-agent’:’Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36’}</p>
+<p>r=s.get(url=url)</p>
+</blockquote>
+<p><strong>JSON请求</strong></p>
+<ol>
+<li>import requests</li>
+<li>import json</li>
+<li></li>
+<li>url=’url’</li>
+<li>json={‘key1’:’value1’,’key2’:’value2’,’key3’:’value3’}</li>
+<li>r=requests.get(url=url,data=json)</li>
+</ol>
+<p><strong>xml请求</strong></p>
+<ol>
+<li>import requests</li>
+<li></li>
+<li>url=’url’</li>
+<li>xml=’<?xml version="1.0" encoding="utf-8"?><a></a>‘</li>
+<li>r=requests.get(url=url,data=xml)</li>
+</ol>
+<p><strong>身份验证</strong></p>
+<h4 id="获取响应"><a href="#获取响应" class="headerlink" title="获取响应"></a>获取响应</h4><ul>
+<li>r.apparent_encoding #获取网页的编码格式</li>
+<li>r.encoding #获取当前的编码</li>
+<li>r.text #以encoding解析返回内容</li>
+<li>r.content #以字节形式（二进制）返回</li>
+<li>r.headers #以字典形式返回响应头</li>
+<li>r.requests.headers ##返回请求头</li>
+<li>r.status_code #响应状态码</li>
+<li>r.raw #返回原始响应码</li>
+<li>r.ok #布尔值判断成功</li>
+<li>r.json() #Requests中内置的JSON解码器，以json形式返回</li>
+<li>r.raise_for_status() 抛出异常</li>
+<li>r.history #返回重定向信息</li>
 </ul>
+<p><strong>获取指定响应头</strong></p>
+<blockquote>
+<p>r.headers[‘Content-Type’] #获取响应内容类型</p>
+<p>r.headers.get(‘Content-Type’) #获取响应内容类型</p>
+<p>r.cookies[‘example_cookie_name’] #获取指定cookie值</p>
+</blockquote>
 
-        </article>
-        
-        
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。 </span>
+    </div>
+</article>
+
+
+
+<div class="article_copyright">
+    <p><span class="copy-title">文章标题:</span>Python_requests模块</p>
+    
+    <p><span class="copy-title">本文作者:</span><a  title="10fteam">10fteam</a></p>
+    <p><span class="copy-title">发布时间:</span>2019-11-29, 19:05:39</p>
+    <p><span class="copy-title">最后更新:</span>2019-11-29, 22:26:27</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/Python-requests/" title="Python_requests模块">https://10fteam.github.io/Python-requests/</a>
+    <p>
+        <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
+
+
+
+
+
+    
+
+
+
+
     </div>
     <div class="copyright">
         <p class="footer-entry">©2016-2019 10fteam</p>
