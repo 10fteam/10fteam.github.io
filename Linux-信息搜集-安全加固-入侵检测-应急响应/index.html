@@ -1,0 +1,1306 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Linux_信息搜集_安全加固_入侵检测_应急响应——未完待续 | 10fteam</title>
+  <meta name="keywords" content=" Linux , 信息搜集 , 安全加固 , 入侵检测 , 应急响应 ">
+  <meta name="description" content="Linux_信息搜集_安全加固_入侵检测_应急响应——未完待续 | 10fteam">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="0x00 前排 hashcat号称世界上最快的密码破解，世界上第一个和唯一的基于GPGPU规则引擎，免费多GPU（高达128个GPU），多哈希，多操作系统（Linux和Windows本地二进制文件），多平台（OpenCL和CUDA支持），多算法，资源利用率低，基于字典攻击，支持分布式破解等等。  0x01 hashcat hashcat -h&#x2F;–help #帮助信息    例子: hashcat6">
+<meta name="keywords" content="工具">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hashcat">
+<meta property="og:url" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;hashcat&#x2F;index.html">
+<meta property="og:site_name" content="10fteam">
+<meta property="og:description" content="0x00 前排 hashcat号称世界上最快的密码破解，世界上第一个和唯一的基于GPGPU规则引擎，免费多GPU（高达128个GPU），多哈希，多操作系统（Linux和Windows本地二进制文件），多平台（OpenCL和CUDA支持），多算法，资源利用率低，基于字典攻击，支持分布式破解等等。  0x01 hashcat hashcat -h&#x2F;–help #帮助信息    例子: hashcat6">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;hashcat&#x2F;2.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;hashcat&#x2F;5.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;hashcat&#x2F;3.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;hashcat&#x2F;1.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;hashcat&#x2F;4.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;hashcat&#x2F;6.png">
+<meta property="og:updated_time" content="2019-12-26T07:20:38.845Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;hashcat&#x2F;2.png">
+
+
+<link rel="icon" href="/img/avatar.jpg">
+
+<link href="/css/style.css?v=1.0.1" rel="stylesheet">
+
+<link href="/css/hl_theme/atom-light.css?v=1.0.1" rel="stylesheet">
+
+<link href="//cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+<link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="/js/jquery.autocomplete.min.js?v=1.0.1" ></script>
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js" ></script>
+
+<script src="/js/iconfont.js?v=1.0.1" ></script>
+
+</head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="false">
+  <input class="theme_blog_path" value="">
+</div>
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/" class="avatar_target">
+    <img class="avatar" src="/img/avatar.jpg" />
+</a>
+<div class="author">
+    <span>10fteam</span>
+</div>
+
+<div class="icon">
+    
+</div>
+
+
+
+
+<ul>
+    <li><div class="all active">全部文章<small>(35)</small></div></li>
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    </div>
+    <div><a  class="friends">传送门</a></div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="35">
+
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        安全链接
+        <i class="back-title-list"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="https://www.baidu.com/">百度一下</a></li>
+            
+            <li><a target="_blank" href="https://github.com/">GitHub</a></li>
+            
+            <li><a target="_blank" href="https://www.freebuf.com/">freebuf</a></li>
+            
+            <li><a target="_blank" href="https://www.anquanke.com/">安全客</a></li>
+            
+            <li><a target="_blank" href="https://xz.aliyun.com/">先知社区</a></li>
+            
+            <li><a target="_blank" href="https://www.pediy.com/">看雪</a></li>
+            
+            <li><a target="_blank" href="https://www.52pojie.cn/">吾爱破解</a></li>
+            
+            <li><a target="_blank" href="https://bbs.ichunqiu.com/portal.php">I春秋</a></li>
+            
+            <li><a target="_blank" href="https://ipcmen.com/">Linux命令</a></li>
+            
+            <li><a target="_blank" href="https://start.me/p/X20Apn">安全导航1</a></li>
+            
+            <li><a target="_blank" href="https://www.shentoushi.top/">安全导航2</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <form onkeydown="if(event.keyCode==13){return false;}">
+        <input class="search" type="text" placeholder="Search..." autocomplete="off"id="local-search-input" >
+        <i class="cross"></i>
+        <span>
+            <label for="tagswitch">Tags:</label>
+            <input id="tagswitch" type="checkbox" style="display: none" />
+            <i id="tagsWitchIcon"></i>
+        </span>
+    </form>
+    <div class="tags-list">
+    
+    <li class="article-tag-list-item">
+        <a class="color4">CTF</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color1">encrypt_decrypt</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">RSA</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">知识</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">HTB</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">靶机</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">writeup</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color1">Linux</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">信息搜集</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">安全加固</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">入侵检测</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">应急响应</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">POC</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">EXP</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">PHP</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">代码审计</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">PWN</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color2">python</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">注入</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">Struts2</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">weblogic</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">漏洞</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">backdoor</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">工具</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">help</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">内网渗透</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color1">share</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">提权</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">WAF</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">MISC</a>
+    </li>
+    
+    <div class="clearfix"></div>
+</div>
+
+    
+    <nav id="title-list-nav">
+        
+        <a  class=""
+           href="/2019%E7%BA%A2%E5%B8%BD%E6%9D%AF%E4%B9%8B%E6%81%B6%E8%87%AD%E7%9A%84%E6%95%B0%E6%8D%AE%E5%8C%85/"
+           data-tag="CTF,encrypt_decrypt"
+           data-author="" >
+            <span class="post-title" title="2019红帽杯之恶臭的数据包">2019红帽杯之恶臭的数据包</span>
+            <span class="post-date" title="2019-12-04 21:47:23">2019/12/04</span>
+        </a>
+        
+        <a  class=""
+           href="/CTF-RSA/"
+           data-tag="CTF,RSA"
+           data-author="" >
+            <span class="post-title" title="CTF_RSA">CTF_RSA</span>
+            <span class="post-date" title="2019-11-30 20:07:30">2019/11/30</span>
+        </a>
+        
+        <a  class=""
+           href="/DNS%E8%AE%B0%E5%BD%95/"
+           data-tag="知识"
+           data-author="" >
+            <span class="post-title" title="DNS记录">DNS记录</span>
+            <span class="post-date" title="2019-12-06 22:37:01">2019/12/06</span>
+        </a>
+        
+        <a  class=""
+           href="/HTB-Wall/"
+           data-tag="HTB,靶机,writeup"
+           data-author="" >
+            <span class="post-title" title="HTB-Wall">HTB-Wall</span>
+            <span class="post-date" title="2019-12-17 22:06:37">2019/12/17</span>
+        </a>
+        
+        <a  class=""
+           href="/Linux-%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86-%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA-%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B-%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/"
+           data-tag="Linux,信息搜集,安全加固,入侵检测,应急响应"
+           data-author="" >
+            <span class="post-title" title="Linux_信息搜集_安全加固_入侵检测_应急响应——未完待续">Linux_信息搜集_安全加固_入侵检测_应急响应——未完待续</span>
+            <span class="post-date" title="2019-12-03 22:17:19">2019/12/03</span>
+        </a>
+        
+        <a  class=""
+           href="/OGNL%E8%A1%A8%E8%BE%BE%E5%BC%8F/"
+           data-tag="知识"
+           data-author="" >
+            <span class="post-title" title="OGNL表达式——未完待续">OGNL表达式——未完待续</span>
+            <span class="post-date" title="2019-12-20 15:38:08">2019/12/20</span>
+        </a>
+        
+        <a  class=""
+           href="/POC&EXP_Write/"
+           data-tag="POC,EXP"
+           data-author="" >
+            <span class="post-title" title="POC&amp;EXP_Write——未完待续">POC&amp;EXP_Write——未完待续</span>
+            <span class="post-date" title="2019-11-30 00:45:27">2019/11/30</span>
+        </a>
+        
+        <a  class=""
+           href="/PHP%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A11/"
+           data-tag="PHP,代码审计"
+           data-author="" >
+            <span class="post-title" title="PHP代码审计学习1">PHP代码审计学习1</span>
+            <span class="post-date" title="2019-12-12 15:39:42">2019/12/12</span>
+        </a>
+        
+        <a  class=""
+           href="/PWN%E4%B9%8B%E7%A8%8B%E5%BA%8F%E5%B8%B8%E7%94%A8%E7%9A%84%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/"
+           data-tag="CTF,PWN"
+           data-author="" >
+            <span class="post-title" title="PWN之程序常用的保护机制">PWN之程序常用的保护机制</span>
+            <span class="post-date" title="2019-12-05 15:59:05">2019/12/05</span>
+        </a>
+        
+        <a  class=""
+           href="/PWN%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"
+           data-tag="CTF,PWN"
+           data-author="" >
+            <span class="post-title" title="PWN基础知识——未完待续">PWN基础知识——未完待续</span>
+            <span class="post-date" title="2019-12-05 18:55:42">2019/12/05</span>
+        </a>
+        
+        <a  class=""
+           href="/PWN%E5%AD%A6%E4%B9%A0/"
+           data-tag="PWN"
+           data-author="" >
+            <span class="post-title" title="PWN学习——未完待续">PWN学习——未完待续</span>
+            <span class="post-date" title="2019-12-04 22:13:47">2019/12/04</span>
+        </a>
+        
+        <a  class=""
+           href="/Python-requests/"
+           data-tag="python"
+           data-author="" >
+            <span class="post-title" title="Python_requests模块">Python_requests模块</span>
+            <span class="post-date" title="2019-11-29 19:05:39">2019/11/29</span>
+        </a>
+        
+        <a  class=""
+           href="/Python%E5%9F%BA%E7%A1%80/"
+           data-tag="知识,python"
+           data-author="" >
+            <span class="post-title" title="Python基础——未完待续">Python基础——未完待续</span>
+            <span class="post-date" title="2019-12-23 23:14:43">2019/12/23</span>
+        </a>
+        
+        <a  class=""
+           href="/SQL%E6%B3%A8%E5%85%A5/"
+           data-tag="注入"
+           data-author="" >
+            <span class="post-title" title="SQL注入——未完待续">SQL注入——未完待续</span>
+            <span class="post-date" title="2019-12-01 21:45:31">2019/12/01</span>
+        </a>
+        
+        <a  class=""
+           href="/Struts2%E6%BC%8F%E6%B4%9E%E5%BA%8F%E5%88%97S2-001/"
+           data-tag="Struts2"
+           data-author="" >
+            <span class="post-title" title="Struts2漏洞序列S2-001">Struts2漏洞序列S2-001</span>
+            <span class="post-date" title="2019-12-20 14:38:43">2019/12/20</span>
+        </a>
+        
+        <a  class=""
+           href="/Weblogic%E5%BA%8F%E5%88%97%E6%BC%8F%E6%B4%9E/"
+           data-tag="weblogic,漏洞"
+           data-author="" >
+            <span class="post-title" title="Weblogic序列漏洞">Weblogic序列漏洞</span>
+            <span class="post-date" title="2019-12-25 11:09:00">2019/12/25</span>
+        </a>
+        
+        <a  class=""
+           href="/WordPress%E5%AE%89%E5%85%A8%E9%85%8D%E7%BD%AE/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="WordPress安全配置——未完待续">WordPress安全配置——未完待续</span>
+            <span class="post-date" title="2019-12-12 15:30:50">2019/12/12</span>
+        </a>
+        
+        <a  class=""
+           href="/XSS/"
+           data-tag="漏洞"
+           data-author="" >
+            <span class="post-title" title="XSS——未完待续">XSS——未完待续</span>
+            <span class="post-date" title="2019-12-18 13:24:05">2019/12/18</span>
+        </a>
+        
+        <a  class=""
+           href="/backdoors/"
+           data-tag="backdoor"
+           data-author="" >
+            <span class="post-title" title="backdoors——未完待续">backdoors——未完待续</span>
+            <span class="post-date" title="2019-12-14 18:13:22">2019/12/14</span>
+        </a>
+        
+        <a  class=""
+           href="/docker%E4%BD%BF%E7%94%A8/"
+           data-tag="知识"
+           data-author="" >
+            <span class="post-title" title="docker使用">docker使用</span>
+            <span class="post-date" title="2019-12-20 15:17:33">2019/12/20</span>
+        </a>
+        
+        <a  class=""
+           href="/hashcat/"
+           data-tag="工具"
+           data-author="" >
+            <span class="post-title" title="hashcat">hashcat</span>
+            <span class="post-date" title="2019-12-26 11:11:09">2019/12/26</span>
+        </a>
+        
+        <a  class=""
+           href="/hexo-help/"
+           data-tag="help"
+           data-author="" >
+            <span class="post-title" title="hexo_help">hexo_help</span>
+            <span class="post-date" title="2019-11-29 16:45:43">2019/11/29</span>
+        </a>
+        
+        <a  class=""
+           href="/wireshark%E5%90%84%E7%A7%8D%E5%8D%8F%E8%AE%AE/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="wireshark各种协议——未完待续">wireshark各种协议——未完待续</span>
+            <span class="post-date" title="2019-12-16 16:45:10">2019/12/16</span>
+        </a>
+        
+        <a  class=""
+           href="/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/"
+           data-tag="内网渗透"
+           data-author="" >
+            <span class="post-title" title="内网渗透——未完待续">内网渗透——未完待续</span>
+            <span class="post-date" title="2019-12-01 21:19:06">2019/12/01</span>
+        </a>
+        
+        <a  class=""
+           href="/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%B9%8BEmpire/"
+           data-tag="内网渗透"
+           data-author="" >
+            <span class="post-title" title="内网渗透之Empire">内网渗透之Empire</span>
+            <span class="post-date" title="2019-12-19 11:42:47">2019/12/19</span>
+        </a>
+        
+        <a  class=""
+           href="/%E5%90%84%E7%AB%AF%E5%8F%A3%E6%9C%8D%E5%8A%A1%E6%BC%8F%E6%B4%9E/"
+           data-tag="漏洞"
+           data-author="" >
+            <span class="post-title" title="各端口服务漏洞——未完待续">各端口服务漏洞——未完待续</span>
+            <span class="post-date" title="2019-12-17 20:27:22">2019/12/17</span>
+        </a>
+        
+        <a  class=""
+           href="/%E5%AF%BB%E6%89%BE%E7%BD%91%E7%AB%99%E7%9A%84%E7%9C%9F%E5%AE%9EIP/"
+           data-tag="信息搜集"
+           data-author="" >
+            <span class="post-title" title="寻找网站的真实IP">寻找网站的真实IP</span>
+            <span class="post-date" title="2019-12-03 13:41:27">2019/12/03</span>
+        </a>
+        
+        <a  class=""
+           href="/%E5%9B%BE%E6%96%87%E5%B9%B6%E8%8C%82/"
+           data-tag="share"
+           data-author="" >
+            <span class="post-title" title="图文并茂">图文并茂</span>
+            <span class="post-date" title="2019-12-02 17:18:16">2019/12/02</span>
+        </a>
+        
+        <a  class=""
+           href="/%E6%8F%90%E6%9D%83/"
+           data-tag="提权"
+           data-author="" >
+            <span class="post-title" title="提权——未完待续">提权——未完待续</span>
+            <span class="post-date" title="2019-12-01 21:21:55">2019/12/01</span>
+        </a>
+        
+        <a  class=""
+           href="/%E6%8F%90%E6%9D%83%E4%B9%8BLinux-dirtycow/"
+           data-tag="Linux,提权"
+           data-author="" >
+            <span class="post-title" title="提权之Linux-dirtycow">提权之Linux-dirtycow</span>
+            <span class="post-date" title="2019-12-23 20:26:44">2019/12/23</span>
+        </a>
+        
+        <a  class=""
+           href="/%E6%8F%90%E6%9D%83%E4%B9%8Bsudo-ed/"
+           data-tag="Linux,提权"
+           data-author="" >
+            <span class="post-title" title="提权之sudo_ed">提权之sudo_ed</span>
+            <span class="post-date" title="2019-12-14 17:54:23">2019/12/14</span>
+        </a>
+        
+        <a  class=""
+           href="/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/"
+           data-tag="知识"
+           data-author="" >
+            <span class="post-title" title="正则表达式">正则表达式</span>
+            <span class="post-date" title="2019-12-10 21:08:11">2019/12/10</span>
+        </a>
+        
+        <a  class=""
+           href="/%E7%BB%95WAF%E5%9F%BA%E7%A1%80/"
+           data-tag="知识,WAF"
+           data-author="" >
+            <span class="post-title" title="绕WAF基础">绕WAF基础</span>
+            <span class="post-date" title="2019-12-03 11:37:29">2019/12/03</span>
+        </a>
+        
+        <a  class=""
+           href="/%E8%84%91%E5%9B%BE/"
+           data-tag="知识"
+           data-author="" >
+            <span class="post-title" title="脑图">脑图</span>
+            <span class="post-date" title="2019-12-05 19:24:56">2019/12/05</span>
+        </a>
+        
+        <a  class=""
+           href="/%E8%84%B1%E5%A3%B3/"
+           data-tag="MISC"
+           data-author="" >
+            <span class="post-title" title="脱壳">脱壳</span>
+            <span class="post-date" title="2019-12-26 00:13:05">2019/12/26</span>
+        </a>
+        
+    </nav>
+</div>
+    </div>
+    <div class="hide-list">
+        <div class="semicircle">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div class="post">
+    <div class="pjax">
+        <article id="post-Linux-信息搜集-安全加固-入侵检测-应急响应" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">Linux_信息搜集_安全加固_入侵检测_应急响应——未完待续</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        
+        <span class="tag">
+            
+            <a class="color1">Linux</a>
+            
+            <a class="color5">信息搜集</a>
+            
+            <a class="color5">安全加固</a>
+            
+            <a class="color5">入侵检测</a>
+            
+            <a class="color5">应急响应</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+        创建时间:<time class="date" title='更新时间: 2019-12-23 21:37:59'>2019-12-03 22:17</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        
+        <span id="busuanzi_container_page_pv">
+            阅读:<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x00-Linux"><span class="toc-text">0x00 Linux</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#0x01-注意"><span class="toc-text">0x01 注意</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x10-信息搜集"><span class="toc-text">0x10 信息搜集</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#0x11-系统信息"><span class="toc-text">0x11 系统信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x12-用户信息"><span class="toc-text">0x12 用户信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x13-用户权限信息"><span class="toc-text">0x13 用户权限信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x14-环境信息"><span class="toc-text">0x14 环境信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x15-服务任务进程"><span class="toc-text">0x15 服务任务进程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x16-网络通信"><span class="toc-text">0x16 网络通信</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x17-软件信息"><span class="toc-text">0x17 软件信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x18-其他命令"><span class="toc-text">0x18 其他命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x19-参考链接"><span class="toc-text">0x19 参考链接</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x20-安全加固"><span class="toc-text">0x20 安全加固</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#0x21-账号安全"><span class="toc-text">0x21 账号安全</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x22-文件安全"><span class="toc-text">0x22 文件安全</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x23-日志安全"><span class="toc-text">0x23 日志安全</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x24-禁ping"><span class="toc-text">0x24 禁ping</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x25-预防flood攻击"><span class="toc-text">0x25 预防flood攻击</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x26-NTP服务放大攻击"><span class="toc-text">0x26 NTP服务放大攻击</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x27-通用简单预防DDOS"><span class="toc-text">0x27 通用简单预防DDOS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x28-参考链接"><span class="toc-text">0x28 参考链接</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x30-入侵检测"><span class="toc-text">0x30 入侵检测</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#0x31-入侵痕迹搜集命令"><span class="toc-text">0x31 入侵痕迹搜集命令</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x40-应急响应"><span class="toc-text">0x40 应急响应</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#0x41-常见命令"><span class="toc-text">0x41 常见命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x42-安全工具"><span class="toc-text">0x42 安全工具</span></a></li></ol></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="0x00-Linux"><a href="#0x00-Linux" class="headerlink" title="0x00 Linux"></a>0x00 Linux</h2><ol>
+<li>未完待续</li>
+</ol>
+<h3 id="0x01-注意"><a href="#0x01-注意" class="headerlink" title="0x01 注意"></a>0x01 注意</h3><ol>
+<li>直接复制命令执行命令，可能会报错或没回显预计的结果，因为特殊字符是中文字符，如单双引号</li>
+</ol>
+<h2 id="0x10-信息搜集"><a href="#0x10-信息搜集" class="headerlink" title="0x10 信息搜集"></a>0x10 信息搜集</h2><h3 id="0x11-系统信息"><a href="#0x11-系统信息" class="headerlink" title="0x11 系统信息"></a>0x11 系统信息</h3><ol>
+<li><strong><a href="https://ipcmen.com/uname" target="_blank" rel="noopener">uname -a</a> #显示操作系统相关信息</strong></li>
+<li>uname -r #内核版本</li>
+<li>cat /proc/version #内核版本</li>
+<li>hostname #主机名</li>
+<li>cat /etc/*-release #查看系统信息</li>
+<li>cat /etc/hosts #hosts文件</li>
+<li>cat /proc/cpuinfo #查看CPU信息</li>
+<li>lspci -tv #列出所有PCI设备1</li>
+<li>lsusb -tv #列出所有USB设备</li>
+<li>lsmod #列出加载的内核模块</li>
+<li><strong>uptime #查看系统运行时间、用户数、负载</strong></li>
+<li>dmesg #显示开机信息</li>
+<li>runlevel #查看系统运行级别</li>
+<li>telinit 5 #切换至level 5</li>
+</ol>
+<h3 id="0x12-用户信息"><a href="#0x12-用户信息" class="headerlink" title="0x12 用户信息"></a>0x12 用户信息</h3><ol>
+<li><strong>cat /etc/passwd #列出所有用户</strong></li>
+<li>用户名：口令：用户ID：组ID：用户描述：主目录：登录shell</li>
+<li><strong>cat /etc/shadow #列出所有用户hash（root权限）</strong></li>
+<li>登录名：加密口令：最后一次修改时间：最小时间间隔：最大时间间隔：警告时间：不活动时间：失效时间：标志</li>
+<li><strong>cat /etc/group #列出系统所有组</strong></li>
+<li>finger #当前登录的用户</li>
+<li>finger root #查看root用户的基本信息</li>
+<li>users #当前登录的用户</li>
+<li>who -a #当前登录的用户的基本信息</li>
+<li><strong>whoami #当前用户</strong></li>
+<li>w #当前登入系统的用户和正在执行的程序</li>
+<li>last #显示登入过系统的用户信息</li>
+<li><strong>lastlog #显示系统中所有用户最近一次登录系统信息</strong></li>
+<li>who -r #查看系统运行级别</li>
+</ol>
+<h3 id="0x13-用户权限信息"><a href="#0x13-用户权限信息" class="headerlink" title="0x13 用户权限信息"></a>0x13 用户权限信息</h3><ol>
+<li><strong>id #显示用户的id、所属群组的id</strong></li>
+<li><strong>cat /etc/sudoers #查看可以sudo提升到root的用户（root权限）</strong></li>
+<li>sudo #允许普通用户执行一些或全部的root命令的工具</li>
+<li><strong>sudo -l #列出当前的权限</strong></li>
+<li>su root #切换到root用户，需要root密码</li>
+<li>umask #查看建立文件目录时的权限掩码</li>
+</ol>
+<h3 id="0x14-环境信息"><a href="#0x14-环境信息" class="headerlink" title="0x14 环境信息"></a>0x14 环境信息</h3><ol>
+<li>env #输出系统环境信息</li>
+<li>set #设置shell，输出系统环境信息</li>
+<li>echo $PATH #输出环境变量中的路径信息</li>
+<li>history #执行命令历史记录</li>
+<li>cat ~/.bash_history #读取执行命令的历史记录</li>
+<li><strong>pwd #当前路径信息</strong></li>
+<li>cat /etc/profile #/etc/profile是永久性，全局环境变量 </li>
+<li>cat /etc/shells #显示可用的shell</li>
+<li>free -m #查看内存使用量与交换区使用量</li>
+<li><strong>df -h #查看各分区使用情况</strong></li>
+<li><strong>du -sh &lt;目录名&gt; #查看指定目录的大小</strong></li>
+<li>mount | column -t #查看挂接的分区状态</li>
+<li><strong>fdisk -l #查看所有分区</strong></li>
+<li>swapon -s #查看所有交换分区</li>
+<li>export #用于设置或显示环境变量</li>
+</ol>
+<h3 id="0x15-服务任务进程"><a href="#0x15-服务任务进程" class="headerlink" title="0x15 服务任务进程"></a>0x15 服务任务进程</h3><ol>
+<li>ps aux #查看进程信息</li>
+<li>ps -ef #查看进程信息</li>
+<li>top #实时显示进程（process）的动态</li>
+<li>cat /etc/services #查看服务与对应的端口</li>
+<li>ls -la /etc/cron* #计划任务</li>
+<li><strong>crontab -l #显示用户的计划任务</strong></li>
+<li><strong>service –status-all #显示所有服务的状态</strong></li>
+<li><strong>cat /etc/services #查看端口服务映射</strong></li>
+<li>chkconfig –list #列出所有系统服务</li>
+<li>chkconfig –list | grep on #列出所有启动的系统服务</li>
+</ol>
+<h3 id="0x16-网络通信"><a href="#0x16-网络通信" class="headerlink" title="0x16 网络通信"></a>0x16 网络通信</h3><ol>
+<li>ifconfig -a #列出网卡信息</li>
+<li>cat /etc/network/interfaces #列出网络接口信息</li>
+<li>cat /etc/networks #</li>
+<li>dnsdomainname #</li>
+<li><strong>arp -a #查看系统arp表</strong></li>
+<li><strong>route #输出路由信息</strong></li>
+<li>cat /etc/resolv.conf #查看DNS配置信息</li>
+<li>netstat -lntp #查看所有监听端口</li>
+<li><strong>netstat -antp #查看所有已经建立的连接</strong></li>
+<li>iptables -L #列出防火墙的配置规则</li>
+<li>lsof #列出打开的文件</li>
+</ol>
+<h3 id="0x17-软件信息"><a href="#0x17-软件信息" class="headerlink" title="0x17 软件信息"></a>0x17 软件信息</h3><ol>
+<li>dpkg -l #列出已安装的软件</li>
+<li>rpm -qa #列出已安装的软件</li>
+<li>httpd -v #查看apache版本</li>
+<li>apache2 -v #查看apache版本</li>
+<li>apache2ctl -M #查看Apache加载的模块</li>
+<li>mysql –version #查看mysql版本</li>
+<li>psql -V #查看postgresql版本</li>
+<li>perl -v #查看perl版本</li>
+<li>java -version #查看java版本</li>
+<li>python –version #查看python版本</li>
+</ol>
+<h3 id="0x18-其他命令"><a href="#0x18-其他命令" class="headerlink" title="0x18 其他命令"></a>0x18 其他命令</h3><ol>
+<li>find / -type d -name ‘python’ 2&gt;/dev/null #在根目录下找名为python的目录，去掉报错</li>
+<li>which [filename] #在环境变量$PATH设置的目录里查符合条件的文件</li>
+<li>locate [filename] #查找符合条件的文档</li>
+<li>mount /dev/hda1 /mnt #将/dev/hda1挂载/mnt下</li>
+<li>umount -v /dev/hda1 #通过设备名卸载</li>
+<li>umount -v /mnt/hda1/ #通过挂载点卸载</li>
+<li>more [filename] #一页一页读</li>
+<li>tail #读文件最后几行</li>
+<li>find . -type f | xargs grep “keyword” #查找目录下所有文件包含keyword的文件</li>
+</ol>
+<h3 id="0x19-参考链接"><a href="#0x19-参考链接" class="headerlink" title="0x19 参考链接"></a>0x19 参考链接</h3><p><a href="https://blog.csdn.net/Fly_hps/article/details/80541856" target="_blank" rel="noopener">https://blog.csdn.net/Fly_hps/article/details/80541856</a></p>
+<h2 id="0x20-安全加固"><a href="#0x20-安全加固" class="headerlink" title="0x20 安全加固"></a>0x20 安全加固</h2><h3 id="0x21-账号安全"><a href="#0x21-账号安全" class="headerlink" title="0x21 账号安全"></a>0x21 账号安全</h3><p><strong>查看root权限账号</strong></p>
+<ol>
+<li>awk -F : ‘($3==0){print $1}’ /etc/passwd </li>
+<li>鉴别其他非root的用户，保留？删除？锁定？注释(修改vim /etc/passwd，用户前面加#)？等等</li>
+</ol>
+<p><strong>查看登录权限的账号</strong></p>
+<ol>
+<li>awk -F : ‘($7==”/usr/sbin/nologin”){print $1}’ /etc/passwd </li>
+</ol>
+<p><strong>查看空密码的账号</strong></p>
+<ol>
+<li>查看文件/etc/passwd，第二个::之间为空的，即空密码</li>
+<li>awk -F “:” ‘($2==””){print $1}’ /etc/shadow</li>
+</ol>
+<p><strong>添加用户</strong></p>
+<ol>
+<li>useradd username</li>
+</ol>
+<p><strong>设置密码</strong></p>
+<ol>
+<li>passwd username</li>
+</ol>
+<p><strong>拒绝系统用户登录</strong></p>
+<ol>
+<li>usermod -s/–shell /usr/sbin/nologin username</li>
+<li>或者</li>
+<li>usermod -s/–shell /bin/false username</li>
+</ol>
+<p><strong>锁定帐号</strong></p>
+<ol>
+<li>passwd -l/–lock username </li>
+<li>还可以编辑/etc/passwd文件，在用户的shell后添加nologin</li>
+<li>一般需要锁定的用户：lp,nuucp,hpdb,sync,adm</li>
+</ol>
+<p><strong>解锁账号</strong></p>
+<ol>
+<li>passwd -u/–unlock username</li>
+</ol>
+<p><strong>删除帐号</strong></p>
+<ol>
+<li>passwd -d/–delete username</li>
+</ol>
+<p><strong>添加（不能登录）账号</strong></p>
+<ol>
+<li>useradd -d /usr/local/apache -g apache -s /bin/false apache</li>
+</ol>
+<p><strong>设置密码策略</strong></p>
+<ol>
+<li>查看配置文件/etc/login.defs</li>
+<li>PASS_MAX_DAYS 99999 #密码最长有效期，<strong>建议</strong>不大于90天</li>
+<li>PASS_MIN_DAYS 6 #密码修改之间最小的天数，<strong>建议</strong>不小于6天</li>
+<li>pass_MIN_LEN    8 #密码最小长度，<strong>建议</strong>不小于8位</li>
+<li>PASS_WARN_AGE 7 #密码过期前几天开始提示用户修改密码，<strong>建议</strong>30天左右，小于最长有效期</li>
+</ol>
+<p><strong>设置用户密码强度</strong></p>
+<ol>
+<li>设置配置文件/etc/pam.d/sysetm-auth（centos）、/etc/pam.d/common-password（Ubuntu）</li>
+<li>至少一个数字，一个小写字母，一个大写字母，一个特殊字符，长度至少8位</li>
+<li><img src="/Linux-%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86-%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA-%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B-%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/9.png" alt></li>
+</ol>
+<p><strong>设置限制用户的登录次数</strong></p>
+<ol>
+<li>查看配置文件/etc/pam.d/sshd/</li>
+<li>auth required pam_tally2.so deny=3 unlock_time=150 even_deny_root root_unlock_time=300 #无就新加，错误输入3次就锁定，锁定时间为150秒，若用户为root，则锁定300秒</li>
+<li>pam_tally2 #查看被锁定的用户</li>
+<li>pam_tally2 –reset -u [username] #将锁定的用户解锁</li>
+</ol>
+<p><strong>禁止root用户远程登录SSH</strong></p>
+<ol>
+<li>查看配置文件/etc/ssh/sshd_config </li>
+<li>PermitRootLogin no #如果为yes，改为no</li>
+<li><strong>脚本设置：</strong>（有风险，慎用）</li>
+<li>#!/bin/bash</li>
+<li>sed -i ‘/PermitRootLogin/c\PermitRootLogin no’ /etc/ssh/sshd_config</li>
+<li><strong>不允许用户密码登录</strong></li>
+<li>PasswordAuthentication no #前面有#，代表注释这行，去掉，如果为yes，则改为no</li>
+<li><strong>添加IP白名单</strong></li>
+<li>修改配置/etc/ssh/sshd_config</li>
+<li>添加：AllowUsers *@10.100.*.*  #表示只允许10.100.0.0/16网段用户通过ssh登录</li>
+</ol>
+<p><strong>设置访问ip的白名单与黑名单</strong></p>
+<ol>
+<li>例如允许ssh登录的ip</li>
+<li>vim /etc/hosts.allow</li>
+<li><img src="/Linux-%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86-%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA-%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B-%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/13.png" alt></li>
+<li><img src="/Linux-%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86-%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA-%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B-%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/14.png" alt></li>
+<li>禁止ssh登录的ip</li>
+<li>vim /etc/hosts.deny</li>
+<li><img src="/Linux-%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86-%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA-%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B-%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/10.png" alt></li>
+<li><img src="/Linux-%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86-%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA-%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B-%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/11.png" alt></li>
+<li><img src="/Linux-%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86-%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA-%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B-%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/12.png" alt></li>
+</ol>
+<p><strong>设置主动注销</strong></p>
+<ol>
+<li>查看配置文件/etc/profile</li>
+<li>cat /etc/profile | grep TMOUT | awk -F[=] ‘{print $2}’ #若无，则自主添加</li>
+<li>配置文件/etc/profile底添加：TMOUT=300</li>
+</ol>
+<p><strong>历史命令保留数</strong></p>
+<ol>
+<li>设置配置文件/etc/profile</li>
+<li>HISTSIZE=1000 #设置历史命令条数为1000</li>
+</ol>
+<p><strong>限制只有wheel组才能su</strong></p>
+<ol>
+<li>查看配置/etc/pam.d/su</li>
+<li>是否存在配置：auth required pam_wheel.so</li>
+<li>无则添加：</li>
+<li>auth    required pam_wheel.so use_uid</li>
+<li>auth sufficient pam_rootok.so</li>
+<li>或添加：</li>
+<li>auth required pam_wheel.so group=wheel</li>
+<li>将用户test添加到wheel组</li>
+<li>usermod -G wheel test</li>
+</ol>
+<h3 id="0x22-文件安全"><a href="#0x22-文件安全" class="headerlink" title="0x22 文件安全"></a>0x22 文件安全</h3><p><strong>设置初始文件的权限</strong></p>
+<ol>
+<li>查看命令：</li>
+<li><img src="/Linux-%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86-%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA-%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B-%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/1.png" alt></li>
+<li>修改umask：</li>
+<li>在/etc/profile设置umask 027（若无，则最后添加）</li>
+<li>027对应权限为750，创建文件的用户有读写执行权限，同组用户有读执行权限，其他用户无权限。</li>
+</ol>
+<p><strong>锁定重要文件</strong></p>
+<ol>
+<li>重要文件：/etc/passwd、/etc/shadow、/etc/group、/etc/gshadow等等</li>
+<li>ls -l /etc/passwd #建议权限为644</li>
+<li>ls -l /etc/shadow #建议权限为400</li>
+<li>ls -l /etc/group #建议权限为644</li>
+<li>ls -l /etc/services #建议权限为644</li>
+<li>ls -l /etc/login.defs #建议权限为644</li>
+<li>ls -l /etc/ssh/ssh_config #建议权限为600</li>
+<li>ls -l /etc/security/ #建议权限为600</li>
+<li>chattr +i /etc/passwd #+i，表示文件不允许新增、删除、修改、改名、链接关系等</li>
+<li>解锁：chattr -i /etc/passwd</li>
+<li>lsattr：用来显示文件或目录的属性的</li>
+<li>chattr +a /var/log/messages #只能追加数据，不能删除日志文件</li>
+</ol>
+<p><strong>防止ip欺骗</strong></p>
+<ol>
+<li>/etc/host.conf文件</li>
+<li>order hosts,bind #先通过hosts文件解析，再DNS解析ip地址（也可以相反）</li>
+<li>multi on #指定是否/etc/hosts文件中指定的主机可以有多个地址</li>
+<li>ospoof on #指不允许对该服务器进行IP地址欺骗。IP欺骗是一种攻击系统安全的手段，通过把IP地址伪装成别的计算机，来取得其它计算机的信任。</li>
+</ol>
+<p><strong>禁止非root用户执行/etc/init.d/里的系统命令</strong></p>
+<h3 id="0x23-日志安全"><a href="#0x23-日志安全" class="headerlink" title="0x23 日志安全"></a>0x23 日志安全</h3><ol>
+<li>/var/log/messages #几乎所有的开机系统发生的错误都会在此记录，建议640</li>
+<li>/var/log/syslog #事件记录监控程序日志</li>
+<li>/var/log/lastlog #记录每个用户最后的登录信息</li>
+<li>/var/log/auth.log #用户认证日志</li>
+<li>/var/log/daemon.log #系统进程日志</li>
+<li>/var/log/kern.log #内核产生的信息</li>
+</ol>
+<p><strong>建立日志服务器</strong></p>
+<ol>
+<li>日志服务器配置文件：/etc/rsyslog.conf</li>
+<li><strong>服务器：</strong></li>
+<li>ipaddr：192.168.100.4</li>
+<li>netmask：255.255.255.0</li>
+<li>bootproto：static</li>
+<li><strong>客户端：</strong></li>
+<li>ipaddr：192.168.100.15</li>
+<li><strong>服务器配置：</strong></li>
+<li>设置配置文件：TCP/UDP任选一个</li>
+<li><img src="/Linux-%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86-%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA-%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B-%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/2.png" alt></li>
+<li>创建设置文件，配置需要监控的客户端</li>
+<li><img src="/Linux-%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86-%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA-%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B-%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/3.png" alt></li>
+<li>fromhost-ip 哪个ip发过来的</li>
+<li>isequal 等于</li>
+<li>保存退出，重启日志服务：</li>
+<li><img src="/Linux-%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86-%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA-%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B-%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/5.png" alt></li>
+<li><img src="/Linux-%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86-%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA-%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B-%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/6.png" alt></li>
+<li><strong>客户端配置：</strong></li>
+<li>设置配置文件：vim /etc/rsyslog.conf</li>
+<li><img src="/Linux-%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86-%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA-%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B-%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/4.png" alt></li>
+<li>保存退出，重启日志服务：</li>
+<li>systemctl restart rsyslog #centos7</li>
+<li></li>
+<li><strong>验证日志服务器：</strong></li>
+<li>ssh登录测试</li>
+<li><img src="/Linux-%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86-%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA-%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B-%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/7.png" alt></li>
+<li><img src="/Linux-%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86-%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA-%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B-%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/8.png" alt></li>
+</ol>
+<h3 id="0x24-禁ping"><a href="#0x24-禁ping" class="headerlink" title="0x24 禁ping"></a>0x24 禁ping</h3><ol>
+<li>echo 1 &gt; /proc/sys/net/ipv4/icmp_echo_ignore_all #开启</li>
+<li>echo 0 &gt; /proc/sys/net/ipv4/icmp_echo_ignore_all #关闭</li>
+<li><img src="/Linux-%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86-%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA-%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B-%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/17.png" alt></li>
+</ol>
+<h3 id="0x25-预防flood攻击"><a href="#0x25-预防flood攻击" class="headerlink" title="0x25 预防flood攻击"></a>0x25 预防flood攻击</h3><ol>
+<li>关键字：DDoS攻击、TCP_SYN flood、半开式连接攻击、拒绝服务攻击</li>
+<li>原理：利用TCP协议实现上的缺陷，通过向网络服务器的端口发送大量的伪造源地址的攻击报文，造成目标服务器中的半开连接队列占满，从而阻止其他合法用户的访问。</li>
+<li>通俗讲：一次标准的TCP连接，有三次握手，而TCP_SYN Flood实现过程就只有前两步骤，服务器就会在一定时间内等待接收客户端的ACK消息的状态。服务器的可用的TCP连接是有限的。</li>
+<li><img src="/Linux-%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86-%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA-%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B-%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/15.png" alt></li>
+<li>vim /etc/sysctl.conf</li>
+<li><img src="/Linux-%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86-%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA-%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B-%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/16.png" alt></li>
+<li>sysctl -p    #使上面配置生效</li>
+</ol>
+<h3 id="0x26-NTP服务放大攻击"><a href="#0x26-NTP服务放大攻击" class="headerlink" title="0x26 NTP服务放大攻击"></a>0x26 NTP服务放大攻击</h3><p><a href="https://www.cnblogs.com/kevingrace/p/6756515.html" target="_blank" rel="noopener">https://www.cnblogs.com/kevingrace/p/6756515.html</a></p>
+<h3 id="0x27-通用简单预防DDOS"><a href="#0x27-通用简单预防DDOS" class="headerlink" title="0x27 通用简单预防DDOS"></a>0x27 通用简单预防DDOS</h3><ol>
+<li>关闭不必要的服务或端口</li>
+<li>禁止对主机非开放服务的访问</li>
+<li>及时安装系统补丁</li>
+<li>限制同一时间内打开的syn半连接数目</li>
+<li>缩短syn半连接的超时时间</li>
+<li>启用Linux自带的防火墙防DDOS属性</li>
+<li>安装相应的防护软件</li>
+<li>购买DDOS防御产品</li>
+</ol>
+<h3 id="0x28-参考链接"><a href="#0x28-参考链接" class="headerlink" title="0x28 参考链接"></a>0x28 参考链接</h3><p><a href="https://blog.csdn.net/qq_36119192/article/details/82906799" target="_blank" rel="noopener">https://blog.csdn.net/qq_36119192/article/details/82906799</a><br><a href="https://www.cnblogs.com/kevingrace/p/6756515.html" target="_blank" rel="noopener">https://www.cnblogs.com/kevingrace/p/6756515.html</a></p>
+<h2 id="0x30-入侵检测"><a href="#0x30-入侵检测" class="headerlink" title="0x30 入侵检测"></a>0x30 入侵检测</h2><h3 id="0x31-入侵痕迹搜集命令"><a href="#0x31-入侵痕迹搜集命令" class="headerlink" title="0x31 入侵痕迹搜集命令"></a>0x31 入侵痕迹搜集命令</h3><ol>
+<li><strong>检查用户</strong></li>
+<li>last #查看登入过系统的用户信息</li>
+<li>lastb #查看登录失败的用户信息</li>
+<li>lastlog #查看所有用户的最近一次登录信息</li>
+<li>who #查看当前登录系统的用户情况，以及正在执行的程序</li>
+<li>w #查看当前登录系统的用户情况，以及正在执行的程序</li>
+<li>history #查看执行命令历史记录</li>
+<li>ls -l [filename] #查看文件最后修改时间</li>
+<li>awk -F : ‘($3==0){print $1}’ /etc/passwd #查看是否存在其他特权用户（除root之外）</li>
+<li>awk -F : ‘length($2)==0 {print $1}’ /etc/shadow #查看是否存在空口令的用户</li>
+<li><strong>检查进程</strong></li>
+<li>top #实时显示进程（process）的动态</li>
+<li>ps -aux #查看当前进程 (process) 的状态</li>
+<li>lsof -p pid #查看进程所打开文件</li>
+<li>lsof -i:port #查看端口对应的进程</li>
+<li>ls -l /proc/{pid}/exe #获取绝对路径下的文件</li>
+<li><strong>查看隐藏进程</strong></li>
+<li>ps -aux –sort=-pcpu|head -10 #查看隐藏进程</li>
+<li><strong>检查文件</strong></li>
+<li>stat filename #查看文件的修改时间、大小、权限等信息</li>
+<li>find / -uid 0 -print #查看有特权用户的文件</li>
+<li>find / -name “…” -prin #查看用户名为…的文件</li>
+<li>md5sum -b filename #查看文件的MD5值</li>
+<li>whereis filename #查看文件的路径</li>
+<li>ls -l filename -h #查看文件大小</li>
+<li>du -sh filename #查看文件大小</li>
+<li><strong>检查网络</strong></li>
+<li>top #实时显示进程（process）的动态</li>
+<li>netstat -antp #查看所有已经建立的连接</li>
+<li>netstat -lntp #查看所有监听端口</li>
+<li>ifconfig -a #列出网卡信息</li>
+<li>arp -a #查看系统arp表</li>
+<li><strong>检查计划任务</strong></li>
+<li>crontab -l #列出计划任务</li>
+<li>cat /etc/crontab #检查计划任务文件</li>
+<li>ls -l /etc/cron.* #查看cron文件是否变化的详细信息</li>
+<li><strong>检查后门</strong></li>
+<li>cat $HOME/.ssh/authorized_keys #查看ssh永久链接文件</li>
+<li>lsmod #检查内核模块</li>
+<li>chkconfig –list #检查自启动</li>
+<li>systemctl list-units -type=service –all #检查自启动</li>
+<li>ls /etc/rc[n].d #</li>
+<li>find / -name “.rhosts” -print</li>
+<li>find / -name “.forward” -print</li>
+</ol>
+<p><a href="https://blog.csdn.net/weixin_44335190/article/details/91353637" target="_blank" rel="noopener">https://blog.csdn.net/weixin_44335190/article/details/91353637</a><br><a href="https://blog.csdn.net/itcast_cn/article/details/80096103" target="_blank" rel="noopener">https://blog.csdn.net/itcast_cn/article/details/80096103</a><br><a href="https://www.cnblogs.com/sanduo1314/p/7458415.html" target="_blank" rel="noopener">https://www.cnblogs.com/sanduo1314/p/7458415.html</a><br><a href="https://www.secpulse.com/archives/116824.html" target="_blank" rel="noopener">https://www.secpulse.com/archives/116824.html</a><br><a href="https://www.cnblogs.com/canyezhizi/p/11194177.html" target="_blank" rel="noopener">https://www.cnblogs.com/canyezhizi/p/11194177.html</a></p>
+<h2 id="0x40-应急响应"><a href="#0x40-应急响应" class="headerlink" title="0x40 应急响应"></a>0x40 应急响应</h2><h3 id="0x41-常见命令"><a href="#0x41-常见命令" class="headerlink" title="0x41 常见命令"></a>0x41 常见命令</h3><ol>
+<li>top #实时显示进程（process）的动态</li>
+<li>ps -aux | grep [processname] #列出所有相关的进程</li>
+<li>ls -l /proc/{pid}/exe #获取绝对路径下的文件</li>
+<li>netstat -antp #查看所有已经建立的连接</li>
+<li>netstat -lntp #查看所有监听端口</li>
+<li>last #查看最近登录的用户信息</li>
+<li>crontab -l #列出计划任务</li>
+<li>cat ~/.bash_history #查看历史命令</li>
+<li>cat /etc/passwd #查看可疑账号</li>
+<li>ls -alt #查看隐藏文件</li>
+<li><strong>敏感目录</strong></li>
+<li>/tmp #临时文件</li>
+<li>/usr/sbin，/bin #命令所在目录</li>
+<li>/etc/init.d #开机启动目录</li>
+<li><strong>敏感文件</strong></li>
+<li>/etc/rc.local #开机启动文件</li>
+<li>/root/.bash_history #历史命令文件</li>
+<li>/etc/passwd，/etc/shadow #用户账户信息</li>
+<li>/etc/cron* #计划任务文件</li>
+</ol>
+<h3 id="0x42-安全工具"><a href="#0x42-安全工具" class="headerlink" title="0x42 安全工具"></a>0x42 安全工具</h3><ol>
+<li><a href="https://sourceforge.net/projects/rkhunter/" target="_blank" rel="noopener">Rootkit Hunter</a></li>
+<li>cd rkhunter</li>
+<li>rkhunter –check/-c #扫描本地文件</li>
+<li><img src="/Linux-%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86-%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA-%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B-%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/18.png" alt></li>
+<li>cat /var/log/rkhunter.log | grep Warning &gt;/tmp/scan_log.txt</li>
+<li>rkhunter –versioncheck #检查版本</li>
+<li>rkhunter –update #更新</li>
+<li></li>
+<li><a href="http://www.chkrootkit.org/" target="_blank" rel="noopener">chkrootkit</a></li>
+<li>chkrootkit #对重要文件进行扫描</li>
+<li>chkrootkit -V #查看版本信息</li>
+<li><img src="/Linux-%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86-%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA-%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B-%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/19.png" alt></li>
+</ol>
+
+      
+       <hr><span style="font-style: italic;color: gray;"> 知识来源于网络，仅供于知识交流与学习。——网络知识搬运工/老年菜鸟/ </span>
+    </div>
+</article>
+
+
+
+<div class="article_copyright">
+    <p><span class="copy-title">文章标题:</span>Linux_信息搜集_安全加固_入侵检测_应急响应——未完待续</p>
+    
+    <p><span class="copy-title">本文作者:</span><a  title="10fteam">10fteam</a></p>
+    <p><span class="copy-title">发布时间:</span>2019-12-03, 22:17:19</p>
+    <p><span class="copy-title">最后更新:</span>2019-12-23, 21:37:59</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/Linux-%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86-%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA-%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B-%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/" title="Linux_信息搜集_安全加固_入侵检测_应急响应——未完待续">https://10fteam.github.io/Linux-%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86-%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA-%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B-%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/</a>
+    <p>
+        <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
+
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">©2019-2020 10fteam</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full"><span class="min "></span></button>
+<button class="post-toc-menu"><span class="post-toc-menu-icons"></span></button>
+<div class="post-toc"><span class="post-toc-title">目录</span>
+    <div class="post-toc-content">
+
+    </div>
+</div>
+<a class="" id="rocket" ></a>
+
+    </div>
+</div>
+<div class="acParent"></div>
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.0.1" ></script>
+
+<script src="/js/script.js?v=1.0.1" ></script>
+<script>
+    var img_resize = 'default';
+    /*作者、标签的自动补全*/
+    $(function () {
+        $('.search').AutoComplete({
+            'data': ['#CTF','#encrypt_decrypt','#RSA','#知识','#HTB','#靶机','#writeup','#Linux','#信息搜集','#安全加固','#入侵检测','#应急响应','#POC','#EXP','#PHP','#代码审计','#PWN','#python','#注入','#Struts2','#weblogic','#漏洞','#backdoor','#工具','#help','#内网渗透','#share','#提权','#WAF','#MISC',],
+            'itemHeight': 20,
+            'width': 418
+        }).AutoComplete('show');
+    })
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $(".post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+
+        /*高亮代码块行号*/
+        
+        $('pre code').each(function(){
+            var lines = $(this).text().split('\n').length - 1, widther='';
+            if (lines>99) {
+                widther = 'widther'
+            }
+            var $numbering = $('<ul/>').addClass('pre-numbering ' + widther).attr("unselectable","on");
+            $(this).addClass('has-numbering ' + widther)
+                    .parent()
+                    .append($numbering);
+            for(var i=1;i<=lines;i++){
+                $numbering.append($('<li/>').text(i));
+            }
+        });
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<style>
+    pre{
+        position: relative;
+        margin-bottom: 24px;
+        border-radius: 10px;
+        border: 1px solid #e2dede;
+        background: #FFF;
+        overflow: hidden;
+    }
+    code.has-numbering{
+        margin-left: 30px;
+    }
+    code.has-numbering.widther{
+        margin-left: 35px;
+    }
+    .pre-numbering{
+        margin: 0px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        padding: 0.5em 3px 0.7em 5px;
+        border-right: 1px solid #C3CCD0;
+        text-align: right;
+        color: #AAA;
+        background-color: #fafafa;
+    }
+    .pre-numbering.widther {
+        width: 35px;
+    }
+</style>
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        <!--width: 542px;-->
+        width: 270px;
+    }
+    .nav.fullscreen {
+        <!--margin-left: -542px;-->
+        margin-left: -270px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+        .nav .hide-list.fullscreen {
+            left: 492px
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+    .post .pjax article .article-entry>ol, .post .pjax article .article-entry>ul, .post .pjax article>ol, .post .pjax article>ul{
+        border: #e2dede solid 1px;
+        border-radius: 10px;
+        padding: 10px 32px 10px 56px;
+    }
+    .post .pjax article .article-entry li>ol, .post .pjax article .article-entry li>ul,.post .pjax article li>ol, .post .pjax article li>ul{
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .post .pjax article .article-entry>ol>li, .post .pjax article .article-entry>ul>li,.post .pjax article>ol>li, .post .pjax article>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    .post .pjax article .article-entry li>ol>li, .post .pjax article .article-entry li>ul>li,.post .pjax article li>ol>li, .post .pjax article li>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+    .nav-right:before {
+        content: ' ';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.3;
+        background: url("https://i.loli.net/2019/07/22/5d3521411f3f169375.png");
+        background-repeat: no-repeat;
+        background-position: 50% 0;
+        -ms-background-size: cover;
+        -o-background-size: cover;
+        -moz-background-size: cover;
+        -webkit-background-size: cover;
+        background-size: cover;
+    }
+    
+
+    
+</style>
+
+
+
+
+
+
+
+</html>

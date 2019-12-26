@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>CTF_RSA | 10fteam</title>
+  <meta name="keywords" content=" CTF , RSA ">
+  <meta name="description" content="CTF_RSA | 10fteam">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="0x00 前排 hashcat号称世界上最快的密码破解，世界上第一个和唯一的基于GPGPU规则引擎，免费多GPU（高达128个GPU），多哈希，多操作系统（Linux和Windows本地二进制文件），多平台（OpenCL和CUDA支持），多算法，资源利用率低，基于字典攻击，支持分布式破解等等。  0x01 hashcat hashcat -h&#x2F;–help #帮助信息    例子: hashcat6">
+<meta name="keywords" content="工具">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hashcat">
+<meta property="og:url" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;hashcat&#x2F;index.html">
+<meta property="og:site_name" content="10fteam">
+<meta property="og:description" content="0x00 前排 hashcat号称世界上最快的密码破解，世界上第一个和唯一的基于GPGPU规则引擎，免费多GPU（高达128个GPU），多哈希，多操作系统（Linux和Windows本地二进制文件），多平台（OpenCL和CUDA支持），多算法，资源利用率低，基于字典攻击，支持分布式破解等等。  0x01 hashcat hashcat -h&#x2F;–help #帮助信息    例子: hashcat6">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;hashcat&#x2F;2.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;hashcat&#x2F;5.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;hashcat&#x2F;3.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;hashcat&#x2F;1.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;hashcat&#x2F;4.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;hashcat&#x2F;6.png">
+<meta property="og:updated_time" content="2019-12-26T07:20:38.845Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;hashcat&#x2F;2.png">
+
+
+<link rel="icon" href="/img/avatar.jpg">
+
+<link href="/css/style.css?v=1.0.1" rel="stylesheet">
+
+<link href="/css/hl_theme/atom-light.css?v=1.0.1" rel="stylesheet">
+
+<link href="//cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+<link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="/js/jquery.autocomplete.min.js?v=1.0.1" ></script>
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js" ></script>
+
+<script src="/js/iconfont.js?v=1.0.1" ></script>
+
+</head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="false">
+  <input class="theme_blog_path" value="">
+</div>
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/" class="avatar_target">
+    <img class="avatar" src="/img/avatar.jpg" />
+</a>
+<div class="author">
+    <span>10fteam</span>
+</div>
+
+<div class="icon">
+    
+</div>
+
+
+
+
+<ul>
+    <li><div class="all active">全部文章<small>(35)</small></div></li>
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    </div>
+    <div><a  class="friends">传送门</a></div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="35">
+
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        安全链接
+        <i class="back-title-list"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="https://www.baidu.com/">百度一下</a></li>
+            
+            <li><a target="_blank" href="https://github.com/">GitHub</a></li>
+            
+            <li><a target="_blank" href="https://www.freebuf.com/">freebuf</a></li>
+            
+            <li><a target="_blank" href="https://www.anquanke.com/">安全客</a></li>
+            
+            <li><a target="_blank" href="https://xz.aliyun.com/">先知社区</a></li>
+            
+            <li><a target="_blank" href="https://www.pediy.com/">看雪</a></li>
+            
+            <li><a target="_blank" href="https://www.52pojie.cn/">吾爱破解</a></li>
+            
+            <li><a target="_blank" href="https://bbs.ichunqiu.com/portal.php">I春秋</a></li>
+            
+            <li><a target="_blank" href="https://ipcmen.com/">Linux命令</a></li>
+            
+            <li><a target="_blank" href="https://start.me/p/X20Apn">安全导航1</a></li>
+            
+            <li><a target="_blank" href="https://www.shentoushi.top/">安全导航2</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <form onkeydown="if(event.keyCode==13){return false;}">
+        <input class="search" type="text" placeholder="Search..." autocomplete="off"id="local-search-input" >
+        <i class="cross"></i>
+        <span>
+            <label for="tagswitch">Tags:</label>
+            <input id="tagswitch" type="checkbox" style="display: none" />
+            <i id="tagsWitchIcon"></i>
+        </span>
+    </form>
+    <div class="tags-list">
+    
+    <li class="article-tag-list-item">
+        <a class="color4">CTF</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color1">encrypt_decrypt</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">RSA</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">知识</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">HTB</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">靶机</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">writeup</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color1">Linux</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">信息搜集</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">安全加固</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">入侵检测</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">应急响应</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">POC</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">EXP</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">PHP</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">代码审计</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">PWN</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color2">python</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">注入</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">Struts2</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">weblogic</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">漏洞</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">backdoor</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">工具</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">help</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">内网渗透</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color1">share</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">提权</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">WAF</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">MISC</a>
+    </li>
+    
+    <div class="clearfix"></div>
+</div>
+
+    
+    <nav id="title-list-nav">
+        
+        <a  class=""
+           href="/2019%E7%BA%A2%E5%B8%BD%E6%9D%AF%E4%B9%8B%E6%81%B6%E8%87%AD%E7%9A%84%E6%95%B0%E6%8D%AE%E5%8C%85/"
+           data-tag="CTF,encrypt_decrypt"
+           data-author="" >
+            <span class="post-title" title="2019红帽杯之恶臭的数据包">2019红帽杯之恶臭的数据包</span>
+            <span class="post-date" title="2019-12-04 21:47:23">2019/12/04</span>
+        </a>
+        
+        <a  class=""
+           href="/CTF-RSA/"
+           data-tag="CTF,RSA"
+           data-author="" >
+            <span class="post-title" title="CTF_RSA">CTF_RSA</span>
+            <span class="post-date" title="2019-11-30 20:07:30">2019/11/30</span>
+        </a>
+        
+        <a  class=""
+           href="/DNS%E8%AE%B0%E5%BD%95/"
+           data-tag="知识"
+           data-author="" >
+            <span class="post-title" title="DNS记录">DNS记录</span>
+            <span class="post-date" title="2019-12-06 22:37:01">2019/12/06</span>
+        </a>
+        
+        <a  class=""
+           href="/HTB-Wall/"
+           data-tag="HTB,靶机,writeup"
+           data-author="" >
+            <span class="post-title" title="HTB-Wall">HTB-Wall</span>
+            <span class="post-date" title="2019-12-17 22:06:37">2019/12/17</span>
+        </a>
+        
+        <a  class=""
+           href="/Linux-%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86-%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA-%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B-%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/"
+           data-tag="Linux,信息搜集,安全加固,入侵检测,应急响应"
+           data-author="" >
+            <span class="post-title" title="Linux_信息搜集_安全加固_入侵检测_应急响应——未完待续">Linux_信息搜集_安全加固_入侵检测_应急响应——未完待续</span>
+            <span class="post-date" title="2019-12-03 22:17:19">2019/12/03</span>
+        </a>
+        
+        <a  class=""
+           href="/OGNL%E8%A1%A8%E8%BE%BE%E5%BC%8F/"
+           data-tag="知识"
+           data-author="" >
+            <span class="post-title" title="OGNL表达式——未完待续">OGNL表达式——未完待续</span>
+            <span class="post-date" title="2019-12-20 15:38:08">2019/12/20</span>
+        </a>
+        
+        <a  class=""
+           href="/POC&EXP_Write/"
+           data-tag="POC,EXP"
+           data-author="" >
+            <span class="post-title" title="POC&amp;EXP_Write——未完待续">POC&amp;EXP_Write——未完待续</span>
+            <span class="post-date" title="2019-11-30 00:45:27">2019/11/30</span>
+        </a>
+        
+        <a  class=""
+           href="/PHP%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A11/"
+           data-tag="PHP,代码审计"
+           data-author="" >
+            <span class="post-title" title="PHP代码审计学习1">PHP代码审计学习1</span>
+            <span class="post-date" title="2019-12-12 15:39:42">2019/12/12</span>
+        </a>
+        
+        <a  class=""
+           href="/PWN%E4%B9%8B%E7%A8%8B%E5%BA%8F%E5%B8%B8%E7%94%A8%E7%9A%84%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/"
+           data-tag="CTF,PWN"
+           data-author="" >
+            <span class="post-title" title="PWN之程序常用的保护机制">PWN之程序常用的保护机制</span>
+            <span class="post-date" title="2019-12-05 15:59:05">2019/12/05</span>
+        </a>
+        
+        <a  class=""
+           href="/PWN%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"
+           data-tag="CTF,PWN"
+           data-author="" >
+            <span class="post-title" title="PWN基础知识——未完待续">PWN基础知识——未完待续</span>
+            <span class="post-date" title="2019-12-05 18:55:42">2019/12/05</span>
+        </a>
+        
+        <a  class=""
+           href="/PWN%E5%AD%A6%E4%B9%A0/"
+           data-tag="PWN"
+           data-author="" >
+            <span class="post-title" title="PWN学习——未完待续">PWN学习——未完待续</span>
+            <span class="post-date" title="2019-12-04 22:13:47">2019/12/04</span>
+        </a>
+        
+        <a  class=""
+           href="/Python-requests/"
+           data-tag="python"
+           data-author="" >
+            <span class="post-title" title="Python_requests模块">Python_requests模块</span>
+            <span class="post-date" title="2019-11-29 19:05:39">2019/11/29</span>
+        </a>
+        
+        <a  class=""
+           href="/Python%E5%9F%BA%E7%A1%80/"
+           data-tag="知识,python"
+           data-author="" >
+            <span class="post-title" title="Python基础——未完待续">Python基础——未完待续</span>
+            <span class="post-date" title="2019-12-23 23:14:43">2019/12/23</span>
+        </a>
+        
+        <a  class=""
+           href="/SQL%E6%B3%A8%E5%85%A5/"
+           data-tag="注入"
+           data-author="" >
+            <span class="post-title" title="SQL注入——未完待续">SQL注入——未完待续</span>
+            <span class="post-date" title="2019-12-01 21:45:31">2019/12/01</span>
+        </a>
+        
+        <a  class=""
+           href="/Struts2%E6%BC%8F%E6%B4%9E%E5%BA%8F%E5%88%97S2-001/"
+           data-tag="Struts2"
+           data-author="" >
+            <span class="post-title" title="Struts2漏洞序列S2-001">Struts2漏洞序列S2-001</span>
+            <span class="post-date" title="2019-12-20 14:38:43">2019/12/20</span>
+        </a>
+        
+        <a  class=""
+           href="/Weblogic%E5%BA%8F%E5%88%97%E6%BC%8F%E6%B4%9E/"
+           data-tag="weblogic,漏洞"
+           data-author="" >
+            <span class="post-title" title="Weblogic序列漏洞">Weblogic序列漏洞</span>
+            <span class="post-date" title="2019-12-25 11:09:00">2019/12/25</span>
+        </a>
+        
+        <a  class=""
+           href="/WordPress%E5%AE%89%E5%85%A8%E9%85%8D%E7%BD%AE/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="WordPress安全配置——未完待续">WordPress安全配置——未完待续</span>
+            <span class="post-date" title="2019-12-12 15:30:50">2019/12/12</span>
+        </a>
+        
+        <a  class=""
+           href="/XSS/"
+           data-tag="漏洞"
+           data-author="" >
+            <span class="post-title" title="XSS——未完待续">XSS——未完待续</span>
+            <span class="post-date" title="2019-12-18 13:24:05">2019/12/18</span>
+        </a>
+        
+        <a  class=""
+           href="/backdoors/"
+           data-tag="backdoor"
+           data-author="" >
+            <span class="post-title" title="backdoors——未完待续">backdoors——未完待续</span>
+            <span class="post-date" title="2019-12-14 18:13:22">2019/12/14</span>
+        </a>
+        
+        <a  class=""
+           href="/docker%E4%BD%BF%E7%94%A8/"
+           data-tag="知识"
+           data-author="" >
+            <span class="post-title" title="docker使用">docker使用</span>
+            <span class="post-date" title="2019-12-20 15:17:33">2019/12/20</span>
+        </a>
+        
+        <a  class=""
+           href="/hashcat/"
+           data-tag="工具"
+           data-author="" >
+            <span class="post-title" title="hashcat">hashcat</span>
+            <span class="post-date" title="2019-12-26 11:11:09">2019/12/26</span>
+        </a>
+        
+        <a  class=""
+           href="/hexo-help/"
+           data-tag="help"
+           data-author="" >
+            <span class="post-title" title="hexo_help">hexo_help</span>
+            <span class="post-date" title="2019-11-29 16:45:43">2019/11/29</span>
+        </a>
+        
+        <a  class=""
+           href="/wireshark%E5%90%84%E7%A7%8D%E5%8D%8F%E8%AE%AE/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="wireshark各种协议——未完待续">wireshark各种协议——未完待续</span>
+            <span class="post-date" title="2019-12-16 16:45:10">2019/12/16</span>
+        </a>
+        
+        <a  class=""
+           href="/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/"
+           data-tag="内网渗透"
+           data-author="" >
+            <span class="post-title" title="内网渗透——未完待续">内网渗透——未完待续</span>
+            <span class="post-date" title="2019-12-01 21:19:06">2019/12/01</span>
+        </a>
+        
+        <a  class=""
+           href="/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%B9%8BEmpire/"
+           data-tag="内网渗透"
+           data-author="" >
+            <span class="post-title" title="内网渗透之Empire">内网渗透之Empire</span>
+            <span class="post-date" title="2019-12-19 11:42:47">2019/12/19</span>
+        </a>
+        
+        <a  class=""
+           href="/%E5%90%84%E7%AB%AF%E5%8F%A3%E6%9C%8D%E5%8A%A1%E6%BC%8F%E6%B4%9E/"
+           data-tag="漏洞"
+           data-author="" >
+            <span class="post-title" title="各端口服务漏洞——未完待续">各端口服务漏洞——未完待续</span>
+            <span class="post-date" title="2019-12-17 20:27:22">2019/12/17</span>
+        </a>
+        
+        <a  class=""
+           href="/%E5%AF%BB%E6%89%BE%E7%BD%91%E7%AB%99%E7%9A%84%E7%9C%9F%E5%AE%9EIP/"
+           data-tag="信息搜集"
+           data-author="" >
+            <span class="post-title" title="寻找网站的真实IP">寻找网站的真实IP</span>
+            <span class="post-date" title="2019-12-03 13:41:27">2019/12/03</span>
+        </a>
+        
+        <a  class=""
+           href="/%E5%9B%BE%E6%96%87%E5%B9%B6%E8%8C%82/"
+           data-tag="share"
+           data-author="" >
+            <span class="post-title" title="图文并茂">图文并茂</span>
+            <span class="post-date" title="2019-12-02 17:18:16">2019/12/02</span>
+        </a>
+        
+        <a  class=""
+           href="/%E6%8F%90%E6%9D%83/"
+           data-tag="提权"
+           data-author="" >
+            <span class="post-title" title="提权——未完待续">提权——未完待续</span>
+            <span class="post-date" title="2019-12-01 21:21:55">2019/12/01</span>
+        </a>
+        
+        <a  class=""
+           href="/%E6%8F%90%E6%9D%83%E4%B9%8BLinux-dirtycow/"
+           data-tag="Linux,提权"
+           data-author="" >
+            <span class="post-title" title="提权之Linux-dirtycow">提权之Linux-dirtycow</span>
+            <span class="post-date" title="2019-12-23 20:26:44">2019/12/23</span>
+        </a>
+        
+        <a  class=""
+           href="/%E6%8F%90%E6%9D%83%E4%B9%8Bsudo-ed/"
+           data-tag="Linux,提权"
+           data-author="" >
+            <span class="post-title" title="提权之sudo_ed">提权之sudo_ed</span>
+            <span class="post-date" title="2019-12-14 17:54:23">2019/12/14</span>
+        </a>
+        
+        <a  class=""
+           href="/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/"
+           data-tag="知识"
+           data-author="" >
+            <span class="post-title" title="正则表达式">正则表达式</span>
+            <span class="post-date" title="2019-12-10 21:08:11">2019/12/10</span>
+        </a>
+        
+        <a  class=""
+           href="/%E7%BB%95WAF%E5%9F%BA%E7%A1%80/"
+           data-tag="知识,WAF"
+           data-author="" >
+            <span class="post-title" title="绕WAF基础">绕WAF基础</span>
+            <span class="post-date" title="2019-12-03 11:37:29">2019/12/03</span>
+        </a>
+        
+        <a  class=""
+           href="/%E8%84%91%E5%9B%BE/"
+           data-tag="知识"
+           data-author="" >
+            <span class="post-title" title="脑图">脑图</span>
+            <span class="post-date" title="2019-12-05 19:24:56">2019/12/05</span>
+        </a>
+        
+        <a  class=""
+           href="/%E8%84%B1%E5%A3%B3/"
+           data-tag="MISC"
+           data-author="" >
+            <span class="post-title" title="脱壳">脱壳</span>
+            <span class="post-date" title="2019-12-26 00:13:05">2019/12/26</span>
+        </a>
+        
+    </nav>
+</div>
+    </div>
+    <div class="hide-list">
+        <div class="semicircle">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div class="post">
+    <div class="pjax">
+        <article id="post-CTF-RSA" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">CTF_RSA</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        
+        <span class="tag">
+            
+            <a class="color4">CTF</a>
+            
+            <a class="color4">RSA</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+        创建时间:<time class="date" title='更新时间: 2019-12-19 20:41:42'>2019-11-30 20:07</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        
+        <span id="busuanzi_container_page_pv">
+            阅读:<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#简单理解RSA算法"><span class="toc-text">简单理解RSA算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RSA-pem文件格式"><span class="toc-text">RSA pem文件格式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解RSA题思路"><span class="toc-text">解RSA题思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#判断是否为质数"><span class="toc-text">判断是否为质数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#最大公约数"><span class="toc-text">最大公约数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#n分解"><span class="toc-text">n分解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用openssl处理"><span class="toc-text">使用openssl处理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用RsaCtfTool处理"><span class="toc-text">使用RsaCtfTool处理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CTF例子"><span class="toc-text">CTF例子</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RSA安全要求"><span class="toc-text">RSA安全要求</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考链接"><span class="toc-text">参考链接</span></a></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p><strong>RSA加密算法，一种非对称加密算法。用途：数字签名，身份认证等</strong></p>
+</blockquote>
+<h2 id="简单理解RSA算法"><a href="#简单理解RSA算法" class="headerlink" title="简单理解RSA算法"></a>简单理解RSA算法</h2><blockquote>
+<p>最大素数：p、q，p与q互质，p、q越大越安全<br>例子：p=53，q=59<br>模数：n，n=p*q，n的二进制表示时的位数就是密钥长度<br>例子：n=53*59=3127=1100 0011 0111，所以密钥长度为12位，实际中的算法是1024位或2048位</p>
+<p>欧拉函数：φ =(p-1)*(q-1)<br>例子：φ =(53-1)(59-1)=3016</p>
+<p>e：与φ互质，且1&lt;e&lt;φ<br>随机取e=41，e不要取3015，这样公钥私钥值一样</p>
+<p>e的模反数：d<br>存在：(e*d)%φ=1，即e*d-1=xφ，x是整数，这里可以得d=1177，x=16</p>
+<p>公钥：（n,e），仅公钥是公开的，其他数字都不公开<br>公钥：（3127,41）</p>
+<p>私钥：（n,d）<br>私钥：（3127,1177）</p>
+<p>例子：汉字“中”，utf-8编码为[e4 b8 ad]，转10进制[228 184 173]<br><img src="/CTF-RSA/1.png" alt><br>明文：m=pow(c,d,n)=c^d%n<br>密文：c=pow(m,e,n)=m^e%n<br>pow(x,y,z)：x的y次方再取模，等效pow(x,y)%z，%取余<br>明文228的密文算法：228^41%3127=521<br>184：184^41%3127=1071<br>173：173^41%3127=1322<br>密文521的解法：521^1177%3127=228<br>1071：1071^1177%3127=184<br>1322：1322^1177%3127=173</p>
+<p>5^3 mod 7=125 mod 7=6<br>a ≡ b ( mod c)，11%3余2,5%3余2<br>11 ≡ 5 ( mod 3)<br>dp≡d mod (p−1),即(dp-d)/(p-1)=d,</p>
+<p>公钥加密文：flag.enc<br>公钥文件：pubkey.pem<br>私钥文件：private.key</p>
+</blockquote>
+<h2 id="RSA-pem文件格式"><a href="#RSA-pem文件格式" class="headerlink" title="RSA pem文件格式"></a>RSA pem文件格式</h2><p><strong>PKCS#1私钥格式文件</strong></p>
+<ol>
+<li>—–BEGIN RSA PRIVATE KEY—–</li>
+<li>—–END RSA PRIVATE KEY—–</li>
+</ol>
+<p><strong>PKCS#8私钥格式文件</strong></p>
+<ol>
+<li>—–BEGIN  PRIVATE KEY—–</li>
+<li>—–END PRIVATE KEY—–</li>
+</ol>
+<p><strong>PEM公钥格式文件</strong></p>
+<ol>
+<li>—–BEGIN PUBLIC KEY—–</li>
+<li>—–END PUBLIC KEY—–</li>
+</ol>
+<p><strong>PEM RSA PublicKey公钥格式文件</strong></p>
+<ol>
+<li>—–BEGIN RSA PUBLIC KEY—–</li>
+<li>—–END RSA PUBLIC KEY—–</li>
+</ol>
+<p><strong>RSA相关工具</strong></p>
+<ul>
+<li>RSATool2v17：N比特位数小于256</li>
+<li><a href="https://ipcmen.com/openssl" target="_blank" rel="noopener">openssl</a></li>
+<li><a href="https://github.com/Ganapati/RsaCtfTool" target="_blank" rel="noopener">RsaCtfTool</a></li>
+<li><a href="http://factordb.com/" target="_blank" rel="noopener">在线分解模数N：http://factordb.com/</a></li>
+<li>离线工具：msieve、yafu</li>
+</ul>
+<h2 id="解RSA题思路"><a href="#解RSA题思路" class="headerlink" title="解RSA题思路"></a>解RSA题思路</h2><ol>
+<li>e较大：wienner攻击</li>
+<li>e较小：直接爆破</li>
+<li>低加密指数广播攻击：相同低指数的e和多个相同的消息m</li>
+<li>Coppersmith定理攻击：只有部分高位的p或q</li>
+<li>共模攻击：相同n，相同m</li>
+</ol>
+<h2 id="判断是否为质数"><a href="#判断是否为质数" class="headerlink" title="判断是否为质数"></a>判断是否为质数</h2><ol>
+<li>import gmpy2</li>
+<li>gmpy2.is_prime(11)</li>
+<li><img src="/CTF-RSA/6.png" alt></li>
+<li>&gt;&gt;&gt; import Crypto</li>
+<li>&gt;&gt;&gt; from Crypto.Util import number</li>
+<li>&gt;&gt;&gt; Crypto.Util.number.isPrime(11)</li>
+<li>1</li>
+<li>&gt;&gt;&gt; Crypto.Util.number.isPrime(10)</li>
+<li>False</li>
+<li><img src="/CTF-RSA/7.png" alt></li>
+</ol>
+<h2 id="最大公约数"><a href="#最大公约数" class="headerlink" title="最大公约数"></a>最大公约数</h2><ol>
+<li>import gmpy2</li>
+<li>gmpy2.gcd(a,b)</li>
+</ol>
+<h2 id="n分解"><a href="#n分解" class="headerlink" title="n分解"></a>n分解</h2><p><strong>yafu</strong></p>
+<ol>
+<li><img src="/CTF-RSA/4.png" alt></li>
+<li>n过长时，把n写入txt：yafu.exe “factor(@)” -batchfile data.txt #注意，一定要换行，即后面加个回车</li>
+</ol>
+<p><strong>在线分解模数N</strong></p>
+<ol>
+<li><img src="/CTF-RSA/8.png" alt> </li>
+</ol>
+<h2 id="使用openssl处理"><a href="#使用openssl处理" class="headerlink" title="使用openssl处理"></a>使用openssl处理</h2><p><strong>pem?n?e</strong> </p>
+<ol>
+<li>openssl rsa -pubin -text -modulus -in warmup -in public.key #分解公钥文件得n、e</li>
+<li><img src="/CTF-RSA/15.png" alt> </li>
+</ol>
+<h2 id="使用RsaCtfTool处理"><a href="#使用RsaCtfTool处理" class="headerlink" title="使用RsaCtfTool处理"></a>使用RsaCtfTool处理</h2><p><strong>n/e?pem</strong></p>
+<ol>
+<li>python RsaCtfTool.py –createpub -n 103461035900816914121390101299049044413950405173712170434161686539878160984549 -e 65537 &gt; public.pem</li>
+<li><img src="/CTF-RSA/10.png" alt> </li>
+</ol>
+<p><strong>pem/enc?m</strong></p>
+<ol>
+<li>python RsaCtfTool.py –publickey 公钥文件 –uncipherfile 加密文件</li>
+<li><img src="/CTF-RSA/9.png" alt> </li>
+</ol>
+<p><strong>pem?key</strong></p>
+<ol>
+<li>python RsaCtfTool.py –publickey 公钥文件 –private [&gt; private.key(密钥文件)]</li>
+<li><img src="/CTF-RSA/16.png" alt></li>
+</ol>
+<p><strong>key?p?q?e?d?n</strong></p>
+<ol>
+<li><img src="/CTF-RSA/16.png" alt></li>
+<li>python RsaCtfTool.py –key private.key –dumpkey #私钥分解出n、p、q、e、d</li>
+<li><img src="/CTF-RSA/17.png" alt></li>
+</ol>
+<h2 id="CTF例子"><a href="#CTF例子" class="headerlink" title="CTF例子"></a>CTF例子</h2><p><strong>n/c/e?m</strong></p>
+<ol>
+<li><p>e=1，即没加密，密文就是明文</p>
+</li>
+<li><p><img src="/CTF-RSA/11.png" alt></p>
+</li>
+<li><p>e=65537,n超大</p>
+</li>
+<li><p>n分解：yafu-x64.exe “factor(@)” -batchfile n.txt</p>
+</li>
+<li><p><img src="/CTF-RSA/13.png" alt></p>
+</li>
+<li><p>n=966808932627497190635859236054960349099463975227350564265384373280336699853387254070662881265937565163000758606154308757944030571837175048514574473061401566330836334647176655282619268592560172726526643074499534129878217409046045533656897050117438496357231575999185527675071002803951800635220029015932007465117818739948903750200830856115668691007706836952244842719419452946259275251773298338162389930518838272704908887016474007051397194588396039111216708866214614779627566959335170676055025850932631053641576566165694121420546081043285806783239296799795655191121966377590175780618944910532816988143056757054052679968538901460893571204904394975714081055455240523895653305315517745729334114549756695334171142876080477105070409544777981602152762154610738540163796164295222810243309051503090866674634440359226192530724635477051576515179864461174911975667162597286769079380660782647952944808596310476973939156187472076952935728249061137481887589103973591082872988641958270285169650803792395556363304056290077801453980822097583574309682935697260204862756923865556397686696854239564541407185709940107806536773160263764483443859425726953142964148216209968437587044617613518058779287167853349364533716458676066734216877566181514607693882375533</p>
+</li>
+<li><p>p = 310935513029228809998830208036655366162721470228774287453148308675193510132489142448801010943658159980501154153084396100667001391643762749806500051502679498536716532334917842894939889468693960937309663256592497965458780801192062835123429808544757340971089756707788360038227894054989413747980<br>167536893779923551227744017809301855984582408943622461942486239113822841696775958645014753081946441406022729616992302829930205076689399802050792392219242304302303180769915076199603301447453070225380248784444587175874466015595462920262453189072935846093201153746322352707956339337553509285375982422142<br>16674496409625928997877221</p>
+</li>
+<li><p>q = 310935513029228809998830208036655366162721470228774287453148308675193510132489142448801010943658159980501154153084396100667001391643762749806500051502679498536716532334917842894939889468693960937309663256592497965458780801192062835123429808544757340971089756707788360038227894054989413747980<br>167536893779923551227744017809301855984582408943622461942486239113822841696775958645014753081946441406022729616992302829930205076689399802050792392219242304302303180769915076199603301447453070225380248784444587175874466015595462920262453189072935846093201153746322352707956339337553509285375982422142<br>16674496409625928797450473</p>
+</li>
+<li><p><img src="/CTF-RSA/14.png" alt></p>
+</li>
+</ol>
+<p><strong>n/c/d?m</strong></p>
+<ol>
+<li>print hex(pow(c,d,N))[2:-1].decode(‘hex’)</li>
+<li><img src="/CTF-RSA/12.png" alt></li>
+</ol>
+<p><strong>n/e1/e2/c1/c2?m</strong></p>
+<ol>
+<li>import gmpy2</li>
+<li>gcd,a,b=gmpy2.gcdext(e1,e2)</li>
+<li>m=gmpy2.powmod(c1,a,n)*gmpy2.powmod(c2,b,n)%n</li>
+</ol>
+<p><strong>p/q/e?d</strong></p>
+<ol>
+<li>import gmpy2</li>
+<li>p =gmpy2.mpz(18443)</li>
+<li>q =gmpy2.mpz(49891)</li>
+<li>e =gmpy2.mpz(19)</li>
+<li>phi_n= (p - 1) * (q - 1)</li>
+<li>d = gmpy2.invert(e, phi_n)</li>
+<li>print (d)<br><img src="/CTF-RSA/2.png" alt></li>
+</ol>
+<p><strong>p/q/e/c?m</strong></p>
+<ol>
+<li>import gmpy2</li>
+<li>#N = 103461035900816914121390101299049044413950405173712170434161686539878160984549</li>
+<li>p = 366669102002966856876605669837014229419</li>
+<li>q = 282164587459512124844245113950593348271</li>
+<li>c = 0xad939ff59f6e70bcbfad406f2494993757eee98b91bc244184a377520d06fc35</li>
+<li>e = 65537</li>
+<li></li>
+<li>d = gmpy2.invert(e,(p-1)*(q-1))</li>
+<li>#print d</li>
+<li>#d=91646299298871237857836940212608056141193465208586711901499120163393577626813</li>
+<li>m = gmpy2.powmod(c,d,p*q)</li>
+<li>#print m</li>
+<li>#m=185534734614696481020381637136165435809958101675798337848243069</li>
+<li>#hex(m)=0x73756374667b50776e5f405f68756e647265645f79656172737d</li>
+<li>print hex(m)[2:].decode(‘hex’)<br><img src="/CTF-RSA/3.png" alt></li>
+</ol>
+<p><strong>p/q/e/c?m</strong></p>
+<ol>
+<li>p = 169524110085046954319747170465105648233168702937955683889447853815898670069828343980818367807171215202643149176857117014826791242142210124521380573480143683660195568906553119683192470329413953411905742074448392816913467035316596822218317488903257069007949137629543010054246885909276872349326142152285347048927</li>
+<li>q = 170780128973387404254550233211898468299200117082734909936129463191969072080198908267381169837578188594808676174446856901962451707859231958269401958672950141944679827844646158659922175597068183903642473161665782065958249304202759597168259072368123700040163659262941978786363797334903233540121308223989457248267</li>
+<li>e = 65537</li>
+<li>c = 4531850464036745618300770366164614386495084945985129111541252641569745463086472656370005978297267807299415858324820149933137259813719550825795569865301790252501254180057121806754411506817019631341846094836070057184169015820234429382145019281935017707994070217705460907511942438972962653164287761695982230728969508370400854478181107445003385579261993625770566932506870421547033934140554009090766102575218045185956824020910463996496543098753308927618692783836021742365910050093343747616861660744940014683025321538719970946739880943167282065095406465354971096477229669290277771547093476011147370441338501427786766482964</li>
+<li></li>
+<li>#计算d</li>
+<li>def egcd(a, b): #gcd最大公约数</li>
+<li>if a == 0:</li>
+<li>return (b, 0, 1)</li>
+<li>else:</li>
+<li>g, y, x = egcd(b % a, a)</li>
+<li>return (g, x - (b // a) * y, y)</li>
+<li></li>
+<li>d = egcd((p - 1) * (q - 1), e)[2]</li>
+<li>if d &lt; 0:</li>
+<li>d += (p - 1) * (q - 1)</li>
+<li></li>
+<li>m = hex(pow(c,d,p*q))[2:-1].decode(‘hex’)</li>
+<li>print m<br><img src="/CTF-RSA/5.png" alt></li>
+</ol>
+<p><strong>e/n/dp/c?m</strong></p>
+<ol>
+<li>import gmpy2</li>
+<li>e=65537</li>
+<li>n=9637571466652899741848142654451413405801976834328667418509217149503238513830870985353918314633160277580591819016181785300521866901536670666234046521697590230079161867282389124998093526637796571100147052430445089605759722456767679930869250538932528092292071024877213105462554819256136145385237821098127348787416199401770954567019811050508888349297579329222552491826770225583983899834347983888473219771888063393354348613119521862989609112706536794212028369088219375364362615622092005578099889045473175051574207130932430162265994221914833343534531743589037146933738549770365029230545884239551015472122598634133661853901</li>
+<li>dp=81339405704902517676022188908547543689627829453799865550091494842725439570571310071337729038516525539158092247771184675844795891671744082925462138427070614848951224652874430072917346702280925974595608822751382808802457160317381440319175601623719969138918927272712366710634393379149593082774688540571485214097</li>
+<li>c=5971372776574706905158546698157178098706187597204981662036310534369575915776950962893790809274833462545672702278129839887482283641996814437707885716134279091994238891294614019371247451378504745748882207694219990495603397913371579808848136183106703158532870472345648247817132700604598385677497138485776569096958910782582696229046024695529762572289705021673895852985396416704278321332667281973074372362761992335826576550161390158761314769544548809326036026461123102509831887999493584436939086255411387879202594399181211724444617225689922628790388129032022982596393215038044861544602046137258904612792518629229736324827</li>
+<li></li>
+<li>stuff=dp*e-1</li>
+<li>for k in range(1,e):</li>
+<li>if stuff%k==0:  #p should be an integer</li>
+<li>p1=stuff//k+1</li>
+<li>if n%p1==0: #p should divide n</li>
+<li>p=p1</li>
+<li>q=n//p</li>
+<li>phi=(p-1)*(q-1)</li>
+<li>d=gmpy2.invert(e,phi)</li>
+<li>m=pow(c,d,n)</li>
+<li>print bytearray.fromhex(hex(pow(c,d,n))[2:])</li>
+<li><img src="/CTF-RSA/18.png" alt></li>
+</ol>
+<p><strong>pem/enc?m</strong></p>
+<ol>
+<li><img src="/CTF-RSA/19.png" alt></li>
+</ol>
+<h2 id="RSA安全要求"><a href="#RSA安全要求" class="headerlink" title="RSA安全要求"></a>RSA安全要求</h2><ol>
+<li>定期更新密钥</li>
+<li>不同用户使用不同模数n</li>
+<li>p、q相差较大</li>
+<li>e不可以太小</li>
+<li>d不可以太小</li>
+</ol>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><ul>
+<li><a href="https://www.baidu.com/" target="_blank" rel="noopener">https://www.baidu.com/</a></li>
+<li><a href="https://www.freebuf.com/" target="_blank" rel="noopener">https://www.freebuf.com/</a></li>
+<li><a href="https://www.jianshu.com/" target="_blank" rel="noopener">https://www.jianshu.com/</a></li>
+<li><a href="https://www.jianshu.com/p/c945b0f0de0a" target="_blank" rel="noopener">https://www.jianshu.com/p/c945b0f0de0a</a></li>
+<li><a href="https://blog.csdn.net/huanghelouzi/article/details/82974741" target="_blank" rel="noopener">https://blog.csdn.net/huanghelouzi/article/details/82974741</a></li>
+</ul>
+
+      
+       <hr><span style="font-style: italic;color: gray;"> 知识来源于网络，仅供于知识交流与学习。——网络知识搬运工/老年菜鸟/ </span>
+    </div>
+</article>
+
+
+
+<div class="article_copyright">
+    <p><span class="copy-title">文章标题:</span>CTF_RSA</p>
+    
+    <p><span class="copy-title">本文作者:</span><a  title="10fteam">10fteam</a></p>
+    <p><span class="copy-title">发布时间:</span>2019-11-30, 20:07:30</p>
+    <p><span class="copy-title">最后更新:</span>2019-12-19, 20:41:42</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/CTF-RSA/" title="CTF_RSA">https://10fteam.github.io/CTF-RSA/</a>
+    <p>
+        <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
+
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">©2019-2020 10fteam</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full"><span class="min "></span></button>
+<button class="post-toc-menu"><span class="post-toc-menu-icons"></span></button>
+<div class="post-toc"><span class="post-toc-title">目录</span>
+    <div class="post-toc-content">
+
+    </div>
+</div>
+<a class="" id="rocket" ></a>
+
+    </div>
+</div>
+<div class="acParent"></div>
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.0.1" ></script>
+
+<script src="/js/script.js?v=1.0.1" ></script>
+<script>
+    var img_resize = 'default';
+    /*作者、标签的自动补全*/
+    $(function () {
+        $('.search').AutoComplete({
+            'data': ['#CTF','#encrypt_decrypt','#RSA','#知识','#HTB','#靶机','#writeup','#Linux','#信息搜集','#安全加固','#入侵检测','#应急响应','#POC','#EXP','#PHP','#代码审计','#PWN','#python','#注入','#Struts2','#weblogic','#漏洞','#backdoor','#工具','#help','#内网渗透','#share','#提权','#WAF','#MISC',],
+            'itemHeight': 20,
+            'width': 418
+        }).AutoComplete('show');
+    })
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $(".post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+
+        /*高亮代码块行号*/
+        
+        $('pre code').each(function(){
+            var lines = $(this).text().split('\n').length - 1, widther='';
+            if (lines>99) {
+                widther = 'widther'
+            }
+            var $numbering = $('<ul/>').addClass('pre-numbering ' + widther).attr("unselectable","on");
+            $(this).addClass('has-numbering ' + widther)
+                    .parent()
+                    .append($numbering);
+            for(var i=1;i<=lines;i++){
+                $numbering.append($('<li/>').text(i));
+            }
+        });
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<style>
+    pre{
+        position: relative;
+        margin-bottom: 24px;
+        border-radius: 10px;
+        border: 1px solid #e2dede;
+        background: #FFF;
+        overflow: hidden;
+    }
+    code.has-numbering{
+        margin-left: 30px;
+    }
+    code.has-numbering.widther{
+        margin-left: 35px;
+    }
+    .pre-numbering{
+        margin: 0px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        padding: 0.5em 3px 0.7em 5px;
+        border-right: 1px solid #C3CCD0;
+        text-align: right;
+        color: #AAA;
+        background-color: #fafafa;
+    }
+    .pre-numbering.widther {
+        width: 35px;
+    }
+</style>
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        <!--width: 542px;-->
+        width: 270px;
+    }
+    .nav.fullscreen {
+        <!--margin-left: -542px;-->
+        margin-left: -270px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+        .nav .hide-list.fullscreen {
+            left: 492px
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+    .post .pjax article .article-entry>ol, .post .pjax article .article-entry>ul, .post .pjax article>ol, .post .pjax article>ul{
+        border: #e2dede solid 1px;
+        border-radius: 10px;
+        padding: 10px 32px 10px 56px;
+    }
+    .post .pjax article .article-entry li>ol, .post .pjax article .article-entry li>ul,.post .pjax article li>ol, .post .pjax article li>ul{
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .post .pjax article .article-entry>ol>li, .post .pjax article .article-entry>ul>li,.post .pjax article>ol>li, .post .pjax article>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    .post .pjax article .article-entry li>ol>li, .post .pjax article .article-entry li>ul>li,.post .pjax article li>ol>li, .post .pjax article li>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+    .nav-right:before {
+        content: ' ';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.3;
+        background: url("https://i.loli.net/2019/07/22/5d3521411f3f169375.png");
+        background-repeat: no-repeat;
+        background-position: 50% 0;
+        -ms-background-size: cover;
+        -o-background-size: cover;
+        -moz-background-size: cover;
+        -webkit-background-size: cover;
+        background-size: cover;
+    }
+    
+
+    
+</style>
+
+
+
+
+
+
+
+</html>
