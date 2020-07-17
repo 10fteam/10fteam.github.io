@@ -6,27 +6,27 @@
   <meta name="keywords" content=" 提权 , 书籍 ">
   <meta name="description" content="提权 | 10fteam">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta name="description" content="0x00 前言 测试环境：windows server 2008 R2  0x10 应急响应之账号0x11 检查登录用户与弱口令 咨询主机或服务器的管理员，所有用户是否属于常见账户（Administrator、admin等等）或是否存在某种规律（user1、user2等等），所有用户密码是否存在弱口令（123456、qwerty等等）。  0x12 检查可疑用户 运行Lusrmgr.msc——组—">
-<meta name="keywords" content="应急响应,windows">
+<meta name="description" content="0x00 MSFMSF：Metasploit Framework，一种漏洞验证与利用的工具框架，集信息搜集、漏洞探测、漏洞利用、权限提升、内网渗透、权限维持、痕迹清除于一身。 0x10 msfvenom 2015-6-8起，msfvenom是msfpayload和msfencode的组合。 msfvenom -l [type] #列出指定类型的所有参数 生成后门文件 msfvenom -p win">
+<meta name="keywords" content="工具,MSF">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Windows安全">
-<meta property="og:url" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;Windows%E5%AE%89%E5%85%A8&#x2F;index.html">
+<meta property="og:title" content="MetasploitFramework">
+<meta property="og:url" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;MetasploitFramework&#x2F;index.html">
 <meta property="og:site_name" content="10fteam">
-<meta property="og:description" content="0x00 前言 测试环境：windows server 2008 R2  0x10 应急响应之账号0x11 检查登录用户与弱口令 咨询主机或服务器的管理员，所有用户是否属于常见账户（Administrator、admin等等）或是否存在某种规律（user1、user2等等），所有用户密码是否存在弱口令（123456、qwerty等等）。  0x12 检查可疑用户 运行Lusrmgr.msc——组—">
+<meta property="og:description" content="0x00 MSFMSF：Metasploit Framework，一种漏洞验证与利用的工具框架，集信息搜集、漏洞探测、漏洞利用、权限提升、内网渗透、权限维持、痕迹清除于一身。 0x10 msfvenom 2015-6-8起，msfvenom是msfpayload和msfencode的组合。 msfvenom -l [type] #列出指定类型的所有参数 生成后门文件 msfvenom -p win">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;Windows%E5%AE%89%E5%85%A8&#x2F;1.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;Windows%E5%AE%89%E5%85%A8&#x2F;2.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;Windows%E5%AE%89%E5%85%A8&#x2F;3.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;Windows%E5%AE%89%E5%85%A8&#x2F;4.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;Windows%E5%AE%89%E5%85%A8&#x2F;8.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;Windows%E5%AE%89%E5%85%A8&#x2F;7.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;Windows%E5%AE%89%E5%85%A8&#x2F;5.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;Windows%E5%AE%89%E5%85%A8&#x2F;6.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;Windows%E5%AE%89%E5%85%A8&#x2F;9.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;Windows%E5%AE%89%E5%85%A8&#x2F;10.png">
-<meta property="og:updated_time" content="2020-04-11T19:09:14.663Z">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;MetasploitFramework&#x2F;1.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;MetasploitFramework&#x2F;2.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;MetasploitFramework&#x2F;3.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;MetasploitFramework&#x2F;4.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;MetasploitFramework&#x2F;5.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;MetasploitFramework&#x2F;6.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;MetasploitFramework&#x2F;7.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;MetasploitFramework&#x2F;8.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;MetasploitFramework&#x2F;9.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;MetasploitFramework&#x2F;10.png">
+<meta property="og:updated_time" content="2020-05-04T15:25:20.761Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;Windows%E5%AE%89%E5%85%A8&#x2F;1.png">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;MetasploitFramework&#x2F;1.png">
 
 
 <link rel="icon" href="/img/avatar.jpg">
@@ -79,7 +79,7 @@
 
 
 <ul>
-    <li><div class="all active">全部文章<small>(72)</small></div></li>
+    <li><div class="all active">全部文章<small>(78)</small></div></li>
     
 </ul>
 <div class="left-bottom">
@@ -98,7 +98,7 @@
     </div>
     <div><a  class="friends">传送门</a></div>
 </div>
-<input type="hidden" id="yelog_site_posts_number" value="72">
+<input type="hidden" id="yelog_site_posts_number" value="78">
 
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
@@ -153,6 +153,10 @@
     <div class="tags-list">
     
     <li class="article-tag-list-item">
+        <a class="color3">知识</a>
+    </li>
+    
+    <li class="article-tag-list-item">
         <a class="color4">CTF</a>
     </li>
     
@@ -161,11 +165,15 @@
     </li>
     
     <li class="article-tag-list-item">
-        <a class="color3">知识</a>
+        <a class="color4">backdoor</a>
     </li>
     
     <li class="article-tag-list-item">
-        <a class="color4">backdoor</a>
+        <a class="color1">shell</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">漏洞</a>
     </li>
     
     <li class="article-tag-list-item">
@@ -173,7 +181,11 @@
     </li>
     
     <li class="article-tag-list-item">
-        <a class="color3">漏洞</a>
+        <a class="color4">CVE</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color2">vulhub</a>
     </li>
     
     <li class="article-tag-list-item">
@@ -213,11 +225,7 @@
     </li>
     
     <li class="article-tag-list-item">
-        <a class="color1">shell</a>
-    </li>
-    
-    <li class="article-tag-list-item">
-        <a class="color5">代码审计</a>
+        <a class="color4">MSF</a>
     </li>
     
     <li class="article-tag-list-item">
@@ -233,6 +241,10 @@
     </li>
     
     <li class="article-tag-list-item">
+        <a class="color5">代码审计</a>
+    </li>
+    
+    <li class="article-tag-list-item">
         <a class="color2">python</a>
     </li>
     
@@ -245,11 +257,11 @@
     </li>
     
     <li class="article-tag-list-item">
-        <a class="color3">Struts2</a>
+        <a class="color4">SQL</a>
     </li>
     
     <li class="article-tag-list-item">
-        <a class="color2">vulhub</a>
+        <a class="color3">Struts2</a>
     </li>
     
     <li class="article-tag-list-item">
@@ -261,7 +273,15 @@
     </li>
     
     <li class="article-tag-list-item">
+        <a class="color5">内网渗透</a>
+    </li>
+    
+    <li class="article-tag-list-item">
         <a class="color4">encode_decode</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">后门</a>
     </li>
     
     <li class="article-tag-list-item">
@@ -277,11 +297,11 @@
     </li>
     
     <li class="article-tag-list-item">
-        <a class="color5">内网渗透</a>
+        <a class="color3">免杀</a>
     </li>
     
     <li class="article-tag-list-item">
-        <a class="color1">share</a>
+        <a class="color3">绕过</a>
     </li>
     
     <li class="article-tag-list-item">
@@ -327,19 +347,19 @@
     <nav id="title-list-nav">
         
         <a  class=""
+           href="/ASCII%E7%A0%81%E8%A1%A8/"
+           data-tag="知识"
+           data-author="" >
+            <span class="post-title" title="ASCII码表">ASCII码表</span>
+            <span class="post-date" title="2020-04-26 21:44:03">2020/04/26</span>
+        </a>
+        
+        <a  class=""
            href="/2019%E7%BA%A2%E5%B8%BD%E6%9D%AF%E4%B9%8B%E6%81%B6%E8%87%AD%E7%9A%84%E6%95%B0%E6%8D%AE%E5%8C%85/"
            data-tag="CTF,encrypt_decrypt"
            data-author="" >
             <span class="post-title" title="2019红帽杯之恶臭的数据包">2019红帽杯之恶臭的数据包</span>
             <span class="post-date" title="2019-12-04 21:47:23">2019/12/04</span>
-        </a>
-        
-        <a  class=""
-           href="/ATT-CK%E5%AD%A6%E4%B9%A0/"
-           data-tag="知识,backdoor"
-           data-author="" >
-            <span class="post-title" title="ATT-CK学习">ATT-CK学习</span>
-            <span class="post-date" title="2020-01-13 10:26:28">2020/01/13</span>
         </a>
         
         <a  class=""
@@ -351,6 +371,30 @@
         </a>
         
         <a  class=""
+           href="/ATTACK%E5%AD%A6%E4%B9%A0/"
+           data-tag="知识,backdoor,shell"
+           data-author="" >
+            <span class="post-title" title="ATTACK学习">ATTACK学习</span>
+            <span class="post-date" title="2020-01-13 10:26:28">2020/01/13</span>
+        </a>
+        
+        <a  class=""
+           href="/DNSlog/"
+           data-tag="漏洞,工具"
+           data-author="" >
+            <span class="post-title" title="DNSlog">DNSlog</span>
+            <span class="post-date" title="2020-04-02 21:45:16">2020/04/02</span>
+        </a>
+        
+        <a  class=""
+           href="/DNS%E5%9F%9F%E4%BC%A0%E9%80%81/"
+           data-tag="漏洞"
+           data-author="" >
+            <span class="post-title" title="DNS域传送漏洞">DNS域传送漏洞</span>
+            <span class="post-date" title="2020-04-28 23:13:04">2020/04/28</span>
+        </a>
+        
+        <a  class=""
            href="/CobaltStrike/"
            data-tag="知识,工具"
            data-author="" >
@@ -359,11 +403,11 @@
         </a>
         
         <a  class=""
-           href="/DNSlog/"
-           data-tag="工具,漏洞"
+           href="/Fastjson/"
+           data-tag="漏洞,CVE,vulhub"
            data-author="" >
-            <span class="post-title" title="DNSlog">DNSlog</span>
-            <span class="post-date" title="2020-04-02 21:45:16">2020/04/02</span>
+            <span class="post-title" title="Fastjson">Fastjson</span>
+            <span class="post-date" title="2020-04-22 08:12:51">2020/04/22</span>
         </a>
         
         <a  class=""
@@ -383,19 +427,19 @@
         </a>
         
         <a  class=""
-           href="/Getshell%E9%9B%86%E5%90%88/"
-           data-tag="漏洞"
-           data-author="" >
-            <span class="post-title" title="Getshell集合">Getshell集合</span>
-            <span class="post-date" title="2020-04-07 16:33:11">2020/04/07</span>
-        </a>
-        
-        <a  class=""
            href="/HTB-Wall/"
            data-tag="HTB,靶机,writeup"
            data-author="" >
             <span class="post-title" title="HTB-Wall">HTB-Wall</span>
             <span class="post-date" title="2019-12-17 22:06:37">2019/12/17</span>
+        </a>
+        
+        <a  class=""
+           href="/Getshell%E9%9B%86%E5%90%88/"
+           data-tag="漏洞"
+           data-author="" >
+            <span class="post-title" title="Getshell集合">Getshell集合</span>
+            <span class="post-date" title="2020-04-07 16:33:11">2020/04/07</span>
         </a>
         
         <a  class=""
@@ -423,14 +467,6 @@
         </a>
         
         <a  class=""
-           href="/Nmap/"
-           data-tag="工具,信息搜集"
-           data-author="" >
-            <span class="post-title" title="Nmap">Nmap</span>
-            <span class="post-date" title="2020-01-19 22:12:03">2020/01/19</span>
-        </a>
-        
-        <a  class=""
            href="/PHPMailer%E6%BC%8F%E6%B4%9E/"
            data-tag="漏洞"
            data-author="" >
@@ -439,11 +475,27 @@
         </a>
         
         <a  class=""
+           href="/Nmap/"
+           data-tag="工具,信息搜集"
+           data-author="" >
+            <span class="post-title" title="Nmap">Nmap</span>
+            <span class="post-date" title="2020-01-19 22:12:03">2020/01/19</span>
+        </a>
+        
+        <a  class=""
            href="/PHP%E4%B9%8Bwebshell/"
-           data-tag="PHP,shell"
+           data-tag="shell,PHP"
            data-author="" >
             <span class="post-title" title="PHP之webshell">PHP之webshell</span>
             <span class="post-date" title="2020-03-27 18:53:49">2020/03/27</span>
+        </a>
+        
+        <a  class=""
+           href="/MetasploitFramework/"
+           data-tag="工具,MSF"
+           data-author="" >
+            <span class="post-title" title="MetasploitFramework">MetasploitFramework</span>
+            <span class="post-date" title="2020-05-04 22:54:45">2020/05/04</span>
         </a>
         
         <a  class=""
@@ -452,22 +504,6 @@
            data-author="" >
             <span class="post-title" title="PHP之配置漏洞">PHP之配置漏洞</span>
             <span class="post-date" title="2020-04-04 21:36:24">2020/04/04</span>
-        </a>
-        
-        <a  class=""
-           href="/PHP%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A11/"
-           data-tag="PHP,代码审计"
-           data-author="" >
-            <span class="post-title" title="PHP代码审计学习1">PHP代码审计学习1</span>
-            <span class="post-date" title="2019-12-12 15:39:42">2019/12/12</span>
-        </a>
-        
-        <a  class=""
-           href="/PHP%E5%AD%A6%E4%B9%A0/"
-           data-tag="知识,PHP"
-           data-author="" >
-            <span class="post-title" title="PHP学习">PHP学习</span>
-            <span class="post-date" title="2020-01-01 23:49:08">2020/01/01</span>
         </a>
         
         <a  class=""
@@ -487,6 +523,14 @@
         </a>
         
         <a  class=""
+           href="/PHP%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A11/"
+           data-tag="PHP,代码审计"
+           data-author="" >
+            <span class="post-title" title="PHP代码审计学习1">PHP代码审计学习1</span>
+            <span class="post-date" title="2019-12-12 15:39:42">2019/12/12</span>
+        </a>
+        
+        <a  class=""
            href="/PWN%E5%AD%A6%E4%B9%A0/"
            data-tag="CTF,PWN"
            data-author="" >
@@ -495,11 +539,11 @@
         </a>
         
         <a  class=""
-           href="/Powershell/"
-           data-tag="工具"
+           href="/PHP%E5%AD%A6%E4%B9%A0/"
+           data-tag="知识,PHP"
            data-author="" >
-            <span class="post-title" title="Powershell">Powershell</span>
-            <span class="post-date" title="2020-01-15 14:42:24">2020/01/15</span>
+            <span class="post-title" title="PHP学习">PHP学习</span>
+            <span class="post-date" title="2020-01-01 23:49:08">2020/01/01</span>
         </a>
         
         <a  class=""
@@ -511,19 +555,27 @@
         </a>
         
         <a  class=""
-           href="/Python%E5%9F%BA%E7%A1%80/"
-           data-tag="知识,python"
+           href="/Powershell/"
+           data-tag="工具"
            data-author="" >
-            <span class="post-title" title="Python3基础">Python3基础</span>
-            <span class="post-date" title="2019-12-23 23:14:43">2019/12/23</span>
+            <span class="post-title" title="Powershell">Powershell</span>
+            <span class="post-date" title="2020-01-15 14:42:24">2020/01/15</span>
         </a>
         
         <a  class=""
            href="/SQL%E6%B3%A8%E5%85%A5/"
-           data-tag="注入,phpmyadmin"
+           data-tag="注入,phpmyadmin,SQL"
            data-author="" >
             <span class="post-title" title="SQL注入">SQL注入</span>
             <span class="post-date" title="2019-12-01 21:45:31">2019/12/01</span>
+        </a>
+        
+        <a  class=""
+           href="/Struts2%E6%BC%8F%E6%B4%9E%E7%B3%BB%E5%88%97/"
+           data-tag="漏洞,vulhub,Struts2"
+           data-author="" >
+            <span class="post-title" title="Struts2漏洞系列">Struts2漏洞系列</span>
+            <span class="post-date" title="2019-12-20 14:38:43">2019/12/20</span>
         </a>
         
         <a  class=""
@@ -535,16 +587,8 @@
         </a>
         
         <a  class=""
-           href="/Struts2%E6%BC%8F%E6%B4%9E%E7%B3%BB%E5%88%97/"
-           data-tag="漏洞,Struts2,vulhub"
-           data-author="" >
-            <span class="post-title" title="Struts2漏洞系列">Struts2漏洞系列</span>
-            <span class="post-date" title="2019-12-20 14:38:43">2019/12/20</span>
-        </a>
-        
-        <a  class=""
            href="/Thinkphp/"
-           data-tag="漏洞,vulhub"
+           data-tag="漏洞,CVE,vulhub"
            data-author="" >
             <span class="post-title" title="Thinkphp">Thinkphp</span>
             <span class="post-date" title="2020-03-31 20:38:23">2020/03/31</span>
@@ -552,10 +596,34 @@
         
         <a  class=""
            href="/Weblogic%E5%BA%8F%E5%88%97%E6%BC%8F%E6%B4%9E/"
-           data-tag="漏洞,weblogic"
+           data-tag="漏洞,CVE,weblogic"
            data-author="" >
             <span class="post-title" title="Weblogic序列漏洞">Weblogic序列漏洞</span>
             <span class="post-date" title="2019-12-25 11:09:00">2019/12/25</span>
+        </a>
+        
+        <a  class=""
+           href="/Windows%E4%B9%8B%E5%87%AD%E8%AF%81/"
+           data-tag="工具,windows,内网渗透"
+           data-author="" >
+            <span class="post-title" title="Windows之凭证">Windows之凭证</span>
+            <span class="post-date" title="2020-04-20 22:12:56">2020/04/20</span>
+        </a>
+        
+        <a  class=""
+           href="/Windows%E4%B9%8B%E8%AE%A4%E8%AF%81%E4%B8%8E%E5%88%A9%E7%94%A8/"
+           data-tag="工具,windows"
+           data-author="" >
+            <span class="post-title" title="Windows之认证与利用">Windows之认证与利用</span>
+            <span class="post-date" title="2020-04-19 15:08:46">2020/04/19</span>
+        </a>
+        
+        <a  class=""
+           href="/Python%E5%9F%BA%E7%A1%80/"
+           data-tag="知识,python"
+           data-author="" >
+            <span class="post-title" title="Python3基础">Python3基础</span>
+            <span class="post-date" title="2019-12-23 23:14:43">2019/12/23</span>
         </a>
         
         <a  class=""
@@ -591,19 +659,19 @@
         </a>
         
         <a  class=""
+           href="/python%E5%B0%8F%E8%84%9A%E6%9C%AC/"
+           data-tag="python"
+           data-author="" >
+            <span class="post-title" title="python小脚本">python小脚本</span>
+            <span class="post-date" title="2020-02-26 10:59:03">2020/02/26</span>
+        </a>
+        
+        <a  class=""
            href="/hashcat/"
            data-tag="工具"
            data-author="" >
             <span class="post-title" title="hashcat">hashcat</span>
             <span class="post-date" title="2019-12-26 11:11:09">2019/12/26</span>
-        </a>
-        
-        <a  class=""
-           href="/hexo-help/"
-           data-tag="知识"
-           data-author="" >
-            <span class="post-title" title="hexo_help">hexo_help</span>
-            <span class="post-date" title="2019-11-29 16:45:43">2019/11/29</span>
         </a>
         
         <a  class=""
@@ -615,35 +683,19 @@
         </a>
         
         <a  class=""
-           href="/python%E5%B0%8F%E8%84%9A%E6%9C%AC/"
-           data-tag="python"
+           href="/hexo-help/"
+           data-tag="知识"
            data-author="" >
-            <span class="post-title" title="python小脚本">python小脚本</span>
-            <span class="post-date" title="2020-02-26 10:59:03">2020/02/26</span>
+            <span class="post-title" title="hexo_help">hexo_help</span>
+            <span class="post-date" title="2019-11-29 16:45:43">2019/11/29</span>
         </a>
         
         <a  class=""
            href="/shell/"
-           data-tag="shell"
+           data-tag="shell,后门"
            data-author="" >
             <span class="post-title" title="shell">shell</span>
             <span class="post-date" title="2020-01-04 16:49:08">2020/01/04</span>
-        </a>
-        
-        <a  class=""
-           href="/vulnhub%E4%B9%8B21LTLTR-Scene-1/"
-           data-tag="靶场,vulnhub"
-           data-author="" >
-            <span class="post-title" title="vulnhub之21LTLTR_Scene_1">vulnhub之21LTLTR_Scene_1</span>
-            <span class="post-date" title="2019-12-28 21:03:12">2019/12/28</span>
-        </a>
-        
-        <a  class=""
-           href="/vulnhub%E4%B9%8BBitbot-VulnVM-disk1/"
-           data-tag="靶场,vulnhub,僵尸网络"
-           data-author="" >
-            <span class="post-title" title="vulnhub之Bitbot.VulnVM-disk1">vulnhub之Bitbot.VulnVM-disk1</span>
-            <span class="post-date" title="2019-12-30 00:22:42">2019/12/30</span>
         </a>
         
         <a  class=""
@@ -660,6 +712,22 @@
            data-author="" >
             <span class="post-title" title="vulnhub之Holynix-v1">vulnhub之Holynix-v1</span>
             <span class="post-date" title="2020-03-20 15:32:27">2020/03/20</span>
+        </a>
+        
+        <a  class=""
+           href="/vulnhub%E4%B9%8B21LTLTR-Scene-1/"
+           data-tag="靶场,vulnhub"
+           data-author="" >
+            <span class="post-title" title="vulnhub之21LTLTR_Scene_1">vulnhub之21LTLTR_Scene_1</span>
+            <span class="post-date" title="2019-12-28 21:03:12">2019/12/28</span>
+        </a>
+        
+        <a  class=""
+           href="/vulnhub%E4%B9%8BBitbot-VulnVM-disk1/"
+           data-tag="靶场,vulnhub,僵尸网络"
+           data-author="" >
+            <span class="post-title" title="vulnhub之Bitbot.VulnVM-disk1">vulnhub之Bitbot.VulnVM-disk1</span>
+            <span class="post-date" title="2019-12-30 00:22:42">2019/12/30</span>
         </a>
         
         <a  class=""
@@ -703,19 +771,11 @@
         </a>
         
         <a  class=""
-           href="/vulnhub%E4%B9%8BOs-hackNos-3/"
+           href="/vulnhub%E4%B9%8Bchakravyuh/"
            data-tag="靶场,vulnhub"
            data-author="" >
-            <span class="post-title" title="vulnhub之Os-hackNos-3">vulnhub之Os-hackNos-3</span>
-            <span class="post-date" title="2020-01-02 13:21:15">2020/01/02</span>
-        </a>
-        
-        <a  class=""
-           href="/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E7%99%BE%E7%A7%91/"
-           data-tag="知识"
-           data-author="" >
-            <span class="post-title" title="信息安全百科">信息安全百科</span>
-            <span class="post-date" title="2020-03-20 23:03:55">2020/03/20</span>
+            <span class="post-title" title="vulnhub之chakravyuh">vulnhub之chakravyuh</span>
+            <span class="post-date" title="2020-01-22 12:08:00">2020/01/22</span>
         </a>
         
         <a  class=""
@@ -727,27 +787,35 @@
         </a>
         
         <a  class=""
+           href="/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E7%99%BE%E7%A7%91/"
+           data-tag="知识"
+           data-author="" >
+            <span class="post-title" title="信息安全百科">信息安全百科</span>
+            <span class="post-date" title="2020-03-20 23:03:55">2020/03/20</span>
+        </a>
+        
+        <a  class=""
+           href="/%E5%85%8D%E6%9D%80/"
+           data-tag="免杀,绕过"
+           data-author="" >
+            <span class="post-title" title="免杀">免杀</span>
+            <span class="post-date" title="2020-05-01 12:58:09">2020/05/01</span>
+        </a>
+        
+        <a  class=""
            href="/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%B9%8Bwindows/"
-           data-tag="内网渗透"
+           data-tag="windows,内网渗透"
            data-author="" >
             <span class="post-title" title="内网渗透之windows">内网渗透之windows</span>
             <span class="post-date" title="2020-02-20 13:44:17">2020/02/20</span>
         </a>
         
         <a  class=""
-           href="/vulnhub%E4%B9%8Bchakravyuh/"
+           href="/vulnhub%E4%B9%8BOs-hackNos-3/"
            data-tag="靶场,vulnhub"
            data-author="" >
-            <span class="post-title" title="vulnhub之chakravyuh">vulnhub之chakravyuh</span>
-            <span class="post-date" title="2020-01-22 12:08:00">2020/01/22</span>
-        </a>
-        
-        <a  class=""
-           href="/%E5%90%84%E7%AB%AF%E5%8F%A3%E6%9C%8D%E5%8A%A1%E6%BC%8F%E6%B4%9E/"
-           data-tag="漏洞"
-           data-author="" >
-            <span class="post-title" title="各端口服务漏洞">各端口服务漏洞</span>
-            <span class="post-date" title="2019-12-17 20:27:22">2019/12/17</span>
+            <span class="post-title" title="vulnhub之Os-hackNos-3">vulnhub之Os-hackNos-3</span>
+            <span class="post-date" title="2020-01-02 13:21:15">2020/01/02</span>
         </a>
         
         <a  class=""
@@ -756,14 +824,6 @@
            data-author="" >
             <span class="post-title" title="同源策略">同源策略</span>
             <span class="post-date" title="2020-02-02 15:18:48">2020/02/02</span>
-        </a>
-        
-        <a  class=""
-           href="/%E5%9B%BE%E6%96%87%E5%B9%B6%E8%8C%82/"
-           data-tag="share"
-           data-author="" >
-            <span class="post-title" title="图文并茂">图文并茂</span>
-            <span class="post-date" title="2019-12-02 17:18:16">2019/12/02</span>
         </a>
         
         <a  class=""
@@ -791,27 +851,11 @@
         </a>
         
         <a  class=""
-           href="/%E6%8F%90%E6%9D%83%E4%B9%8BLinux-%E5%88%A9%E7%94%A8%E9%80%9A%E9%85%8D%E7%AC%A6%E6%9C%AC%E5%9C%B0%E6%8F%90%E6%9D%83/"
-           data-tag="提权"
+           href="/%E5%90%84%E7%AB%AF%E5%8F%A3%E6%9C%8D%E5%8A%A1%E6%BC%8F%E6%B4%9E/"
+           data-tag="漏洞"
            data-author="" >
-            <span class="post-title" title="提权之Linux-利用通配符本地提权">提权之Linux-利用通配符本地提权</span>
-            <span class="post-date" title="2020-02-13 22:04:26">2020/02/13</span>
-        </a>
-        
-        <a  class=""
-           href="/%E6%8F%90%E6%9D%83%E4%B9%8BLinux-%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/"
-           data-tag="提权,linux"
-           data-author="" >
-            <span class="post-title" title="提权之Linux-环境变量">提权之Linux-环境变量</span>
-            <span class="post-date" title="2020-02-09 11:16:30">2020/02/09</span>
-        </a>
-        
-        <a  class=""
-           href="/%E6%8F%90%E6%9D%83%E4%B9%8Blinux-suid/"
-           data-tag="Linux,提权"
-           data-author="" >
-            <span class="post-title" title="提权之linux-suid">提权之linux-suid</span>
-            <span class="post-date" title="2020-04-07 21:02:38">2020/04/07</span>
+            <span class="post-title" title="各端口服务漏洞">各端口服务漏洞</span>
+            <span class="post-date" title="2019-12-17 20:27:22">2019/12/17</span>
         </a>
         
         <a  class=""
@@ -823,11 +867,35 @@
         </a>
         
         <a  class=""
+           href="/%E6%8F%90%E6%9D%83%E4%B9%8BLinux-%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/"
+           data-tag="提权,linux"
+           data-author="" >
+            <span class="post-title" title="提权之Linux-环境变量">提权之Linux-环境变量</span>
+            <span class="post-date" title="2020-02-09 11:16:30">2020/02/09</span>
+        </a>
+        
+        <a  class=""
+           href="/%E6%8F%90%E6%9D%83%E4%B9%8BLinux-%E5%88%A9%E7%94%A8%E9%80%9A%E9%85%8D%E7%AC%A6%E6%9C%AC%E5%9C%B0%E6%8F%90%E6%9D%83/"
+           data-tag="提权"
+           data-author="" >
+            <span class="post-title" title="提权之Linux-利用通配符本地提权">提权之Linux-利用通配符本地提权</span>
+            <span class="post-date" title="2020-02-13 22:04:26">2020/02/13</span>
+        </a>
+        
+        <a  class=""
            href="/%E6%8F%90%E6%9D%83%E4%B9%8Bwindows-CVE-2018-8120/"
            data-tag="提权"
            data-author="" >
             <span class="post-title" title="提权之windows-CVE-2018-8120">提权之windows-CVE-2018-8120</span>
             <span class="post-date" title="2020-02-12 12:46:56">2020/02/12</span>
+        </a>
+        
+        <a  class=""
+           href="/%E6%8F%90%E6%9D%83%E4%B9%8Blinux-suid/"
+           data-tag="Linux,提权"
+           data-author="" >
+            <span class="post-title" title="提权之linux-suid">提权之linux-suid</span>
+            <span class="post-date" title="2020-04-07 21:02:38">2020/04/07</span>
         </a>
         
         <a  class=""
@@ -847,14 +915,6 @@
         </a>
         
         <a  class=""
-           href="/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/"
-           data-tag="知识"
-           data-author="" >
-            <span class="post-title" title="正则表达式">正则表达式</span>
-            <span class="post-date" title="2019-12-10 21:08:11">2019/12/10</span>
-        </a>
-        
-        <a  class=""
            href="/%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E6%BC%8F%E6%B4%9E/"
            data-tag="漏洞"
            data-author="" >
@@ -863,11 +923,11 @@
         </a>
         
         <a  class=""
-           href="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91/"
-           data-tag="工具,内网渗透"
+           href="/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/"
+           data-tag="知识"
            data-author="" >
-            <span class="post-title" title="端口转发">端口转发</span>
-            <span class="post-date" title="2020-01-05 02:38:08">2020/01/05</span>
+            <span class="post-title" title="正则表达式">正则表达式</span>
+            <span class="post-date" title="2019-12-10 21:08:11">2019/12/10</span>
         </a>
         
         <a  class=""
@@ -887,11 +947,11 @@
         </a>
         
         <a  class=""
-           href="/%E8%84%B1%E5%A3%B3/"
-           data-tag="MISC,逆向"
+           href="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91/"
+           data-tag="工具,内网渗透"
            data-author="" >
-            <span class="post-title" title="脱壳一">脱壳一</span>
-            <span class="post-date" title="2019-12-26 00:13:05">2019/12/26</span>
+            <span class="post-title" title="端口转发">端口转发</span>
+            <span class="post-date" title="2020-01-05 02:38:08">2020/01/05</span>
         </a>
         
         <a  class=""
@@ -900,6 +960,14 @@
            data-author="" >
             <span class="post-title" title="脱壳二">脱壳二</span>
             <span class="post-date" title="2020-01-01 15:51:38">2020/01/01</span>
+        </a>
+        
+        <a  class=""
+           href="/%E8%84%B1%E5%A3%B3/"
+           data-tag="MISC,逆向"
+           data-author="" >
+            <span class="post-title" title="脱壳一">脱壳一</span>
+            <span class="post-date" title="2019-12-26 00:13:05">2019/12/26</span>
         </a>
         
     </nav>
@@ -935,7 +1003,7 @@
     <div class="article-meta">
         
         创建时间:<time class="date" title=''>2019-12-01 21:21<br/>
-        更新时间: 2020-02-15 20:06:28
+        更新时间: 2020-05-03 18:04:15
         </time>
         
     </div>
@@ -1032,77 +1100,96 @@
 </ol>
 <p><strong>信息搜集脚本</strong></p>
 <pre><code>@echo off
-echo #######system info######&gt;.\info.txt
+echo #######whoami######&gt;.\info.txt
+whoami&gt;&gt;.\info.txt
+echo
 
+echo #######whoami 权限######&gt;.\info.txt
+whoami /priv&gt;&gt;.\info.txt
+echo
+
+echo #######system info######&gt;.\info.txt
 echo systeminfo 系统信息&gt;&gt;.\info.txt
 systeminfo&gt;&gt;.\info.txt
 echo
 
-echo ver 系统版本&gt;&gt;.\info.txt
+echo #######ver 系统版本#######&gt;&gt;.\info.txt
 ver&gt;&gt;.\info.txt
 echo
 
-echo hostname 主机名&gt;&gt;.\info.txt
+echo #######hostname 主机名#######&gt;&gt;.\info.txt
 hostname&gt;&gt;.\info.txt
 echo
 
-echo set 环境变量&gt;&gt;.\info.txt
+echo #######set 环境变量#######&gt;&gt;.\info.txt
 set&gt;&gt;.\info.txt
 echo
 
-echo net user 用户&gt;&gt;.\info.txt
+echo #######net start#######&gt;&gt;.\info.txt
+net start&gt;&gt;.\info.txt
+echo
+
+echo #######net user 用户#######&gt;&gt;.\info.txt
 net user&gt;&gt;.\info.txt
 echo
 
-echo net localgroup 用户组&gt;&gt;.\info.txt
+echo #######net localgroup 用户组#######&gt;&gt;.\info.txt
 net localgroup&gt;&gt;.\info.txt
 echo
 
-echo net localgroup administrators 管理员信息&gt;&gt;.\info.txt
+echo #######net localgroup administrators 管理员信息#######&gt;&gt;.\info.txt
 net localgroup administrators&gt;&gt;.\info.txt
 echo
 
-echo net user guest 访问用户&gt;&gt;.\info.txt
+echo #######net user guest 访问用户#######&gt;&gt;.\info.txt
 net user guest&gt;&gt;.\info.txt
 echo
 
-echo tasklist 进程信息&gt;&gt;.\info.txt
+echo #######tasklist 进程信息#######&gt;&gt;.\info.txt
 tasklist&gt;&gt;.\info.txt
 echo
 
-echo ipconfig /all 网络信息&gt;&gt;.\info.txt
+echo #######ipconfig /all 网络信息#######&gt;&gt;.\info.txt
 ipconfig /all&gt;&gt;.\info.txt
 echo
 
-echo ipconfig /displaydns 本地DNS缓存信息&gt;&gt;.\info.txt
+echo #######ipconfig /displaydns 本地DNS缓存信息#######&gt;&gt;.\info.txt
 ipconfig /displaydns&gt;&gt;.\info.txt
 echo
 
-echo route print 路由表&gt;&gt;.\info.txt
+echo #######route print 路由表#######&gt;&gt;.\info.txt
 route print&gt;&gt;.\info.txt
 echo
 
-echo arp -a ip对应的mac地址&gt;&gt;.\info.txt
+echo #######arp -a ip对应的mac地址#######&gt;&gt;.\info.txt
 arp -a&gt;&gt;.\info.txt
 echo
 
-echo netstat -ano 开发端口与连接信息&gt;&gt;.\info.txt
+echo #######netstat -ano 开发端口与连接信息#######&gt;&gt;.\info.txt
 netstat -an&gt;&gt;.\info.txt
 echo
 
-echo sc query type=service state=all 系统注册的服务信息&gt;&gt;.\info.txt
+echo #######sc query type=service state=all 系统注册的服务信息#######&gt;&gt;.\info.txt
 sc query type=service state=all&gt;&gt;.\info.txt
 echo
 
-echo wmic qfe list 系统补丁信息&gt;&gt;.\info.txt
+echo #######wmic qfe list 系统补丁信息#######&gt;&gt;.\info.txt
 wmic qfe list&gt;&gt;.\info.txt
 echo
 
-echo schtasks 计划任务&gt;&gt;.\info.txt
+echo #######schtasks 计划任务#######&gt;&gt;.\info.txt
 schtasks&gt;&gt;.\info.txt
 echo
 
-echo 列出系统树目录&gt;&gt;.\info.txt
+echo #######netsh firewall show config#######&gt;&gt;.\info.txt
+netsh firewall show config&gt;&gt;.\info.txt
+echo
+
+echo #######列出安装的驱动##############&gt;&gt;.\info.txt
+driverquery&gt;&gt;.\info.txt
+echo
+
+echo #######列出系统树目录#######&gt;&gt;.\info.txt
 cd \
 tree&gt;&gt;.\info.txt</code></pre><p><strong>操作系统的漏洞补丁信息搜集</strong></p>
 <ol>
@@ -1118,7 +1205,7 @@ tree&gt;&gt;.\info.txt</code></pre><p><strong>操作系统的漏洞补丁信息�
 <li>Windows-Exploit-Suggester常用命令：</li>
 <li>python windows-exploit-suggester.py –update #更新数据库</li>
 <li>服务器win 2008里生成系统信息文件：systeminfo&gt;win2008.txt</li>
-<li>python windows-exploit-suggester.py –database 2019-12-13-mssb.xls win2008.txt #查看系统存在的高危漏洞，显示可利用的EXP和MSF的利用模块。</li>
+<li>python windows-exploit-suggester.py –database 2019-12-13-mssb.xls -i win2008.txt #查看系统存在的高危漏洞，显示可利用的EXP和MSF的利用模块。</li>
 <li>python windows-exploit-suggester.py –database 2019-12-13-mssb.xls –ostext ‘windows server 2008 r2’ #查看指定系统版本的利用EXP</li>
 <li><img src="/%E6%8F%90%E6%9D%83/2.png" alt></li>
 </ol>
@@ -1306,7 +1393,7 @@ You have to wait for the threads to finish.
 </ol>
 
       
-       <hr><span style="font-style: italic;color: gray;"> 知识来源于网络，本博客仅供于安全测试学习，禁止非法利用。——望各大组织收留___.○o0OC：2243487038 </span>
+       <hr><span style="font-style: italic;color: gray;"> 知识来源于网络，本博客仅供于安全测试学习，禁止非法利用。—— </span>
     </div>
 </article>
 
@@ -1317,7 +1404,7 @@ You have to wait for the threads to finish.
     
     <p><span class="copy-title">本文作者:</span><a  title="10fteam">10fteam</a></p>
     <p><span class="copy-title">发布时间:</span>2019-12-01, 21:21:55</p>
-    <p><span class="copy-title">最后更新:</span>2020-02-15, 20:06:28</p>
+    <p><span class="copy-title">最后更新:</span>2020-05-03, 18:04:15</p>
     <span class="copy-title">原始链接:</span><a class="post-url" href="/%E6%8F%90%E6%9D%83/" title="提权">https://10fteam.github.io/%E6%8F%90%E6%9D%83/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
@@ -1362,7 +1449,7 @@ You have to wait for the threads to finish.
     /*作者、标签的自动补全*/
     $(function () {
         $('.search').AutoComplete({
-            'data': ['#CTF','#encrypt_decrypt','#知识','#backdoor','#工具','#漏洞','#HTB','#靶机','#writeup','#Linux','#信息搜集','#安全加固','#入侵检测','#应急响应','#PHP','#shell','#代码审计','#POC','#EXP','#PWN','#python','#注入','#phpmyadmin','#Struts2','#vulhub','#weblogic','#windows','#encode_decode','#靶场','#vulnhub','#僵尸网络','#内网渗透','#share','#CDN','#提权','#书籍','#linux','#DLL','#WAF','#MISC','#逆向',],
+            'data': ['#知识','#CTF','#encrypt_decrypt','#backdoor','#shell','#漏洞','#工具','#CVE','#vulhub','#HTB','#靶机','#writeup','#Linux','#信息搜集','#安全加固','#入侵检测','#应急响应','#PHP','#MSF','#POC','#EXP','#PWN','#代码审计','#python','#注入','#phpmyadmin','#SQL','#Struts2','#weblogic','#windows','#内网渗透','#encode_decode','#后门','#靶场','#vulnhub','#僵尸网络','#免杀','#绕过','#CDN','#提权','#书籍','#linux','#DLL','#WAF','#MISC','#逆向',],
             'itemHeight': 20,
             'width': 418
         }).AutoComplete('show');

